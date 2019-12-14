@@ -11,6 +11,7 @@ RUN set -eux && \
   apk del .build-dependencies && \
   docker-php-ext-install bcmath pdo_mysql && \
   curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
-  composer config -g repos.packagist composer https://packagist.jp
-RUN apk add --update nodejs nodejs-npm
-RUN npm install npm@latest -g
+  composer config -g repos.packagist composer https://packagist.jp && \
+  apk add --update nodejs nodejs-npm && \
+  npm install npm@latest -g && \
+  composer require laravel/socialite
