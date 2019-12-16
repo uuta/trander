@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-
 // ページコンポーネントをインポートする
 import Login from './pages/Login.vue'
 import OnBoarding from './pages/OnBoarding.vue'
+import Index from './pages/Index.vue'
 
 // VueRouterプラグインを使用する
 // これによって<RouterView />コンポーネントなどを使うことができる
@@ -17,6 +17,10 @@ const routes = [{
     {
         path: '/',
         component: OnBoarding
+    },
+    {
+        path: '/index',
+        component: Index
     }
 ]
 
