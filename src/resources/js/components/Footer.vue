@@ -8,18 +8,20 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   computed: {
-    isLogin () {
-      return this.$store.getters['auth/check']
-    }
+    ...mapGetters({
+      isLogin: 'auth/check'
+    })
   },
   methods: {
     logout () {
       const data = this.loginForm
       const router = this.$router
       // authストアのlogoutアクションを呼び出す
-      this.$store.dispatch('auth/logout', {data, router})
+      this.$store.dispatch('auth/logout', router)
     }
   }
 }

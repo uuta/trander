@@ -14,6 +14,14 @@
     </ul>
     <div class="panel" v-show="tab === 1">
       <form class="form" @submit.prevent="login">
+        <div v-if="loginErrors" class="errors">
+          <ul v-if="loginErrors.email">
+            <li v-for="msg in loginErrors.email" :key="msg">{{ msg }}</li>
+          </ul>
+          <ul v-if="loginErrors.password">
+            <li v-for="msg in loginErrors.password" :key="msg">{{ msg }}</li>
+          </ul>
+        </div>
         <label for="login-email">メールアドレス</label>
         <input type="email" class="form__item" id="login-email" v-model="loginForm.email" placeholder="PC・スマホどちらでも可">
         <label for="login-password">パスワード</label>
@@ -25,6 +33,17 @@
     </div>
     <div class="panel" v-show="tab === 2">
       <form class="form" @submit.prevent="register">
+        <div v-if="registerErrors" class="errors">
+          <ul v-if="registerErrors.name">
+            <li v-for="msg in registerErrors.name" :key="msg">{{ msg }}</li>
+          </ul>
+          <ul v-if="registerErrors.email">
+            <li v-for="msg in registerErrors.email" :key="msg">{{ msg }}</li>
+          </ul>
+          <ul v-if="registerErrors.password">
+            <li v-for="msg in registerErrors.password" :key="msg">{{ msg }}</li>
+          </ul>
+        </div>
         <label for="username">お名前</label>
         <input type="text" class="form__item" id="username" v-model="registerForm.name" placeholder="例）Trander太郎">
         <label for="email">メールアドレス</label>
@@ -42,6 +61,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -58,25 +79,30 @@ export default {
       }
     }
   },
-  computed: {
-    apiStatus () {
-      return this.$store.state.auth.apiStatus
-    }
-  },
+  computed: mapState({
+    loginErrors: state => state.auth.loginErrorMessages,
+    registerErrors: state => state.auth.registerErrorMessages
+  }),
   methods: {
     login () {
       const data = this.loginForm
       const router = this.$router
       // authストアのloginアクションを呼び出す
       this.$store.dispatch('auth/login', {data, router})
-      if (this.apiStatus) { this.$router.push('/')}
     },
     register () {
       const data = this.registerForm
       const router = this.$router
       // authストアのresigterアクションを呼び出す
       this.$store.dispatch('auth/register', {data, router})
+    },
+    clearError () {
+      this.$store.commit('auth/setLoginErrorMessages', null)
+      this.$store.commit('auth/setRegisterErrorMessages', null)
     }
+  },
+  created () {
+    this.clearError()
   }
 }
 </script>
