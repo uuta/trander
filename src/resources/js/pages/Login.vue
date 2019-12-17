@@ -58,12 +58,18 @@ export default {
       }
     }
   },
+  computed: {
+    apiStatus () {
+      return this.$store.state.auth.apiStatus
+    }
+  },
   methods: {
     login () {
       const data = this.loginForm
       const router = this.$router
       // authストアのloginアクションを呼び出す
       this.$store.dispatch('auth/login', {data, router})
+      if (this.apiStatus) { this.$router.push('/')}
     },
     register () {
       const data = this.registerForm

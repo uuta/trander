@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import Login from './pages/Login.vue'
 import OnBoarding from './pages/OnBoarding.vue'
 import Index from './pages/Index.vue'
+import SystemError from './pages/errors/System.vue'
 
 import store from './store'
 
@@ -13,38 +14,42 @@ import store from './store'
 Vue.use(VueRouter)
 
 const routes = [{
-        path: '/login',
-        component: Login,
-        beforeEnter(to, from, next) {
-            if (store.getters['auth/check']) {
-                next('/index')
-            } else {
-                next()
-            }
-        }
-    },
-    {
-        path: '/',
-        component: OnBoarding,
-        beforeEnter(to, from, next) {
-            if (store.getters['auth/check']) {
-                next('/index')
-            } else {
-                next()
-            }
-        }
-    },
-    {
-        path: '/index',
-        component: Index,
-        beforeEnter(to, from, next) {
-            if (store.getters['auth/check']) {
-                next()
-            } else {
-                next('/login')
-            }
+    path: '/login',
+    component: Login,
+    beforeEnter(to, from, next) {
+        if (store.getters['auth/check']) {
+            next('/index')
+        } else {
+            next()
         }
     }
+  },
+  {
+    path: '/',
+    component: OnBoarding,
+    beforeEnter(to, from, next) {
+        if (store.getters['auth/check']) {
+            next('/index')
+        } else {
+            next()
+        }
+    }
+  },
+  {
+    path: '/index',
+    component: Index,
+    beforeEnter(to, from, next) {
+        if (store.getters['auth/check']) {
+            next()
+        } else {
+            next('/login')
+        }
+    }
+  },
+  {
+    path: '/500',
+    component: SystemError,
+  }
 ]
 
 const router = new VueRouter({
