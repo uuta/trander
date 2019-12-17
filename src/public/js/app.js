@@ -20179,8 +20179,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
 /* harmony import */ var _pages_OnBoarding_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/OnBoarding.vue */ "./resources/js/pages/OnBoarding.vue");
 /* harmony import */ var _pages_Index_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Index.vue */ "./resources/js/pages/Index.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 
  // ページコンポーネントをインポートする
+
 
 
 
@@ -20190,13 +20192,34 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var routes = [{
   path: '/login',
-  component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (_store__WEBPACK_IMPORTED_MODULE_5__["default"].getters['auth/check']) {
+      next('/index');
+    } else {
+      next();
+    }
+  }
 }, {
   path: '/',
-  component: _pages_OnBoarding_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _pages_OnBoarding_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (_store__WEBPACK_IMPORTED_MODULE_5__["default"].getters['auth/check']) {
+      next('/index');
+    } else {
+      next();
+    }
+  }
 }, {
   path: '/index',
-  component: _pages_Index_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _pages_Index_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (_store__WEBPACK_IMPORTED_MODULE_5__["default"].getters['auth/check']) {
+      next();
+    } else {
+      next('/login');
+    }
+  }
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',

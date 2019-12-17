@@ -6,21 +6,44 @@ import Login from './pages/Login.vue'
 import OnBoarding from './pages/OnBoarding.vue'
 import Index from './pages/Index.vue'
 
+import store from './store'
+
 // VueRouterプラグインを使用する
 // これによって<RouterView />コンポーネントなどを使うことができる
 Vue.use(VueRouter)
 
 const routes = [{
         path: '/login',
-        component: Login
+        component: Login,
+        beforeEnter(to, from, next) {
+            if (store.getters['auth/check']) {
+                next('/index')
+            } else {
+                next()
+            }
+        }
     },
     {
         path: '/',
-        component: OnBoarding
+        component: OnBoarding,
+        beforeEnter(to, from, next) {
+            if (store.getters['auth/check']) {
+                next('/index')
+            } else {
+                next()
+            }
+        }
     },
     {
         path: '/index',
-        component: Index
+        component: Index,
+        beforeEnter(to, from, next) {
+            if (store.getters['auth/check']) {
+                next()
+            } else {
+                next('/login')
+            }
+        }
     }
 ]
 
