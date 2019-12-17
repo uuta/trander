@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 // 会員登録
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
@@ -10,6 +8,11 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 // ログアウト
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// ログインユーザー
+Route::get('/user', function () {
+    return Auth::user();
+})->name('user');
 
 // Twitterログイン
 //Route::get('auth/twitter', 'OAuthLoginController@getAuth');
