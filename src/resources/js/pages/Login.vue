@@ -25,12 +25,14 @@
     </div>
     <div class="panel" v-show="tab === 2">
       <form class="form" @submit.prevent="register">
-        <label for="login-email">お名前</label>
-        <input type="text" class="form__item" id="login-name" v-model="registerForm.name" placeholder="例）trander太郎">
-        <label for="login-email">メールアドレス</label>
-        <input type="email" class="form__item" id="login-email" v-model="registerForm.email" placeholder="PC・スマホどちらでも可">
-        <label for="login-password">パスワード</label>
-        <input type="password" class="form__item" id="login-password" v-model="registerForm.password"  placeholder="6文字以上の半角英数字">
+        <label for="username">お名前</label>
+        <input type="text" class="form__item" id="username" v-model="registerForm.name" placeholder="例）Trander太郎">
+        <label for="email">メールアドレス</label>
+        <input type="text" class="form__item" id="email" v-model="registerForm.email" placeholder="PC・スマホどちらでも可">
+        <label for="password">パスワード</label>
+        <input type="password" class="form__item" id="password" v-model="registerForm.password" placeholder="6文字以上の半角英数字">
+        <label for="password-confirmation">パスワード (確認)</label>
+        <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation" placeholder="6文字以上の半角英数字">
         <div class="form__button">
           <button type="submit" class="button button--inverse">会員登録する</button>
         </div>
@@ -51,20 +53,23 @@ export default {
       registerForm: {
         name: '',
         email: '',
-        password: ''
+        password: '',
+        password_confirmation: ''
       }
     }
   },
   methods: {
     login () {
-      console.log(this.loginForm)
+      const data = this.loginForm
+      const router = this.$router
+      // authストアのloginアクションを呼び出す
+      this.$store.dispatch('auth/login', {data, router})
     },
-    async register () {
+    register () {
+      const data = this.registerForm
+      const router = this.$router
       // authストアのresigterアクションを呼び出す
-      await this.$store.dispatch('auth/register', this.registerForm)
-
-      // トップページに移動する
-      this.$router.push('/')
+      this.$store.dispatch('auth/register', {data, router})
     }
   }
 }

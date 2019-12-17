@@ -2,7 +2,10 @@ const state = {
     user: null
 }
 
-const getters = {}
+const getters = {
+    check: state => !! state.user,
+    username: state => state.user ? state.user.name : ''
+}
 
 const mutations = {
     setUser(state, user) {
@@ -11,9 +14,26 @@ const mutations = {
 }
 
 const actions = {
-    async register(context, data) {
+    async register(context, {
+        data,
+        router
+    }) {
         const response = await axios.post('/api/register', data)
         context.commit('setUser', response.data)
+        router.push('/index')
+    },
+    async login(context, {
+        data,
+        router
+    }) {
+        const response = await axios.post('/api/login', data)
+        context.commit('setUser', response.data)
+        router.push('/index')
+    },
+    async logout(context, router) {
+        await axios.post('/api/logout')
+        context.commit('setUser', null)
+        router.push('/login')
     }
 }
 
