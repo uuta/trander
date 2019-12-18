@@ -9,7 +9,7 @@
       </span>
       <div v-else class="navbar__item">
         <RouterLink class="button button--link" to="/login">
-          Login / Register
+          ログイン / 会員登録
         </RouterLink>
       </div>
     </div>

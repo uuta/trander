@@ -5,15 +5,15 @@
   padding: 0;
 
   &__item {
-    border-bottom: 2px solid $grey-3;
-    color: $grey-2;
+    border-bottom: 2px solid $blue-2;
+    color: $blue-1;
     cursor: pointer;
     margin: 0 1rem 0 0;
     padding: 1rem;
 
     &--active {
-      border-bottom: 2px solid $text-color;
-      color: $text-color;
+      border-bottom: 2px solid $blue-1;
+      color: $blue-1;
       font-weight: bold;
     }
   }

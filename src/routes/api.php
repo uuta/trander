@@ -14,6 +14,12 @@ Route::get('/user', function () {
     return Auth::user();
 })->name('user');
 
+// Send reset password mail
+Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
+
+// handle reset password form process
+Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
+
 // Twitterログイン
 //Route::get('auth/twitter', 'OAuthLoginController@getAuth');
 //Route::get('auth/callback/twitter', 'OAuthLoginController@authCallback');

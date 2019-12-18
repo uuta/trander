@@ -1,16 +1,23 @@
 .form {
   &__item {
-    border: 1px solid $grey-3;
+    border: none;
+    border-bottom: 1px solid $blue-2;
     border-radius: .25rem;
     font-size: 1rem;
     margin-bottom: 1rem;
     padding: .5em .75em;
     width: 100%;
+    color: $blue-1;
+
+    &::placeholder {
+      color: $blue-2;
+    }
   }
 
   label {
     display: block;
     margin-bottom: .5rem;
+    color: $blue-1;
   }
 
   &__output {

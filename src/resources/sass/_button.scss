@@ -15,7 +15,7 @@
     color 300ms ease-in-out;
 
   &:hover {
-    border-color: $grey-1;
+    border-color: $blue-1;
     color: inherit;
   }
 
@@ -28,13 +28,13 @@
   }
 
   &--inverse {
-    background: $text-color;
-    border-color: $text-color;
+    background: $blue-1;
+    border-color: $blue-1;
     color: #fff;
     transition: opacity 300ms ease-in-out;
 
     &:hover {
-      background: $text-color;
+      background: $blue-1;
       color: #fff;
       opacity: .8;
     }

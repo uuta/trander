@@ -26,6 +26,9 @@
         <input type="email" class="form__item" id="login-email" v-model="loginForm.email" placeholder="PC・スマホどちらでも可">
         <label for="login-password">パスワード</label>
         <input type="password" class="form__item" id="login-password" v-model="loginForm.password"  placeholder="6文字以上の半角英数字">
+        <RouterLink to="/reset-password">
+          パスワードをお忘れですか？
+        </RouterLink>
         <div class="form__button">
           <button type="submit" class="button button--inverse">ログインする</button>
         </div>

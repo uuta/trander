@@ -6,6 +6,7 @@ import {
 
 const state = {
     user: null,
+    email: null,
     apiStatus: null,
     loginErrorMessages: null,
     registerErrorMessages: null
@@ -13,12 +14,16 @@ const state = {
 
 const getters = {
     check: state => !! state.user,
-    username: state => state.user ? state.user.name : ''
+    username: state => state.user ? state.user.name : '',
+    email: state => state.email ? state.email.email : '',
 }
 
 const mutations = {
     setUser(state, user) {
         state.user = user
+    },
+    setEmail(state, email) {
+        state.email = email
     },
     setApiStatus(state, status) {
         state.apiStatus = status
@@ -99,6 +104,27 @@ const actions = {
 
         context.commit('setApiStatus', false)
         context.commit('error/setCode', response.status, { root: true })
+    },
+    async resetPassword(context, {
+        data,
+        router
+    }) {
+        context.commit('setApiStatus', null)
+        const response = await axios.post('/api/reset-password', data)
+        if (response.status === OK) {
+            context.commit('setEmail', data)
+            router.push('/sent-email')
+            return false
+        }
+
+        context.commit('setApiStatus', false)
+        if (response.status === UNPROCESSABLE_ENTITY) {
+            context.commit('setLoginErrorMessages', response.data.errors)
+        } else {
+            context.commit('error/setCode', response.status, {
+                root: true
+            })
+        }
     }
 }
 
