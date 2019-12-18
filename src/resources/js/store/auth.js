@@ -9,7 +9,8 @@ const state = {
     email: null,
     apiStatus: null,
     loginErrorMessages: null,
-    registerErrorMessages: null
+    registerErrorMessages: null,
+    resetErrorMessages: null
 }
 
 const getters = {
@@ -33,7 +34,10 @@ const mutations = {
     },
     setRegisterErrorMessages(state, messages) {
         state.registerErrorMessages = messages
-    }
+    },
+    setResetErrorMessages(state, messages) {
+        state.resetErrorMessages = messages
+    },
 }
 
 const actions = {
@@ -116,10 +120,11 @@ const actions = {
             router.push('/sent-email')
             return false
         }
+        console.log(response)
 
         context.commit('setApiStatus', false)
         if (response.status === UNPROCESSABLE_ENTITY) {
-            context.commit('setLoginErrorMessages', response.data.errors)
+            context.commit('setResetErrorMessages', response.data.errors)
         } else {
             context.commit('error/setCode', response.status, {
                 root: true

@@ -2052,6 +2052,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -2068,6 +2069,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2077,6 +2084,11 @@ __webpack_require__.r(__webpack_exports__);
       has_error: false
     };
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    resetErrors: function resetErrors(state) {
+      return state.auth.resetErrorMessages;
+    }
+  }),
   methods: {
     resetPassword: function resetPassword() {
       var data = this.resetForm;
@@ -4117,6 +4129,20 @@ var render = function() {
   return _c("div", { staticClass: "container--small" }, [
     _c("div", { staticClass: "panel" }, [
       _c("div", { staticClass: "panel__hr" }, [_vm._v("パスワードのリセット")]),
+      _vm._v(" "),
+      _vm.resetErrors
+        ? _c("div", { staticClass: "errors" }, [
+            _vm.resetErrors.email
+              ? _c(
+                  "ul",
+                  _vm._l(_vm.resetErrors.email, function(msg) {
+                    return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "form",
@@ -21122,10 +21148,24 @@ var routes = [{
 }, {
   path: '/reset-password',
   name: 'reset-password',
-  component: _pages_resetPasswords_Reset_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _pages_resetPasswords_Reset_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
+      next('/index');
+    } else {
+      next();
+    }
+  }
 }, {
   path: '/sent-email',
-  component: _pages_resetPasswords_SentEmail_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  component: _pages_resetPasswords_SentEmail_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
+      next('/index');
+    } else {
+      next();
+    }
+  }
 }, {
   path: '/reset-password/:token',
   name: 'reset-password-form',
@@ -21161,7 +21201,8 @@ var state = {
   email: null,
   apiStatus: null,
   loginErrorMessages: null,
-  registerErrorMessages: null
+  registerErrorMessages: null,
+  resetErrorMessages: null
 };
 var getters = {
   check: function check(state) {
@@ -21189,6 +21230,9 @@ var mutations = {
   },
   setRegisterErrorMessages: function setRegisterErrorMessages(state, messages) {
     state.registerErrorMessages = messages;
+  },
+  setResetErrorMessages: function setResetErrorMessages(state, messages) {
+    state.resetErrorMessages = messages;
   }
 };
 var actions = {
@@ -21372,17 +21416,18 @@ var actions = {
             return _context5.abrupt("return", false);
 
           case 9:
+            console.log(response);
             context.commit('setApiStatus', false);
 
             if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-              context.commit('setLoginErrorMessages', response.data.errors);
+              context.commit('setResetErrorMessages', response.data.errors);
             } else {
               context.commit('error/setCode', response.status, {
                 root: true
               });
             }
 
-          case 11:
+          case 12:
           case "end":
             return _context5.stop();
         }

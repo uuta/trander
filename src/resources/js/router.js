@@ -58,11 +58,25 @@ const routes = [{
   {
     path: '/reset-password',
     name: 'reset-password',
-    component: Reset
+    component: Reset,
+    beforeEnter(to, from, next) {
+        if (store.getters['auth/check']) {
+            next('/index')
+        } else {
+            next()
+        }
+    }
   },
   {
-      path: '/sent-email',
-      component: SentEmail
+    path: '/sent-email',
+    component: SentEmail,
+    beforeEnter(to, from, next) {
+        if (store.getters['auth/check']) {
+            next('/index')
+        } else {
+            next()
+        }
+    }
   },
   {
     path: '/reset-password/:token',
