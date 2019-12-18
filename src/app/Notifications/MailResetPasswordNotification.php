@@ -40,11 +40,11 @@ class MailResetPasswordNotification extends ResetPassword
     {
         $link = url("/reset-password/" . $this->token);
         return (new MailMessage)
-            ->subject('Reset Password Notification')
-            ->line("Hello! You are receiving this email because we received a password reset request for your account.")
-            ->action('Reset Password', $link)
-            ->line("This password reset link will expire in " . config('auth.passwords.users.expire') . " minutes")
-            ->line("If you did not request a password reset, no further action is required.");
+            ->subject('パスワードをリセットする')
+            ->line("こんにちは！パスワードを忘れてしまったという連絡をいただきましたので、パスワードのリセット用リンクをお送りします。以下をクリックして新しいパスワードを選択してください。")
+            ->action('新しいパスワードを選択する', $link)
+            ->line("リンクの有効期限は" . config('auth.passwords.users.expire') . "分です。")
+            ->line("もしも誤ってパスワードのリセットをリクエストされた場合は、このメールは無視してください。");
     }
     /**
      * Get the array representation of the notification.
