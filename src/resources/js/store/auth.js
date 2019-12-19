@@ -141,7 +141,6 @@ const actions = {
         context.commit('setApiStatus', null)
         data['token'] = router.app._route.params.token
         const response = await axios.post('/api/regenerate-password', data)
-        console.log('responseは', response)
         if (response.status === OK) {
             context.commit('setApiStatus', true)
             context.commit('setUser', response.data)

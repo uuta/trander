@@ -9,6 +9,7 @@ import Index from './pages/Index.vue'
 import Reset from './pages/resetPasswords/Reset.vue'
 import SentEmail from './pages/resetPasswords/SentEmail.vue'
 import Regenerate from './pages/resetPasswords/Regenerate.vue'
+import RegenerateComplete from './pages/resetPasswords/Complete.vue'
 
 import SystemError from './pages/errors/System.vue'
 
@@ -57,7 +58,6 @@ const routes = [{
   },
   {
     path: '/reset-password',
-    name: 'reset-password',
     component: Reset,
     beforeEnter(to, from, next) {
         if (store.getters['auth/check']) {
@@ -79,9 +79,26 @@ const routes = [{
     }
   },
   {
-    path: '/reset-password/:token',
-    name: 'reset-password-form',
-    component: Regenerate
+    path: '/regenerate-password/:token',
+    component: Regenerate,
+    beforeEnter(to, from, next) {
+        if (store.getters['auth/check']) {
+            next('/index')
+        } else {
+            next()
+        }
+    }
+  },
+  {
+    path: '/regenerate-password-complete',
+    component: RegenerateComplete,
+    beforeEnter(to, from, next) {
+      if (store.getters['auth/check']) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   }
 ]
 
