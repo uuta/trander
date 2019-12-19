@@ -10,7 +10,8 @@ const state = {
     apiStatus: null,
     loginErrorMessages: null,
     registerErrorMessages: null,
-    resetErrorMessages: null
+    resetErrorMessages: null,
+    regenerateErrorMessages: null
 }
 
 const getters = {
@@ -38,6 +39,9 @@ const mutations = {
     setResetErrorMessages(state, messages) {
         state.resetErrorMessages = messages
     },
+    setRegenerateErrorMessages(state, messages) {
+        state.regenerateErrorMessages = messages
+    }
 }
 
 const actions = {
@@ -135,12 +139,22 @@ const actions = {
         router
     }) {
         context.commit('setApiStatus', null)
+        data['token'] = router.app._route.params.token
         const response = await axios.post('/api/regenerate-password', data)
-        if (response.status === CREATED) {
+        if (response.status === OK) {
             context.commit('setApiStatus', true)
             context.commit('setUser', response.data)
-            router.push('/index')
+            router.push('/login')
             return false
+        }
+
+        context.commit('setApiStatus', false)
+        if (response.status === UNPROCESSABLE_ENTITY) {
+            context.commit('setRegenerateErrorMessages', response.data.errors)
+        } else {
+            context.commit('error/setCode', response.status, {
+                root: true
+            })
         }
     }
 }

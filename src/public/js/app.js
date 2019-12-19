@@ -2000,13 +2000,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      token: null,
       regenerateForm: {
         email: null,
         password: null,
         password_confirmation: null
-      },
-      has_error: false
+      }
     };
   },
   methods: {
@@ -2017,20 +2015,6 @@ __webpack_require__.r(__webpack_exports__);
         data: data,
         router: router
       });
-      /*
-      this.$http.post("/auth/reset/password/", {
-          token: this.$route.params.token,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-      })
-      .then(result => {
-          // console.log(result.data);
-          this.$router.push({name: 'login'})
-      }, error => {
-          console.error(error);
-      });
-      */
     }
   }
 });
@@ -2072,8 +2056,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       resetForm: {
         email: ''
-      },
-      has_error: false
+      }
     };
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -21195,7 +21178,8 @@ var state = {
   apiStatus: null,
   loginErrorMessages: null,
   registerErrorMessages: null,
-  resetErrorMessages: null
+  resetErrorMessages: null,
+  regenerateErrorMessages: null
 };
 var getters = {
   check: function check(state) {
@@ -21226,6 +21210,9 @@ var mutations = {
   },
   setResetErrorMessages: function setResetErrorMessages(state, messages) {
     state.resetErrorMessages = messages;
+  },
+  setRegenerateErrorMessages: function setRegenerateErrorMessages(state, messages) {
+    state.regenerateErrorMessages = messages;
   }
 };
 var actions = {
@@ -21434,23 +21421,35 @@ var actions = {
           case 0:
             data = _ref4.data, router = _ref4.router;
             context.commit('setApiStatus', null);
-            _context6.next = 4;
+            data['token'] = router.app._route.params.token;
+            _context6.next = 5;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/regenerate-password', data));
 
-          case 4:
+          case 5:
             response = _context6.sent;
 
-            if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
-              _context6.next = 10;
+            if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+              _context6.next = 11;
               break;
             }
 
             context.commit('setApiStatus', true);
             context.commit('setUser', response.data);
-            router.push('/index');
+            router.push('/login');
             return _context6.abrupt("return", false);
 
-          case 10:
+          case 11:
+            context.commit('setApiStatus', false);
+
+            if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+              context.commit('setRegenerateErrorMessages', response.data.errors);
+            } else {
+              context.commit('error/setCode', response.status, {
+                root: true
+              });
+            }
+
+          case 13:
           case "end":
             return _context6.stop();
         }

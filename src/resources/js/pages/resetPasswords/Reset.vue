@@ -25,8 +25,7 @@ export default {
       return {
         resetForm: {
           email: ''
-        },
-        has_error: false
+        }
       }
     },
     computed: mapState({

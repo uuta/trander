@@ -19,13 +19,11 @@
 export default {
   data() {
     return {
-      token: null,
       regenerateForm: {
         email: null,
         password: null,
         password_confirmation: null,
-      },
-      has_error: false
+      }
     }
   },
   methods: {
@@ -33,20 +31,6 @@ export default {
       const data = this.regenerateForm
       const router = this.$router
       this.$store.dispatch("auth/regeneratePassword", {data, router})
-      /*
-      this.$http.post("/auth/reset/password/", {
-          token: this.$route.params.token,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-      })
-      .then(result => {
-          // console.log(result.data);
-          this.$router.push({name: 'login'})
-      }, error => {
-          console.error(error);
-      });
-      */
     }
   }
 }
