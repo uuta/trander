@@ -21466,9 +21466,10 @@ var actions = {
 
           case 5:
             response = _context6.sent;
+            console.log('responseは', response);
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context6.next = 11;
+              _context6.next = 12;
               break;
             }
 
@@ -21477,7 +21478,7 @@ var actions = {
             router.push('/login');
             return _context6.abrupt("return", false);
 
-          case 11:
+          case 12:
             context.commit('setApiStatus', false);
 
             if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
@@ -21488,7 +21489,7 @@ var actions = {
               });
             }
 
-          case 13:
+          case 14:
           case "end":
             return _context6.stop();
         }

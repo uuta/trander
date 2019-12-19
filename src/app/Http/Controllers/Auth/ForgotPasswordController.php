@@ -110,6 +110,11 @@ class ForgotPasswordController extends Controller
     protected function sendResetFailedResponse(Request $request, $response)
     {
         logger('sendResetFailedResponse');
-        return response()->json(['message' => 'Failed, Invalid Token.']);
+        return response()->json([
+            'message' => 'Failed, Invalid Token.',
+            'errors' => [
+                'email' => ['E-mail address is different.']
+            ]
+        ], 422);
     }
 }
