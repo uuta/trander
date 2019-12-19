@@ -14,15 +14,15 @@ Route::get('/user', function () {
     return Auth::user();
 })->name('user');
 
-// Send reset password mail
+// パスワードリセット
 Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
 
-// handle reset password form process
+// パスワード再設定
 Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
 
 // Twitterログイン
-//Route::get('auth/twitter', 'OAuthLoginController@getAuth');
-//Route::get('auth/callback/twitter', 'OAuthLoginController@authCallback');
+Route::get('/social/twitter', 'Auth\LoginController@socialLogin')->name('social-login');
+Route::get('/social/callback/twitter', 'Auth\LoginController@socialCallback')->name('social-callback');
 
 // Facebookログイン
 //Route::get('auth/facebook', 'OAuthLoginController@getAuth');

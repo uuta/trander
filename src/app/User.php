@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
     }
+
+    public function socialUsers()
+    {
+        return $this->hasMany(SocialUser::class);
+    }
 }
