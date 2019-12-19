@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// ページコンポーネントをインポートする
 import Login from './pages/Login.vue'
 import OnBoarding from './pages/OnBoarding.vue'
 import Index from './pages/Index.vue'
@@ -10,6 +9,9 @@ import Reset from './pages/resetPasswords/Reset.vue'
 import SentEmail from './pages/resetPasswords/SentEmail.vue'
 import Regenerate from './pages/resetPasswords/Regenerate.vue'
 import RegenerateComplete from './pages/resetPasswords/Complete.vue'
+
+import TermsOfService from './pages/services/TermsOfService.vue'
+import PrivacyPolicy from './pages/services/PrivacyPolicy.vue'
 
 import SystemError from './pages/errors/System.vue'
 
@@ -99,6 +101,14 @@ const routes = [{
           next('/login')
       }
     }
+  },
+  {
+    path: '/terms-of-Service',
+    component: TermsOfService,
+  },
+  {
+      path: '/privacy-policy',
+      component: PrivacyPolicy,
   }
 ]
 
