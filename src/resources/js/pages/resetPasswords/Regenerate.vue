@@ -1,61 +1,53 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-6">
-        <div class="card card-default">
-          <div class="card-header">New Password</div>
-          <div class="card-body">
-            <!-- <ul v-if="errors">
-              <li v-for="error in errors" v-bind:key="error">{{ msg }}</li>
-            </ul> -->
-            <form autocomplete="off" @submit.prevent="resetPassword" method="post">
-              <div class="form-group">
-                  <label for="email">E-mail</label>
-                  <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email" required>
-              </div>
-              <div class="form-group">
-                  <label for="email">Password</label>
-                  <input type="password" id="password" class="form-control" placeholder="" v-model="password" required>
-              </div>
-              <div class="form-group">
-                  <label for="email">Confirm Password</label>
-                  <input type="password" id="password_confirmation" class="form-control" placeholder="" v-model="password_confirmation" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Update</button>
+  <div class="container--small">
+      <div class="panel">
+          <div class="panel__hr">パスワードのリセット</div>
+            <form autocomplete="off" @submit.prevent="regeneratePassword">
+                  <label for="email">メールアドレス</label>
+                  <input type="email" id="email" class="form__item" placeholder="パスワードを新たに設定するメールアドレスを入力" v-model="regenerateForm.email" required>
+                  <label for="email">パスワード</label>
+                  <input type="password" id="password" class="form__item" placeholder="6文字以上の半角英数字" v-model="regenerateForm.password" required>
+                  <label for="email">パスワード (確認)</label>
+                  <input type="password" id="password_confirmation" class="form__item" placeholder="6文字以上の半角英数字" v-model="regenerateForm.password_confirmation" required>
+              <button type="submit" class="button button--inverse">パスワードを新たに作成する</button>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
 export default {
-    data() {
-      return {
-        token: null,
+  data() {
+    return {
+      token: null,
+      regenerateForm: {
         email: null,
         password: null,
         password_confirmation: null,
-        has_error: false
-      }
-    },
-    methods: {
-        resetPassword() {
-            this.$http.post("/auth/reset/password/", {
-                token: this.$route.params.token,
-                email: this.email,
-                password: this.password,
-                password_confirmation: this.password_confirmation
-            })
-            .then(result => {
-                // console.log(result.data);
-                this.$router.push({name: 'login'})
-            }, error => {
-                console.error(error);
-            });
-        }
+      },
+      has_error: false
     }
+  },
+  methods: {
+    regeneratePassword() {
+      const data = this.regenerateForm
+      const router = this.$router
+      this.$store.dispatch("auth/regeneratePassword", {data, router})
+      /*
+      this.$http.post("/auth/reset/password/", {
+          token: this.$route.params.token,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation
+      })
+      .then(result => {
+          // console.log(result.data);
+          this.$router.push({name: 'login'})
+      }, error => {
+          console.error(error);
+      });
+      */
+    }
+  }
 }
 </script>

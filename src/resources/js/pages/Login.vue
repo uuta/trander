@@ -35,6 +35,8 @@
       </form>
     </div>
     <div class="panel" v-show="tab === 2">
+      <div class="panel__hr">サインアップしましょう</div>
+      <div class="panel__txt">こんにちは！もしよろしければあなたのことを教えてください。<br>以下の4つの項目を埋めるだけで<strong>会員登録は完了</strong>です。</div>
       <form class="form" @submit.prevent="register">
         <div v-if="registerErrors" class="errors">
           <ul v-if="registerErrors.name">

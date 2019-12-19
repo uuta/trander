@@ -47,12 +47,12 @@ const actions = {
     }) {
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/register', data)
-         if (response.status === CREATED) {
+        if (response.status === CREATED) {
              context.commit('setApiStatus', true)
              context.commit('setUser', response.data)
              router.push('/index')
              return false
-         }
+        }
 
         context.commit('setApiStatus', false)
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -120,7 +120,6 @@ const actions = {
             router.push('/sent-email')
             return false
         }
-        console.log(response)
 
         context.commit('setApiStatus', false)
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -129,6 +128,19 @@ const actions = {
             context.commit('error/setCode', response.status, {
                 root: true
             })
+        }
+    },
+    async regeneratePassword(context, {
+        data,
+        router
+    }) {
+        context.commit('setApiStatus', null)
+        const response = await axios.post('/api/regenerate-password', data)
+        if (response.status === CREATED) {
+            context.commit('setApiStatus', true)
+            context.commit('setUser', response.data)
+            router.push('/index')
+            return false
         }
     }
 }
