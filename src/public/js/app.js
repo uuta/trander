@@ -1980,6 +1980,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -1997,6 +1998,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2007,6 +2017,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    regenerateErrors: function regenerateErrors(state) {
+      return state.auth.regenerateErrorMessages;
+    }
+  }),
   methods: {
     regeneratePassword: function regeneratePassword() {
       var data = this.regenerateForm;
@@ -3978,6 +3993,30 @@ var render = function() {
           }
         },
         [
+          _vm.regenerateErrors
+            ? _c("div", { staticClass: "errors" }, [
+                _vm.regenerateErrors.email
+                  ? _c(
+                      "ul",
+                      _vm._l(_vm.regenerateErrors.email, function(msg) {
+                        return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                      }),
+                      0
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.regenerateErrors.password
+                  ? _c(
+                      "ul",
+                      _vm._l(_vm.regenerateErrors.password, function(msg) {
+                        return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                      }),
+                      0
+                    )
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("label", { attrs: { for: "email" } }, [_vm._v("メールアドレス")]),
           _vm._v(" "),
           _c("input", {
