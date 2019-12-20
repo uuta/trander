@@ -1,3 +1,23 @@
+a.link__wrap {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.flex {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex__col__3 {
+  flex-basis: 32%;
+}
+
+.flex__col__3:not(:nth-child(3n)) {
+  margin-right: 2%;
+}
+
 *,
 *::before,
 *::after {
@@ -25,6 +45,10 @@ figure {
 
 img {
   max-width: 100%;
+}
+
+a {
+  color: #2699FB;
 }
 
 .container {
@@ -319,6 +343,11 @@ img {
   color: #fff;
   -webkit-transition: opacity 300ms ease-in-out;
   transition: opacity 300ms ease-in-out;
+  margin: 0 auto;
+  display: block;
+  width: 50%;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .button--inverse:hover {
@@ -397,6 +426,49 @@ img {
   text-align: right;
 }
 
+.form__sns__wrap {
+  color: #2699FB;
+  padding: 2em 7em;
+}
+
+.form__sns__feature {
+  text-align: center;
+  height: 2.06em;
+  flex-basis: 16%;
+  line-height: 2em;
+  font-size: 2em;
+}
+
+.form__sns__feature:not(:nth-child(3n)) {
+  margin-right: 26%;
+}
+
+.form__sns__feature:hover {
+  cursor: pointer;
+  border-color: #BCE0FD;
+  -webkit-text-decoration-color: transparent;
+          text-decoration-color: transparent;
+}
+
+.form__sns__btn {
+  border: 1px solid #2699FB;
+  border-radius: 50%;
+  flex-basis: 16%;
+  -webkit-transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+  transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+  transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
+  transition: color 0.3s, text-decoration 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+}
+
+.form__sns__btn:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #BCE0FD;
+  border-color: #BCE0FD;
+  -webkit-text-decoration-color: transparent;
+          text-decoration-color: transparent;
+}
+
 .tab {
   display: -webkit-box;
   display: flex;
@@ -453,7 +525,14 @@ img {
 }
 
 .panel__txt {
+  display: block;
   padding: 0.5em 0.5em 1.2em 0.5em;
+}
+
+.panel__txt__right {
+  display: block;
+  text-align: right;
+  padding: 0 0.75em;
 }
 
 .title {

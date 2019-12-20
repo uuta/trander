@@ -26,9 +26,14 @@
         <input type="email" class="form__item" id="login-email" v-model="loginForm.email" placeholder="PC・スマホどちらでも可">
         <label for="login-password">パスワード</label>
         <input type="password" class="form__item" id="login-password" v-model="loginForm.password"  placeholder="6文字以上の半角英数字">
-        <RouterLink to="/reset-password">
+        <RouterLink to="/reset-password" class="panel__txt__right">
           パスワードをお忘れですか？
         </RouterLink>
+        <div class="form__sns__wrap flex">
+          <div class="form__sns__feature flex__col__3"><a class="link__wrap form__sns__btn" href="/api/social/twitter"><i class="fab fa-twitter"></i></a></div>
+          <div class="form__sns__feature flex__col__3"><a class="link__wrap form__sns__btn" href=""><i class="fab fa-facebook-f"></i></a></div>
+          <div class="form__sns__feature flex__col__3"><a class="link__wrap form__sns__btn" href=""><i class="fab fa-google"></i></a></div>
+        </div>
         <div class="form__button">
           <button type="submit" class="button button--inverse">ログインする</button>
         </div>

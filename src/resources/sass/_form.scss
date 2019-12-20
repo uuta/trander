@@ -28,4 +28,47 @@
   &__button {
     text-align: right;
   }
+
+  &__sns {
+    &__wrap {
+      color: $blue-1;
+      padding: 2em 7em;
+    }
+    &__feature {
+      text-align: center;
+      height: 2.06em;
+      -ms-flex-preferred-size: 16%;
+      flex-basis: 16%;
+      line-height: 2em;
+      font-size: 2em;
+
+      &:not(:nth-child(3n)) {
+          margin-right: 26%;
+      }
+
+      &:hover {
+        cursor: pointer;
+        border-color: $blue-2;
+        text-decoration-color: transparent;
+      }
+    }
+
+    &__btn {
+      border: 1px solid $blue-1;
+      border-radius: 50%;
+      -ms-flex-preferred-size: 16%;
+      flex-basis: 16%;
+      transition: color .3s,
+      text-decoration .3s,
+      background-color .3s;
+
+      &:hover {
+        cursor: pointer;
+        color: $white-1;
+        background-color: $blue-2;
+        border-color: $blue-2;
+        text-decoration-color: transparent;
+      }
+    }
+  }
 }

@@ -1915,6 +1915,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3694,11 +3699,18 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("RouterLink", { attrs: { to: "/reset-password" } }, [
-              _vm._v("\n        パスワードをお忘れですか？\n      ")
-            ]),
+            _c(
+              "RouterLink",
+              {
+                staticClass: "panel__txt__right",
+                attrs: { to: "/reset-password" }
+              },
+              [_vm._v("\n        パスワードをお忘れですか？\n      ")]
+            ),
             _vm._v(" "),
-            _vm._m(0)
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._m(1)
           ],
           1
         )
@@ -3723,7 +3735,7 @@ var render = function() {
           _vm._v("サインアップしましょう")
         ]),
         _vm._v(" "),
-        _vm._m(1),
+        _vm._m(2),
         _vm._v(" "),
         _c(
           "form",
@@ -3891,7 +3903,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]
         )
       ]
@@ -3899,6 +3911,39 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__sns__wrap flex" }, [
+      _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
+        _c(
+          "a",
+          {
+            staticClass: "link__wrap form__sns__btn",
+            attrs: { href: "/api/social/twitter" }
+          },
+          [_c("i", { staticClass: "fab fa-twitter" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
+        _c(
+          "a",
+          { staticClass: "link__wrap form__sns__btn", attrs: { href: "" } },
+          [_c("i", { staticClass: "fab fa-facebook-f" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
+        _c(
+          "a",
+          { staticClass: "link__wrap form__sns__btn", attrs: { href: "" } },
+          [_c("i", { staticClass: "fab fa-google" })]
+        )
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

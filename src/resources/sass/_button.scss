@@ -32,6 +32,11 @@
     border-color: $blue-1;
     color: #fff;
     transition: opacity 300ms ease-in-out;
+    margin: 0 auto;
+    display: block;
+    width: 50%;
+    margin-top: 1em;
+    margin-bottom: 1em;
 
     &:hover {
       background: $blue-1;

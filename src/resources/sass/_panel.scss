@@ -9,6 +9,13 @@
   }
 
   &__txt {
+    display: block;
     padding: 0.5em 0.5em 1.2em 0.5em;
+
+    &__right {
+      display: block;
+      text-align: right;
+      padding: 0 0.75em;
+    }
   }
 }
