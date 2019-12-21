@@ -3941,7 +3941,10 @@ var staticRenderFns = [
       _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
         _c(
           "a",
-          { staticClass: "link__wrap form__sns__btn", attrs: { href: "" } },
+          {
+            staticClass: "link__wrap form__sns__btn",
+            attrs: { href: "/api/social/google" }
+          },
           [_c("i", { staticClass: "fab fa-google" })]
         )
       ])

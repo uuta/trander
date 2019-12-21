@@ -20,7 +20,7 @@ Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetL
 // パスワード再設定
 Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
 
-// Twitterログイン
+// SNSログイン
 Route::get('/social/{social}', 'Auth\LoginController@socialLogin')->name('social-login');
 Route::get('/social/callback/{social}', 'Auth\LoginController@socialCallback')->name('social-callback');
 
