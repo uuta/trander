@@ -21,12 +21,8 @@ Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetL
 Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
 
 // Twitterログイン
-Route::get('/social/twitter', 'Auth\LoginController@socialLogin')->name('social-login');
-Route::get('/social/callback/twitter', 'Auth\LoginController@socialCallback')->name('social-callback');
-
-// Facebookログイン
-//Route::get('auth/facebook', 'OAuthLoginController@getAuth');
-//Route::get('auth/callback/facebook', 'OAuthLoginController@authCallback');
+Route::get('/social/{social}', 'Auth\LoginController@socialLogin')->name('social-login');
+Route::get('/social/callback/{social}', 'Auth\LoginController@socialCallback')->name('social-callback');
 
 // Googleログイン
 //Route::get('auth/google', 'OAuthLoginController@getAuth');

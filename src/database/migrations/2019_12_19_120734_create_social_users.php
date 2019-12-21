@@ -16,6 +16,7 @@ class CreateSocialUsers extends Migration
         Schema::create('social_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index();
+            $table->string('provider');
             $table->string('provider_user_id')->index();
             $table->timestamps();
 

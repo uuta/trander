@@ -21505,6 +21505,9 @@ var routes = [{
     }
   }
 }, {
+  path: '/index#_=_',
+  redirect: '/index'
+}, {
   path: '/500',
   component: _pages_errors_System_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {

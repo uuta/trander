@@ -60,39 +60,34 @@ class LoginController extends Controller
      * ソーシャル認証 リクエスト
      * @return mixed
      */
-    public function socialLogin()
+    public function socialLogin($social)
     {
-        $social = basename(parse_url($this->getUrl(), PHP_URL_PATH));
         return Socialite::with($social)->redirect();
     }
 
-    private function getUrl()
+    public function socialCallback($social)
     {
-        return (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-    }
-
-    public function socialCallback()
-    {
-        $social = basename(parse_url($this->getUrl(), PHP_URL_PATH));
         $providerUser = Socialite::driver($social)->user();
 
         // 既に存在するユーザーかを確認
-        $socialUser = SocialUser::where('provider_user_id', $providerUser->id)->first();
+        $socialUser = SocialUser::where('provider_user_id', $providerUser->id)
+            ->where('provider', $social)
+            ->first();
 
         if ($socialUser) {
             // 既存のユーザーはログインしてトップページへ
             Auth::login($socialUser->user, true);
-            return redirect('/index');
+            return redirect('/index#');
         }
 
         // 新しいユーザーを作成
         $user = new User();
-        $user->unique_id = $providerUser->nickname;
-        $user->name = $providerUser->name;
-        $user->avatar = $providerUser->user['profile_image_url_https'];
-        $user->bio = $providerUser->user['description'];
+        $user->unique_id = $providerUser->getNickname();
+        $user->name = $providerUser->getName();
+        $user->avatar = $providerUser->getAvatar();
 
         $socialUser = new SocialUser();
+        $socialUser->provider = $social;
         $socialUser->provider_user_id = $providerUser->id;
 
         DB::transaction(function () use ($user, $socialUser) {
@@ -101,6 +96,12 @@ class LoginController extends Controller
         });
 
         Auth::login($user, true);
-        return redirect('/index');
+        return redirect('/index#');
+    }
+
+    public function test($social)
+    {
+        $user = Socialite::driver($social)->user();
+        dd($user);
     }
 }
