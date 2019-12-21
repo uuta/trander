@@ -3930,7 +3930,10 @@ var staticRenderFns = [
       _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
         _c(
           "a",
-          { staticClass: "link__wrap form__sns__btn", attrs: { href: "" } },
+          {
+            staticClass: "link__wrap form__sns__btn",
+            attrs: { href: "/api/social/facebook" }
+          },
           [_c("i", { staticClass: "fab fa-facebook-f" })]
         )
       ]),
@@ -21504,9 +21507,6 @@ var routes = [{
       next('/login');
     }
   }
-}, {
-  path: '/index#_=_',
-  redirect: '/index'
 }, {
   path: '/500',
   component: _pages_errors_System_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
