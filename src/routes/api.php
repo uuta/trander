@@ -21,5 +21,5 @@ Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetL
 Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
 
 // SNSログイン
-Route::get('/social/{social}', 'Auth\LoginController@socialLogin')->name('social-login');
-Route::get('/social/callback/{social}', 'Auth\LoginController@socialCallback')->name('social-callback');
+Route::post('/social/{social}', 'Auth\LoginController@socialLogin')->name('social-login');
+Route::post('/social/callback/{social}', 'Auth\LoginController@socialCallback')->name('social-callback');
