@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Override the mail body for reset password notification mail.
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
+    }
+
+    public function socialUsers()
+    {
+        return $this->hasMany(SocialUser::class);
+    }
 }
