@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Log;
 
 class ForgotPasswordController extends Controller
 {
@@ -32,7 +33,6 @@ class ForgotPasswordController extends Controller
      */
     public function sendPasswordResetLink(Request $request)
     {
-        logger('sendPasswordResetLink');
         return $this->sendResetLinkEmail($request);
     }
 
@@ -45,7 +45,6 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        logger('sendResetLinkResponse');
         return response()->json([
             'message' => 'Password reset email sent.',
             'data' => $response
@@ -60,7 +59,6 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-        logger('sendResetLinkFailedResponse');
         return response()->json(['message' => 'Email could not be sent to this email address.']);
     }
 
@@ -69,7 +67,6 @@ class ForgotPasswordController extends Controller
      */
     public function callResetPassword(Request $request)
     {
-        logger('callResetPasswordの$requestは' . $request);
         return $this->reset($request);
     }
 
@@ -82,7 +79,6 @@ class ForgotPasswordController extends Controller
      */
     protected function resetPassword($user, $password)
     {
-        logger('resetPassword');
         $user->password = Hash::make($password);
         $user->save();
         event(new PasswordReset($user));
@@ -97,7 +93,6 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetResponse(Request $request, $response)
     {
-        logger('sendResetResponse');
         return response()->json(['message' => 'Password reset successfully.']);
     }
     /**
@@ -109,7 +104,6 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
-        logger('sendResetFailedResponse');
         return response()->json([
             'message' => 'Failed, Invalid Token.',
             'errors' => [
