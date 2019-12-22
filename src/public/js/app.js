@@ -21798,9 +21798,10 @@ var actions = {
 
           case 4:
             response = _context5.sent;
+            console.log(data);
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context5.next = 9;
+              _context5.next = 10;
               break;
             }
 
@@ -21808,7 +21809,7 @@ var actions = {
             router.push('/sent-email');
             return _context5.abrupt("return", false);
 
-          case 9:
+          case 10:
             context.commit('setApiStatus', false);
 
             if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
@@ -21819,7 +21820,7 @@ var actions = {
               });
             }
 
-          case 11:
+          case 12:
           case "end":
             return _context5.stop();
         }
