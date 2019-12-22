@@ -42,4 +42,23 @@ class PasswordResetApiTest extends TestCase
                 'data' => 'passwords.sent',
             ]);
     }
+
+    /**
+     * @test
+     * パスワードリセットのリクエスト失敗（バリデーションエラー）
+     */
+    public function should_パスワードリセットのリクエストが失敗する()
+    {
+        // ユーザーを1つ作成
+        $user = factory(User::class)->create();
+
+        // パスワードリセットをリクエスト
+        $response = $this->from('/reset-password')->post('/api/reset-password', [
+            'email' => `testtest@example.co.jp`,
+        ]);
+
+        // 同画面にリダイレクト
+        $response->assertStatus(302);
+        $response->assertRedirect('/reset-password');
+    }
 }

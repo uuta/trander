@@ -23,7 +23,3 @@ Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPass
 // SNSログイン
 Route::get('/social/{social}', 'Auth\LoginController@socialLogin')->name('social-login');
 Route::get('/social/callback/{social}', 'Auth\LoginController@socialCallback')->name('social-callback');
-
-// Googleログイン
-//Route::get('auth/google', 'OAuthLoginController@getAuth');
-//Route::get('auth/callback/google', 'OAuthLoginController@authCallback');
