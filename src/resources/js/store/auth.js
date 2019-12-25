@@ -119,7 +119,6 @@ const actions = {
     }) {
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/reset-password', data)
-        console.log(data)
         if (response.status === OK) {
             context.commit('setEmail', data)
             router.push('/sent-email')
