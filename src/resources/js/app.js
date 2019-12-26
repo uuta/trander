@@ -3,6 +3,7 @@ import router from './router'
 import App from './App.vue'
 import './bootstrap'
 import store from './store'
+import vueGoogleMaps from './vueGoogleMaps'
 
 const createApp = async () => {
     await store.dispatch('auth/currentUser')
