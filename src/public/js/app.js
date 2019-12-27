@@ -1854,44 +1854,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      center: {
-        lat: 35.71,
-        lng: 139.72
+      currentLocation: {
+        lat: 0,
+        lng: 0
       },
-      zoom: 14,
-      marker_items: [{
-        position: {
-          lat: 35.71,
-          lng: 139.72
-        },
-        title: 'marker_1'
-      }, {
-        position: {
-          lat: 35.72,
-          lng: 139.73
-        },
-        title: 'marker_2'
-      }, {
-        position: {
-          lat: 35.70,
-          lng: 139.71
-        },
-        title: 'marker_3'
-      }, {
-        position: {
-          lat: 35.71,
-          lng: 139.70
-        },
-        title: 'marker_4'
-      }]
+      searchAddressInput: ''
     };
+  },
+  created: function created() {
+    this.getCurrentLocation(); // DOMの読み込み前に現在地を取得
+  },
+  methods: {
+    getCurrentLocation: function getCurrentLocation() {
+      var _this = this;
+
+      console.log('1階層目');
+      navigator.geolocation.getCurrentPosition(function (position) {
+        console.log('2階層目');
+        _this.currentLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        console.log('this.currentLocationは', _this.currentLocation);
+      }, function (failure) {
+        console.log('失敗');
+      });
+    }
   }
 });
 
@@ -4541,25 +4532,17 @@ var render = function() {
     "div",
     { attrs: { id: "map" } },
     [
-      _c(
-        "GmapMap",
-        {
-          staticStyle: { width: "100%", height: "100%" },
-          attrs: { center: _vm.center, zoom: _vm.zoom }
-        },
-        _vm._l(_vm.marker_items, function(m, id) {
-          return _c("GmapMarker", {
-            key: id,
-            attrs: {
-              position: m.position,
-              title: m.title,
-              clickable: true,
-              draggable: false
-            }
-          })
-        }),
-        1
-      )
+      _c("GmapMap", {
+        staticStyle: { width: "100%", height: "100%" },
+        attrs: {
+          center: {
+            lat: _vm.currentLocation.lat,
+            lng: _vm.currentLocation.lng
+          },
+          zoom: 14,
+          options: { disableDefaultUI: true }
+        }
+      })
     ],
     1
   )
@@ -25584,7 +25567,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_1__, {
   load: {
-    key: "AIzaSyD1vQxVRJM25B7J5jlhqsSGKHSVW7elf20",
+    key: "AIzaSyAcqtDRzXizxuI8ejthIrszBo5DS88mKN4",
     libraries: 'places'
   }
 });
