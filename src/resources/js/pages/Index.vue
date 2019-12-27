@@ -1,6 +1,8 @@
 <template>
     <div id="map">
         <GmapMap :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
+        <gmap-marker :position="{lat:currentLocation.lat, lng:currentLocation.lng}" :icon="icon_center">
+      </gmap-marker>
       </GmapMap>
     </div>
 </template>
@@ -10,7 +12,12 @@ export default {
   data () {
     return {
       currentLocation : { lat : 0, lng : 0},
-      searchAddressInput: ''
+      searchAddressInput: '',
+      icon_center: {
+        url: '/assets/images/current_location.png',
+        size: {width: 50, height: 50, f: 'px', b: 'px'},
+        scaledSize: {width: 22, height: 22, f: 'px', b: 'px'}
+      },
     }
   },
   created:function(){
@@ -18,15 +25,12 @@ export default {
   },
   methods: {
      getCurrentLocation() {
-      console.log('1階層目')
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log('2階層目')
         this.currentLocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        console.log('this.currentLocationは', this.currentLocation)
-      }, (failure) => {console.log('失敗')});
+      });
     }
   }
 }
