@@ -15,8 +15,7 @@ export default {
       searchAddressInput: '',
       icon_center: {
         url: '/assets/images/current_location.png',
-        size: {width: 50, height: 50, f: 'px', b: 'px'},
-        scaledSize: {width: 22, height: 22, f: 'px', b: 'px'}
+        scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
       },
     }
   },
