@@ -18,6 +18,10 @@ a.link__wrap {
   margin-right: 2%;
 }
 
+.circle {
+  border-radius: 50%;
+}
+
 *,
 *::before,
 *::after {
@@ -331,6 +335,21 @@ a {
 
 .button .icon {
   margin-right: 0.5em;
+}
+
+.button_map {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  font-size: 30px;
+  color: #fff;
+  line-height: 70px;
+  text-align: center;
+  background: #555;
+}
+
+.button_map:not(:last-child) {
+  margin-right: 30px;
 }
 
 .button--link {
@@ -670,5 +689,33 @@ a {
 
 #map {
   height: 500px;
+  position: relative;
+}
+
+#map_info {
+  background: #fff;
+  width: 95%;
+  min-height: 100px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  padding: 20px;
+}
+
+#map_btn {
+  position: absolute;
+  top: 80px;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+  width: 50%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
 }
 

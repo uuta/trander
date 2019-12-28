@@ -1856,6 +1856,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1888,6 +1899,12 @@ __webpack_require__.r(__webpack_exports__);
           lng: position.coords.longitude
         };
       });
+    },
+    setNewLocation: function setNewLocation() {
+      this.currentLocation = {
+        lat: 43.067883,
+        lng: 141.322995
+      };
     }
   }
 });
@@ -4534,41 +4551,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "map" } },
-    [
-      _c(
-        "GmapMap",
-        {
-          staticStyle: { width: "100%", height: "100%" },
-          attrs: {
-            center: {
-              lat: _vm.currentLocation.lat,
-              lng: _vm.currentLocation.lng
-            },
-            zoom: 14,
-            options: { disableDefaultUI: true }
-          }
-        },
-        [
-          _c("gmap-marker", {
+  return _c("div", { staticClass: "container--small" }, [
+    _c(
+      "div",
+      { attrs: { id: "map" } },
+      [
+        _c(
+          "GmapMap",
+          {
+            staticStyle: { width: "100%", height: "100%" },
             attrs: {
-              position: {
+              center: {
                 lat: _vm.currentLocation.lat,
                 lng: _vm.currentLocation.lng
               },
-              icon: _vm.icon_center
+              zoom: 14,
+              options: { disableDefaultUI: true }
             }
-          })
-        ],
-        1
-      )
-    ],
-    1
-  )
+          },
+          [
+            _c("gmap-marker", {
+              attrs: {
+                position: {
+                  lat: _vm.currentLocation.lat,
+                  lng: _vm.currentLocation.lng
+                },
+                icon: _vm.icon_center
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "map_btn" } }, [
+          _c(
+            "button",
+            { staticClass: "button_map", on: { click: _vm.setNewLocation } },
+            [_c("i", { staticClass: "fas fa-user-cog" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "button_map", on: { click: _vm.setNewLocation } },
+            [_c("i", { staticClass: "fas fa-plus" })]
+          )
+        ])
+      ],
+      1
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "map_info" } }, [
+      _c("div", [_vm._v("\n        現在地：北海道札幌市中央区\n      ")])
+    ])
+  }
+]
 render._withStripped = true
 
 
