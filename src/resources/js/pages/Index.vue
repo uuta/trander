@@ -1,8 +1,10 @@
 <template>
   <div class="container--small">
     <div id="map">
-      <GmapMap :center="{lat:currentLocation.lat, lng:currentLocation.lng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
+      <GmapMap :center="{lat:seeLocation.lat, lng:seeLocation.lng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
         <gmap-marker :position="{lat:currentLocation.lat, lng:currentLocation.lng}" :icon="icon_center">
+        </gmap-marker>
+        <gmap-marker v-if="showIcon" :position="{lat:suggestLocation.lat, lng:suggestLocation.lng}">
         </gmap-marker>
       </GmapMap>
       <div id="map_info">
@@ -22,12 +24,15 @@
 export default {
   data () {
     return {
+      seeLocation: { lat: 0, lng: 0},
       currentLocation : { lat : 0, lng : 0},
+      suggestLocation : { lat : 0, lng : 0},
       searchAddressInput: '',
       icon_center: {
         url: '/assets/images/current_location.png',
         scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
       },
+      showIcon: false
     }
   },
   created:function(){
@@ -36,17 +41,25 @@ export default {
   methods: {
      getCurrentLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.currentLocation = {
+        const latAndLong = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
-        };
+        }
+        this.seeLocation = latAndLong
+        this.currentLocation = latAndLong
       });
     },
     setNewLocation() {
-      this.currentLocation = {
+      const latAndLong = {
         lat: 43.067883,
         lng: 141.322995
       }
+      this.displayed()
+      this.suggestLocation = latAndLong
+      this.seeLocation = latAndLong
+    },
+    displayed() {
+      this.showIcon = true
     }
   }
 }

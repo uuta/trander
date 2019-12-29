@@ -1867,10 +1867,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      seeLocation: {
+        lat: 0,
+        lng: 0
+      },
       currentLocation: {
+        lat: 0,
+        lng: 0
+      },
+      suggestLocation: {
         lat: 0,
         lng: 0
       },
@@ -1883,7 +1893,8 @@ __webpack_require__.r(__webpack_exports__);
           f: 'px',
           b: 'px'
         }
-      }
+      },
+      showIcon: false
     };
   },
   created: function created() {
@@ -1894,17 +1905,25 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       navigator.geolocation.getCurrentPosition(function (position) {
-        _this.currentLocation = {
+        var latAndLong = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        _this.seeLocation = latAndLong;
+        _this.currentLocation = latAndLong;
       });
     },
     setNewLocation: function setNewLocation() {
-      this.currentLocation = {
+      var latAndLong = {
         lat: 43.067883,
         lng: 141.322995
       };
+      this.displayed();
+      this.suggestLocation = latAndLong;
+      this.seeLocation = latAndLong;
+    },
+    displayed: function displayed() {
+      this.showIcon = true;
     }
   }
 });
@@ -4561,10 +4580,7 @@ var render = function() {
           {
             staticStyle: { width: "100%", height: "100%" },
             attrs: {
-              center: {
-                lat: _vm.currentLocation.lat,
-                lng: _vm.currentLocation.lng
-              },
+              center: { lat: _vm.seeLocation.lat, lng: _vm.seeLocation.lng },
               zoom: 14,
               options: { disableDefaultUI: true }
             }
@@ -4578,7 +4594,18 @@ var render = function() {
                 },
                 icon: _vm.icon_center
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.showIcon
+              ? _c("gmap-marker", {
+                  attrs: {
+                    position: {
+                      lat: _vm.suggestLocation.lat,
+                      lng: _vm.suggestLocation.lng
+                    }
+                  }
+                })
+              : _vm._e()
           ],
           1
         ),
