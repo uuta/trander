@@ -4644,7 +4644,17 @@ var render = function() {
         _vm.showModal
           ? _c(
               "div",
-              { attrs: { id: "map_overlay" }, on: { click: _vm.hiddenModal } },
+              {
+                attrs: { id: "map_overlay" },
+                on: {
+                  click: function($event) {
+                    if ($event.target !== $event.currentTarget) {
+                      return null
+                    }
+                    return _vm.hiddenModal($event)
+                  }
+                }
+              },
               [_vm._m(1)]
             )
           : _vm._e()

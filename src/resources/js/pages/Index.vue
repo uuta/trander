@@ -13,10 +13,10 @@
         </div>
       </div>
       <div id="map_btn">
-        <button v-on:click="setNewLocation" class="button_map"><i class="fas fa-user-cog"></i></button>
-        <button v-on:click="setNewLocation" class="button_map"><i class="fas fa-plus"></i></button>
+        <button @click="setNewLocation" class="button_map"><i class="fas fa-user-cog"></i></button>
+        <button @click="setNewLocation" class="button_map"><i class="fas fa-plus"></i></button>
       </div>
-      <div id="map_overlay" v-if="showModal" v-on:click="hiddenModal">
+      <div id="map_overlay" v-if="showModal" @click.self="hiddenModal">
         <div id="map_overlay_wrap">
           <p><i class="fas fa-crown"></i> おめでとうございます！新しいロケーションを発見しました。</p>
           <p> 北海道札幌市西区</p>
