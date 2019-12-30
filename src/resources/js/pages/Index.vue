@@ -16,6 +16,13 @@
         <button v-on:click="setNewLocation" class="button_map"><i class="fas fa-user-cog"></i></button>
         <button v-on:click="setNewLocation" class="button_map"><i class="fas fa-plus"></i></button>
       </div>
+      <div id="map_overlay" v-if="showModal" v-on:click="hiddenModal">
+        <div id="map_overlay_wrap">
+          <p><i class="fas fa-crown"></i> おめでとうございます！新しいロケーションを発見しました。</p>
+          <p> 北海道札幌市西区</p>
+          <p> 早速、冒険に出てみましょう！</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +39,8 @@ export default {
         url: '/assets/images/current_location.png',
         scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
       },
-      showIcon: false
+      showIcon: false,
+      showModal: false
     }
   },
   created:function(){
@@ -54,13 +62,20 @@ export default {
         lat: 43.067883,
         lng: 141.322995
       }
-      this.displayed()
+      this.displayedIcon()
+      this.displayedModal()
       this.suggestLocation = latAndLong
       this.seeLocation = latAndLong
     },
-    displayed() {
+    displayedIcon() {
       this.showIcon = true
-    }
+    },
+    displayedModal() {
+      this.showModal = true
+    },
+    hiddenModal() {
+      this.showModal = false
+    },
   }
 }
 </script>

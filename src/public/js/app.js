@@ -1869,6 +1869,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1894,7 +1901,8 @@ __webpack_require__.r(__webpack_exports__);
           b: 'px'
         }
       },
-      showIcon: false
+      showIcon: false,
+      showModal: false
     };
   },
   created: function created() {
@@ -1918,12 +1926,19 @@ __webpack_require__.r(__webpack_exports__);
         lat: 43.067883,
         lng: 141.322995
       };
-      this.displayed();
+      this.displayedIcon();
+      this.displayedModal();
       this.suggestLocation = latAndLong;
       this.seeLocation = latAndLong;
     },
-    displayed: function displayed() {
+    displayedIcon: function displayedIcon() {
       this.showIcon = true;
+    },
+    displayedModal: function displayedModal() {
+      this.showModal = true;
+    },
+    hiddenModal: function hiddenModal() {
+      this.showModal = false;
     }
   }
 });
@@ -4624,7 +4639,15 @@ var render = function() {
             { staticClass: "button_map", on: { click: _vm.setNewLocation } },
             [_c("i", { staticClass: "fas fa-plus" })]
           )
-        ])
+        ]),
+        _vm._v(" "),
+        _vm.showModal
+          ? _c(
+              "div",
+              { attrs: { id: "map_overlay" }, on: { click: _vm.hiddenModal } },
+              [_vm._m(1)]
+            )
+          : _vm._e()
       ],
       1
     )
@@ -4637,6 +4660,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { attrs: { id: "map_info" } }, [
       _c("div", [_vm._v("\n        現在地：北海道札幌市中央区\n      ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "map_overlay_wrap" } }, [
+      _c("p", [
+        _c("i", { staticClass: "fas fa-crown" }),
+        _vm._v(" おめでとうございます！新しいロケーションを発見しました。")
+      ]),
+      _vm._v(" "),
+      _c("p", [_vm._v(" 北海道札幌市西区")]),
+      _vm._v(" "),
+      _c("p", [_vm._v(" 早速、冒険に出てみましょう！")])
     ])
   }
 ]

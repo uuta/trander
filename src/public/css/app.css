@@ -719,3 +719,27 @@ a {
           align-items: center;
 }
 
+#map_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  margin: auto;
+}
+
+#map_overlay_wrap {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  background: #fff;
+  margin: auto;
+}
+
