@@ -77,7 +77,7 @@ class LoginController extends Controller
         if ($socialUser) {
             // 既存のユーザーはログインしてトップページへ
             Auth::login($socialUser->user, true);
-            return redirect('/index#');
+            return redirect()->secure('/index#');
         }
 
         // 新しいユーザーを作成
@@ -96,7 +96,7 @@ class LoginController extends Controller
         });
 
         Auth::login($user, true);
-        return redirect('/index#');
+        return redirect()->secure('/index#');
     }
 
     public function test($social)
