@@ -29,10 +29,10 @@
         <RouterLink to="/reset-password" class="panel__txt__right">
           パスワードをお忘れですか？
         </RouterLink>
-        <div class="form__sns__wrap flex">
-          <div class="form__sns__feature flex__col__3"><a class="link__wrap form__sns__btn" href="/api/social/twitter"><i class="fab fa-twitter"></i></a></div>
-          <div class="form__sns__feature flex__col__3"><a class="link__wrap form__sns__btn" href="/api/social/facebook"><i class="fab fa-facebook-f"></i></a></div>
-          <div class="form__sns__feature flex__col__3"><a class="link__wrap form__sns__btn" href="/api/social/google"><i class="fab fa-google"></i></a></div>
+        <div class="form__sns__wrap">
+          <a class="form__sns__btn" href="/api/social/twitter"><i class="fab fa-twitter"></i></a>
+          <a class="form__sns__btn" href="/api/social/facebook"><i class="fab fa-facebook-f"></i></a>
+          <a class="form__sns__btn" href="/api/social/google"><i class="fab fa-google"></i></a>
         </div>
         <div class="form__button">
           <button type="submit" class="button button--inverse">ログインする</button>

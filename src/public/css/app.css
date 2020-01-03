@@ -448,6 +448,12 @@ a {
 .form__sns__wrap {
   color: #2699FB;
   padding: 2em 7em;
+  display: flex;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
 }
 
 .form__sns__feature {
@@ -472,11 +478,21 @@ a {
 .form__sns__btn {
   border: 1px solid #2699FB;
   border-radius: 50%;
-  flex-basis: 16%;
+  -ms-flex-preferred-size: 16%;
   -webkit-transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
   transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
   transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
   transition: color 0.3s, text-decoration 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+  display: block;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+}
+
+.form__sns__btn:not(:last-child) {
+  margin-right: 30px;
 }
 
 .form__sns__btn:hover {

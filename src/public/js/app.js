@@ -5066,39 +5066,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form__sns__wrap flex" }, [
-      _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
-        _c(
-          "a",
-          {
-            staticClass: "link__wrap form__sns__btn",
-            attrs: { href: "/api/social/twitter" }
-          },
-          [_c("i", { staticClass: "fab fa-twitter" })]
-        )
-      ]),
+    return _c("div", { staticClass: "form__sns__wrap" }, [
+      _c(
+        "a",
+        {
+          staticClass: "form__sns__btn",
+          attrs: { href: "/api/social/twitter" }
+        },
+        [_c("i", { staticClass: "fab fa-twitter" })]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
-        _c(
-          "a",
-          {
-            staticClass: "link__wrap form__sns__btn",
-            attrs: { href: "/api/social/facebook" }
-          },
-          [_c("i", { staticClass: "fab fa-facebook-f" })]
-        )
-      ]),
+      _c(
+        "a",
+        {
+          staticClass: "form__sns__btn",
+          attrs: { href: "/api/social/facebook" }
+        },
+        [_c("i", { staticClass: "fab fa-facebook-f" })]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "form__sns__feature flex__col__3" }, [
-        _c(
-          "a",
-          {
-            staticClass: "link__wrap form__sns__btn",
-            attrs: { href: "/api/social/google" }
-          },
-          [_c("i", { staticClass: "fab fa-google" })]
-        )
-      ])
+      _c(
+        "a",
+        {
+          staticClass: "form__sns__btn",
+          attrs: { href: "/api/social/google" }
+        },
+        [_c("i", { staticClass: "fab fa-google" })]
+      )
     ])
   },
   function() {

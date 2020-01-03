@@ -33,6 +33,12 @@
     &__wrap {
       color: $blue-1;
       padding: 2em 7em;
+      display: flex;
+      display: -webkit-box;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
     }
     &__feature {
       text-align: center;
@@ -57,10 +63,19 @@
       border: 1px solid $blue-1;
       border-radius: 50%;
       -ms-flex-preferred-size: 16%;
-      flex-basis: 16%;
       transition: color .3s,
       text-decoration .3s,
       background-color .3s;
+      display: block;
+      width: 60px;
+      height: 60px;
+      font-size: 30px;
+      line-height: 60px;
+      text-align: center;
+
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
 
       &:hover {
         cursor: pointer;
