@@ -10,6 +10,9 @@
       <div id="map_info">
         <div>
           現在地：北海道札幌市中央区
+          <div v-if="getPrefectureName">
+            {{ getPrefectureName }}
+          </div>
         </div>
       </div>
       <div id="map_btn">
@@ -28,6 +31,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data () {
     return {
@@ -46,6 +51,9 @@ export default {
   created:function(){
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
   },
+  computed: mapState({
+    getPrefectureName: state => state.external.prefectureName,
+  }),
   methods: {
      getCurrentLocation() {
       navigator.geolocation.getCurrentPosition((position) => {

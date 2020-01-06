@@ -24,4 +24,4 @@ Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPass
 Route::get('/social/{social}', 'Auth\LoginController@socialLogin')->name('social-login');
 Route::get('/social/callback/{social}', 'Auth\LoginController@socialCallback')->name('social-callback');
 
-Route::get('/data', 'External\ResasApiController@request');
+Route::get('/external/resas', 'External\ResasApiController@request');
