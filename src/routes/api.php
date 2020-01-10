@@ -21,7 +21,12 @@ Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetL
 Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
 
 // SNSログイン
-Route::get('/social/{social}', 'Auth\LoginController@socialLogin')->name('social-login');
-Route::get('/social/callback/{social}', 'Auth\LoginController@socialCallback')->name('social-callback');
+Route::namespace('Auth')->group(function () {
+    Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
+    Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
+});
 
-Route::get('/external/resas', 'External\ResasApiController@request');
+// 外部API
+Route::namespace('External')->group(function () {
+    Route::get('/external/resas', 'ResasApiController@request');
+});
