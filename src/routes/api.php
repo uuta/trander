@@ -29,4 +29,5 @@ Route::namespace('Auth')->group(function () {
 // 外部API
 Route::namespace('External')->group(function () {
     Route::get('/external/resas', 'ResasApiController@request')->name('resas');
+    Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
 });
