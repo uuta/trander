@@ -1939,7 +1939,9 @@ __webpack_require__.r(__webpack_exports__);
       this.displayedIcon();
       this.displayedModal();
       this.suggestLocation = latAndLong;
-      this.seeLocation = latAndLong;
+      this.seeLocation = latAndLong; // externalストアのcurrentLocationアクションを呼び出す
+
+      this.$store.dispatch('external/currentLocation', latAndLong);
     },
     displayedIcon: function displayedIcon() {
       this.showIcon = true;
@@ -25635,18 +25637,18 @@ var state = {
 var getters = {};
 var mutations = {};
 var actions = {
-  register: function register(context, data) {
+  currentLocation: function currentLocation(context, latAndLong) {
     var response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function register$(_context) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function currentLocation$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/resas', data));
+            console.log(latAndLong);
+            _context.next = 3;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latAndLong));
 
-          case 2:
+          case 3:
             response = _context.sent;
-            context.commit('setUser', response.data);
 
           case 4:
           case "end":

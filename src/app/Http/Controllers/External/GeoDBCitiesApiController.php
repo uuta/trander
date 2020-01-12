@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 // Guzzleモジュールのクラス読み込み
 use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class GeoDBCitiesApiController extends Controller
 {
-  public function request()
+  public function request(Request $request)
   {
+    Log::debug($request);
     $client = new Client();
     $sourceUrl = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
     $responseData = $client->request("GET", $sourceUrl, [

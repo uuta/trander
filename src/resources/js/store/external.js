@@ -7,9 +7,9 @@ const getters = {}
 const mutations = {}
 
 const actions = {
-  async register(context, data) {
-    const response = await axios.post('/api/external/resas', data)
-    context.commit('setUser', response.data)
+  async currentLocation(context, latAndLong) {
+    console.log(latAndLong)
+    const response = await axios.post('/api/external/geo-db-cities', latAndLong)
   }
 }
 

@@ -74,6 +74,8 @@ export default {
       this.displayedModal()
       this.suggestLocation = latAndLong
       this.seeLocation = latAndLong
+      // externalストアのcurrentLocationアクションを呼び出す
+      this.$store.dispatch('external/currentLocation', latAndLong)
     },
     displayedIcon() {
       this.showIcon = true
