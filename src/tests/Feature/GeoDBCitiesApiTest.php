@@ -16,24 +16,19 @@ class GeoDBCitiesApiTest extends TestCase
 
     public function setUp()
     {
+        parent::setUp();
     }
 
     /**
      * @test
      */
-    public function should_正しくRESAS_APIが返ってくるか確認する()
+    public function should_GeoDBCities_APIへのリクエストに成功するか確認する()
     {
-        $client = new Client();
-        $sourceUrl = "https://opendata.resas-portal.go.jp/api/v1/prefectures";
-        $responseData = $client->request("GET", $sourceUrl, array(
-            'headers' => array(
-                'X-API-KEY' => getenv('RESAS_API'),
-                'Content-Type' => 'application/json;charset=UTF-8'
-            ),
-        ));
-        $obj = json_decode($responseData->getBody());
-        var_dump(getenv('RESAS_API'));
-        $obj
-            ->assertStatus(403);
+        $response = $this->get(route('geo-db-cities'));
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'status' => 'OK'
+            ]);
     }
 }
