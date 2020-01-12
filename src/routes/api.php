@@ -28,5 +28,5 @@ Route::namespace('Auth')->group(function () {
 
 // 外部API
 Route::namespace('External')->group(function () {
-    Route::get('/external/resas', 'ResasApiController@request');
+    Route::get('/external/resas', 'ResasApiController@request')->name('resas');
 });

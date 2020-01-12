@@ -5,7 +5,6 @@ namespace App\Http\Controllers\External;
 use Illuminate\Http\Request;
 // Guzzleモジュールのクラス読み込み
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class ResasApiController extends Controller
