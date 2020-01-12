@@ -20,7 +20,7 @@ class ResasApiTest extends TestCase
      */
     public function should_RESAS_APIへのリクエストに成功するか確認する()
     {
-        $response = $this->get(route('resas'));
+        $response = $this->post(route('resas'));
         $response
             ->assertStatus(200)
             ->assertJson([

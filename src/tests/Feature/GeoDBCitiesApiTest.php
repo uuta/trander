@@ -24,7 +24,7 @@ class GeoDBCitiesApiTest extends TestCase
      */
     public function should_GeoDBCities_APIへのリクエストに成功するか確認する()
     {
-        $response = $this->get(route('geo-db-cities'));
+        $response = $this->post(route('geo-db-cities'));
         $response
             ->assertStatus(200)
             ->assertJson([
