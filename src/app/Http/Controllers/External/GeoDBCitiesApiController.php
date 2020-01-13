@@ -12,14 +12,21 @@ class GeoDBCitiesApiController extends Controller
 {
   public function request(Request $request)
   {
-    Log::debug($request);
+    if (strpos($request->lat, '-') !== true) {
+      $lat = '+' . $request->lat;
+    }
+    if (strpos($request->lng, '-') !== true) {
+      $lng = '+' . $request->lng;
+    }
+    $location = $lat . $lng;
+
     $client = new Client();
     $sourceUrl = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
     $responseData = $client->request("GET", $sourceUrl, [
       'query' => [
         'limit' => '10',
         'countryIds' => 'JP',
-        'location' => '+43.067883+141.322995',
+        'location' => $location,
         'radius' => '100',
         'types' => 'CITY'
       ],

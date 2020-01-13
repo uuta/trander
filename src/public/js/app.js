@@ -1927,6 +1927,7 @@ __webpack_require__.r(__webpack_exports__);
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        console.log(latAndLong);
         _this.seeLocation = latAndLong;
         _this.currentLocation = latAndLong;
       });
@@ -25643,14 +25644,13 @@ var actions = {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log(latAndLong);
-            _context.next = 3;
+            _context.next = 2;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latAndLong));
 
-          case 3:
+          case 2:
             response = _context.sent;
 
-          case 4:
+          case 3:
           case "end":
             return _context.stop();
         }

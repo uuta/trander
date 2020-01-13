@@ -8,7 +8,6 @@ const mutations = {}
 
 const actions = {
   async currentLocation(context, latAndLong) {
-    console.log(latAndLong)
     const response = await axios.post('/api/external/geo-db-cities', latAndLong)
   }
 }
