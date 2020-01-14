@@ -1880,6 +1880,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1914,8 +1922,14 @@ __webpack_require__.r(__webpack_exports__);
     this.getCurrentLocation(); // DOMの読み込み前に現在地を取得
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    getPrefectureName: function getPrefectureName(state) {
-      return state.external.prefectureName;
+    getcityName: function getcityName(state) {
+      return state.external.cityName;
+    },
+    getLat: function getLat(state) {
+      return state.external.lat;
+    },
+    getLng: function getLng(state) {
+      return state.external.lng;
     }
   }),
   methods: {
@@ -1927,7 +1941,6 @@ __webpack_require__.r(__webpack_exports__);
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        console.log(latAndLong);
         _this.seeLocation = latAndLong;
         _this.currentLocation = latAndLong;
       });
@@ -4641,12 +4654,10 @@ var render = function() {
         _c("div", { attrs: { id: "map_info" } }, [
           _c("div", [
             _vm._v("\n        現在地：北海道札幌市中央区\n        "),
-            _vm.getPrefectureName
+            _vm.getcityName
               ? _c("div", [
                   _vm._v(
-                    "\n          " +
-                      _vm._s(_vm.getPrefectureName) +
-                      "\n        "
+                    "\n          " + _vm._s(_vm.getcityName) + "\n        "
                   )
                 ])
               : _vm._e()
@@ -4681,7 +4692,39 @@ var render = function() {
                   }
                 }
               },
-              [_vm._m(0)]
+              [
+                _c("div", { attrs: { id: "map_overlay_wrap" } }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm.getcityName
+                    ? _c("p", [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.getcityName) +
+                            "\n        "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(" 早速、冒険に出てみましょう！")]),
+                  _vm._v(" "),
+                  _vm.getLat
+                    ? _c("div", [
+                        _vm._v(
+                          "\n          " + _vm._s(_vm.getLat) + "\n        "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.getLng
+                    ? _c("div", [
+                        _vm._v(
+                          "\n          " + _vm._s(_vm.getLng) + "\n        "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ]
             )
           : _vm._e()
       ],
@@ -4694,15 +4737,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "map_overlay_wrap" } }, [
-      _c("p", [
-        _c("i", { staticClass: "fas fa-crown" }),
-        _vm._v(" おめでとうございます！新しいロケーションを発見しました。")
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v(" 北海道札幌市西区")]),
-      _vm._v(" "),
-      _c("p", [_vm._v(" 早速、冒険に出てみましょう！")])
+    return _c("p", [
+      _c("i", { staticClass: "fas fa-crown" }),
+      _vm._v(" おめでとうございます！新しいロケーションを発見しました。")
     ])
   }
 ]
@@ -25631,15 +25668,29 @@ var mutations = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+
 
 var state = {
-  prefectureName: 'aaa'
+  cityName: null,
+  lat: null,
+  lng: null
 };
 var getters = {};
-var mutations = {};
+var mutations = {
+  setcityName: function setcityName(state, cityName) {
+    state.cityName = cityName;
+  },
+  setLat: function setLat(state, lat) {
+    state.lat = lat;
+  },
+  setLng: function setLng(state, lng) {
+    state.lng = lng;
+  }
+};
 var actions = {
   currentLocation: function currentLocation(context, latAndLong) {
-    var response;
+    var response, city, lat, lng;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function currentLocation$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -25649,8 +25700,17 @@ var actions = {
 
           case 2:
             response = _context.sent;
+            city = response.data.data.data[0].city;
+            lat = response.data.data.data[0].latitude;
+            lng = response.data.data.data[0].longitude;
 
-          case 3:
+            if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+              context.commit('setcityName', city);
+              context.commit('setLat', lat);
+              context.commit('setLng', lng);
+            }
+
+          case 7:
           case "end":
             return _context.stop();
         }

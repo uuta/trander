@@ -10,8 +10,8 @@
       <div id="map_info">
         <div>
           現在地：北海道札幌市中央区
-          <div v-if="getPrefectureName">
-            {{ getPrefectureName }}
+          <div v-if="getcityName">
+            {{ getcityName }}
           </div>
         </div>
       </div>
@@ -22,8 +22,16 @@
       <div id="map_overlay" v-if="showModal" @click.self="hiddenModal">
         <div id="map_overlay_wrap">
           <p><i class="fas fa-crown"></i> おめでとうございます！新しいロケーションを発見しました。</p>
-          <p> 北海道札幌市西区</p>
+          <p v-if="getcityName">
+            {{ getcityName }}
+          </p>
           <p> 早速、冒険に出てみましょう！</p>
+          <div v-if="getLat">
+            {{ getLat }}
+          </div>
+          <div v-if="getLng">
+            {{ getLng }}
+          </div>
         </div>
       </div>
     </div>
@@ -52,7 +60,9 @@ export default {
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
   },
   computed: mapState({
-    getPrefectureName: state => state.external.prefectureName,
+    getcityName: state => state.external.cityName,
+    getLat: state => state.external.lat,
+    getLng: state => state.external.lng,
   }),
   methods: {
      getCurrentLocation() {
