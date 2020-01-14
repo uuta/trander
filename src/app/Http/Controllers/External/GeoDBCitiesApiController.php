@@ -17,7 +17,18 @@ class GeoDBCitiesApiController extends Controller
   public function request(Request $request)
   {
     $location = $this->getLatAndLng($request);
+    $response = $this->apiRequest($location);
+    return $response;
+  }
 
+  /**
+   * GeoDBCitiesにリクエストを送信してレスポンスを受け取る
+   *
+   * @param  string  $location
+   * @return  array
+   */
+  public function apiRequest($location)
+  {
     $client = new Client();
     $sourceUrl = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
     $responseData = $client->request("GET", $sourceUrl, [
@@ -74,7 +85,8 @@ class GeoDBCitiesApiController extends Controller
   }
 
   /**
-   * ランダムに距離を生成する
+   * ランダムに距離を生成する（）
+   * TODO: 距離は今後の課題
    *
    * @return  double
    */
