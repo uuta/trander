@@ -68,22 +68,22 @@ export default {
   methods: {
      getCurrentLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
-        const latAndLong = {
+        const latLng = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
-        this.$store.commit('external/setSeeLat', latAndLong.lat)
-        this.$store.commit('external/setSeeLng', latAndLong.lng)
-        this.$store.commit('external/setCurrentLat', latAndLong.lat)
-        this.$store.commit('external/setCurrentLng', latAndLong.lng)
+        this.$store.commit('external/setSeeLat', latLng.lat)
+        this.$store.commit('external/setSeeLng', latLng.lng)
+        this.$store.commit('external/setCurrentLat', latLng.lat)
+        this.$store.commit('external/setCurrentLng', latLng.lng)
       });
     },
     setNewLocation() {
-      const latAndLong = {
+      const latLng = {
         lat: this.setCurrentLat,
         lng: this.setCurrentLng
       }
-      this.$store.dispatch('external/setNewLocation', latAndLong)
+      this.$store.dispatch('external/setNewLocation', latLng)
     },
     hiddenModal() {
       this.$store.commit('external/setModal', false)

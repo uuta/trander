@@ -1941,26 +1941,26 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       navigator.geolocation.getCurrentPosition(function (position) {
-        var latAndLong = {
+        var latLng = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
-        _this.$store.commit('external/setSeeLat', latAndLong.lat);
+        _this.$store.commit('external/setSeeLat', latLng.lat);
 
-        _this.$store.commit('external/setSeeLng', latAndLong.lng);
+        _this.$store.commit('external/setSeeLng', latLng.lng);
 
-        _this.$store.commit('external/setCurrentLat', latAndLong.lat);
+        _this.$store.commit('external/setCurrentLat', latLng.lat);
 
-        _this.$store.commit('external/setCurrentLng', latAndLong.lng);
+        _this.$store.commit('external/setCurrentLng', latLng.lng);
       });
     },
     setNewLocation: function setNewLocation() {
-      var latAndLong = {
+      var latLng = {
         lat: this.setCurrentLat,
         lng: this.setCurrentLng
       };
-      this.$store.dispatch('external/setNewLocation', latAndLong);
+      this.$store.dispatch('external/setNewLocation', latLng);
     },
     hiddenModal: function hiddenModal() {
       this.$store.commit('external/setModal', false);
@@ -25704,14 +25704,14 @@ var mutations = {
   }
 };
 var actions = {
-  setNewLocation: function setNewLocation(context, latAndLong) {
+  setNewLocation: function setNewLocation(context, latLng) {
     var responseDatas, responseData, city, lat, lng;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latAndLong));
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latLng));
 
           case 2:
             responseDatas = _context.sent;
