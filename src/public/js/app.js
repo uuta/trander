@@ -1892,18 +1892,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      seeLocation: {
-        lat: 0,
-        lng: 0
-      },
-      currentLocation: {
-        lat: 0,
-        lng: 0
-      },
-      suggestLocation: {
-        lat: 0,
-        lng: 0
-      },
       searchAddressInput: '',
       icon_center: {
         url: '/assets/images/current_location.png',
@@ -1913,23 +1901,39 @@ __webpack_require__.r(__webpack_exports__);
           f: 'px',
           b: 'px'
         }
-      },
-      showIcon: false,
-      showModal: false
+      }
     };
   },
   created: function created() {
     this.getCurrentLocation(); // DOMの読み込み前に現在地を取得
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    getcityName: function getcityName(state) {
+    setCityName: function setCityName(state) {
       return state.external.cityName;
     },
-    getLat: function getLat(state) {
+    setLat: function setLat(state) {
       return state.external.lat;
     },
-    getLng: function getLng(state) {
+    setLng: function setLng(state) {
       return state.external.lng;
+    },
+    setCurrentLat: function setCurrentLat(state) {
+      return state.external.currentLat;
+    },
+    setCurrentLng: function setCurrentLng(state) {
+      return state.external.currentLng;
+    },
+    setSeeLat: function setSeeLat(state) {
+      return state.external.seeLat;
+    },
+    setSeeLng: function setSeeLng(state) {
+      return state.external.seeLng;
+    },
+    icon: function icon(state) {
+      return state.external.icon;
+    },
+    modal: function modal(state) {
+      return state.external.modal;
     }
   }),
   methods: {
@@ -1941,30 +1945,25 @@ __webpack_require__.r(__webpack_exports__);
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        _this.seeLocation = latAndLong;
-        _this.currentLocation = latAndLong;
+
+        _this.$store.commit('external/setSeeLat', latAndLong.lat);
+
+        _this.$store.commit('external/setSeeLng', latAndLong.lng);
+
+        _this.$store.commit('external/setCurrentLat', latAndLong.lat);
+
+        _this.$store.commit('external/setCurrentLng', latAndLong.lng);
       });
     },
     setNewLocation: function setNewLocation() {
       var latAndLong = {
-        lat: 43.067883,
-        lng: 141.322995
+        lat: this.setCurrentLat,
+        lng: this.setCurrentLng
       };
-      this.displayedIcon();
-      this.displayedModal();
-      this.suggestLocation = latAndLong;
-      this.seeLocation = latAndLong; // externalストアのcurrentLocationアクションを呼び出す
-
-      this.$store.dispatch('external/currentLocation', latAndLong);
-    },
-    displayedIcon: function displayedIcon() {
-      this.showIcon = true;
-    },
-    displayedModal: function displayedModal() {
-      this.showModal = true;
+      this.$store.dispatch('external/setNewLocation', latAndLong);
     },
     hiddenModal: function hiddenModal() {
-      this.showModal = false;
+      this.$store.commit('external/setModal', false);
     }
   }
 });
@@ -4621,7 +4620,7 @@ var render = function() {
           {
             staticStyle: { width: "100%", height: "100%" },
             attrs: {
-              center: { lat: _vm.seeLocation.lat, lng: _vm.seeLocation.lng },
+              center: { lat: _vm.setSeeLat, lng: _vm.setSeeLng },
               zoom: 14,
               options: { disableDefaultUI: true }
             }
@@ -4629,22 +4628,14 @@ var render = function() {
           [
             _c("gmap-marker", {
               attrs: {
-                position: {
-                  lat: _vm.currentLocation.lat,
-                  lng: _vm.currentLocation.lng
-                },
+                position: { lat: _vm.setCurrentLat, lng: _vm.setCurrentLng },
                 icon: _vm.icon_center
               }
             }),
             _vm._v(" "),
-            _vm.showIcon
+            _vm.icon
               ? _c("gmap-marker", {
-                  attrs: {
-                    position: {
-                      lat: _vm.suggestLocation.lat,
-                      lng: _vm.suggestLocation.lng
-                    }
-                  }
+                  attrs: { position: { lat: _vm.setLat, lng: _vm.setLng } }
                 })
               : _vm._e()
           ],
@@ -4653,11 +4644,11 @@ var render = function() {
         _vm._v(" "),
         _c("div", { attrs: { id: "map_info" } }, [
           _c("div", [
-            _vm._v("\n        現在地：北海道札幌市中央区\n        "),
-            _vm.getcityName
+            _vm._v("\n        現在地：東京都中央区\n        "),
+            _vm.setCityName
               ? _c("div", [
                   _vm._v(
-                    "\n          " + _vm._s(_vm.getcityName) + "\n        "
+                    "\n          " + _vm._s(_vm.setCityName) + "\n        "
                   )
                 ])
               : _vm._e()
@@ -4678,7 +4669,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm.showModal
+        _vm.modal
           ? _c(
               "div",
               {
@@ -4696,11 +4687,11 @@ var render = function() {
                 _c("div", { attrs: { id: "map_overlay_wrap" } }, [
                   _vm._m(0),
                   _vm._v(" "),
-                  _vm.getcityName
+                  _vm.setCityName
                     ? _c("p", [
                         _vm._v(
                           "\n          " +
-                            _vm._s(_vm.getcityName) +
+                            _vm._s(_vm.setCityName) +
                             "\n        "
                         )
                       ])
@@ -4708,18 +4699,18 @@ var render = function() {
                   _vm._v(" "),
                   _c("p", [_vm._v(" 早速、冒険に出てみましょう！")]),
                   _vm._v(" "),
-                  _vm.getLat
+                  _vm.setLat
                     ? _c("div", [
                         _vm._v(
-                          "\n          " + _vm._s(_vm.getLat) + "\n        "
+                          "\n          " + _vm._s(_vm.setLat) + "\n        "
                         )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.getLng
+                  _vm.setLng
                     ? _c("div", [
                         _vm._v(
-                          "\n          " + _vm._s(_vm.getLng) + "\n        "
+                          "\n          " + _vm._s(_vm.setLng) + "\n        "
                         )
                       ])
                     : _vm._e()
@@ -25674,7 +25665,13 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   cityName: null,
   lat: null,
-  lng: null
+  lng: null,
+  currentLat: null,
+  currentLng: null,
+  seeLat: null,
+  seeLng: null,
+  icon: false,
+  modal: false
 };
 var getters = {};
 var mutations = {
@@ -25686,12 +25683,30 @@ var mutations = {
   },
   setLng: function setLng(state, lng) {
     state.lng = lng;
+  },
+  setCurrentLat: function setCurrentLat(state, currentLat) {
+    state.currentLat = currentLat;
+  },
+  setCurrentLng: function setCurrentLng(state, currentLng) {
+    state.currentLng = currentLng;
+  },
+  setSeeLat: function setSeeLat(state, seeLat) {
+    state.seeLat = seeLat;
+  },
+  setSeeLng: function setSeeLng(state, seeLng) {
+    state.seeLng = seeLng;
+  },
+  setIcon: function setIcon(state, icon) {
+    state.icon = icon;
+  },
+  setModal: function setModal(state, modal) {
+    state.modal = modal;
   }
 };
 var actions = {
-  currentLocation: function currentLocation(context, latAndLong) {
-    var response, city, lat, lng;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function currentLocation$(_context) {
+  setNewLocation: function setNewLocation(context, latAndLong) {
+    var responseDatas, responseData, city, lat, lng;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -25699,18 +25714,24 @@ var actions = {
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latAndLong));
 
           case 2:
-            response = _context.sent;
-            city = response.data.data.data[0].city;
-            lat = response.data.data.data[0].latitude;
-            lng = response.data.data.data[0].longitude;
+            responseDatas = _context.sent;
+            responseData = responseDatas.data.data.data[0];
+            city = responseData.city;
+            lat = responseData.latitude;
+            lng = responseData.longitude;
 
-            if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+            if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
               context.commit('setcityName', city);
               context.commit('setLat', lat);
               context.commit('setLng', lng);
-            }
+              context.commit('setSeeLat', lat);
+              context.commit('setSeeLng', lng);
+              context.commit('setIcon', true);
+              context.commit('setModal', true);
+            } // TODO: エラーハンドリングしたい
 
-          case 7:
+
+          case 8:
           case "end":
             return _context.stop();
         }
