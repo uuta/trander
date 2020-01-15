@@ -1847,6 +1847,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -1876,21 +1877,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      seeLocation: {
-        lat: 0,
-        lng: 0
-      },
-      currentLocation: {
-        lat: 0,
-        lng: 0
-      },
-      suggestLocation: {
-        lat: 0,
-        lng: 0
-      },
       searchAddressInput: '',
       icon_center: {
         url: '/assets/images/current_location.png',
@@ -1900,14 +1901,41 @@ __webpack_require__.r(__webpack_exports__);
           f: 'px',
           b: 'px'
         }
-      },
-      showIcon: false,
-      showModal: false
+      }
     };
   },
   created: function created() {
     this.getCurrentLocation(); // DOMの読み込み前に現在地を取得
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    setCityName: function setCityName(state) {
+      return state.external.cityName;
+    },
+    setLat: function setLat(state) {
+      return state.external.lat;
+    },
+    setLng: function setLng(state) {
+      return state.external.lng;
+    },
+    setCurrentLat: function setCurrentLat(state) {
+      return state.external.currentLat;
+    },
+    setCurrentLng: function setCurrentLng(state) {
+      return state.external.currentLng;
+    },
+    setSeeLat: function setSeeLat(state) {
+      return state.external.seeLat;
+    },
+    setSeeLng: function setSeeLng(state) {
+      return state.external.seeLng;
+    },
+    icon: function icon(state) {
+      return state.external.icon;
+    },
+    modal: function modal(state) {
+      return state.external.modal;
+    }
+  }),
   methods: {
     getCurrentLocation: function getCurrentLocation() {
       var _this = this;
@@ -1917,28 +1945,25 @@ __webpack_require__.r(__webpack_exports__);
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        _this.seeLocation = latAndLong;
-        _this.currentLocation = latAndLong;
+
+        _this.$store.commit('external/setSeeLat', latAndLong.lat);
+
+        _this.$store.commit('external/setSeeLng', latAndLong.lng);
+
+        _this.$store.commit('external/setCurrentLat', latAndLong.lat);
+
+        _this.$store.commit('external/setCurrentLng', latAndLong.lng);
       });
     },
     setNewLocation: function setNewLocation() {
       var latAndLong = {
-        lat: 43.067883,
-        lng: 141.322995
+        lat: this.setCurrentLat,
+        lng: this.setCurrentLng
       };
-      this.displayedIcon();
-      this.displayedModal();
-      this.suggestLocation = latAndLong;
-      this.seeLocation = latAndLong;
-    },
-    displayedIcon: function displayedIcon() {
-      this.showIcon = true;
-    },
-    displayedModal: function displayedModal() {
-      this.showModal = true;
+      this.$store.dispatch('external/setNewLocation', latAndLong);
     },
     hiddenModal: function hiddenModal() {
-      this.showModal = false;
+      this.$store.commit('external/setModal', false);
     }
   }
 });
@@ -4595,7 +4620,7 @@ var render = function() {
           {
             staticStyle: { width: "100%", height: "100%" },
             attrs: {
-              center: { lat: _vm.seeLocation.lat, lng: _vm.seeLocation.lng },
+              center: { lat: _vm.setSeeLat, lng: _vm.setSeeLng },
               zoom: 14,
               options: { disableDefaultUI: true }
             }
@@ -4603,29 +4628,32 @@ var render = function() {
           [
             _c("gmap-marker", {
               attrs: {
-                position: {
-                  lat: _vm.currentLocation.lat,
-                  lng: _vm.currentLocation.lng
-                },
+                position: { lat: _vm.setCurrentLat, lng: _vm.setCurrentLng },
                 icon: _vm.icon_center
               }
             }),
             _vm._v(" "),
-            _vm.showIcon
+            _vm.icon
               ? _c("gmap-marker", {
-                  attrs: {
-                    position: {
-                      lat: _vm.suggestLocation.lat,
-                      lng: _vm.suggestLocation.lng
-                    }
-                  }
+                  attrs: { position: { lat: _vm.setLat, lng: _vm.setLng } }
                 })
               : _vm._e()
           ],
           1
         ),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { attrs: { id: "map_info" } }, [
+          _c("div", [
+            _vm._v("\n        現在地：東京都中央区\n        "),
+            _vm.setCityName
+              ? _c("div", [
+                  _vm._v(
+                    "\n          " + _vm._s(_vm.setCityName) + "\n        "
+                  )
+                ])
+              : _vm._e()
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { attrs: { id: "map_btn" } }, [
           _c(
@@ -4641,7 +4669,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm.showModal
+        _vm.modal
           ? _c(
               "div",
               {
@@ -4655,7 +4683,39 @@ var render = function() {
                   }
                 }
               },
-              [_vm._m(1)]
+              [
+                _c("div", { attrs: { id: "map_overlay_wrap" } }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm.setCityName
+                    ? _c("p", [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.setCityName) +
+                            "\n        "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(" 早速、冒険に出てみましょう！")]),
+                  _vm._v(" "),
+                  _vm.setLat
+                    ? _c("div", [
+                        _vm._v(
+                          "\n          " + _vm._s(_vm.setLat) + "\n        "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.setLng
+                    ? _c("div", [
+                        _vm._v(
+                          "\n          " + _vm._s(_vm.setLng) + "\n        "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ]
             )
           : _vm._e()
       ],
@@ -4668,23 +4728,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "map_info" } }, [
-      _c("div", [_vm._v("\n        現在地：北海道札幌市中央区\n      ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "map_overlay_wrap" } }, [
-      _c("p", [
-        _c("i", { staticClass: "fas fa-crown" }),
-        _vm._v(" おめでとうございます！新しいロケーションを発見しました。")
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v(" 北海道札幌市西区")]),
-      _vm._v(" "),
-      _c("p", [_vm._v(" 早速、冒険に出てみましょう！")])
+    return _c("p", [
+      _c("i", { staticClass: "fas fa-crown" }),
+      _vm._v(" おめでとうございます！新しいロケーションを発見しました。")
     ])
   }
 ]
@@ -25602,6 +25648,107 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/js/store/external.js":
+/*!****************************************!*\
+  !*** ./resources/js/store/external.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+
+
+var state = {
+  cityName: null,
+  lat: null,
+  lng: null,
+  currentLat: null,
+  currentLng: null,
+  seeLat: null,
+  seeLng: null,
+  icon: false,
+  modal: false
+};
+var getters = {};
+var mutations = {
+  setcityName: function setcityName(state, cityName) {
+    state.cityName = cityName;
+  },
+  setLat: function setLat(state, lat) {
+    state.lat = lat;
+  },
+  setLng: function setLng(state, lng) {
+    state.lng = lng;
+  },
+  setCurrentLat: function setCurrentLat(state, currentLat) {
+    state.currentLat = currentLat;
+  },
+  setCurrentLng: function setCurrentLng(state, currentLng) {
+    state.currentLng = currentLng;
+  },
+  setSeeLat: function setSeeLat(state, seeLat) {
+    state.seeLat = seeLat;
+  },
+  setSeeLng: function setSeeLng(state, seeLng) {
+    state.seeLng = seeLng;
+  },
+  setIcon: function setIcon(state, icon) {
+    state.icon = icon;
+  },
+  setModal: function setModal(state, modal) {
+    state.modal = modal;
+  }
+};
+var actions = {
+  setNewLocation: function setNewLocation(context, latAndLong) {
+    var responseDatas, responseData, city, lat, lng;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latAndLong));
+
+          case 2:
+            responseDatas = _context.sent;
+            responseData = responseDatas.data.data.data[0];
+            city = responseData.city;
+            lat = responseData.latitude;
+            lng = responseData.longitude;
+
+            if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+              context.commit('setcityName', city);
+              context.commit('setLat', lat);
+              context.commit('setLng', lng);
+              context.commit('setSeeLat', lat);
+              context.commit('setSeeLng', lng);
+              context.commit('setIcon', true);
+              context.commit('setModal', true);
+            } // TODO: エラーハンドリングしたい
+
+
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
@@ -25616,6 +25763,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./resources/js/store/auth.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./error */ "./resources/js/store/error.js");
+/* harmony import */ var _external__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./external */ "./resources/js/store/external.js");
+
 
 
 
@@ -25624,7 +25773,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"],
-    error: _error__WEBPACK_IMPORTED_MODULE_3__["default"]
+    error: _error__WEBPACK_IMPORTED_MODULE_3__["default"],
+    external: _external__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
