@@ -25715,7 +25715,9 @@ var actions = {
 
           case 2:
             responseDatas = _context.sent;
-            responseData = responseDatas.data.data.data[0];
+            console.log('responseDatas', responseDatas);
+            responseData = responseDatas.data.data[0];
+            console.log('responseData', responseData);
             city = responseData.city;
             lat = responseData.latitude;
             lng = responseData.longitude;
@@ -25731,7 +25733,7 @@ var actions = {
             } // TODO: エラーハンドリングしたい
 
 
-          case 8:
+          case 10:
           case "end":
             return _context.stop();
         }

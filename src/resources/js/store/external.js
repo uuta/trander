@@ -49,7 +49,9 @@ const mutations = {
 const actions = {
   async setNewLocation(context, latLng) {
     const responseDatas = await axios.post('/api/external/geo-db-cities', latLng)
-    const responseData = responseDatas.data.data.data[0]
+    console.log('responseDatas', responseDatas)
+    const responseData = responseDatas.data.data[0]
+    console.log('responseData', responseData)
     const city = responseData.city
     const lat = responseData.latitude
     const lng = responseData.longitude

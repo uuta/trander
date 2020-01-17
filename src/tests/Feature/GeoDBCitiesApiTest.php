@@ -31,9 +31,6 @@ class GeoDBCitiesApiTest extends TestCase
         ];
         $response = $this->post(route('geo-db-cities'), $request);
         $response
-            ->assertStatus(200)
-            ->assertJson([
-                'status' => 'OK'
-            ]);
+            ->assertStatus(200);
     }
 }
