@@ -1957,8 +1957,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     setNewLocation: function setNewLocation() {
       var latLng = {
-        lat: this.setCurrentLat,
-        lng: this.setCurrentLng
+        lat: 35.188444,
+        lng: 152.442722
       };
       this.$store.dispatch('external/setNewLocation', latLng);
     },

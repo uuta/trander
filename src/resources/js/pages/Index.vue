@@ -80,8 +80,8 @@ export default {
     },
     setNewLocation() {
       const latLng = {
-        lat: this.setCurrentLat,
-        lng: this.setCurrentLng
+        lat: 35.188444,
+        lng: 152.442722
       }
       this.$store.dispatch('external/setNewLocation', latLng)
     },
