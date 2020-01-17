@@ -13,6 +13,9 @@
           <div v-if="setCityName">
             {{ setCityName }}
           </div>
+          <div v-if="errorMessages">
+            {{ errorMessages }}
+          </div>
         </div>
       </div>
       <div id="map_btn">
@@ -63,7 +66,8 @@ export default {
     setSeeLat: state => state.external.seeLat,
     setSeeLng: state => state.external.seeLng,
     icon: state => state.external.icon,
-    modal: state => state.external.modal
+    modal: state => state.external.modal,
+    errorMessages: state => state.external.errorMessages
   }),
   methods: {
      getCurrentLocation() {
@@ -80,8 +84,8 @@ export default {
     },
     setNewLocation() {
       const latLng = {
-        lat: 35.188444,
-        lng: 152.442722
+        lat: this.setCurrentLat,
+        lng: this.setCurrentLng
       }
       this.$store.dispatch('external/setNewLocation', latLng)
     },

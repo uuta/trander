@@ -1888,6 +1888,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1934,6 +1937,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     modal: function modal(state) {
       return state.external.modal;
+    },
+    errorMessages: function errorMessages(state) {
+      return state.external.errorMessages;
     }
   }),
   methods: {
@@ -1957,8 +1963,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     setNewLocation: function setNewLocation() {
       var latLng = {
-        lat: 35.188444,
-        lng: 152.442722
+        lat: this.setCurrentLat,
+        lng: this.setCurrentLng
       };
       this.$store.dispatch('external/setNewLocation', latLng);
     },
@@ -4649,6 +4655,14 @@ var render = function() {
               ? _c("div", [
                   _vm._v(
                     "\n          " + _vm._s(_vm.setCityName) + "\n        "
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.errorMessages
+              ? _c("div", [
+                  _vm._v(
+                    "\n          " + _vm._s(_vm.errorMessages) + "\n        "
                   )
                 ])
               : _vm._e()
@@ -25671,7 +25685,8 @@ var state = {
   seeLat: null,
   seeLng: null,
   icon: false,
-  modal: false
+  modal: false,
+  errorMessages: null
 };
 var getters = {};
 var mutations = {
@@ -25701,11 +25716,14 @@ var mutations = {
   },
   setModal: function setModal(state, modal) {
     state.modal = modal;
+  },
+  setErrorMessages: function setErrorMessages(state, errorMessages) {
+    state.errorMessages = errorMessages;
   }
 };
 var actions = {
   setNewLocation: function setNewLocation(context, latLng) {
-    var responseDatas, responseData, city, lat, lng;
+    var responseDatas, responseData, city, lat, lng, errors;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -25715,14 +25733,12 @@ var actions = {
 
           case 2:
             responseDatas = _context.sent;
-            console.log('responseDatas', responseDatas);
-            responseData = responseDatas.data.data[0];
-            console.log('responseData', responseData);
-            city = responseData.city;
-            lat = responseData.latitude;
-            lng = responseData.longitude;
 
-            if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+            if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && responseDatas.data.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+              responseData = responseDatas.data.data[0];
+              city = responseData.city;
+              lat = responseData.latitude;
+              lng = responseData.longitude;
               context.commit('setcityName', city);
               context.commit('setLat', lat);
               context.commit('setLng', lng);
@@ -25730,10 +25746,14 @@ var actions = {
               context.commit('setSeeLng', lng);
               context.commit('setIcon', true);
               context.commit('setModal', true);
-            } // TODO: エラーハンドリングしたい
+            }
 
+            if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && responseDatas.data.status === _util__WEBPACK_IMPORTED_MODULE_1__["NO_RECORD"]) {
+              errors = responseDatas.data.errors.message;
+              context.commit('setErrorMessages', errors);
+            }
 
-          case 10:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -25787,13 +25807,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*!******************************!*\
   !*** ./resources/js/util.js ***!
   \******************************/
-/*! exports provided: OK, CREATED, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY, getCookieValue */
+/*! exports provided: OK, CREATED, NO_RECORD, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY, getCookieValue */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OK", function() { return OK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATED", function() { return CREATED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NO_RECORD", function() { return NO_RECORD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERNAL_SERVER_ERROR", function() { return INTERNAL_SERVER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNPROCESSABLE_ENTITY", function() { return UNPROCESSABLE_ENTITY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCookieValue", function() { return getCookieValue; });
@@ -25807,6 +25828,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var OK = 200;
 var CREATED = 201;
+var NO_RECORD = 204;
 var INTERNAL_SERVER_ERROR = 500;
 var UNPROCESSABLE_ENTITY = 422;
 /**

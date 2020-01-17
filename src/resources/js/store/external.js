@@ -1,5 +1,6 @@
 import {
-    OK
+  OK,
+  NO_RECORD
 } from '../util'
 
 const state = {
@@ -12,6 +13,7 @@ const state = {
   seeLng: null,
   icon: false,
   modal: false,
+  errorMessages: null
 }
 
 const getters = {}
@@ -44,19 +46,21 @@ const mutations = {
   setModal(state, modal) {
     state.modal = modal
   },
+  setErrorMessages(state, errorMessages) {
+    state.errorMessages = errorMessages
+  },
 }
 
 const actions = {
   async setNewLocation(context, latLng) {
     const responseDatas = await axios.post('/api/external/geo-db-cities', latLng)
-    console.log('responseDatas', responseDatas)
-    const responseData = responseDatas.data.data[0]
-    console.log('responseData', responseData)
-    const city = responseData.city
-    const lat = responseData.latitude
-    const lng = responseData.longitude
 
-    if (responseDatas.status === OK) {
+    if (responseDatas.status === OK && responseDatas.data.status === OK) {
+      const responseData = responseDatas.data.data[0]
+      const city = responseData.city
+      const lat = responseData.latitude
+      const lng = responseData.longitude
+
       context.commit('setcityName', city)
       context.commit('setLat', lat)
       context.commit('setLng', lng)
@@ -66,7 +70,10 @@ const actions = {
       context.commit('setModal', true)
     }
 
-    // TODO: エラーハンドリングしたい
+    if (responseDatas.status === OK && responseDatas.data.status === NO_RECORD) {
+      const errors = responseDatas.data.errors.message
+      context.commit('setErrorMessages', errors)
+    }
   }
 }
 export default {
