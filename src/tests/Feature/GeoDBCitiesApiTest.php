@@ -7,8 +7,6 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
-// Guzzleモジュールのクラス読み込み
-use GuzzleHttp\Client;
 
 class GeoDBCitiesApiTest extends TestCase
 {
@@ -37,7 +35,7 @@ class GeoDBCitiesApiTest extends TestCase
     /**
      * @test
      */
-    public function should_GeoDBCities_APIへのリクエストで204エラーが返ってくる()
+    public function should_GeoDBCities_APIへのリクエストで204が返ってくる()
     {
         // 100km圏内に都市がない緯度経度をリクエストパラメーターに設定
         $request = [
@@ -56,5 +54,19 @@ class GeoDBCitiesApiTest extends TestCase
                     'message' => $message
                 ]
             ]);
+    }
+
+    /**
+     * @test
+     */
+    public function should_GeoDBCities_APIへのリクエストで500エラーが返ってくる()
+    {
+        // 文字列を緯度経度のリクエストパラメーターに設定
+        $request = [
+            'lat' => 'test',
+            'lng' => 'test'
+        ];
+        $response = $this->post(route('geo-db-cities'), $request);
+        $response->assertStatus(500);
     }
 }

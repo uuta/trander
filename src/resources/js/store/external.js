@@ -52,7 +52,7 @@ const mutations = {
 }
 
 const actions = {
-  async setNewLocation(context, latLng) {
+  async setNewLocation(context, { latLng, router }) {
     const responseDatas = await axios.post('/api/external/geo-db-cities', latLng)
 
     if (responseDatas.status === OK && responseDatas.data.status === OK) {
@@ -74,6 +74,8 @@ const actions = {
       const errors = responseDatas.data.errors.message
       context.commit('setErrorMessages', errors)
     }
+
+    router.push('/500')
   }
 }
 export default {

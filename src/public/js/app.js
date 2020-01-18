@@ -1966,7 +1966,11 @@ __webpack_require__.r(__webpack_exports__);
         lat: this.setCurrentLat,
         lng: this.setCurrentLng
       };
-      this.$store.dispatch('external/setNewLocation', latLng);
+      var router = this.$router;
+      this.$store.dispatch('external/setNewLocation', {
+        latLng: latLng,
+        router: router
+      });
     },
     hiddenModal: function hiddenModal() {
       this.$store.commit('external/setModal', false);
@@ -25722,16 +25726,17 @@ var mutations = {
   }
 };
 var actions = {
-  setNewLocation: function setNewLocation(context, latLng) {
-    var responseDatas, responseData, city, lat, lng, errors;
+  setNewLocation: function setNewLocation(context, _ref) {
+    var latLng, router, responseDatas, responseData, city, lat, lng, errors;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            latLng = _ref.latLng, router = _ref.router;
+            _context.next = 3;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latLng));
 
-          case 2:
+          case 3:
             responseDatas = _context.sent;
 
             if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && responseDatas.data.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
@@ -25753,7 +25758,9 @@ var actions = {
               context.commit('setErrorMessages', errors);
             }
 
-          case 5:
+            router.push('/500');
+
+          case 7:
           case "end":
             return _context.stop();
         }

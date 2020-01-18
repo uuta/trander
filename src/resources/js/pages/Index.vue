@@ -87,7 +87,8 @@ export default {
         lat: this.setCurrentLat,
         lng: this.setCurrentLng
       }
-      this.$store.dispatch('external/setNewLocation', latLng)
+      const router = this.$router
+      this.$store.dispatch('external/setNewLocation', {latLng, router})
     },
     hiddenModal() {
       this.$store.commit('external/setModal', false)
