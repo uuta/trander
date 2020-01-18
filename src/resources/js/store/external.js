@@ -74,8 +74,6 @@ const actions = {
       const errors = responseDatas.data.errors.message
       context.commit('setErrorMessages', errors)
     }
-
-    router.push('/500')
   }
 }
 export default {

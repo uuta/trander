@@ -1889,8 +1889,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4620,126 +4618,114 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container--small" }, [
-    _c(
-      "div",
-      { attrs: { id: "map" } },
-      [
-        _c(
-          "GmapMap",
-          {
-            staticStyle: { width: "100%", height: "100%" },
+  return _c(
+    "div",
+    { attrs: { id: "map" } },
+    [
+      _c(
+        "GmapMap",
+        {
+          staticStyle: { width: "100%", height: "100%" },
+          attrs: {
+            center: { lat: _vm.setSeeLat, lng: _vm.setSeeLng },
+            zoom: 14,
+            options: { disableDefaultUI: true }
+          }
+        },
+        [
+          _c("gmap-marker", {
             attrs: {
-              center: { lat: _vm.setSeeLat, lng: _vm.setSeeLng },
-              zoom: 14,
-              options: { disableDefaultUI: true }
+              position: { lat: _vm.setCurrentLat, lng: _vm.setCurrentLng },
+              icon: _vm.icon_center
             }
-          },
-          [
-            _c("gmap-marker", {
-              attrs: {
-                position: { lat: _vm.setCurrentLat, lng: _vm.setCurrentLng },
-                icon: _vm.icon_center
-              }
-            }),
-            _vm._v(" "),
-            _vm.icon
-              ? _c("gmap-marker", {
-                  attrs: { position: { lat: _vm.setLat, lng: _vm.setLng } }
-                })
-              : _vm._e()
-          ],
-          1
+          }),
+          _vm._v(" "),
+          _vm.icon
+            ? _c("gmap-marker", {
+                attrs: { position: { lat: _vm.setLat, lng: _vm.setLng } }
+              })
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "map_info" } }, [
+        _c("div", [
+          _vm._v("\n      現在地：東京都中央区\n      "),
+          _vm.setCityName
+            ? _c("div", [
+                _vm._v("\n        " + _vm._s(_vm.setCityName) + "\n      ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.errorMessages
+            ? _c("div", [
+                _vm._v("\n        " + _vm._s(_vm.errorMessages) + "\n      ")
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "map_btn" } }, [
+        _c(
+          "button",
+          { staticClass: "button_map", on: { click: _vm.setNewLocation } },
+          [_c("i", { staticClass: "fas fa-user-cog" })]
         ),
         _vm._v(" "),
-        _c("div", { attrs: { id: "map_info" } }, [
-          _c("div", [
-            _vm._v("\n        現在地：東京都中央区\n        "),
-            _vm.setCityName
-              ? _c("div", [
-                  _vm._v(
-                    "\n          " + _vm._s(_vm.setCityName) + "\n        "
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.errorMessages
-              ? _c("div", [
-                  _vm._v(
-                    "\n          " + _vm._s(_vm.errorMessages) + "\n        "
-                  )
-                ])
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "map_btn" } }, [
-          _c(
-            "button",
-            { staticClass: "button_map", on: { click: _vm.setNewLocation } },
-            [_c("i", { staticClass: "fas fa-user-cog" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "button_map", on: { click: _vm.setNewLocation } },
-            [_c("i", { staticClass: "fas fa-plus" })]
-          )
-        ]),
-        _vm._v(" "),
-        _vm.modal
-          ? _c(
-              "div",
-              {
-                attrs: { id: "map_overlay" },
-                on: {
-                  click: function($event) {
-                    if ($event.target !== $event.currentTarget) {
-                      return null
-                    }
-                    return _vm.hiddenModal($event)
+        _c(
+          "button",
+          { staticClass: "button_map", on: { click: _vm.setNewLocation } },
+          [_c("i", { staticClass: "fas fa-plus" })]
+        )
+      ]),
+      _vm._v(" "),
+      _vm.modal
+        ? _c(
+            "div",
+            {
+              attrs: { id: "map_overlay" },
+              on: {
+                click: function($event) {
+                  if ($event.target !== $event.currentTarget) {
+                    return null
                   }
+                  return _vm.hiddenModal($event)
                 }
-              },
-              [
-                _c("div", { attrs: { id: "map_overlay_wrap" } }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm.setCityName
-                    ? _c("p", [
-                        _vm._v(
-                          "\n          " +
-                            _vm._s(_vm.setCityName) +
-                            "\n        "
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(" 早速、冒険に出てみましょう！")]),
-                  _vm._v(" "),
-                  _vm.setLat
-                    ? _c("div", [
-                        _vm._v(
-                          "\n          " + _vm._s(_vm.setLat) + "\n        "
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.setLng
-                    ? _c("div", [
-                        _vm._v(
-                          "\n          " + _vm._s(_vm.setLng) + "\n        "
-                        )
-                      ])
-                    : _vm._e()
-                ])
-              ]
-            )
-          : _vm._e()
-      ],
-      1
-    )
-  ])
+              }
+            },
+            [
+              _c("div", { attrs: { id: "map_overlay_wrap" } }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm.setCityName
+                  ? _c("p", [
+                      _vm._v(
+                        "\n        " + _vm._s(_vm.setCityName) + "\n      "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("p", [_vm._v(" 早速、冒険に出てみましょう！")]),
+                _vm._v(" "),
+                _vm.setLat
+                  ? _c("div", [
+                      _vm._v("\n        " + _vm._s(_vm.setLat) + "\n      ")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.setLng
+                  ? _c("div", [
+                      _vm._v("\n        " + _vm._s(_vm.setLng) + "\n      ")
+                    ])
+                  : _vm._e()
+              ])
+            ]
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -25758,9 +25744,7 @@ var actions = {
               context.commit('setErrorMessages', errors);
             }
 
-            router.push('/500');
-
-          case 7:
+          case 6:
           case "end":
             return _context.stop();
         }
