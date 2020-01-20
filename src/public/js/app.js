@@ -1724,8 +1724,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2060,6 +2058,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2134,6 +2134,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     user: function user() {
@@ -2154,6 +2156,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
 //
 //
 //
@@ -2238,6 +2242,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2275,6 +2281,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -4491,9 +4499,7 @@ var render = function() {
     [
       _c("header", [_c("Navbar")], 1),
       _vm._v(" "),
-      _c("main", [
-        _c("div", { staticClass: "container" }, [_c("RouterView")], 1)
-      ]),
+      _c("main", [_c("RouterView")], 1),
       _vm._v(" "),
       _c("Footer")
     ],
@@ -4759,356 +4765,360 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container--small" }, [
-    _c("ul", { staticClass: "tab" }, [
-      _c(
-        "li",
-        {
-          staticClass: "tab__item",
-          class: { "tab__item--active": _vm.tab === 1 },
-          on: {
-            click: function($event) {
-              _vm.tab = 1
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "container--small" }, [
+      _c("ul", { staticClass: "tab" }, [
+        _c(
+          "li",
+          {
+            staticClass: "tab__item",
+            class: { "tab__item--active": _vm.tab === 1 },
+            on: {
+              click: function($event) {
+                _vm.tab = 1
+              }
             }
-          }
+          },
+          [_vm._v("ログイン")]
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            staticClass: "tab__item",
+            class: { "tab__item--active": _vm.tab === 2 },
+            on: {
+              click: function($event) {
+                _vm.tab = 2
+              }
+            }
+          },
+          [_vm._v("会員登録")]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.tab === 1,
+              expression: "tab === 1"
+            }
+          ],
+          staticClass: "panel"
         },
-        [_vm._v("ログイン")]
+        [
+          _c(
+            "form",
+            {
+              staticClass: "form",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.login($event)
+                }
+              }
+            },
+            [
+              _vm.loginErrors
+                ? _c("div", { staticClass: "errors" }, [
+                    _vm.loginErrors.email
+                      ? _c(
+                          "ul",
+                          _vm._l(_vm.loginErrors.email, function(msg) {
+                            return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                          }),
+                          0
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.loginErrors.password
+                      ? _c(
+                          "ul",
+                          _vm._l(_vm.loginErrors.password, function(msg) {
+                            return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                          }),
+                          0
+                        )
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "login-email" } }, [
+                _vm._v("メールアドレス")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.loginForm.email,
+                    expression: "loginForm.email"
+                  }
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "email",
+                  id: "login-email",
+                  placeholder: "PC・スマホどちらでも可"
+                },
+                domProps: { value: _vm.loginForm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.loginForm, "email", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "login-password" } }, [
+                _vm._v("パスワード")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.loginForm.password,
+                    expression: "loginForm.password"
+                  }
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "password",
+                  id: "login-password",
+                  placeholder: "6文字以上の半角英数字"
+                },
+                domProps: { value: _vm.loginForm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.loginForm, "password", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "RouterLink",
+                {
+                  staticClass: "panel__txt__right",
+                  attrs: { to: "/reset-password" }
+                },
+                [_vm._v("\n          パスワードをお忘れですか？\n        ")]
+              ),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1)
+            ],
+            1
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
-        "li",
+        "div",
         {
-          staticClass: "tab__item",
-          class: { "tab__item--active": _vm.tab === 2 },
-          on: {
-            click: function($event) {
-              _vm.tab = 2
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.tab === 2,
+              expression: "tab === 2"
             }
-          }
-        },
-        [_vm._v("会員登録")]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.tab === 1,
-            expression: "tab === 1"
-          }
-        ],
-        staticClass: "panel"
-      },
-      [
-        _c(
-          "form",
-          {
-            staticClass: "form",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.login($event)
-              }
-            }
-          },
-          [
-            _vm.loginErrors
-              ? _c("div", { staticClass: "errors" }, [
-                  _vm.loginErrors.email
-                    ? _c(
-                        "ul",
-                        _vm._l(_vm.loginErrors.email, function(msg) {
-                          return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                        }),
-                        0
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.loginErrors.password
-                    ? _c(
-                        "ul",
-                        _vm._l(_vm.loginErrors.password, function(msg) {
-                          return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                        }),
-                        0
-                      )
-                    : _vm._e()
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "login-email" } }, [
-              _vm._v("メールアドレス")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.loginForm.email,
-                  expression: "loginForm.email"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "email",
-                id: "login-email",
-                placeholder: "PC・スマホどちらでも可"
-              },
-              domProps: { value: _vm.loginForm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.loginForm, "email", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "login-password" } }, [
-              _vm._v("パスワード")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.loginForm.password,
-                  expression: "loginForm.password"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "password",
-                id: "login-password",
-                placeholder: "6文字以上の半角英数字"
-              },
-              domProps: { value: _vm.loginForm.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.loginForm, "password", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "RouterLink",
-              {
-                staticClass: "panel__txt__right",
-                attrs: { to: "/reset-password" }
-              },
-              [_vm._v("\n        パスワードをお忘れですか？\n      ")]
-            ),
-            _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._m(1)
           ],
-          1
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.tab === 2,
-            expression: "tab === 2"
-          }
-        ],
-        staticClass: "panel"
-      },
-      [
-        _c("div", { staticClass: "panel__hr" }, [
-          _vm._v("サインアップしましょう")
-        ]),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _c(
-          "form",
-          {
-            staticClass: "form",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.register($event)
-              }
-            }
-          },
-          [
-            _vm.registerErrors
-              ? _c("div", { staticClass: "errors" }, [
-                  _vm.registerErrors.name
-                    ? _c(
-                        "ul",
-                        _vm._l(_vm.registerErrors.name, function(msg) {
-                          return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                        }),
-                        0
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.registerErrors.email
-                    ? _c(
-                        "ul",
-                        _vm._l(_vm.registerErrors.email, function(msg) {
-                          return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                        }),
-                        0
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.registerErrors.password
-                    ? _c(
-                        "ul",
-                        _vm._l(_vm.registerErrors.password, function(msg) {
-                          return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                        }),
-                        0
-                      )
-                    : _vm._e()
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "username" } }, [_vm._v("お名前")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.registerForm.name,
-                  expression: "registerForm.name"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "text",
-                id: "username",
-                placeholder: "例）Trander太郎"
-              },
-              domProps: { value: _vm.registerForm.name },
+          staticClass: "panel"
+        },
+        [
+          _c("div", { staticClass: "panel__hr" }, [
+            _vm._v("サインアップしましょう")
+          ]),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "form",
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.registerForm, "name", $event.target.value)
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.register($event)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "email" } }, [
-              _vm._v("メールアドレス")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.registerForm.email,
-                  expression: "registerForm.email"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "text",
-                id: "email",
-                placeholder: "PC・スマホどちらでも可"
-              },
-              domProps: { value: _vm.registerForm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            },
+            [
+              _vm.registerErrors
+                ? _c("div", { staticClass: "errors" }, [
+                    _vm.registerErrors.name
+                      ? _c(
+                          "ul",
+                          _vm._l(_vm.registerErrors.name, function(msg) {
+                            return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                          }),
+                          0
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.registerErrors.email
+                      ? _c(
+                          "ul",
+                          _vm._l(_vm.registerErrors.email, function(msg) {
+                            return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                          }),
+                          0
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.registerErrors.password
+                      ? _c(
+                          "ul",
+                          _vm._l(_vm.registerErrors.password, function(msg) {
+                            return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                          }),
+                          0
+                        )
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "username" } }, [_vm._v("お名前")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.name,
+                    expression: "registerForm.name"
                   }
-                  _vm.$set(_vm.registerForm, "email", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "password" } }, [_vm._v("パスワード")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.registerForm.password,
-                  expression: "registerForm.password"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "password",
-                id: "password",
-                placeholder: "6文字以上の半角英数字"
-              },
-              domProps: { value: _vm.registerForm.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "text",
+                  id: "username",
+                  placeholder: "例）Trander太郎"
+                },
+                domProps: { value: _vm.registerForm.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.registerForm, "name", $event.target.value)
                   }
-                  _vm.$set(_vm.registerForm, "password", $event.target.value)
                 }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "password-confirmation" } }, [
-              _vm._v("パスワード (確認)")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.registerForm.password_confirmation,
-                  expression: "registerForm.password_confirmation"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "password",
-                id: "password-confirmation",
-                placeholder: "6文字以上の半角英数字"
-              },
-              domProps: { value: _vm.registerForm.password_confirmation },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "email" } }, [
+                _vm._v("メールアドレス")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.email,
+                    expression: "registerForm.email"
                   }
-                  _vm.$set(
-                    _vm.registerForm,
-                    "password_confirmation",
-                    $event.target.value
-                  )
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "text",
+                  id: "email",
+                  placeholder: "PC・スマホどちらでも可"
+                },
+                domProps: { value: _vm.registerForm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.registerForm, "email", $event.target.value)
+                  }
                 }
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(3)
-          ]
-        )
-      ]
-    )
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "password" } }, [
+                _vm._v("パスワード")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.password,
+                    expression: "registerForm.password"
+                  }
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "password",
+                  id: "password",
+                  placeholder: "6文字以上の半角英数字"
+                },
+                domProps: { value: _vm.registerForm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.registerForm, "password", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "password-confirmation" } }, [
+                _vm._v("パスワード (確認)")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.password_confirmation,
+                    expression: "registerForm.password_confirmation"
+                  }
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "password",
+                  id: "password-confirmation",
+                  placeholder: "6文字以上の半角英数字"
+                },
+                domProps: { value: _vm.registerForm.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.registerForm,
+                      "password_confirmation",
+                      $event.target.value
+                    )
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(3)
+            ]
+          )
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -5203,9 +5213,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("On Boarding")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("h1", [_vm._v("On Boarding")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -5227,9 +5246,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("システムエラーが発生しました。")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("p", [_vm._v("システムエラーが発生しました。")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -5251,27 +5279,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container--small" }, [
-    _c("div", { staticClass: "panel" }, [
-      _c("div", { staticClass: "panel__hr" }, [
-        _vm._v("パスワードの再設定完了")
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "panel__txt" },
-        [
-          _vm._v(
-            _vm._s(_vm.user) +
-              "さん、おかえりなさい！パスワードの再設定が完了しました。引き続きTranderをお楽しみいただけます。"
-          ),
-          _c("RouterLink", { attrs: { to: "/index" } }, [
-            _vm._v("こちらのページ")
-          ]),
-          _vm._v("から探索を始めてみましょう。")
-        ],
-        1
-      )
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "container--small" }, [
+      _c("div", { staticClass: "panel" }, [
+        _c("div", { staticClass: "panel__hr" }, [
+          _vm._v("パスワードの再設定完了")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "panel__txt" },
+          [
+            _vm._v(
+              _vm._s(_vm.user) +
+                "さん、おかえりなさい！パスワードの再設定が完了しました。引き続きTranderをお楽しみいただけます。"
+            ),
+            _c("RouterLink", { attrs: { to: "/index" } }, [
+              _vm._v("こちらのページ")
+            ]),
+            _vm._v("から探索を始めてみましょう。")
+          ],
+          1
+        )
+      ])
     ])
   ])
 }
@@ -5297,149 +5327,155 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container--small" }, [
-    _c("div", { staticClass: "panel" }, [
-      _c("div", { staticClass: "panel__hr" }, [_vm._v("パスワードのリセット")]),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          attrs: { autocomplete: "off" },
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.regeneratePassword($event)
-            }
-          }
-        },
-        [
-          _vm.regenerateErrors
-            ? _c("div", { staticClass: "errors" }, [
-                _vm.regenerateErrors.email
-                  ? _c(
-                      "ul",
-                      _vm._l(_vm.regenerateErrors.email, function(msg) {
-                        return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                      }),
-                      0
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.regenerateErrors.password
-                  ? _c(
-                      "ul",
-                      _vm._l(_vm.regenerateErrors.password, function(msg) {
-                        return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                      }),
-                      0
-                    )
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "email" } }, [_vm._v("メールアドレス")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.regenerateForm.email,
-                expression: "regenerateForm.email"
-              }
-            ],
-            staticClass: "form__item",
-            attrs: {
-              type: "email",
-              id: "email",
-              placeholder: "パスワードを新たに設定するメールアドレスを入力",
-              required: ""
-            },
-            domProps: { value: _vm.regenerateForm.email },
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "container--small" }, [
+      _c("div", { staticClass: "panel" }, [
+        _c("div", { staticClass: "panel__hr" }, [
+          _vm._v("パスワードのリセット")
+        ]),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            attrs: { autocomplete: "off" },
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.regenerateForm, "email", $event.target.value)
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.regeneratePassword($event)
               }
             }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "email" } }, [_vm._v("パスワード")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
+          },
+          [
+            _vm.regenerateErrors
+              ? _c("div", { staticClass: "errors" }, [
+                  _vm.regenerateErrors.email
+                    ? _c(
+                        "ul",
+                        _vm._l(_vm.regenerateErrors.email, function(msg) {
+                          return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                        }),
+                        0
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.regenerateErrors.password
+                    ? _c(
+                        "ul",
+                        _vm._l(_vm.regenerateErrors.password, function(msg) {
+                          return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                        }),
+                        0
+                      )
+                    : _vm._e()
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [
+              _vm._v("メールアドレス")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.regenerateForm.email,
+                  expression: "regenerateForm.email"
+                }
+              ],
+              staticClass: "form__item",
+              attrs: {
+                type: "email",
+                id: "email",
+                placeholder: "パスワードを新たに設定するメールアドレスを入力",
+                required: ""
+              },
+              domProps: { value: _vm.regenerateForm.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.regenerateForm, "email", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [_vm._v("パスワード")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.regenerateForm.password,
+                  expression: "regenerateForm.password"
+                }
+              ],
+              staticClass: "form__item",
+              attrs: {
+                type: "password",
+                id: "password",
+                placeholder: "6文字以上の半角英数字",
+                required: ""
+              },
+              domProps: { value: _vm.regenerateForm.password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.regenerateForm, "password", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [
+              _vm._v("パスワード (確認)")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.regenerateForm.password_confirmation,
+                  expression: "regenerateForm.password_confirmation"
+                }
+              ],
+              staticClass: "form__item",
+              attrs: {
+                type: "password",
+                id: "password_confirmation",
+                placeholder: "6文字以上の半角英数字",
+                required: ""
+              },
+              domProps: { value: _vm.regenerateForm.password_confirmation },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.regenerateForm,
+                    "password_confirmation",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
               {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.regenerateForm.password,
-                expression: "regenerateForm.password"
-              }
-            ],
-            staticClass: "form__item",
-            attrs: {
-              type: "password",
-              id: "password",
-              placeholder: "6文字以上の半角英数字",
-              required: ""
-            },
-            domProps: { value: _vm.regenerateForm.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.regenerateForm, "password", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "email" } }, [
-            _vm._v("パスワード (確認)")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.regenerateForm.password_confirmation,
-                expression: "regenerateForm.password_confirmation"
-              }
-            ],
-            staticClass: "form__item",
-            attrs: {
-              type: "password",
-              id: "password_confirmation",
-              placeholder: "6文字以上の半角英数字",
-              required: ""
-            },
-            domProps: { value: _vm.regenerateForm.password_confirmation },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(
-                  _vm.regenerateForm,
-                  "password_confirmation",
-                  $event.target.value
-                )
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "button button--inverse",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("パスワードを新たに作成する")]
-          )
-        ]
-      )
+                staticClass: "button button--inverse",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("パスワードを新たに作成する")]
+            )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -5465,78 +5501,84 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container--small" }, [
-    _c("div", { staticClass: "panel" }, [
-      _c("div", { staticClass: "panel__hr" }, [_vm._v("パスワードのリセット")]),
-      _vm._v(" "),
-      _vm.resetErrors
-        ? _c("div", { staticClass: "errors" }, [
-            _vm.resetErrors.email
-              ? _c(
-                  "ul",
-                  _vm._l(_vm.resetErrors.email, function(msg) {
-                    return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
-                  }),
-                  0
-                )
-              : _vm._e()
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          staticClass: "form",
-          attrs: { autocomplete: "off" },
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.resetPassword($event)
-            }
-          }
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "email" } }, [_vm._v("メールアドレス")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.resetForm.email,
-                expression: "resetForm.email"
-              }
-            ],
-            staticClass: "form__item",
-            attrs: {
-              type: "email",
-              id: "email",
-              placeholder: "user@example.com",
-              required: ""
-            },
-            domProps: { value: _vm.resetForm.email },
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "container--small" }, [
+      _c("div", { staticClass: "panel" }, [
+        _c("div", { staticClass: "panel__hr" }, [
+          _vm._v("パスワードのリセット")
+        ]),
+        _vm._v(" "),
+        _vm.resetErrors
+          ? _c("div", { staticClass: "errors" }, [
+              _vm.resetErrors.email
+                ? _c(
+                    "ul",
+                    _vm._l(_vm.resetErrors.email, function(msg) {
+                      return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                    }),
+                    0
+                  )
+                : _vm._e()
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            staticClass: "form",
+            attrs: { autocomplete: "off" },
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.resetForm, "email", $event.target.value)
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.resetPassword($event)
               }
             }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "button button--inverse",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("パスワードをリセットする")]
-          )
-        ]
-      )
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [
+              _vm._v("メールアドレス")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.resetForm.email,
+                  expression: "resetForm.email"
+                }
+              ],
+              staticClass: "form__item",
+              attrs: {
+                type: "email",
+                id: "email",
+                placeholder: "user@example.com",
+                required: ""
+              },
+              domProps: { value: _vm.resetForm.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.resetForm, "email", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "button button--inverse",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("パスワードをリセットする")]
+            )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -5575,23 +5617,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container--small" }, [
-    _c("div", { staticClass: "panel" }, [
-      _c("div", { staticClass: "panel__hr" }, [
-        _vm._v("パスワードリセットメール送信完了")
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "以下のメールアドレス宛にパスワードをリセットするためのメールをお送りしました！メール本文のリンクから新たにパスワードを設定できます。"
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v(_vm._s(_vm.email))]),
-      _vm._v(" "),
-      _c("p", [_vm._v("メールが届かない場合、以下2点をご確認ください。")]),
-      _vm._v(" "),
-      _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "container--small" }, [
+      _c("div", { staticClass: "panel" }, [
+        _c("div", { staticClass: "panel__hr" }, [
+          _vm._v("パスワードリセットメール送信完了")
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "以下のメールアドレス宛にパスワードをリセットするためのメールをお送りしました！メール本文のリンクから新たにパスワードを設定できます。"
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.email))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("メールが届かない場合、以下2点をご確認ください。")]),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
     ])
   ])
 }
