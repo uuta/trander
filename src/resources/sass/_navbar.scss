@@ -23,6 +23,10 @@
       color: inherit;
     }
 
+    & img{
+      max-height: 3rem;
+    }
+
     &:hover {
       opacity: .6;
     }

@@ -7,8 +7,6 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
-// Guzzleモジュールのクラス読み込み
-use GuzzleHttp\Client;
 
 class GeoDBCitiesApiTest extends TestCase
 {
@@ -22,7 +20,7 @@ class GeoDBCitiesApiTest extends TestCase
     /**
      * @test
      */
-    public function should_GeoDBCities_APIへのリクエストに成功するか確認する()
+    public function should_GeoDBCities_APIへのリクエストに成功する()
     {
         // 仮の指定地点をリクエストパラメーターに設定
         $request = [
@@ -31,9 +29,30 @@ class GeoDBCitiesApiTest extends TestCase
         ];
         $response = $this->post(route('geo-db-cities'), $request);
         $response
+            ->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function should_GeoDBCities_APIへのリクエストで204が返ってくる()
+    {
+        // 100km圏内に都市がない緯度経度をリクエストパラメーターに設定
+        $request = [
+            'lat' => 35.188444,
+            'lng' => 152.442722
+        ];
+        $code = 'データなし';
+        $message = '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。';
+        $response = $this->post(route('geo-db-cities'), $request);
+        $response
             ->assertStatus(200)
             ->assertJson([
-                'status' => 'OK'
+                'status' => 204,
+                'errors' => [
+                    'code' => $code,
+                    'message' => $message
+                ]
             ]);
     }
 }

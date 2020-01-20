@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <RouterLink class="navbar__brand" to="/">
-      Trander
+      <img src="/assets/images/logo.png">
     </RouterLink>
     <div class="navbar__menu">
       <span v-if="isLogin" class="navbar__item">

@@ -18,7 +18,8 @@ class GeoDBCitiesApiController extends Controller
   {
     $location = $this->getLatAndLng($request);
     $response = $this->apiRequest($location);
-    return $response;
+    $addedResponse = $this->addRequest($response);
+    return $addedResponse;
   }
 
   /**
@@ -31,7 +32,7 @@ class GeoDBCitiesApiController extends Controller
   {
     $client = new Client();
     $sourceUrl = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
-    $responseData = $client->request("GET", $sourceUrl, [
+    $response = $client->request("GET", $sourceUrl, [
       'query' => [
         'limit' => '10',
         'countryIds' => 'JP',
@@ -44,11 +45,33 @@ class GeoDBCitiesApiController extends Controller
         'x-rapidapi-key' => env('GEO_DB_CITIES_API')
       ],
     ]);
-    $responseBody = json_decode($responseData->getBody()->getContents(), true);
-    return [
-      'status' => 'OK',
-      'data' => $responseBody,
-    ];
+    return $response;
+  }
+
+  /**
+   * レスポンスに情報を追加する
+   *
+   * @param  string  $location
+   * @return  array
+   */
+  public function addRequest($response)
+  {
+    $responseBody = json_decode($response->getBody()->getContents(), true);
+    $status = $response->getStatusCode();
+    $responseBody += ['status' => $status];
+
+    if ($status === 200 && $responseBody['data'] === []) {
+      $responseBody['status'] = 204;
+      unset($responseBody['data']);
+      $responseBody +=
+        [
+          'errors' => [
+            'code' => 'データなし',
+            'message' => '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。'
+          ]
+        ];
+    }
+    return $responseBody;
   }
 
   /**
@@ -63,11 +86,8 @@ class GeoDBCitiesApiController extends Controller
     $bearingEllipsoidal = new BearingEllipsoidal();
     $angle = $this->generateAngle();
     $distance = $this->generateDistance();
-    Log::debug('角度は' . $angle);
-    Log::debug('距離は' . $distance);
     $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $angle, $distance);
     $commaDestination = $destination->format(new DecimalDegrees(','));
-    Log::debug('緯度経度は' . $commaDestination);
     $location = $this->adjustLatAndLngFormat($commaDestination);
     return $location;
   }
@@ -93,7 +113,7 @@ class GeoDBCitiesApiController extends Controller
   public function generateDistance()
   {
     $min = 10000;
-    $max = 100000;
+    $max = 50000;
     $rand_f = rand($min, $max);
     return $rand_f;
   }
