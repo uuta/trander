@@ -24,17 +24,54 @@
   }
 
   &_map {
-    width: 70px;
-    height: 70px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     font-size: 30px;
-    color: #fff;
-    line-height: 70px;
+    color: $blue-1;
+    line-height: 55px;
     text-align: center;
-    background: #555;
+    background: #fff;
+    border: 1px solid $blue-1;
+
+    &_setting {
+      position: absolute;
+      font-size: 30px;
+      color: $blue-1;
+      right: 20px;
+      background-color: transparent;
+      border: none;
+      top: 20px;
+      right: 20;
+      transition: color .3s,
+      text-decoration .3s,
+      background-color .3s;
+
+      &:hover {
+        color: $white-1;
+        cursor: pointer;
+      }
+    }
 
     &:not(:last-child) {
       margin-right: 30px;
+    }
+
+    &_info {
+      position: absolute;
+      right: 20px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      transition: color .5s,
+      text-decoration .5s,
+      background-color .5s;
+
+      &:hover {
+        background: linear-gradient(#3316F2 0%, #1CACBF 100%) no-repeat 50% 50% / 100% 100%;
+        color: $white-1;
+        cursor: pointer;
+      }
     }
   }
 

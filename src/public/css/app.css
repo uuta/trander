@@ -40,7 +40,7 @@ body {
 
 main {
   margin-bottom: 6rem;
-  margin-top: 7rem;
+  margin-top: 6rem;
 }
 
 figure {
@@ -52,7 +52,7 @@ img {
 }
 
 a {
-  color: #2699FB;
+  color: #3316F2;
 }
 
 .container {
@@ -333,7 +333,7 @@ a {
 }
 
 .button:hover {
-  border-color: #2699FB;
+  border-color: #3316F2;
   color: inherit;
 }
 
@@ -342,18 +342,58 @@ a {
 }
 
 .button_map {
-  width: 70px;
-  height: 70px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   font-size: 30px;
-  color: #fff;
-  line-height: 70px;
+  color: #3316F2;
+  line-height: 55px;
   text-align: center;
-  background: #555;
+  background: #fff;
+  border: 1px solid #3316F2;
+}
+
+.button_map_setting {
+  position: absolute;
+  font-size: 30px;
+  color: #3316F2;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  top: 20px;
+  right: 20;
+  -webkit-transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+  transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+  transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
+  transition: color 0.3s, text-decoration 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+}
+
+.button_map_setting:hover {
+  color: #fff;
+  cursor: pointer;
 }
 
 .button_map:not(:last-child) {
   margin-right: 30px;
+}
+
+.button_map_info {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  -webkit-transition: color 0.5s, background-color 0.5s, -webkit-text-decoration 0.5s;
+  transition: color 0.5s, background-color 0.5s, -webkit-text-decoration 0.5s;
+  transition: color 0.5s, text-decoration 0.5s, background-color 0.5s;
+  transition: color 0.5s, text-decoration 0.5s, background-color 0.5s, -webkit-text-decoration 0.5s;
+}
+
+.button_map_info:hover {
+  background: -webkit-gradient(linear, left top, left bottom, from(#3316F2), to(#1CACBF)) no-repeat 50% 50%/100% 100%;
+  background: linear-gradient(#3316F2 0%, #1CACBF 100%) no-repeat 50% 50%/100% 100%;
+  color: #fff;
+  cursor: pointer;
 }
 
 .button--link {
@@ -361,8 +401,8 @@ a {
 }
 
 .button--inverse {
-  background: #2699FB;
-  border-color: #2699FB;
+  background: #3316F2;
+  border-color: #3316F2;
   color: #fff;
   -webkit-transition: opacity 300ms ease-in-out;
   transition: opacity 300ms ease-in-out;
@@ -374,7 +414,7 @@ a {
 }
 
 .button--inverse:hover {
-  background: #2699FB;
+  background: #3316F2;
   color: #fff;
   opacity: 0.8;
 }
@@ -405,39 +445,39 @@ a {
 
 .form__item {
   border: none;
-  border-bottom: 1px solid #BCE0FD;
+  border-bottom: 1px solid #D6D1F8;
   border-radius: 0.25rem;
   font-size: 1rem;
   margin-bottom: 1rem;
   padding: 0.5em 0.75em;
   width: 100%;
-  color: #2699FB;
+  color: #3316F2;
 }
 
 .form__item::-webkit-input-placeholder {
-  color: #BCE0FD;
+  color: #D6D1F8;
 }
 
 .form__item::-moz-placeholder {
-  color: #BCE0FD;
+  color: #D6D1F8;
 }
 
 .form__item:-ms-input-placeholder {
-  color: #BCE0FD;
+  color: #D6D1F8;
 }
 
 .form__item::-ms-input-placeholder {
-  color: #BCE0FD;
+  color: #D6D1F8;
 }
 
 .form__item::placeholder {
-  color: #BCE0FD;
+  color: #D6D1F8;
 }
 
 .form label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #2699FB;
+  color: #3316F2;
 }
 
 .form__output {
@@ -450,7 +490,7 @@ a {
 }
 
 .form__sns__wrap {
-  color: #2699FB;
+  color: #3316F2;
   padding: 2em 7em;
   display: flex;
   display: -webkit-box;
@@ -474,13 +514,13 @@ a {
 
 .form__sns__feature:hover {
   cursor: pointer;
-  border-color: #BCE0FD;
+  border-color: #D6D1F8;
   -webkit-text-decoration-color: transparent;
           text-decoration-color: transparent;
 }
 
 .form__sns__btn {
-  border: 1px solid #2699FB;
+  border: 1px solid #3316F2;
   border-radius: 50%;
   -ms-flex-preferred-size: 16%;
   -webkit-transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
@@ -502,8 +542,8 @@ a {
 .form__sns__btn:hover {
   cursor: pointer;
   color: #fff;
-  background-color: #BCE0FD;
-  border-color: #BCE0FD;
+  background-color: #D6D1F8;
+  border-color: #D6D1F8;
   -webkit-text-decoration-color: transparent;
           text-decoration-color: transparent;
 }
@@ -517,16 +557,16 @@ a {
 }
 
 .tab__item {
-  border-bottom: 2px solid #BCE0FD;
-  color: #2699FB;
+  border-bottom: 2px solid #D6D1F8;
+  color: #3316F2;
   cursor: pointer;
   margin: 0 1rem 0 0;
   padding: 1rem;
 }
 
 .tab__item--active {
-  border-bottom: 2px solid #2699FB;
-  color: #2699FB;
+  border-bottom: 2px solid #3316F2;
+  color: #3316F2;
   font-weight: bold;
 }
 
@@ -553,10 +593,10 @@ a {
 }
 
 .panel {
-  border: 1px solid #BCE0FD;
+  border: 1px solid #D6D1F8;
   margin-top: 1rem;
   padding: 1.5rem;
-  color: #2699FB;
+  color: #3316F2;
 }
 
 .panel__hr {
@@ -714,7 +754,7 @@ a {
 
 #map_info {
   background: #fff;
-  width: 95%;
+  width: 45%;
   min-height: 100px;
   position: absolute;
   margin: auto;
