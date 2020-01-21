@@ -1,6 +1,7 @@
 <template>
-  <div class="container--small">
-      <div class="panel">
+  <div class="container">
+    <div class="container--small">
+        <div class="panel">
           <div class="panel__hr">パスワードのリセット</div>
             <div v-if="resetErrors" class="errors">
               <ul v-if="resetErrors.email">
@@ -14,6 +15,7 @@
               <button type="submit" class="button button--inverse">パスワードをリセットする</button>
             </form>
           </div>
+    </div>
   </div>
 </template>
 

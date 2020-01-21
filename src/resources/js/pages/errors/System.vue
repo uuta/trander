@@ -1,3 +1,5 @@
 <template>
-  <p>システムエラーが発生しました。</p>
+  <div class="container">
+    <p>システムエラーが発生しました。</p>
+  </div>
 </template>

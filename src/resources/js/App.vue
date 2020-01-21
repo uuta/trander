@@ -4,9 +4,7 @@
       <Navbar />
     </header>
     <main>
-      <div class="container">
-        <RouterView />
-      </div>
+      <RouterView />
     </main>
     <Footer />
   </div>
