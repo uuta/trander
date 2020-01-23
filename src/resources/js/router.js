@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Login from './pages/Login.vue'
 import OnBoarding from './pages/OnBoarding.vue'
 import Index from './pages/Index.vue'
+import Setting from './pages/Setting.vue'
 
 import Reset from './pages/resetPasswords/Reset.vue'
 import SentEmail from './pages/resetPasswords/SentEmail.vue'
@@ -22,99 +23,110 @@ import store from './store'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/login',
-    component: Login,
-    beforeEnter(to, from, next) {
-        if (store.getters['auth/check']) {
-            next('/index')
-        } else {
-            next()
-        }
+  path: '/login',
+  component: Login,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next('/index')
+    } else {
+      next()
     }
-  },
-  {
-    path: '/',
-    component: OnBoarding,
-    beforeEnter(to, from, next) {
-        if (store.getters['auth/check']) {
-            next('/index')
-        } else {
-            next()
-        }
-    }
-  },
-  {
-    path: '/index',
-    component: Index,
-    beforeEnter(to, from, next) {
-        if (store.getters['auth/check']) {
-            next()
-        } else {
-            next('/login')
-        }
-    }
-  },
-  {
-    path: '/500',
-    component: SystemError,
-  },
-  {
-    path: '/reset-password',
-    component: Reset,
-    beforeEnter(to, from, next) {
-        if (store.getters['auth/check']) {
-            next('/index')
-        } else {
-            next()
-        }
-    }
-  },
-  {
-    path: '/sent-email',
-    component: SentEmail,
-    beforeEnter(to, from, next) {
-        if (store.getters['auth/check']) {
-            next('/index')
-        } else {
-            next()
-        }
-    }
-  },
-  {
-    path: '/regenerate-password/:token',
-    component: Regenerate,
-    beforeEnter(to, from, next) {
-        if (store.getters['auth/check']) {
-            next('/index')
-        } else {
-            next()
-        }
-    }
-  },
-  {
-    path: '/regenerate-password-complete',
-    component: RegenerateComplete,
-    beforeEnter(to, from, next) {
-      if (store.getters['auth/check']) {
-          next()
-      } else {
-          next('/login')
-      }
-    }
-  },
-  {
-    path: '/terms-of-Service',
-    component: TermsOfService,
-  },
-  {
-      path: '/privacy-policy',
-      component: PrivacyPolicy,
   }
+},
+{
+  path: '/',
+  component: OnBoarding,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next('/index')
+    } else {
+      next()
+    }
+  }
+},
+{
+  path: '/index',
+  component: Index,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+},
+{
+  path: '/setting',
+  component: Setting,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+},
+{
+  path: '/500',
+  component: SystemError,
+},
+{
+  path: '/reset-password',
+  component: Reset,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next('/index')
+    } else {
+      next()
+    }
+  }
+},
+{
+  path: '/sent-email',
+  component: SentEmail,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next('/index')
+    } else {
+      next()
+    }
+  }
+},
+{
+  path: '/regenerate-password/:token',
+  component: Regenerate,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next('/index')
+    } else {
+      next()
+    }
+  }
+},
+{
+  path: '/regenerate-password-complete',
+  component: RegenerateComplete,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+},
+{
+  path: '/terms-of-Service',
+  component: TermsOfService,
+},
+{
+  path: '/privacy-policy',
+  component: PrivacyPolicy,
+}
 ]
 
 const router = new VueRouter({
-    mode: 'history',
-    routes // `routes: routes` の短縮表記
+  mode: 'history',
+  routes // `routes: routes` の短縮表記
 })
 
 // VueRouterインスタンスをエクスポートする
