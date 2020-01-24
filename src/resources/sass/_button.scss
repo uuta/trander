@@ -38,11 +38,12 @@
       position: absolute;
       font-size: 30px;
       color: $blue-1;
-      right: 20px;
+      right: 30px;
       background-color: transparent;
       border: none;
       top: 20px;
-      right: 20;
+      padding: 0;
+      display: inline-block;
       transition: color .3s,
       text-decoration .3s,
       background-color .3s;

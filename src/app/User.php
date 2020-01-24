@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(SocialUser::class);
     }
+
+    public function settings()
+    {
+        return $this->hasOne(Setting::class);
+    }
 }

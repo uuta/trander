@@ -13,6 +13,7 @@ const state = {
   seeLng: null,
   icon: false,
   modal: false,
+  settingModal: false,
   errorMessages: null
 }
 
@@ -45,6 +46,9 @@ const mutations = {
   },
   setModal(state, modal) {
     state.modal = modal
+  },
+  setSettingModal(state, settingModal) {
+    state.settingModal = settingModal
   },
   setErrorMessages(state, errorMessages) {
     state.errorMessages = errorMessages
