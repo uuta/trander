@@ -357,11 +357,12 @@ a {
   position: absolute;
   font-size: 30px;
   color: #3316F2;
-  right: 20px;
+  right: 30px;
   background-color: transparent;
   border: none;
   top: 20px;
-  right: 20;
+  padding: 0;
+  display: inline-block;
   -webkit-transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
   transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
   transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
@@ -788,6 +789,7 @@ a {
   text-align: center;
   background: rgba(0, 0, 0, 0.3);
   margin: auto;
+  z-index: 1;
 }
 
 #map_overlay_wrap {

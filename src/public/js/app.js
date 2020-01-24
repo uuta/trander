@@ -1846,6 +1846,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Setting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue */ "./resources/js/pages/Setting.vue");
+//
 //
 //
 //
@@ -1888,10 +1890,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Setting: _Setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
-      searchAddressInput: '',
       icon_center: {
         url: '/assets/images/current_location.png',
         scaledSize: {
@@ -1934,6 +1939,9 @@ __webpack_require__.r(__webpack_exports__);
     modal: function modal(state) {
       return state.external.modal;
     },
+    settingModal: function settingModal(state) {
+      return state.external.settingModal;
+    },
     errorMessages: function errorMessages(state) {
       return state.external.errorMessages;
     }
@@ -1970,6 +1978,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     hiddenModal: function hiddenModal() {
       this.$store.commit('external/setModal', false);
+    },
+    showSettingModal: function showSettingModal() {
+      this.$store.commit('external/setSettingModal', true);
     }
   }
 });
@@ -2111,6 +2122,40 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.clearError();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Setting.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/Setting.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    settingModal: function settingModal(state) {
+      return state.external.settingModal;
+    }
+  }),
+  methods: {
+    hiddenSettingModal: function hiddenSettingModal() {
+      this.$store.commit('external/setSettingModal', false);
+    }
   }
 });
 
@@ -4629,6 +4674,8 @@ var render = function() {
       "div",
       { attrs: { id: "map" } },
       [
+        _c("Setting"),
+        _vm._v(" "),
         _c(
           "GmapMap",
           {
@@ -4686,14 +4733,19 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "button_map_setting",
-            on: { click: _vm.setNewLocation }
-          },
-          [_c("i", { staticClass: "fas fa-cog" })]
-        ),
+        _c("button", { staticClass: "button_map_setting" }, [
+          _c("i", {
+            staticClass: "fas fa-cog",
+            on: {
+              click: function($event) {
+                if ($event.target !== $event.currentTarget) {
+                  return null
+                }
+                return _vm.showSettingModal($event)
+              }
+            }
+          })
+        ]),
         _vm._v(" "),
         _vm.modal
           ? _c(
@@ -5262,14 +5314,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _vm.settingModal
+    ? _c(
+        "div",
+        {
+          attrs: { id: "map_overlay" },
+          on: {
+            click: function($event) {
+              if ($event.target !== $event.currentTarget) {
+                return null
+              }
+              return _vm.hiddenSettingModal($event)
+            }
+          }
+        },
+        [_vm._m(0)]
+      )
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { attrs: { id: "map_overlay_wrap" } }, [
       _c("h1", [_vm._v("Setting")])
     ])
   }
@@ -24856,15 +24924,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Setting_vue_vue_type_template_id_15250252___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Setting.vue?vue&type=template&id=15250252& */ "./resources/js/pages/Setting.vue?vue&type=template&id=15250252&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue?vue&type=script&lang=js& */ "./resources/js/pages/Setting.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Setting_vue_vue_type_template_id_15250252___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Setting_vue_vue_type_template_id_15250252___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -24878,6 +24948,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/pages/Setting.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/Setting.vue?vue&type=script&lang=js&":
+/*!*****************************************************************!*\
+  !*** ./resources/js/pages/Setting.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Setting.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Setting.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -25834,6 +25918,7 @@ var state = {
   seeLng: null,
   icon: false,
   modal: false,
+  settingModal: false,
   errorMessages: null
 };
 var getters = {};
@@ -25864,6 +25949,9 @@ var mutations = {
   },
   setModal: function setModal(state, modal) {
     state.modal = modal;
+  },
+  setSettingModal: function setSettingModal(state, settingModal) {
+    state.settingModal = settingModal;
   },
   setErrorMessages: function setErrorMessages(state, errorMessages) {
     state.errorMessages = errorMessages;

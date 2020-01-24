@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div id="map">
+      <Setting></Setting>
       <GmapMap :center="{lat:setSeeLat, lng:setSeeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
         <gmap-marker :position="{lat:setCurrentLat, lng:setCurrentLng}" :icon="icon_center">
         </gmap-marker>
@@ -19,7 +20,7 @@
         </div>
         <button @click="setNewLocation" class="button_map button_map_info"><i class="fas fa-plus"></i></button>
       </div>
-      <button @click="setNewLocation" class="button_map_setting"><i class="fas fa-cog"></i></button>
+      <button class="button_map_setting"><i class="fas fa-cog" @click.self="showSettingModal"></i></button>
       <div id="map_overlay" v-if="modal" @click.self="hiddenModal">
         <div id="map_overlay_wrap">
           <p><i class="fas fa-crown"></i> おめでとうございます！新しいロケーションを発見しました。</p>
@@ -40,12 +41,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
+import Setting from './Setting.vue'
 
 export default {
+  components: {
+    Setting
+  },
   data () {
     return {
-      searchAddressInput: '',
       icon_center: {
         url: '/assets/images/current_location.png',
         scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
@@ -65,6 +69,7 @@ export default {
     setSeeLng: state => state.external.seeLng,
     icon: state => state.external.icon,
     modal: state => state.external.modal,
+    settingModal: state => state.external.settingModal,
     errorMessages: state => state.external.errorMessages
   }),
   methods: {
@@ -90,6 +95,9 @@ export default {
     },
     hiddenModal() {
       this.$store.commit('external/setModal', false)
+    },
+    showSettingModal() {
+      this.$store.commit('external/setSettingModal', true)
     },
   }
 }
