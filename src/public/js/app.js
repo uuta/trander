@@ -2145,6 +2145,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -5338,7 +5342,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { attrs: { id: "map_overlay_wrap" } }, [
-      _c("h1", [_vm._v("Setting")])
+      _c("div", { staticClass: "container--small" }, [
+        _c("p", [_vm._v("設定（Setting）")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("次の地点までの距離")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("3km - 60km")])
+      ])
     ])
   }
 ]
