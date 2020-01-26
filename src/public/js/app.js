@@ -2141,6 +2141,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_slider_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_slider_component__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_slider_component_theme_default_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-slider-component/theme/default.css */ "./node_modules/vue-slider-component/theme/default.css");
 /* harmony import */ var vue_slider_component_theme_default_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_slider_component_theme_default_css__WEBPACK_IMPORTED_MODULE_2__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2161,19 +2175,30 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     vueSlider: vue_slider_component__WEBPACK_IMPORTED_MODULE_1___default.a
   },
-  data: function data() {
-    return {
-      value: [0, 100]
-    };
-  },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     settingModal: function settingModal(state) {
       return state.external.settingModal;
+    }
+  }), {
+    setDistance: {
+      get: function get() {
+        return this.$store.state.external.distance;
+      },
+      set: function set(val) {
+        this.updateDistance(val);
+      }
     }
   }),
   methods: {
     hiddenSettingModal: function hiddenSettingModal() {
-      this.$store.commit('external/setSettingModal', false);
+      var distance = {
+        min: setDistance[0],
+        max: setDistance[1]
+      };
+      this.$store.dispatch('external/setSetting');
+    },
+    updateDistance: function updateDistance(val) {
+      this.$store.commit('external/setDistance', val);
     }
   }
 });
@@ -5378,17 +5403,38 @@ var render = function() {
                 _vm._v(" "),
                 _c("vue-slider", {
                   ref: "slider",
-                  attrs: { "enable-cross": false },
-                  model: {
-                    value: _vm.value,
-                    callback: function($$v) {
-                      _vm.value = $$v
+                  attrs: {
+                    "enable-cross": false,
+                    dotSize: 20,
+                    dotStyle: {
+                      backgroundColor: "#3316F2",
+                      borderShadow: "#3316F2",
+                      boxShadow: "#3316F2"
                     },
-                    expression: "value"
+                    processStyle: { backgroundColor: "#3316F2" },
+                    tooltipStyle: {
+                      backgroundColor: "#3316F2",
+                      borderColor: "#3316F2",
+                      borderShadow: "#3316F2"
+                    }
+                  },
+                  model: {
+                    value: _vm.setDistance,
+                    callback: function($$v) {
+                      _vm.setDistance = $$v
+                    },
+                    expression: "setDistance"
                   }
                 }),
                 _vm._v(" "),
-                _c("p", [_vm._v("3km - 60km")])
+                _c("p", [
+                  _vm._v(
+                    _vm._s(_vm.setDistance[0]) +
+                      "km - " +
+                      _vm._s(_vm.setDistance[1]) +
+                      "km"
+                  )
+                ])
               ],
               1
             )
@@ -26022,6 +26068,7 @@ var state = {
   icon: false,
   modal: false,
   settingModal: false,
+  distance: [0, 100],
   errorMessages: null
 };
 var getters = {};
@@ -26055,6 +26102,9 @@ var mutations = {
   },
   setSettingModal: function setSettingModal(state, settingModal) {
     state.settingModal = settingModal;
+  },
+  setDistance: function setDistance(state, distance) {
+    state.distance = distance;
   },
   setErrorMessages: function setErrorMessages(state, errorMessages) {
     state.errorMessages = errorMessages;
@@ -26096,6 +26146,20 @@ var actions = {
           case 6:
           case "end":
             return _context.stop();
+        }
+      }
+    });
+  },
+  setSetting: function setSetting(context) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setSetting$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            context.commit('setSettingModal', false);
+
+          case 1:
+          case "end":
+            return _context2.stop();
         }
       }
     });

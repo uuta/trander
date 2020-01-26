@@ -78,7 +78,6 @@ const actions = {
             router.push('/index')
             return false
         }
-
         context.commit('setApiStatus', false)
         if (response.status === UNPROCESSABLE_ENTITY) {
             context.commit('setLoginErrorMessages', response.data.errors)

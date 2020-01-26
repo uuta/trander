@@ -14,6 +14,7 @@ const state = {
   icon: false,
   modal: false,
   settingModal: false,
+  distance: [0, 100],
   errorMessages: null
 }
 
@@ -50,6 +51,9 @@ const mutations = {
   setSettingModal(state, settingModal) {
     state.settingModal = settingModal
   },
+  setDistance(state, distance) {
+    state.distance = distance
+  },
   setErrorMessages(state, errorMessages) {
     state.errorMessages = errorMessages
   },
@@ -78,6 +82,9 @@ const actions = {
       const errors = responseDatas.data.errors.message
       context.commit('setErrorMessages', errors)
     }
+  },
+  async setSetting(context) {
+    context.commit('setSettingModal', false)
   }
 }
 export default {
