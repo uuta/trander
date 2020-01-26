@@ -37,21 +37,17 @@
         get() {
           return this.$store.state.external.distance
         },
-        set(val) {
-          this.updateDistance(val)
+        set(distance) {
+          this.updateDistance(distance)
         }
       }
     },
     methods: {
       hiddenSettingModal() {
-        const distance = {
-          min: setDistance[0],
-          max: setDistance[1]
-        }
-        this.$store.dispatch('external/setSetting')
+        this.$store.dispatch('external/setSetting', this.setDistance)
       },
-      updateDistance(val){
-        this.$store.commit('external/setDistance', val)
+      updateDistance(distance){
+        this.$store.commit('external/setDistance', distance)
       }
     }
   }

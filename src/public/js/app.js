@@ -2184,21 +2184,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       get: function get() {
         return this.$store.state.external.distance;
       },
-      set: function set(val) {
-        this.updateDistance(val);
+      set: function set(distance) {
+        this.updateDistance(distance);
       }
     }
   }),
   methods: {
     hiddenSettingModal: function hiddenSettingModal() {
-      var distance = {
-        min: setDistance[0],
-        max: setDistance[1]
-      };
-      this.$store.dispatch('external/setSetting');
+      this.$store.dispatch('external/setSetting', this.setDistance);
     },
-    updateDistance: function updateDistance(val) {
-      this.$store.commit('external/setDistance', val);
+    updateDistance: function updateDistance(distance) {
+      this.$store.commit('external/setDistance', distance);
     }
   }
 });
@@ -26150,14 +26146,15 @@ var actions = {
       }
     });
   },
-  setSetting: function setSetting(context) {
+  setSetting: function setSetting(context, distance) {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setSetting$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            context.commit('setDistance', distance);
             context.commit('setSettingModal', false);
 
-          case 1:
+          case 2:
           case "end":
             return _context2.stop();
         }

@@ -83,7 +83,8 @@ const actions = {
       context.commit('setErrorMessages', errors)
     }
   },
-  async setSetting(context) {
+  async setSetting(context, distance) {
+    context.commit('setDistance', distance)
     context.commit('setSettingModal', false)
   }
 }
