@@ -16,6 +16,6 @@ class SettingRepository
 
   public function getSetting()
   {
-    return DB::table($this->table)->where('user_id', '9')->first();
+    return DB::table($this->table)->where('user_id', Auth::id())->first();
   }
 }

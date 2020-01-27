@@ -32,5 +32,5 @@ Route::namespace('External')->group(function () {
     Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
 });
 
-// ログアウト
+// セッティング
 Route::post('/setting', 'SettingController@request')->name('setting');

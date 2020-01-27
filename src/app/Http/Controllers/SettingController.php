@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Repositories\SettingRepository;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
@@ -17,7 +17,8 @@ class SettingController extends Controller
 
   public function request()
   {
-    $setting = $this->SettingRepository->getSetting();
-    return $setting;
+    $response = $this->SettingRepository->getSetting();
+    $response_json = response()->json($response);
+    return $response_json;
   }
 }

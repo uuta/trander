@@ -79,6 +79,7 @@ export default {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
+        this.$store.dispatch('external/getSetting')
         this.$store.commit('external/setSeeLat', latLng.lat)
         this.$store.commit('external/setSeeLng', latLng.lng)
         this.$store.commit('external/setCurrentLat', latLng.lat)

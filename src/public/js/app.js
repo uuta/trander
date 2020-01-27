@@ -1956,6 +1956,8 @@ __webpack_require__.r(__webpack_exports__);
           lng: position.coords.longitude
         };
 
+        _this.$store.dispatch('external/getSetting');
+
         _this.$store.commit('external/setSeeLat', latLng.lat);
 
         _this.$store.commit('external/setSeeLng', latLng.lng);
@@ -26146,17 +26148,42 @@ var actions = {
       }
     });
   },
-  setSetting: function setSetting(context, distance) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setSetting$(_context2) {
+  getSetting: function getSetting(context) {
+    var getSettingResponseDatas, getSettingDistance;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getSetting$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/setting'));
+
+          case 2:
+            getSettingResponseDatas = _context2.sent;
+
+            if (getSettingResponseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+              getSettingDistance = [getSettingResponseDatas.data.min_distance, getSettingResponseDatas.data.max_distance];
+              context.commit('setDistance', getSettingDistance);
+            } // TODO:空だった時の処理
+
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    });
+  },
+  setSetting: function setSetting(context, distance) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setSetting$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             context.commit('setDistance', distance);
             context.commit('setSettingModal', false);
 
           case 2:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
     });

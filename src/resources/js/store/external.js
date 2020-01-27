@@ -83,6 +83,17 @@ const actions = {
       context.commit('setErrorMessages', errors)
     }
   },
+  async getSetting(context) {
+    const getSettingResponseDatas = await axios.post('/api/setting')
+
+    if (getSettingResponseDatas.status === OK) {
+      const getSettingDistance = [
+        getSettingResponseDatas.data.min_distance, getSettingResponseDatas.data.max_distance
+      ]
+      context.commit('setDistance', getSettingDistance)
+    }
+    // TODO:空だった時の処理
+  },
   async setSetting(context, distance) {
     context.commit('setDistance', distance)
     context.commit('setSettingModal', false)
