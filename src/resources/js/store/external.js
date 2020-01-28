@@ -21,85 +21,74 @@ const state = {
 const getters = {}
 
 const mutations = {
-  setcityName(state, cityName) {
-    state.cityName = cityName
+  setNewLocation(state, value) {
+    state.cityName = value.city
+    state.lat = value.latitude
+    state.lng = value.longitude
+    state.seeLat = value.latitude
+    state.seeLng = value.longitude
+    state.icon = true
+    state.modal = true
   },
-  setLat(state, lat) {
-    state.lat = lat
+  setModal(state, value) {
+    state.modal = value
   },
-  setLng(state, lng) {
-    state.lng = lng
+  setSettingModal(state, value) {
+    state.settingModal = value
   },
-  setCurrentLat(state, currentLat) {
-    state.currentLat = currentLat
+  setDistance(state, value) {
+    state.distance = value
   },
-  setCurrentLng(state, currentLng) {
-    state.currentLng = currentLng
+  setCurrentLocation(state, value) {
+    state.currentLat = value.lat
+    state.currentLng = value.lng
+    state.seeLat = value.lat
+    state.seeLng = value.lng
   },
-  setSeeLat(state, seeLat) {
-    state.seeLat = seeLat
+  setSetting(state, value) {
+    state.distance = value
+    state.settingModal = false
   },
-  setSeeLng(state, seeLng) {
-    state.seeLng = seeLng
-  },
-  setIcon(state, icon) {
-    state.icon = icon
-  },
-  setModal(state, modal) {
-    state.modal = modal
-  },
-  setSettingModal(state, settingModal) {
-    state.settingModal = settingModal
-  },
-  setDistance(state, distance) {
-    state.distance = distance
-  },
-  setErrorMessages(state, errorMessages) {
-    state.errorMessages = errorMessages
+  setErrorMessages(state, value) {
+    state.errorMessages = value
   },
 }
 
 const actions = {
-  async setNewLocation(context, { latLng, router }) {
-    const responseDatas = await axios.post('/api/external/geo-db-cities', latLng)
+  async getLoading(context, latLng) {
+    const res = await axios.post('/api/setting')
 
-    if (responseDatas.status === OK && responseDatas.data.status === OK) {
-      const responseData = responseDatas.data.data[0]
-      const city = responseData.city
-      const lat = responseData.latitude
-      const lng = responseData.longitude
-
-      context.commit('setcityName', city)
-      context.commit('setLat', lat)
-      context.commit('setLng', lng)
-      context.commit('setSeeLat', lat)
-      context.commit('setSeeLng', lng)
-      context.commit('setIcon', true)
-      context.commit('setModal', true)
+    // レスポンスが空ではない時の処理
+    if (res.status === OK && Object.keys(res.data).length) {
+        const distance = [
+            res.data.min_distance, res.data.max_distance
+        ]
+        context.commit('setDistance', distance)
+    }
+    // レスポンスが空の処理
+    if (res.status === OK && !Object.keys(res.data).length) {
+        return false;
     }
 
-    if (responseDatas.status === OK && responseDatas.data.status === NO_RECORD) {
-      const errors = responseDatas.data.errors.message
+    context.commit('setCurrentLocation', latLng)
+  },
+  async setNewLocation(context, { latLng, router }) {
+    const res = await axios.post('/api/external/geo-db-cities', latLng)
+
+    // レスポンスが空ではない時の処理
+    if (res.status === OK && res.data.status === OK) {
+      const resData = res.data.data[0]
+      context.commit('setNewLocation', resData)
+    }
+
+    // レスポンスが空の処理
+    if (res.status === OK && res.data.status === NO_RECORD) {
+      const errors = res.data.errors.message
       context.commit('setErrorMessages', errors)
     }
   },
-  async getSetting(context) {
-    const getSettingResponseDatas = await axios.post('/api/setting')
-
-    if (getSettingResponseDatas.status === OK && Object.keys(getSettingResponseDatas.data).length) {
-      const getSettingDistance = [
-        getSettingResponseDatas.data.min_distance, getSettingResponseDatas.data.max_distance
-      ]
-      context.commit('setDistance', getSettingDistance)
-    }
-    // 空だった時の処理
-    if (getSettingResponseDatas.status === OK && !Object.keys(getSettingResponseDatas.data).length) {
-      return false;
-    }
-  },
   async setSetting(context, distance) {
-    context.commit('setDistance', distance)
-    context.commit('setSettingModal', false)
+    context.commit('setSetting', distance)
   }
 }
 export default {

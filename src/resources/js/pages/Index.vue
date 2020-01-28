@@ -2,17 +2,17 @@
   <div class="container">
     <div id="map">
       <Setting></Setting>
-      <GmapMap :center="{lat:setSeeLat, lng:setSeeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
-        <gmap-marker :position="{lat:setCurrentLat, lng:setCurrentLng}" :icon="icon_center">
+      <GmapMap :center="{lat:seeLat, lng:seeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
+        <gmap-marker :position="{lat:currentLat, lng:currentLng}" :icon="icon_center">
         </gmap-marker>
-        <gmap-marker v-if="icon" :position="{lat:setLat, lng:setLng}">
+        <gmap-marker v-if="icon" :position="{lat:lat, lng:lng}">
         </gmap-marker>
       </GmapMap>
       <div id="map_info">
         <div>
           現在地：東京都中央区
-          <div v-if="setCityName">
-            {{ setCityName }}
+          <div v-if="cityName">
+            {{ cityName }}
           </div>
           <div v-if="errorMessages">
             {{ errorMessages }}
@@ -24,15 +24,15 @@
       <div id="map_overlay" v-if="modal" @click.self="hiddenModal">
         <div id="map_overlay_wrap">
           <p><i class="fas fa-crown"></i> おめでとうございます！新しいロケーションを発見しました。</p>
-          <p v-if="setCityName">
-            {{ setCityName }}
+          <p v-if="cityName">
+            {{ cityName }}
           </p>
           <p> 早速、冒険に出てみましょう！</p>
-          <div v-if="setLat">
-            {{ setLat }}
+          <div v-if="lat">
+            {{ lat }}
           </div>
-          <div v-if="setLng">
-            {{ setLng }}
+          <div v-if="lng">
+            {{ lng }}
           </div>
         </div>
       </div>
@@ -60,13 +60,13 @@ export default {
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
   },
   computed: mapState({
-    setCityName: state => state.external.cityName,
-    setLat: state => state.external.lat,
-    setLng: state => state.external.lng,
-    setCurrentLat: state => state.external.currentLat,
-    setCurrentLng: state => state.external.currentLng,
-    setSeeLat: state => state.external.seeLat,
-    setSeeLng: state => state.external.seeLng,
+    cityName: state => state.external.cityName,
+    lat: state => state.external.lat,
+    lng: state => state.external.lng,
+    currentLat: state => state.external.currentLat,
+    currentLng: state => state.external.currentLng,
+    seeLat: state => state.external.seeLat,
+    seeLng: state => state.external.seeLng,
     icon: state => state.external.icon,
     modal: state => state.external.modal,
     settingModal: state => state.external.settingModal,
@@ -79,17 +79,13 @@ export default {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
-        this.$store.dispatch('external/getSetting')
-        this.$store.commit('external/setSeeLat', latLng.lat)
-        this.$store.commit('external/setSeeLng', latLng.lng)
-        this.$store.commit('external/setCurrentLat', latLng.lat)
-        this.$store.commit('external/setCurrentLng', latLng.lng)
+        this.$store.dispatch('external/getLoading', latLng)
       });
     },
     setNewLocation() {
       const latLng = {
-        lat: this.setCurrentLat,
-        lng: this.setCurrentLng
+        lat: this.currentLat,
+        lng: this.currentLng
       }
       const router = this.$router
       this.$store.dispatch('external/setNewLocation', {latLng, router})

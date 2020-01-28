@@ -1912,25 +1912,25 @@ __webpack_require__.r(__webpack_exports__);
     this.getCurrentLocation(); // DOMの読み込み前に現在地を取得
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    setCityName: function setCityName(state) {
+    cityName: function cityName(state) {
       return state.external.cityName;
     },
-    setLat: function setLat(state) {
+    lat: function lat(state) {
       return state.external.lat;
     },
-    setLng: function setLng(state) {
+    lng: function lng(state) {
       return state.external.lng;
     },
-    setCurrentLat: function setCurrentLat(state) {
+    currentLat: function currentLat(state) {
       return state.external.currentLat;
     },
-    setCurrentLng: function setCurrentLng(state) {
+    currentLng: function currentLng(state) {
       return state.external.currentLng;
     },
-    setSeeLat: function setSeeLat(state) {
+    seeLat: function seeLat(state) {
       return state.external.seeLat;
     },
-    setSeeLng: function setSeeLng(state) {
+    seeLng: function seeLng(state) {
       return state.external.seeLng;
     },
     icon: function icon(state) {
@@ -1956,21 +1956,13 @@ __webpack_require__.r(__webpack_exports__);
           lng: position.coords.longitude
         };
 
-        _this.$store.dispatch('external/getSetting');
-
-        _this.$store.commit('external/setSeeLat', latLng.lat);
-
-        _this.$store.commit('external/setSeeLng', latLng.lng);
-
-        _this.$store.commit('external/setCurrentLat', latLng.lat);
-
-        _this.$store.commit('external/setCurrentLng', latLng.lng);
+        _this.$store.dispatch('external/getLoading', latLng);
       });
     },
     setNewLocation: function setNewLocation() {
       var latLng = {
-        lat: this.setCurrentLat,
-        lng: this.setCurrentLng
+        lat: this.currentLat,
+        lng: this.currentLng
       };
       var router = this.$router;
       this.$store.dispatch('external/setNewLocation', {
@@ -4742,7 +4734,7 @@ var render = function() {
           {
             staticStyle: { width: "100%", height: "100%" },
             attrs: {
-              center: { lat: _vm.setSeeLat, lng: _vm.setSeeLng },
+              center: { lat: _vm.seeLat, lng: _vm.seeLng },
               zoom: 14,
               options: { disableDefaultUI: true }
             }
@@ -4750,14 +4742,14 @@ var render = function() {
           [
             _c("gmap-marker", {
               attrs: {
-                position: { lat: _vm.setCurrentLat, lng: _vm.setCurrentLng },
+                position: { lat: _vm.currentLat, lng: _vm.currentLng },
                 icon: _vm.icon_center
               }
             }),
             _vm._v(" "),
             _vm.icon
               ? _c("gmap-marker", {
-                  attrs: { position: { lat: _vm.setLat, lng: _vm.setLng } }
+                  attrs: { position: { lat: _vm.lat, lng: _vm.lng } }
                 })
               : _vm._e()
           ],
@@ -4767,11 +4759,9 @@ var render = function() {
         _c("div", { attrs: { id: "map_info" } }, [
           _c("div", [
             _vm._v("\n        現在地：東京都中央区\n        "),
-            _vm.setCityName
+            _vm.cityName
               ? _c("div", [
-                  _vm._v(
-                    "\n          " + _vm._s(_vm.setCityName) + "\n        "
-                  )
+                  _vm._v("\n          " + _vm._s(_vm.cityName) + "\n        ")
                 ])
               : _vm._e(),
             _vm._v(" "),
@@ -4826,31 +4816,25 @@ var render = function() {
                 _c("div", { attrs: { id: "map_overlay_wrap" } }, [
                   _vm._m(0),
                   _vm._v(" "),
-                  _vm.setCityName
+                  _vm.cityName
                     ? _c("p", [
                         _vm._v(
-                          "\n          " +
-                            _vm._s(_vm.setCityName) +
-                            "\n        "
+                          "\n          " + _vm._s(_vm.cityName) + "\n        "
                         )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
                   _c("p", [_vm._v(" 早速、冒険に出てみましょう！")]),
                   _vm._v(" "),
-                  _vm.setLat
+                  _vm.lat
                     ? _c("div", [
-                        _vm._v(
-                          "\n          " + _vm._s(_vm.setLat) + "\n        "
-                        )
+                        _vm._v("\n          " + _vm._s(_vm.lat) + "\n        ")
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.setLng
+                  _vm.lng
                     ? _c("div", [
-                        _vm._v(
-                          "\n          " + _vm._s(_vm.setLng) + "\n        "
-                        )
+                        _vm._v("\n          " + _vm._s(_vm.lng) + "\n        ")
                       ])
                     : _vm._e()
                 ])
@@ -26071,107 +26055,99 @@ var state = {
 };
 var getters = {};
 var mutations = {
-  setcityName: function setcityName(state, cityName) {
-    state.cityName = cityName;
+  setNewLocation: function setNewLocation(state, value) {
+    state.cityName = value.city;
+    state.lat = value.latitude;
+    state.lng = value.longitude;
+    state.seeLat = value.latitude;
+    state.seeLng = value.longitude;
+    state.icon = true;
+    state.modal = true;
   },
-  setLat: function setLat(state, lat) {
-    state.lat = lat;
+  setModal: function setModal(state, value) {
+    state.modal = value;
   },
-  setLng: function setLng(state, lng) {
-    state.lng = lng;
+  setSettingModal: function setSettingModal(state, value) {
+    state.settingModal = value;
   },
-  setCurrentLat: function setCurrentLat(state, currentLat) {
-    state.currentLat = currentLat;
+  setDistance: function setDistance(state, value) {
+    state.distance = value;
   },
-  setCurrentLng: function setCurrentLng(state, currentLng) {
-    state.currentLng = currentLng;
+  setCurrentLocation: function setCurrentLocation(state, value) {
+    state.currentLat = value.lat;
+    state.currentLng = value.lng;
+    state.seeLat = value.lat;
+    state.seeLng = value.lng;
   },
-  setSeeLat: function setSeeLat(state, seeLat) {
-    state.seeLat = seeLat;
+  setSetting: function setSetting(state, value) {
+    state.distance = value;
+    state.settingModal = false;
   },
-  setSeeLng: function setSeeLng(state, seeLng) {
-    state.seeLng = seeLng;
-  },
-  setIcon: function setIcon(state, icon) {
-    state.icon = icon;
-  },
-  setModal: function setModal(state, modal) {
-    state.modal = modal;
-  },
-  setSettingModal: function setSettingModal(state, settingModal) {
-    state.settingModal = settingModal;
-  },
-  setDistance: function setDistance(state, distance) {
-    state.distance = distance;
-  },
-  setErrorMessages: function setErrorMessages(state, errorMessages) {
-    state.errorMessages = errorMessages;
+  setErrorMessages: function setErrorMessages(state, value) {
+    state.errorMessages = value;
   }
 };
 var actions = {
-  setNewLocation: function setNewLocation(context, _ref) {
-    var latLng, router, responseDatas, responseData, city, lat, lng, errors;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context) {
+  getLoading: function getLoading(context, latLng) {
+    var res, distance;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getLoading$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            latLng = _ref.latLng, router = _ref.router;
-            _context.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latLng));
+            _context.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/setting'));
 
-          case 3:
-            responseDatas = _context.sent;
+          case 2:
+            res = _context.sent;
 
-            if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && responseDatas.data.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
-              responseData = responseDatas.data.data[0];
-              city = responseData.city;
-              lat = responseData.latitude;
-              lng = responseData.longitude;
-              context.commit('setcityName', city);
-              context.commit('setLat', lat);
-              context.commit('setLng', lng);
-              context.commit('setSeeLat', lat);
-              context.commit('setSeeLng', lng);
-              context.commit('setIcon', true);
-              context.commit('setModal', true);
+            // レスポンスが空ではない時の処理
+            if (res.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && Object.keys(res.data).length) {
+              distance = [res.data.min_distance, res.data.max_distance];
+              context.commit('setDistance', distance);
+            } // レスポンスが空の処理
+
+
+            if (!(res.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && !Object.keys(res.data).length)) {
+              _context.next = 6;
+              break;
             }
 
-            if (responseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && responseDatas.data.status === _util__WEBPACK_IMPORTED_MODULE_1__["NO_RECORD"]) {
-              errors = responseDatas.data.errors.message;
-              context.commit('setErrorMessages', errors);
-            }
+            return _context.abrupt("return", false);
 
           case 6:
+            context.commit('setCurrentLocation', latLng);
+
+          case 7:
           case "end":
             return _context.stop();
         }
       }
     });
   },
-  getSetting: function getSetting(context) {
-    var getSettingResponseDatas, getSettingDistance;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getSetting$(_context2) {
+  setNewLocation: function setNewLocation(context, _ref) {
+    var latLng, router, res, resData, errors;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/setting'));
+            latLng = _ref.latLng, router = _ref.router;
+            _context2.next = 3;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latLng));
 
-          case 2:
-            getSettingResponseDatas = _context2.sent;
+          case 3:
+            res = _context2.sent;
 
-            if (getSettingResponseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && Object.keys(getSettingResponseDatas.data).length) {
-              getSettingDistance = [getSettingResponseDatas.data.min_distance, getSettingResponseDatas.data.max_distance];
-              context.commit('setDistance', getSettingDistance);
-            } // 空だった時の処理
+            // レスポンスが空ではない時の処理
+            if (res.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && res.data.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+              resData = res.data.data[0];
+              context.commit('setNewLocation', resData);
+            } // レスポンスが空の処理
 
 
-            if (!(getSettingResponseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && !Object.keys(getSettingResponseDatas.data).length)) {
-              _context2.next = 6;
-              break;
+            if (res.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && res.data.status === _util__WEBPACK_IMPORTED_MODULE_1__["NO_RECORD"]) {
+              errors = res.data.errors.message;
+              context.commit('setErrorMessages', errors);
             }
-
-            return _context2.abrupt("return", false);
 
           case 6:
           case "end":
@@ -26185,10 +26161,9 @@ var actions = {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            context.commit('setDistance', distance);
-            context.commit('setSettingModal', false);
+            context.commit('setSetting', distance);
 
-          case 2:
+          case 1:
           case "end":
             return _context3.stop();
         }
