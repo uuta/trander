@@ -86,13 +86,16 @@ const actions = {
   async getSetting(context) {
     const getSettingResponseDatas = await axios.post('/api/setting')
 
-    if (getSettingResponseDatas.status === OK) {
+    if (getSettingResponseDatas.status === OK && Object.keys(getSettingResponseDatas.data).length) {
       const getSettingDistance = [
         getSettingResponseDatas.data.min_distance, getSettingResponseDatas.data.max_distance
       ]
       context.commit('setDistance', getSettingDistance)
     }
-    // TODO:空だった時の処理
+    // 空だった時の処理
+    if (getSettingResponseDatas.status === OK && !Object.keys(getSettingResponseDatas.data).length) {
+      return false;
+    }
   },
   async setSetting(context, distance) {
     context.commit('setDistance', distance)

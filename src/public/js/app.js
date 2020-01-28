@@ -26160,13 +26160,20 @@ var actions = {
           case 2:
             getSettingResponseDatas = _context2.sent;
 
-            if (getSettingResponseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+            if (getSettingResponseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && Object.keys(getSettingResponseDatas.data).length) {
               getSettingDistance = [getSettingResponseDatas.data.min_distance, getSettingResponseDatas.data.max_distance];
               context.commit('setDistance', getSettingDistance);
-            } // TODO:空だった時の処理
+            } // 空だった時の処理
 
 
-          case 4:
+            if (!(getSettingResponseDatas.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && !Object.keys(getSettingResponseDatas.data).length)) {
+              _context2.next = 6;
+              break;
+            }
+
+            return _context2.abrupt("return", false);
+
+          case 6:
           case "end":
             return _context2.stop();
         }
