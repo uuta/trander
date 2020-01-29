@@ -87,8 +87,9 @@ const actions = {
       context.commit('setErrorMessages', errors)
     }
   },
-  async setSetting(context, distance) {
+  async setSetting(context, { distance, setting }) {
     context.commit('setSetting', distance)
+    await axios.post('/api/setting', setting)
   }
 }
 export default {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\SettingRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
@@ -22,8 +23,9 @@ class SettingController extends Controller
     return $response_json;
   }
 
-  public function store()
+  public function store(Request $request)
   {
-    $this->SettingRepository->setSetting();
+    Log::debug($request);
+    $this->SettingRepository->setSetting($request);
   }
 }

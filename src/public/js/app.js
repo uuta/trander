@@ -2185,7 +2185,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: {
     hiddenSettingModal: function hiddenSettingModal() {
-      this.$store.dispatch('external/setSetting', this.setDistance);
+      var distance = this.setDistance;
+      var setting = {
+        lat: this.setDistance[0],
+        lng: this.setDistance[1]
+      };
+      this.$store.dispatch('external/setSetting', {
+        distance: distance,
+        setting: setting
+      });
     },
     updateDistance: function updateDistance(distance) {
       this.$store.commit('external/setDistance', distance);
@@ -26153,14 +26161,18 @@ var actions = {
       }
     });
   },
-  setSetting: function setSetting(context, distance) {
+  setSetting: function setSetting(context, _ref2) {
+    var distance, setting;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setSetting$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
+            distance = _ref2.distance, setting = _ref2.setting;
             context.commit('setSetting', distance);
+            _context3.next = 4;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/setting', setting));
 
-          case 1:
+          case 4:
           case "end":
             return _context3.stop();
         }

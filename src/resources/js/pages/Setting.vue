@@ -44,7 +44,12 @@
     },
     methods: {
       hiddenSettingModal() {
-        this.$store.dispatch('external/setSetting', this.setDistance)
+        const distance = this.setDistance
+        const setting = {
+          lat: this.setDistance[0],
+          lng: this.setDistance[1]
+        }
+        this.$store.dispatch('external/setSetting', {distance, setting})
       },
       updateDistance(distance){
         this.$store.commit('external/setDistance', distance)

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,15 +20,15 @@ class SettingRepository
     return DB::table($this->table)->where('user_id', Auth::id())->first();
   }
 
-  public function setSetting()
+  public function setSetting($request)
   {
-    DB::updateOrCreate(
+    DB::table($this->table)->updateOrInsert(
       [
-        'user_id' => 9
+        'user_id' => Auth::id()
       ],
       [
-        'min_distance' => 10,
-        'max_distance' => 33
+        'min_distance' => $request['lat'],
+        'max_distance' => $request['lng']
       ]
     );
   }
