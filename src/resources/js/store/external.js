@@ -56,7 +56,7 @@ const mutations = {
 
 const actions = {
   async getLoading(context, latLng) {
-    const res = await axios.post('/api/setting')
+    const res = await axios.get('/api/setting')
 
     // レスポンスが空ではない時の処理
     if (res.status === OK && Object.keys(res.data).length) {
@@ -67,9 +67,9 @@ const actions = {
     }
     // レスポンスが空の処理
     if (res.status === OK && !Object.keys(res.data).length) {
-        return false;
+      ;
     }
-
+    // 現在地をセット
     context.commit('setCurrentLocation', latLng)
   },
   async setNewLocation(context, { latLng, router }) {

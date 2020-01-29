@@ -18,4 +18,17 @@ class SettingRepository
   {
     return DB::table($this->table)->where('user_id', Auth::id())->first();
   }
+
+  public function setSetting()
+  {
+    DB::updateOrCreate(
+      [
+        'user_id' => 9
+      ],
+      [
+        'min_distance' => 10,
+        'max_distance' => 33
+      ]
+    );
+  }
 }

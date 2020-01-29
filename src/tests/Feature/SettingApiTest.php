@@ -38,7 +38,7 @@ class SettingApiTest extends TestCase
         $response_test->assertStatus(200);
 
         // setting_APIにリクエストして成功する
-        $response = $this->post(route('setting'));
+        $response = $this->get(route('setting.get'));
         $response
             ->assertStatus(200)
             ->assertJson([

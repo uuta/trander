@@ -26095,7 +26095,7 @@ var actions = {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/setting'));
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get('/api/setting'));
 
           case 2:
             res = _context.sent;
@@ -26107,17 +26107,14 @@ var actions = {
             } // レスポンスが空の処理
 
 
-            if (!(res.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && !Object.keys(res.data).length)) {
-              _context.next = 6;
-              break;
-            }
+            if (res.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"] && !Object.keys(res.data).length) {
+              ;
+            } // 現在地をセット
 
-            return _context.abrupt("return", false);
 
-          case 6:
             context.commit('setCurrentLocation', latLng);
 
-          case 7:
+          case 6:
           case "end":
             return _context.stop();
         }

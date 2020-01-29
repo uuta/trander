@@ -33,4 +33,5 @@ Route::namespace('External')->group(function () {
 });
 
 // セッティング
-Route::post('/setting', 'SettingController@request')->name('setting');
+Route::get('/setting', 'SettingController@get')->name('setting.get');
+Route::post('/setting', 'SettingController@store')->name('setting.store');

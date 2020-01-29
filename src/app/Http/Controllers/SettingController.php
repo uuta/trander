@@ -15,10 +15,15 @@ class SettingController extends Controller
     $this->SettingRepository = $SettingRepository;
   }
 
-  public function request()
+  public function get()
   {
     $response = $this->SettingRepository->getSetting();
     $response_json = response()->json($response);
     return $response_json;
+  }
+
+  public function store()
+  {
+    $this->SettingRepository->setSetting();
   }
 }
