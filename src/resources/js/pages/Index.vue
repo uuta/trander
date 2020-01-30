@@ -69,26 +69,29 @@ export default {
     seeLng: state => state.external.seeLng,
     icon: state => state.external.icon,
     modal: state => state.external.modal,
+    distance: state => state.external.distance,
     settingModal: state => state.external.settingModal,
     errorMessages: state => state.external.errorMessages
   }),
   methods: {
      getCurrentLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
-        const latLng = {
+        const data = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
-        this.$store.dispatch('external/getLoading', latLng)
+        this.$store.dispatch('external/getLoading', data)
       });
     },
     setNewLocation() {
-      const latLng = {
+      const data = {
         lat: this.currentLat,
-        lng: this.currentLng
+        lng: this.currentLng,
+        min: this.distance[0] * 1000,
+        max: this.distance[1] * 1000
       }
       const router = this.$router
-      this.$store.dispatch('external/setNewLocation', {latLng, router})
+      this.$store.dispatch('external/setNewLocation', {data, router})
     },
     hiddenModal() {
       this.$store.commit('external/setModal', false)

@@ -25,7 +25,6 @@ class SettingController extends Controller
 
   public function store(Request $request)
   {
-    Log::debug($request);
     $this->SettingRepository->setSetting($request);
   }
 }

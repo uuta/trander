@@ -55,7 +55,7 @@ const mutations = {
 }
 
 const actions = {
-  async getLoading(context, latLng) {
+  async getLoading(context, data) {
     const res = await axios.get('/api/setting')
 
     // レスポンスが空ではない時の処理
@@ -70,10 +70,10 @@ const actions = {
       ;
     }
     // 現在地をセット
-    context.commit('setCurrentLocation', latLng)
+    context.commit('setCurrentLocation', data)
   },
-  async setNewLocation(context, { latLng, router }) {
-    const res = await axios.post('/api/external/geo-db-cities', latLng)
+  async setNewLocation(context, { data, router }) {
+    const res = await axios.post('/api/external/geo-db-cities', data)
 
     // レスポンスが空ではない時の処理
     if (res.status === OK && res.data.status === OK) {

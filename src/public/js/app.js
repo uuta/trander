@@ -1939,6 +1939,9 @@ __webpack_require__.r(__webpack_exports__);
     modal: function modal(state) {
       return state.external.modal;
     },
+    distance: function distance(state) {
+      return state.external.distance;
+    },
     settingModal: function settingModal(state) {
       return state.external.settingModal;
     },
@@ -1951,22 +1954,24 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       navigator.geolocation.getCurrentPosition(function (position) {
-        var latLng = {
+        var data = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
-        _this.$store.dispatch('external/getLoading', latLng);
+        _this.$store.dispatch('external/getLoading', data);
       });
     },
     setNewLocation: function setNewLocation() {
-      var latLng = {
+      var data = {
         lat: this.currentLat,
-        lng: this.currentLng
+        lng: this.currentLng,
+        min: this.distance[0] * 1000,
+        max: this.distance[1] * 1000
       };
       var router = this.$router;
       this.$store.dispatch('external/setNewLocation', {
-        latLng: latLng,
+        data: data,
         router: router
       });
     },
@@ -26096,7 +26101,7 @@ var mutations = {
   }
 };
 var actions = {
-  getLoading: function getLoading(context, latLng) {
+  getLoading: function getLoading(context, data) {
     var res, distance;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getLoading$(_context) {
       while (1) {
@@ -26120,7 +26125,7 @@ var actions = {
             } // 現在地をセット
 
 
-            context.commit('setCurrentLocation', latLng);
+            context.commit('setCurrentLocation', data);
 
           case 6:
           case "end":
@@ -26130,14 +26135,14 @@ var actions = {
     });
   },
   setNewLocation: function setNewLocation(context, _ref) {
-    var latLng, router, res, resData, errors;
+    var data, router, res, resData, errors;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setNewLocation$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            latLng = _ref.latLng, router = _ref.router;
+            data = _ref.data, router = _ref.router;
             _context2.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', latLng));
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', data));
 
           case 3:
             res = _context2.sent;
