@@ -30,7 +30,6 @@ class GeoDBCitiesApi
         'countryIds' => 'JP',
         'location' => $location,
         'radius' => '100',
-        'types' => 'CITY'
       ],
       'headers' => [
         'x-rapidapi-host' => 'wft-geo-db.p.rapidapi.com',
@@ -77,7 +76,7 @@ class GeoDBCitiesApi
     $currentLocation = new Coordinate($request->lat, $request->lng);
     $bearingEllipsoidal = new BearingEllipsoidal();
     $angle = $this->generateAngle();
-    $distance = $this->generateDistance();
+    $distance = $this->generateDistance($request);
     $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $angle, $distance);
     $commaDestination = $destination->format(new DecimalDegrees(','));
     $location = $this->adjustLatAndLngFormat($commaDestination);
@@ -101,10 +100,10 @@ class GeoDBCitiesApi
    *
    * @return  double
    */
-  public function generateDistance()
+  public function generateDistance($request)
   {
-    $min = 5000;
-    $max = 15000;
+    $min = $request->min;
+    $max = $request->max;
     $rand_f = rand($min, $max);
     return $rand_f;
   }

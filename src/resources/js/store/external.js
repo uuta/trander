@@ -1,6 +1,7 @@
 import {
   OK,
-  NO_RECORD
+  NO_RECORD,
+  DISTANCE_MSG
 } from '../util'
 
 const state = {
@@ -14,70 +15,86 @@ const state = {
   icon: false,
   modal: false,
   settingModal: false,
+  distance: [0, 100],
+  msg: '車や電車で遠出しましょう',
   errorMessages: null
 }
 
 const getters = {}
 
 const mutations = {
-  setcityName(state, cityName) {
-    state.cityName = cityName
+  setNewLocation(state, value) {
+    state.cityName = value.city
+    state.lat = value.latitude
+    state.lng = value.longitude
+    state.seeLat = value.latitude
+    state.seeLng = value.longitude
+    state.icon = true
+    state.modal = true
   },
-  setLat(state, lat) {
-    state.lat = lat
+  setModal(state, value) {
+    state.modal = value
   },
-  setLng(state, lng) {
-    state.lng = lng
+  setSettingModal(state, value) {
+    state.settingModal = value
   },
-  setCurrentLat(state, currentLat) {
-    state.currentLat = currentLat
+  setDistance(state, value) {
+    state.distance = value
   },
-  setCurrentLng(state, currentLng) {
-    state.currentLng = currentLng
+  setMsg(state, value) {
+    state.msg = value
   },
-  setSeeLat(state, seeLat) {
-    state.seeLat = seeLat
+  setCurrentLocation(state, value) {
+    state.currentLat = value.lat
+    state.currentLng = value.lng
+    state.seeLat = value.lat
+    state.seeLng = value.lng
   },
-  setSeeLng(state, seeLng) {
-    state.seeLng = seeLng
+  setSetting(state, value) {
+    state.distance = value
+    state.settingModal = false
   },
-  setIcon(state, icon) {
-    state.icon = icon
-  },
-  setModal(state, modal) {
-    state.modal = modal
-  },
-  setSettingModal(state, settingModal) {
-    state.settingModal = settingModal
-  },
-  setErrorMessages(state, errorMessages) {
-    state.errorMessages = errorMessages
+  setErrorMessages(state, value) {
+    state.errorMessages = value
   },
 }
 
 const actions = {
-  async setNewLocation(context, { latLng, router }) {
-    const responseDatas = await axios.post('/api/external/geo-db-cities', latLng)
+  async getLoading(context, data) {
+    const res = await axios.get('/api/setting')
 
-    if (responseDatas.status === OK && responseDatas.data.status === OK) {
-      const responseData = responseDatas.data.data[0]
-      const city = responseData.city
-      const lat = responseData.latitude
-      const lng = responseData.longitude
+    // レスポンスが空ではない時の処理
+    if (res.status === OK && Object.keys(res.data).length) {
+        const distance = [
+            res.data.min_distance, res.data.max_distance
+        ]
+        context.commit('setDistance', distance)
+    }
+    // レスポンスが空の処理
+    if (res.status === OK && !Object.keys(res.data).length) {
+      ;
+    }
+    // 現在地をセット
+    context.commit('setCurrentLocation', data)
+  },
+  async setNewLocation(context, { data, router }) {
+    const res = await axios.post('/api/external/geo-db-cities', data)
 
-      context.commit('setcityName', city)
-      context.commit('setLat', lat)
-      context.commit('setLng', lng)
-      context.commit('setSeeLat', lat)
-      context.commit('setSeeLng', lng)
-      context.commit('setIcon', true)
-      context.commit('setModal', true)
+    // レスポンスが空ではない時の処理
+    if (res.status === OK && res.data.status === OK) {
+      const resData = res.data.data[0]
+      context.commit('setNewLocation', resData)
     }
 
-    if (responseDatas.status === OK && responseDatas.data.status === NO_RECORD) {
-      const errors = responseDatas.data.errors.message
+    // レスポンスが空の処理
+    if (res.status === OK && res.data.status === NO_RECORD) {
+      const errors = res.data.errors.message
       context.commit('setErrorMessages', errors)
     }
+  },
+  async setSetting(context, { distance, setting }) {
+    context.commit('setSetting', distance)
+    await axios.post('/api/setting', setting)
   }
 }
 export default {

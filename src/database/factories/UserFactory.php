@@ -14,6 +14,9 @@ use Faker\Generator as Faker;
 |
 */
 
+/**
+ * ユーザー登録
+ */
 $factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,

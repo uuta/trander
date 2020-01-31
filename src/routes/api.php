@@ -31,3 +31,7 @@ Route::namespace('External')->group(function () {
     Route::post('/external/resas', 'ResasApiController@request')->name('resas');
     Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
 });
+
+// セッティング
+Route::get('/setting', 'SettingController@get')->name('setting.get');
+Route::post('/setting', 'SettingController@store')->name('setting.store');
