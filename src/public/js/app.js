@@ -1723,7 +1723,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2177,6 +2176,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2231,6 +2231,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           return msg;
         }
       }
+    },
+    logout: function logout() {
+      var router = this.$router;
+      this.$store.dispatch('auth/logout', router);
     }
   }
 });
@@ -4634,17 +4638,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("header", [_c("Navbar")], 1),
-      _vm._v(" "),
-      _c("main", [_c("RouterView")], 1),
-      _vm._v(" "),
-      _c("Footer")
-    ],
-    1
-  )
+  return _c("div", [
+    _c("header", [_c("Navbar")], 1),
+    _vm._v(" "),
+    _c("main", [_c("RouterView")], 1)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -5460,7 +5458,16 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.msg))])
+                _c("p", [_vm._v(_vm._s(_vm.msg))]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button button--link",
+                    on: { click: _vm.logout }
+                  },
+                  [_vm._v("Logout")]
+                )
               ],
               1
             )

@@ -15,13 +15,14 @@
           :tooltipStyle="{ backgroundColor: '#3316F2', borderColor: '#3316F2', borderShadow: '#3316F2' }"
         ></vue-slider>
         <p>{{ msg }}</p>
+        <button class="button button--link" @click="logout">Logout</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations, mapGetters } from 'vuex'
 
   import vueSlider from 'vue-slider-component'
   import 'vue-slider-component/theme/default.css'
@@ -67,6 +68,10 @@
             return msg
           }
         }
+      },
+      logout () {
+        const router = this.$router
+        this.$store.dispatch('auth/logout', router)
       }
     }
   }
