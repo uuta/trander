@@ -10,9 +10,12 @@
       </GmapMap>
       <div id="map_info">
         <div>
-          現在地：東京都中央区
           <div v-if="cityName">
             {{ cityName }}
+          </div>
+          <div v-else>
+            {{ username }}さん、こんにちは！<br>
+            ボタンを押して、近くの街を探してみましょう。
           </div>
           <div v-if="errorMessages">
             {{ errorMessages }}
@@ -41,7 +44,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Setting from './Setting.vue'
 
 export default {
@@ -59,20 +62,25 @@ export default {
   created:function(){
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
   },
-  computed: mapState({
-    cityName: state => state.external.cityName,
-    lat: state => state.external.lat,
-    lng: state => state.external.lng,
-    currentLat: state => state.external.currentLat,
-    currentLng: state => state.external.currentLng,
-    seeLat: state => state.external.seeLat,
-    seeLng: state => state.external.seeLng,
-    icon: state => state.external.icon,
-    modal: state => state.external.modal,
-    distance: state => state.external.distance,
-    settingModal: state => state.external.settingModal,
-    errorMessages: state => state.external.errorMessages
-  }),
+  computed: {
+    ...mapState({
+      cityName: state => state.external.cityName,
+      lat: state => state.external.lat,
+      lng: state => state.external.lng,
+      currentLat: state => state.external.currentLat,
+      currentLng: state => state.external.currentLng,
+      seeLat: state => state.external.seeLat,
+      seeLng: state => state.external.seeLng,
+      icon: state => state.external.icon,
+      modal: state => state.external.modal,
+      distance: state => state.external.distance,
+      settingModal: state => state.external.settingModal,
+      errorMessages: state => state.external.errorMessages
+    }),
+    ...mapGetters({
+      username: 'auth/username'
+    })
+  },
   methods: {
      getCurrentLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -98,7 +106,7 @@ export default {
     },
     showSettingModal() {
       this.$store.commit('external/setSettingModal', true)
-    },
+    }
   }
 }
 </script>
