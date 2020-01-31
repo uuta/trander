@@ -1,6 +1,7 @@
 import {
   OK,
-  NO_RECORD
+  NO_RECORD,
+  DISTANCE_MSG
 } from '../util'
 
 const state = {
@@ -15,6 +16,7 @@ const state = {
   modal: false,
   settingModal: false,
   distance: [0, 100],
+  msg: '車や電車で遠出しましょう',
   errorMessages: null
 }
 
@@ -38,6 +40,9 @@ const mutations = {
   },
   setDistance(state, value) {
     state.distance = value
+  },
+  setMsg(state, value) {
+    state.msg = value
   },
   setCurrentLocation(state, value) {
     state.currentLat = value.lat

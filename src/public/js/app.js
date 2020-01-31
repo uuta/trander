@@ -2140,6 +2140,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_slider_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_slider_component__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_slider_component_theme_default_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-slider-component/theme/default.css */ "./node_modules/vue-slider-component/theme/default.css");
 /* harmony import */ var vue_slider_component_theme_default_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_slider_component_theme_default_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2167,6 +2176,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 
@@ -2177,6 +2188,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     settingModal: function settingModal(state) {
       return state.external.settingModal;
+    },
+    msg: function msg(state) {
+      return state.external.msg;
     }
   }), {
     setDistance: {
@@ -2201,7 +2215,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     updateDistance: function updateDistance(distance) {
+      var msg = this.setMsg(distance);
       this.$store.commit('external/setDistance', distance);
+      this.$store.commit('external/setMsg', msg);
+    },
+    setMsg: function setMsg(distance) {
+      var max = distance[1];
+
+      for (var _i = 0, _Object$entries = Object.entries(_util__WEBPACK_IMPORTED_MODULE_3__["DISTANCE_MSG"]); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            standard = _Object$entries$_i[0],
+            msg = _Object$entries$_i[1];
+
+        if (max <= standard) {
+          return msg;
+        }
+      }
     }
   }
 });
@@ -5396,6 +5425,15 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", [_vm._v("次の地点までの距離")]),
                 _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    _vm._s(_vm.setDistance[0]) +
+                      "km - " +
+                      _vm._s(_vm.setDistance[1]) +
+                      "km"
+                  )
+                ]),
+                _vm._v(" "),
                 _c("vue-slider", {
                   ref: "slider",
                   attrs: {
@@ -5422,14 +5460,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    _vm._s(_vm.setDistance[0]) +
-                      "km - " +
-                      _vm._s(_vm.setDistance[1]) +
-                      "km"
-                  )
-                ])
+                _c("p", [_vm._v(_vm._s(_vm.msg))])
               ],
               1
             )
@@ -26064,6 +26095,7 @@ var state = {
   modal: false,
   settingModal: false,
   distance: [0, 100],
+  msg: '車や電車で遠出しましょう',
   errorMessages: null
 };
 var getters = {};
@@ -26085,6 +26117,9 @@ var mutations = {
   },
   setDistance: function setDistance(state, value) {
     state.distance = value;
+  },
+  setMsg: function setMsg(state, value) {
+    state.msg = value;
   },
   setCurrentLocation: function setCurrentLocation(state, value) {
     state.currentLat = value.lat;
@@ -26231,7 +26266,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*!******************************!*\
   !*** ./resources/js/util.js ***!
   \******************************/
-/*! exports provided: OK, CREATED, NO_RECORD, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY, getCookieValue */
+/*! exports provided: OK, CREATED, NO_RECORD, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY, DISTANCE_MSG, getCookieValue */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26241,6 +26276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NO_RECORD", function() { return NO_RECORD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERNAL_SERVER_ERROR", function() { return INTERNAL_SERVER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNPROCESSABLE_ENTITY", function() { return UNPROCESSABLE_ENTITY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DISTANCE_MSG", function() { return DISTANCE_MSG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCookieValue", function() { return getCookieValue; });
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -26255,6 +26291,12 @@ var CREATED = 201;
 var NO_RECORD = 204;
 var INTERNAL_SERVER_ERROR = 500;
 var UNPROCESSABLE_ENTITY = 422;
+var DISTANCE_MSG = {
+  10: '近所を散策しましょう',
+  30: '自転車でお出かけしましょう',
+  60: '車や電車でお出かけしましょう',
+  100: '車や電車で遠出しましょう'
+};
 /**
  * クッキーの値を取得する
  * @param {String} searchKey 検索するキー

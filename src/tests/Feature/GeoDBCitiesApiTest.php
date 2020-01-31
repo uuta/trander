@@ -25,7 +25,9 @@ class GeoDBCitiesApiTest extends TestCase
         // 仮の指定地点をリクエストパラメーターに設定
         $request = [
             'lat' => 43.067883,
-            'lng' => 141.322995
+            'lng' => 141.322995,
+            'min' => 0,
+            'max' => 25,
         ];
         $response = $this->post(route('geo-db-cities'), $request);
         $response
@@ -40,7 +42,9 @@ class GeoDBCitiesApiTest extends TestCase
         // 100km圏内に都市がない緯度経度をリクエストパラメーターに設定
         $request = [
             'lat' => 35.188444,
-            'lng' => 152.442722
+            'lng' => 152.442722,
+            'min' => 0,
+            'max' => 25,
         ];
         $code = 'データなし';
         $message = '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。';
