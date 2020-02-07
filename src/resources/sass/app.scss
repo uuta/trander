@@ -1,20 +1,23 @@
-@import "variables";
-@import "general";
-@import "base";
-@import "container";
-@import "grid";
-@import "navbar";
-@import "photo";
-@import "photo-detail";
-@import "photo-form";
-@import "button";
-@import "form";
-@import "tab";
-@import "footer";
-@import "errors";
-@import "pagination";
-@import "panel";
-@import "title";
-@import "loader";
-@import "message";
-@import "map";
+// Foundation
+@import "Foundation/color";
+@import "Foundation/var";
+@import "Foundation/general";
+@import "Foundation/base";
+
+// Layout
+@import "Layout/container";
+@import "Layout/navbar";
+@import "Layout/footer";
+
+// Object/Component
+@import "Object/Component/grid";
+@import "Object/Component/button";
+@import "Object/Component/form";
+@import "Object/Component/tab";
+@import "Object/Component/errors";
+@import "Object/Component/panel";
+@import "Object/Component/title";
+@import "Object/Component/loader";
+
+// Object/Project
+@import "Object/Project/map";
