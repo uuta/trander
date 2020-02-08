@@ -3,6 +3,7 @@
 @import "Foundation/var";
 @import "Foundation/general";
 @import "Foundation/base";
+@import "Foundation/reset";
 
 // Layout
 @import "Layout/container";
@@ -18,6 +19,10 @@
 @import "Object/Component/panel";
 @import "Object/Component/title";
 @import "Object/Component/loader";
+@import "Object/Component/head_title";
+@import "Object/Component/text";
+@import "Object/Component/wrap";
 
 // Object/Project
 @import "Object/Project/map";
+@import "Object/Project/setting";

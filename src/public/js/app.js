@@ -2188,6 +2188,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5435,19 +5449,44 @@ var render = function() {
           _c("div", { attrs: { id: "map_overlay_wrap" } }, [
             _c(
               "div",
-              { staticClass: "container--small" },
+              { staticClass: "container--small p-setting__wrap" },
               [
-                _c("h1", [_vm._v("設定（Setting）")]),
+                _c("div", { staticClass: "c-head_title__big" }, [
+                  _vm._v("設定 - Setting")
+                ]),
                 _vm._v(" "),
-                _c("p", [_vm._v("次の地点までの距離")]),
+                _c("i", {
+                  staticClass: "fas fa-arrow-left p-setting__back",
+                  on: {
+                    click: function($event) {
+                      if ($event.target !== $event.currentTarget) {
+                        return null
+                      }
+                      return _vm.hiddenSettingModal($event)
+                    }
+                  }
+                }),
                 _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    _vm._s(_vm.setDistance[0]) +
-                      "km - " +
-                      _vm._s(_vm.setDistance[1]) +
-                      "km"
-                  )
+                _c("div", { staticClass: "p-setting__distance__wrap" }, [
+                  _c("div", { staticClass: "p-setting__distance__info" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass:
+                          "c-head_title__mid c-head_title__bold no__margin"
+                      },
+                      [_vm._v("次の地点までの距離")]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "no__margin" }, [
+                      _vm._v(
+                        _vm._s(_vm.setDistance[0]) +
+                          "km - " +
+                          _vm._s(_vm.setDistance[1]) +
+                          "km"
+                      )
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("vue-slider", {
@@ -5455,6 +5494,11 @@ var render = function() {
                   attrs: {
                     "enable-cross": false,
                     dotSize: 20,
+                    railStyle: {
+                      height: "8px",
+                      border: "1px solid #6e5ce8",
+                      background: "#fff"
+                    },
                     dotStyle: {
                       backgroundColor: "#3316F2",
                       borderShadow: "#3316F2",
@@ -5476,15 +5520,37 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.msg))]),
+                _c("div", { staticClass: "p-setting__distance__msg" }, [
+                  _c("p", { staticClass: "p-setting__distance__msg__lf" }, [
+                    _vm._v("0km")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "p-setting__distance__msg__mid" }, [
+                    _vm._v(_vm._s(_vm.msg))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "p-setting__distance__msg__rf" }, [
+                    _vm._v("100km")
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "button",
                   {
-                    staticClass: "button button--link",
+                    staticClass: "button button--link p-setting__elm__wrap",
                     on: { click: _vm.logout }
                   },
-                  [_vm._v("Logout")]
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "p-setting__txt" }, [
+                      _vm._v("ログアウト")
+                    ]),
+                    _vm._v(" "),
+                    _c("i", {
+                      staticClass: "fas fa-caret-right p-setting__next"
+                    })
+                  ]
                 )
               ],
               1
@@ -5494,7 +5560,16 @@ var render = function() {
       )
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "p-setting__icon" }, [
+      _c("i", { staticClass: "fas fa-sign-out-alt" })
+    ])
+  }
+]
 render._withStripped = true
 
 
