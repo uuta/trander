@@ -6,7 +6,6 @@
   display: inline-block;
   font-family: inherit;
   font-size: 1rem;
-  line-height: 1;
   outline: none;
   padding: .5rem .75rem;
   text-decoration: none;
@@ -15,8 +14,8 @@
     color 300ms ease-in-out;
 
   &:hover {
-    border-color: $primary;
-    color: inherit;
+    border-color: $secondary;
+    color: $secondary;
   }
 
   .icon {
@@ -37,7 +36,7 @@
     &_setting {
       position: absolute;
       font-size: 30px;
-      color: $primary;
+      color: $primary-v;
       right: 30px;
       background-color: transparent;
       border: none;
@@ -81,8 +80,8 @@
   }
 
   &--inverse {
-    background: $primary;
-    border-color: $primary;
+    background: $primary-v;
+    border-color: $primary-v;
     color: #fff;
     transition: opacity 300ms ease-in-out;
     margin: 0 auto;
@@ -92,7 +91,7 @@
     margin-bottom: 1em;
 
     &:hover {
-      background: $primary;
+      background: $secondary;
       color: #fff;
       opacity: .8;
     }

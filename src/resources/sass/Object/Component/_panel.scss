@@ -2,10 +2,11 @@
   border: 1px solid $primary-s;
   margin-top: 1rem;
   padding: 1.5rem;
-  color: $primary;
+  color: $text-color;
 
   &__hr {
     font-size: $font-mid;
+    font-weight: bold;
   }
 
   &__txt {
@@ -16,6 +17,12 @@
       display: block;
       text-align: right;
       padding: 0 0.75em;
+      color: $sub-v;
+
+      &:hover {
+          color: $secondary-v;
+          opacity: .8;
+      }
     }
   }
 }

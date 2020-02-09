@@ -1,23 +1,52 @@
+.c-icon {
+  position: absolute;
+  font-size: $font-big;
+  top: 9%;
+  left: 1%;
+  color: $primary;
+
+  &__name::before {
+    @extend .c-icon;
+    content: "\f007";
+    font-family: FontAwesome;
+  }
+
+  &__email::before {
+    @extend .c-icon;
+    content: "\f0e0";
+    font-family: FontAwesome;
+  }
+
+  &__pwd::before {
+      @extend .c-icon;
+      content: "\f023";
+      font-family: FontAwesome;
+  }
+}
+
 .form {
+  &__wrap {
+    position: relative;
+  }
+
   &__item {
     border: none;
-    border-bottom: 1px solid $primary-s;
-    border-radius: .25rem;
+    border-bottom: 1px solid $primary;
     font-size: 1rem;
-    margin-bottom: 1rem;
-    padding: .5em .75em;
+    margin-bottom: 2rem;
+    padding: 0.5em 3em 0.5em;
     width: 100%;
-    color: $primary;
 
     &::placeholder {
-      color: $primary-s;
+      color: $sub-v;
     }
   }
 
   label {
     display: block;
-    margin-bottom: .5rem;
-    color: $primary;
+    margin-bottom: .2rem;
+    color: $text-color;
+    font-weight: bold;
   }
 
   &__output {
@@ -80,8 +109,8 @@
       &:hover {
         cursor: pointer;
         color: $base;
-        background-color: $primary-s;
-        border-color: $primary-s;
+        background-color: $primary-v;
+        border-color: $primary-v;
         text-decoration-color: transparent;
       }
     }

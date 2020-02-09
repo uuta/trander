@@ -2080,6 +2080,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5036,61 +5054,69 @@ var render = function() {
                 _vm._v("メールアドレス")
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.loginForm.email,
-                    expression: "loginForm.email"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: {
-                  type: "email",
-                  id: "login-email",
-                  placeholder: "PC・スマホどちらでも可"
-                },
-                domProps: { value: _vm.loginForm.email },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c("div", { staticClass: "form__wrap" }, [
+                _c("div", { staticClass: "c-icon__email" }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.loginForm.email,
+                      expression: "loginForm.email"
                     }
-                    _vm.$set(_vm.loginForm, "email", $event.target.value)
+                  ],
+                  staticClass: "form__item",
+                  attrs: {
+                    type: "email",
+                    id: "login-email",
+                    placeholder: "PC・スマホどちらでも可"
+                  },
+                  domProps: { value: _vm.loginForm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.loginForm, "email", $event.target.value)
+                    }
                   }
-                }
-              }),
+                })
+              ]),
               _vm._v(" "),
               _c("label", { attrs: { for: "login-password" } }, [
                 _vm._v("パスワード")
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.loginForm.password,
-                    expression: "loginForm.password"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: {
-                  type: "password",
-                  id: "login-password",
-                  placeholder: "6文字以上の半角英数字"
-                },
-                domProps: { value: _vm.loginForm.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c("div", { staticClass: "form__wrap" }, [
+                _c("div", { staticClass: "c-icon__pwd" }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.loginForm.password,
+                      expression: "loginForm.password"
                     }
-                    _vm.$set(_vm.loginForm, "password", $event.target.value)
+                  ],
+                  staticClass: "form__item",
+                  attrs: {
+                    type: "password",
+                    id: "login-password",
+                    placeholder: "6文字以上の半角英数字"
+                  },
+                  domProps: { value: _vm.loginForm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.loginForm, "password", $event.target.value)
+                    }
                   }
-                }
-              }),
+                })
+              ]),
               _vm._v(" "),
               _c(
                 "RouterLink",
@@ -5125,7 +5151,7 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "panel__hr" }, [
-            _vm._v("サインアップしましょう")
+            _vm._v("会員登録しましょう")
           ]),
           _vm._v(" "),
           _vm._m(2),
@@ -5178,125 +5204,145 @@ var render = function() {
               _vm._v(" "),
               _c("label", { attrs: { for: "username" } }, [_vm._v("お名前")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.registerForm.name,
-                    expression: "registerForm.name"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: {
-                  type: "text",
-                  id: "username",
-                  placeholder: "例）Trander太郎"
-                },
-                domProps: { value: _vm.registerForm.name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c("div", { staticClass: "form__wrap" }, [
+                _c("div", { staticClass: "c-icon__name" }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.name,
+                      expression: "registerForm.name"
                     }
-                    _vm.$set(_vm.registerForm, "name", $event.target.value)
+                  ],
+                  staticClass: "form__item",
+                  attrs: {
+                    type: "text",
+                    id: "username",
+                    placeholder: "例）Trander太郎"
+                  },
+                  domProps: { value: _vm.registerForm.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.registerForm, "name", $event.target.value)
+                    }
                   }
-                }
-              }),
+                })
+              ]),
               _vm._v(" "),
               _c("label", { attrs: { for: "email" } }, [
                 _vm._v("メールアドレス")
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.registerForm.email,
-                    expression: "registerForm.email"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: {
-                  type: "text",
-                  id: "email",
-                  placeholder: "PC・スマホどちらでも可"
-                },
-                domProps: { value: _vm.registerForm.email },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c("div", { staticClass: "form__wrap" }, [
+                _c("div", { staticClass: "c-icon__email" }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.email,
+                      expression: "registerForm.email"
                     }
-                    _vm.$set(_vm.registerForm, "email", $event.target.value)
+                  ],
+                  staticClass: "form__item",
+                  attrs: {
+                    type: "text",
+                    id: "email",
+                    placeholder: "PC・スマホどちらでも可"
+                  },
+                  domProps: { value: _vm.registerForm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.registerForm, "email", $event.target.value)
+                    }
                   }
-                }
-              }),
+                })
+              ]),
               _vm._v(" "),
               _c("label", { attrs: { for: "password" } }, [
                 _vm._v("パスワード")
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.registerForm.password,
-                    expression: "registerForm.password"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: {
-                  type: "password",
-                  id: "password",
-                  placeholder: "6文字以上の半角英数字"
-                },
-                domProps: { value: _vm.registerForm.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c("div", { staticClass: "form__wrap" }, [
+                _c("div", { staticClass: "c-icon__pwd" }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.password,
+                      expression: "registerForm.password"
                     }
-                    _vm.$set(_vm.registerForm, "password", $event.target.value)
+                  ],
+                  staticClass: "form__item",
+                  attrs: {
+                    type: "password",
+                    id: "password",
+                    placeholder: "6文字以上の半角英数字"
+                  },
+                  domProps: { value: _vm.registerForm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.registerForm,
+                        "password",
+                        $event.target.value
+                      )
+                    }
                   }
-                }
-              }),
+                })
+              ]),
               _vm._v(" "),
               _c("label", { attrs: { for: "password-confirmation" } }, [
                 _vm._v("パスワード (確認)")
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.registerForm.password_confirmation,
-                    expression: "registerForm.password_confirmation"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: {
-                  type: "password",
-                  id: "password-confirmation",
-                  placeholder: "6文字以上の半角英数字"
-                },
-                domProps: { value: _vm.registerForm.password_confirmation },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c("div", { staticClass: "form__wrap" }, [
+                _c("div", { staticClass: "c-icon__pwd" }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.password_confirmation,
+                      expression: "registerForm.password_confirmation"
                     }
-                    _vm.$set(
-                      _vm.registerForm,
-                      "password_confirmation",
-                      $event.target.value
-                    )
+                  ],
+                  staticClass: "form__item",
+                  attrs: {
+                    type: "password",
+                    id: "password-confirmation",
+                    placeholder: "6文字以上の半角英数字"
+                  },
+                  domProps: { value: _vm.registerForm.password_confirmation },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.registerForm,
+                        "password_confirmation",
+                        $event.target.value
+                      )
+                    }
                   }
-                }
-              }),
+                })
+              ]),
               _vm._v(" "),
               _vm._m(3)
             ]
