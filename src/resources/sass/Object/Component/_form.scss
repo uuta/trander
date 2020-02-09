@@ -1,23 +1,23 @@
 .form {
   &__item {
     border: none;
-    border-bottom: 1px solid $blue-2;
+    border-bottom: 1px solid $primary-s;
     border-radius: .25rem;
     font-size: 1rem;
     margin-bottom: 1rem;
     padding: .5em .75em;
     width: 100%;
-    color: $blue-1;
+    color: $primary;
 
     &::placeholder {
-      color: $blue-2;
+      color: $primary-s;
     }
   }
 
   label {
     display: block;
     margin-bottom: .5rem;
-    color: $blue-1;
+    color: $primary;
   }
 
   &__output {
@@ -31,7 +31,7 @@
 
   &__sns {
     &__wrap {
-      color: $blue-1;
+      color: $primary;
       padding: 2em 7em;
       display: flex;
       display: -webkit-box;
@@ -54,13 +54,13 @@
 
       &:hover {
         cursor: pointer;
-        border-color: $blue-2;
+        border-color: $primary-s;
         text-decoration-color: transparent;
       }
     }
 
     &__btn {
-      border: 1px solid $blue-1;
+      border: 1px solid $primary;
       border-radius: 50%;
       -ms-flex-preferred-size: 16%;
       transition: color .3s,
@@ -79,9 +79,9 @@
 
       &:hover {
         cursor: pointer;
-        color: $white-1;
-        background-color: $blue-2;
-        border-color: $blue-2;
+        color: $base;
+        background-color: $primary-s;
+        border-color: $primary-s;
         text-decoration-color: transparent;
       }
     }

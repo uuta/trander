@@ -9,13 +9,13 @@
     left: 1%;
     top: 3%;
     font-size: $font-big;
-    color: $blue-1;
+    color: $primary;
     transition: color .3s,
     text-decoration .3s,
     background-color .3s;
 
     &:hover {
-      color: $blue-2;
+      color: $primary-s;
       cursor: pointer;
     }
   }
@@ -33,7 +33,7 @@
         position: absolute;
         display: inline-block;
         left: 0;
-        color: $blue-3;
+        color: $primary;
       }
 
       &__mid {
@@ -44,17 +44,17 @@
         position: absolute;
         display: inline-block;
         right: 0;
-        color: $blue-3;
+        color: $primary;
       }
     }
   }
 
   &__icon {
-    background: $blue-1;
+    background: $primary;
     border-radius: 50%;
     -ms-flex-preferred-size: 16%;
     display: block;
-    color: $white-1;
+    color: $base;
     width: 45px;
     height: 45px;
     font-size: 20px;
@@ -73,7 +73,7 @@
 
   &__next {
     font-size: 20px;
-    color: $blue-1;
+    color: $primary;
     -ms-flex-preferred-size: 32%;
     flex-basis: 20%;
     position: absolute;
@@ -84,7 +84,7 @@
   &__elm {
 
     &__wrap{
-      border-top: 2px solid $blue-2;
+      border-top: 2px solid $primary-s;
       width: 60%;
       text-align: left;
       position: relative;
@@ -95,10 +95,10 @@
       }
 
       &:last-child {
-        border-bottom: 2px solid $blue-2;
+        border-bottom: 2px solid $primary-s;
 
         &:hover {
-            border-color: $blue-1;
+            border-color: $primary;
             color: inherit;
         }
       }

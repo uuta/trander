@@ -52,7 +52,7 @@ img {
 }
 
 a {
-  color: #3316F2;
+  color: #5743ef;
 }
 
 .no__margin {
@@ -161,7 +161,7 @@ a {
 }
 
 .button:hover {
-  border-color: #3316F2;
+  border-color: #5743ef;
   color: inherit;
 }
 
@@ -174,17 +174,17 @@ a {
   height: 55px;
   border-radius: 50%;
   font-size: 30px;
-  color: #3316F2;
+  color: #5743ef;
   line-height: 55px;
   text-align: center;
   background: #fff;
-  border: 1px solid #3316F2;
+  border: 1px solid #5743ef;
 }
 
 .button_map_setting {
   position: absolute;
   font-size: 30px;
-  color: #3316F2;
+  color: #5743ef;
   right: 30px;
   background-color: transparent;
   border: none;
@@ -230,8 +230,8 @@ a {
 }
 
 .button--inverse {
-  background: #3316F2;
-  border-color: #3316F2;
+  background: #5743ef;
+  border-color: #5743ef;
   color: #fff;
   -webkit-transition: opacity 300ms ease-in-out;
   transition: opacity 300ms ease-in-out;
@@ -243,7 +243,7 @@ a {
 }
 
 .button--inverse:hover {
-  background: #3316F2;
+  background: #5743ef;
   color: #fff;
   opacity: 0.8;
 }
@@ -280,7 +280,7 @@ a {
   margin-bottom: 1rem;
   padding: 0.5em 0.75em;
   width: 100%;
-  color: #3316F2;
+  color: #5743ef;
 }
 
 .form__item::-webkit-input-placeholder {
@@ -306,7 +306,7 @@ a {
 .form label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #3316F2;
+  color: #5743ef;
 }
 
 .form__output {
@@ -319,7 +319,7 @@ a {
 }
 
 .form__sns__wrap {
-  color: #3316F2;
+  color: #5743ef;
   padding: 2em 7em;
   display: flex;
   display: -webkit-box;
@@ -349,7 +349,7 @@ a {
 }
 
 .form__sns__btn {
-  border: 1px solid #3316F2;
+  border: 1px solid #5743ef;
   border-radius: 50%;
   -ms-flex-preferred-size: 16%;
   -webkit-transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
@@ -387,15 +387,15 @@ a {
 
 .tab__item {
   border-bottom: 2px solid #D6D1F8;
-  color: #3316F2;
+  color: #5743ef;
   cursor: pointer;
   margin: 0 1rem 0 0;
   padding: 1rem;
 }
 
 .tab__item--active {
-  border-bottom: 2px solid #3316F2;
-  color: #3316F2;
+  border-bottom: 2px solid #5743ef;
+  color: #5743ef;
   font-weight: bold;
 }
 
@@ -410,7 +410,7 @@ a {
   border: 1px solid #D6D1F8;
   margin-top: 1rem;
   padding: 1.5rem;
-  color: #3316F2;
+  color: #5743ef;
 }
 
 .panel__hr {
@@ -640,7 +640,7 @@ a {
   left: 1%;
   top: 3%;
   font-size: 1.5rem;
-  color: #3316F2;
+  color: #5743ef;
   -webkit-transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
   transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
   transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
@@ -664,7 +664,7 @@ a {
   position: absolute;
   display: inline-block;
   left: 0;
-  color: #6e5ce8;
+  color: #5743ef;
 }
 
 .p-setting__distance__msg__mid {
@@ -675,11 +675,11 @@ a {
   position: absolute;
   display: inline-block;
   right: 0;
-  color: #6e5ce8;
+  color: #5743ef;
 }
 
 .p-setting__icon {
-  background: #3316F2;
+  background: #5743ef;
   border-radius: 50%;
   -ms-flex-preferred-size: 16%;
   display: block;
@@ -701,7 +701,7 @@ a {
 
 .p-setting__next {
   font-size: 20px;
-  color: #3316F2;
+  color: #5743ef;
   flex-basis: 20%;
   position: absolute;
   top: 35%;
@@ -725,7 +725,7 @@ a {
 }
 
 .p-setting__elm__wrap:last-child:hover {
-  border-color: #3316F2;
+  border-color: #5743ef;
   color: inherit;
 }
 
