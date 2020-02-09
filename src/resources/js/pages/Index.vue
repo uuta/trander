@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div id="map">
+      <Registration></Registration>
       <Setting></Setting>
       <GmapMap :center="{lat:seeLat, lng:seeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
         <gmap-marker :position="{lat:currentLat, lng:currentLng}" :icon="icon_center">
@@ -46,10 +47,12 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Setting from './Setting.vue'
+import Registration from '../components/modal/Registration.vue'
 
 export default {
   components: {
-    Setting
+    Setting,
+    Registration
   },
   data () {
     return {
