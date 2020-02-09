@@ -273,32 +273,6 @@ a {
   opacity: 0.8;
 }
 
-.c-icon,
-.c-icon__pwd::before,
-.c-icon__email::before,
-.c-icon__name::before {
-  position: absolute;
-  font-size: 1.5rem;
-  top: 9%;
-  left: 1%;
-  color: #5743ef;
-}
-
-.c-icon__name::before {
-  content: "\F007";
-  font-family: FontAwesome;
-}
-
-.c-icon__email::before {
-  content: "\F0E0";
-  font-family: FontAwesome;
-}
-
-.c-icon__pwd::before {
-  content: "\F023";
-  font-family: FontAwesome;
-}
-
 .form__wrap {
   position: relative;
 }
@@ -609,6 +583,32 @@ a {
 
 .c-wrap__info {
   margin: 20px 0;
+}
+
+.c-icon,
+.c-icon__pwd::before,
+.c-icon__email::before,
+.c-icon__name::before {
+  position: absolute;
+  font-size: 1.5rem;
+  top: 9%;
+  left: 1%;
+  color: #5743ef;
+}
+
+.c-icon__name::before {
+  content: "\F007";
+  font-family: FontAwesome;
+}
+
+.c-icon__email::before {
+  content: "\F0E0";
+  font-family: FontAwesome;
+}
+
+.c-icon__pwd::before {
+  content: "\F023";
+  font-family: FontAwesome;
 }
 
 #map {
