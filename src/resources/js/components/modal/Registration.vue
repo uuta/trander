@@ -12,15 +12,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  data () {
-    return {
-      registerModal: true
-    }
-  },
+  computed: mapState({
+    registerModal: state => state.auth.registerModal,
+  }),
   methods: {
     hiddenRegisterModal() {
-      this.registerModal = false
+      this.$store.commit('auth/setRegisterModal', false)
     }
   }
 }

@@ -1844,6 +1844,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -1857,15 +1858,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      registerModal: true
-    };
-  },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    registerModal: function registerModal(state) {
+      return state.auth.registerModal;
+    }
+  }),
   methods: {
     hiddenRegisterModal: function hiddenRegisterModal() {
-      this.registerModal = false;
+      this.$store.commit('auth/setRegisterModal', false);
     }
   }
 });
@@ -26071,7 +26073,8 @@ var state = {
   loginErrorMessages: null,
   registerErrorMessages: null,
   resetErrorMessages: null,
-  regenerateErrorMessages: null
+  regenerateErrorMessages: null,
+  registerModal: false
 };
 var getters = {
   check: function check(state) {
@@ -26105,6 +26108,9 @@ var mutations = {
   },
   setRegenerateErrorMessages: function setRegenerateErrorMessages(state, messages) {
     state.regenerateErrorMessages = messages;
+  },
+  setRegisterModal: function setRegisterModal(state, registerModal) {
+    state.registerModal = registerModal;
   }
 };
 var actions = {
@@ -26123,16 +26129,17 @@ var actions = {
             response = _context.sent;
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
-              _context.next = 10;
+              _context.next = 11;
               break;
             }
 
             context.commit('setApiStatus', true);
             context.commit('setUser', response.data);
+            context.commit('setRegisterModal', true);
             router.push('/index');
             return _context.abrupt("return", false);
 
-          case 10:
+          case 11:
             context.commit('setApiStatus', false);
 
             if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
@@ -26143,7 +26150,7 @@ var actions = {
               });
             }
 
-          case 12:
+          case 13:
           case "end":
             return _context.stop();
         }

@@ -11,7 +11,8 @@ const state = {
     loginErrorMessages: null,
     registerErrorMessages: null,
     resetErrorMessages: null,
-    regenerateErrorMessages: null
+    regenerateErrorMessages: null,
+    registerModal: false,
 }
 
 const getters = {
@@ -41,6 +42,9 @@ const mutations = {
     },
     setRegenerateErrorMessages(state, messages) {
         state.regenerateErrorMessages = messages
+    },
+    setRegisterModal(state, registerModal) {
+        state.registerModal = registerModal
     }
 }
 
@@ -52,10 +56,11 @@ const actions = {
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/register', data)
         if (response.status === CREATED) {
-             context.commit('setApiStatus', true)
-             context.commit('setUser', response.data)
-             router.push('/index')
-             return false
+            context.commit('setApiStatus', true)
+            context.commit('setUser', response.data)
+            context.commit('setRegisterModal', true)
+            router.push('/index')
+            return false
         }
 
         context.commit('setApiStatus', false)
