@@ -20,7 +20,7 @@ export default {
   }),
   methods: {
     hiddenRegisterModal() {
-      this.$store.commit('auth/setRegisterModal', false)
+      this.$store.dispatch('auth/hiddenRegisterModal')
     }
   }
 }

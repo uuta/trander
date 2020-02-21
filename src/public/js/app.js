@@ -1867,7 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
   }),
   methods: {
     hiddenRegisterModal: function hiddenRegisterModal() {
-      this.$store.commit('auth/setRegisterModal', false);
+      this.$store.dispatch('auth/hiddenRegisterModal');
     }
   }
 });
@@ -26288,7 +26288,10 @@ var actions = {
           case 2:
             response = _context5.sent;
             check = response.data.check_registration || null;
-            context.commit('setRegisterModal', check);
+
+            if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"]) {
+              context.commit('setRegisterModal', check);
+            }
 
           case 5:
           case "end":
@@ -26297,28 +26300,44 @@ var actions = {
       }
     });
   },
-  resetPassword: function resetPassword(context, _ref3) {
-    var data, router, response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function resetPassword$(_context6) {
+  hiddenRegisterModal: function hiddenRegisterModal(context) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function hiddenRegisterModal$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
+            context.commit('setRegisterModal', false);
+            _context6.next = 3;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/change-registration'));
+
+          case 3:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    });
+  },
+  resetPassword: function resetPassword(context, _ref3) {
+    var data, router, response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function resetPassword$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
             data = _ref3.data, router = _ref3.router;
             context.commit('setApiStatus', null);
-            _context6.next = 4;
+            _context7.next = 4;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/reset-password', data));
 
           case 4:
-            response = _context6.sent;
+            response = _context7.sent;
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context6.next = 9;
+              _context7.next = 9;
               break;
             }
 
             context.commit('setEmail', data);
             router.push('/sent-email');
-            return _context6.abrupt("return", false);
+            return _context7.abrupt("return", false);
 
           case 9:
             context.commit('setApiStatus', false);
@@ -26333,35 +26352,35 @@ var actions = {
 
           case 11:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
       }
     });
   },
   regeneratePassword: function regeneratePassword(context, _ref4) {
     var data, router, response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function regeneratePassword$(_context7) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function regeneratePassword$(_context8) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context8.prev = _context8.next) {
           case 0:
             data = _ref4.data, router = _ref4.router;
             context.commit('setApiStatus', null);
             data['token'] = router.app._route.params.token;
-            _context7.next = 5;
+            _context8.next = 5;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/regenerate-password', data));
 
           case 5:
-            response = _context7.sent;
+            response = _context8.sent;
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context7.next = 11;
+              _context8.next = 11;
               break;
             }
 
             context.commit('setApiStatus', true);
             context.commit('setUser', response.data);
             router.push('/login');
-            return _context7.abrupt("return", false);
+            return _context8.abrupt("return", false);
 
           case 11:
             context.commit('setApiStatus', false);
@@ -26376,7 +26395,7 @@ var actions = {
 
           case 13:
           case "end":
-            return _context7.stop();
+            return _context8.stop();
         }
       }
     });

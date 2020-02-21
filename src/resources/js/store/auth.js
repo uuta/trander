@@ -120,7 +120,14 @@ const actions = {
     async checkRegistration(context) {
         const response = await axios.get('/api/user')
         const check = response.data.check_registration || null
-        context.commit('setRegisterModal', check)
+
+        if (response.status === OK) {
+            context.commit('setRegisterModal', check)
+        }
+    },
+    async hiddenRegisterModal(context) {
+        context.commit('setRegisterModal', false)
+        await axios.post('/api/change-registration')
     },
     async resetPassword(context, {
         data,
