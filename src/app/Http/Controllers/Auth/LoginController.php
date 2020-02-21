@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -97,11 +98,5 @@ class LoginController extends Controller
 
         Auth::login($user, true);
         return redirect()->secure('/index#');
-    }
-
-    public function test($social)
-    {
-        $user = Socialite::driver($social)->user();
-        dd($user);
     }
 }
