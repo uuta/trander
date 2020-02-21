@@ -4,11 +4,11 @@
         <div class="c-modal__msg__section">
           <div>
           <p class="c-head_title__mid__modal">登録できました！</p>
-          <p>ありがとうございます◯◯さん。</p>
+          <p>ありがとうございます{{ username }}さん。</p>
           <p>旅の準備が整いました。</p>
           </div>
         </div>
-        <button class="button__modal">OK</button>
+        <button class="button__modal" @click.self="hiddenRegisterModal">OK</button>
       </div>
     </div>
   </div>
@@ -18,9 +18,15 @@
 import { mapState } from 'vuex'
 
 export default {
-  computed: mapState({
-    registerModal: state => state.auth.registerModal,
-  }),
+  computed: {
+    ...mapState({
+      registerModal: state => state.auth.registerModal,
+      username: state => state.auth.user
+    }),
+    username() {
+      return this.$store.getters['auth/username']
+    }
+  },
   methods: {
     hiddenRegisterModal() {
       this.$store.dispatch('auth/hiddenRegisterModal')

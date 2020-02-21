@@ -1845,6 +1845,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1863,9 +1869,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     registerModal: function registerModal(state) {
       return state.auth.registerModal;
+    },
+    username: function username(state) {
+      return state.auth.user;
+    }
+  }), {
+    username: function username() {
+      return this.$store.getters['auth/username'];
     }
   }),
   methods: {
@@ -4870,32 +4883,45 @@ var render = function() {
             }
           }
         },
-        [_vm._m(0)]
+        [
+          _c("div", { staticClass: "c-modal__overlay__wrap__sml" }, [
+            _c("div", { staticClass: "c-modal__msg__section" }, [
+              _c("div", [
+                _c("p", { staticClass: "c-head_title__mid__modal" }, [
+                  _vm._v("登録できました！")
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "ありがとうございます" + _vm._s(_vm.username) + "さん。"
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v("旅の準備が整いました。")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "button__modal",
+                on: {
+                  click: function($event) {
+                    if ($event.target !== $event.currentTarget) {
+                      return null
+                    }
+                    return _vm.hiddenRegisterModal($event)
+                  }
+                }
+              },
+              [_vm._v("OK")]
+            )
+          ])
+        ]
       )
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-modal__overlay__wrap__sml" }, [
-      _c("div", { staticClass: "c-modal__msg__section" }, [
-        _c("div", [
-          _c("p", { staticClass: "c-head_title__mid__modal" }, [
-            _vm._v("登録できました！")
-          ]),
-          _vm._v(" "),
-          _c("p", [_vm._v("ありがとうございます◯◯さん。")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("旅の準備が整いました。")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "button__modal" }, [_vm._v("OK")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
