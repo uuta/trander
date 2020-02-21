@@ -1,11 +1,14 @@
 <template>
-  <div id="map_overlay" v-if="registerModal" @click.self="hiddenRegisterModal">
-    <div id="map_overlay_wrap">
-      <div class="container--small p-setting__wrap">
-        <p>登録できました！</p>
-        <p>ありがとうございます◯◯さん。</p>
-        <p>旅の準備が整いました。</p>
-        <div>OK</div>
+  <div class="c-modal__overlay" v-if="registerModal" @click.self="hiddenRegisterModal">
+    <div class="c-modal__overlay__wrap__sml">
+        <div class="c-modal__msg__section">
+          <div>
+          <p class="c-head_title__mid__modal">登録できました！</p>
+          <p>ありがとうございます◯◯さん。</p>
+          <p>旅の準備が整いました。</p>
+          </div>
+        </div>
+        <button class="button__modal">OK</button>
       </div>
     </div>
   </div>

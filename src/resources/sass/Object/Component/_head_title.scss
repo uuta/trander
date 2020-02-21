@@ -1,4 +1,3 @@
-
 .c-head_title {
 
   &__extreme {
@@ -13,6 +12,11 @@
 
   &__mid {
     font-size: $font-mid;
+
+    &__modal {
+      @extend .c-head_title__mid;
+      font-weight: bold;;
+    }
   }
 
   &__bold {

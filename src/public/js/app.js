@@ -1858,6 +1858,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -4857,7 +4860,7 @@ var render = function() {
     ? _c(
         "div",
         {
-          attrs: { id: "map_overlay" },
+          staticClass: "c-modal__overlay",
           on: {
             click: function($event) {
               if ($event.target !== $event.currentTarget) {
@@ -4876,16 +4879,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "map_overlay_wrap" } }, [
-      _c("div", { staticClass: "container--small p-setting__wrap" }, [
-        _c("p", [_vm._v("登録できました！")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("ありがとうございます◯◯さん。")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("旅の準備が整いました。")]),
-        _vm._v(" "),
-        _c("div", [_vm._v("OK")])
-      ])
+    return _c("div", { staticClass: "c-modal__overlay__wrap__sml" }, [
+      _c("div", { staticClass: "c-modal__msg__section" }, [
+        _c("div", [
+          _c("p", { staticClass: "c-head_title__mid__modal" }, [
+            _vm._v("登録できました！")
+          ]),
+          _vm._v(" "),
+          _c("p", [_vm._v("ありがとうございます◯◯さん。")]),
+          _vm._v(" "),
+          _c("p", [_vm._v("旅の準備が整いました。")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "button__modal" }, [_vm._v("OK")])
     ])
   }
 ]
