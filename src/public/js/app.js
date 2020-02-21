@@ -1961,6 +1961,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {
     this.getCurrentLocation(); // DOMの読み込み前に現在地を取得
+
+    this.checkRegistration();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     cityName: function cityName(state) {
@@ -2014,6 +2016,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$store.dispatch('external/getLoading', data);
       });
+    },
+    checkRegistration: function checkRegistration() {
+      this.$store.dispatch('auth/checkRegistration');
     },
     setNewLocation: function setNewLocation() {
       var data = {
@@ -26271,28 +26276,49 @@ var actions = {
       }
     });
   },
-  resetPassword: function resetPassword(context, _ref3) {
-    var data, router, response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function resetPassword$(_context5) {
+  checkRegistration: function checkRegistration(context) {
+    var response, check;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkRegistration$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
+            _context5.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get('/api/user'));
+
+          case 2:
+            response = _context5.sent;
+            check = response.data.check_registration || null;
+            context.commit('setRegisterModal', check);
+
+          case 5:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    });
+  },
+  resetPassword: function resetPassword(context, _ref3) {
+    var data, router, response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function resetPassword$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
             data = _ref3.data, router = _ref3.router;
             context.commit('setApiStatus', null);
-            _context5.next = 4;
+            _context6.next = 4;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/reset-password', data));
 
           case 4:
-            response = _context5.sent;
+            response = _context6.sent;
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context5.next = 9;
+              _context6.next = 9;
               break;
             }
 
             context.commit('setEmail', data);
             router.push('/sent-email');
-            return _context5.abrupt("return", false);
+            return _context6.abrupt("return", false);
 
           case 9:
             context.commit('setApiStatus', false);
@@ -26307,35 +26333,35 @@ var actions = {
 
           case 11:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
     });
   },
   regeneratePassword: function regeneratePassword(context, _ref4) {
     var data, router, response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function regeneratePassword$(_context6) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function regeneratePassword$(_context7) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context7.prev = _context7.next) {
           case 0:
             data = _ref4.data, router = _ref4.router;
             context.commit('setApiStatus', null);
             data['token'] = router.app._route.params.token;
-            _context6.next = 5;
+            _context7.next = 5;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/regenerate-password', data));
 
           case 5:
-            response = _context6.sent;
+            response = _context7.sent;
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context6.next = 11;
+              _context7.next = 11;
               break;
             }
 
             context.commit('setApiStatus', true);
             context.commit('setUser', response.data);
             router.push('/login');
-            return _context6.abrupt("return", false);
+            return _context7.abrupt("return", false);
 
           case 11:
             context.commit('setApiStatus', false);
@@ -26350,7 +26376,7 @@ var actions = {
 
           case 13:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
       }
     });

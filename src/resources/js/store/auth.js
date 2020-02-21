@@ -117,6 +117,11 @@ const actions = {
         context.commit('setApiStatus', false)
         context.commit('error/setCode', response.status, { root: true })
     },
+    async checkRegistration(context) {
+        const response = await axios.get('/api/user')
+        const check = response.data.check_registration || null
+        context.commit('setRegisterModal', check)
+    },
     async resetPassword(context, {
         data,
         router

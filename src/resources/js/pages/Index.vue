@@ -64,6 +64,7 @@ export default {
   },
   created:function(){
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
+    this.checkRegistration()
   },
   computed: {
     ...mapState({
@@ -93,6 +94,9 @@ export default {
         }
         this.$store.dispatch('external/getLoading', data)
       });
+    },
+    checkRegistration() {
+      this.$store.dispatch('auth/checkRegistration')
     },
     setNewLocation() {
       const data = {
