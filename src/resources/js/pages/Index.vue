@@ -25,21 +25,7 @@
         <button @click="setNewLocation" class="button_map button_map_info"><i class="fas fa-plus"></i></button>
       </div>
       <button class="button_map_setting"><i class="fas fa-cog" @click.self="showSettingModal"></i></button>
-      <div id="map_overlay" v-if="modal" @click.self="hiddenModal">
-        <div id="map_overlay_wrap">
-          <p><i class="fas fa-crown"></i> おめでとうございます！新しいロケーションを発見しました。</p>
-          <p v-if="cityName">
-            {{ cityName }}
-          </p>
-          <p> 早速、冒険に出てみましょう！</p>
-          <div v-if="lat">
-            {{ lat }}
-          </div>
-          <div v-if="lng">
-            {{ lng }}
-          </div>
-        </div>
-      </div>
+      <Searched></Searched>
     </div>
   </div>
 </template>
@@ -48,11 +34,13 @@
 import { mapState, mapGetters } from 'vuex'
 import Setting from './Setting.vue'
 import Registration from '../components/modal/Registration.vue'
+import Searched from '../components/modal/Searched.vue'
 
 export default {
   components: {
     Setting,
-    Registration
+    Registration,
+    Searched
   },
   data () {
     return {
@@ -76,7 +64,6 @@ export default {
       seeLat: state => state.external.seeLat,
       seeLng: state => state.external.seeLng,
       icon: state => state.external.icon,
-      modal: state => state.external.modal,
       distance: state => state.external.distance,
       settingModal: state => state.external.settingModal,
       errorMessages: state => state.external.errorMessages
