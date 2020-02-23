@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Bars v-show="loading"></Bars>
     <div class="container--small">
       <ul class="tab">
         <li
@@ -82,7 +83,9 @@
             <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation" placeholder="6文字以上の半角英数字">
           </div>
           <div class="form__button">
-            <button type="submit" class="button button--inverse">会員登録する</button>
+            <button type="submit" class="button button--inverse">
+              <span>会員登録する</span>
+              </button>
           </div>
         </form>
       </div>
@@ -92,8 +95,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import Bars from '../components/loader/Bars.vue'
 
 export default {
+  components: {
+    Bars
+  },
   data () {
     return {
       tab: 1,
@@ -111,7 +118,8 @@ export default {
   },
   computed: mapState({
     loginErrors: state => state.auth.loginErrorMessages,
-    registerErrors: state => state.auth.registerErrorMessages
+    registerErrors: state => state.auth.registerErrorMessages,
+    loading: state => state.auth.loading
   }),
   methods: {
     login () {

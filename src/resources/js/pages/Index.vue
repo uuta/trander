@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Bars v-show="loading"></Bars>
     <div id="map">
       <Registration></Registration>
       <Setting></Setting>
@@ -35,12 +36,14 @@ import { mapState, mapGetters } from 'vuex'
 import Setting from './Setting.vue'
 import Registration from '../components/modal/Registration.vue'
 import Searched from '../components/modal/Searched.vue'
+import Bars from '../components/loader/Bars.vue'
 
 export default {
   components: {
     Setting,
     Registration,
-    Searched
+    Searched,
+    Bars
   },
   data () {
     return {
@@ -53,6 +56,7 @@ export default {
   created:function(){
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
     this.checkRegistration()
+    this.$store.commit('external/setSettingModal', false)
   },
   computed: {
     ...mapState({
@@ -66,7 +70,8 @@ export default {
       icon: state => state.external.icon,
       distance: state => state.external.distance,
       settingModal: state => state.external.settingModal,
-      errorMessages: state => state.external.errorMessages
+      errorMessages: state => state.external.errorMessages,
+      loading: state => state.auth.loading
     }),
     ...mapGetters({
       username: 'auth/username'
