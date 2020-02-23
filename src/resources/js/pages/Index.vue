@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <vue-progress-bar></vue-progress-bar>
     <Bars v-show="loading"></Bars>
     <div id="map">
       <Registration></Registration>
@@ -98,13 +99,18 @@ export default {
         max: this.distance[1] * 1000
       }
       const router = this.$router
-      this.$store.dispatch('external/setNewLocation', {data, router})
+      this.showProgressBar(data, router)
     },
     hiddenModal() {
       this.$store.commit('external/setModal', false)
     },
     showSettingModal() {
       this.$store.commit('external/setSettingModal', true)
+    },
+    async showProgressBar(data, router) {
+      this.$Progress.start()
+      await this.$store.dispatch('external/setNewLocation', {data, router})
+      this.$Progress.finish()
     }
   }
 }
