@@ -19,10 +19,15 @@
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "vue": "^2.5.17",
+        "vue-loading-template": "^1.3.2",
+        "vue-progressbar": "^0.7.5",
         "vue-router": "^3.1.3",
         "vue-slider-component": "^3.1.0",
         "vue-template-compiler": "^2.5.21",
         "vue2-google-maps": "^0.10.7",
         "vuex": "^3.1.2"
+    },
+    "dependencies": {
+        "vue-session": "^1.0.0"
     }
 }

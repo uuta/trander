@@ -6,6 +6,9 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 // ログイン
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 
+// モーダル用の値変更
+Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
+
 // ログアウト
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -35,3 +38,4 @@ Route::namespace('External')->group(function () {
 // セッティング
 Route::get('/setting', 'SettingController@get')->name('setting.get');
 Route::post('/setting', 'SettingController@store')->name('setting.store');
+Route::post('/test2', 'SettingController@test');

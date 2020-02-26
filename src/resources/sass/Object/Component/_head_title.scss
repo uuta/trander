@@ -1,0 +1,25 @@
+.c-head_title {
+
+  &__extreme {
+    font-size: $font-extreme;
+    margin: 20px 0;
+  }
+
+  &__big {
+    font-size: $font-big;
+    margin: 20px 0;
+  }
+
+  &__mid {
+    font-size: $font-mid;
+
+    &__modal {
+      @extend .c-head_title__mid;
+      font-weight: bold;;
+    }
+  }
+
+  &__bold {
+    font-weight: bold;
+  }
+}

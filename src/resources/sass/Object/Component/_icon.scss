@@ -1,0 +1,25 @@
+.c-icon {
+  position: absolute;
+  font-size: $font-big;
+  top: 9%;
+  left: 1%;
+  color: $primary;
+
+  &__name::before {
+    @extend .c-icon;
+    content: "\f007";
+    font-family: FontAwesome;
+  }
+
+  &__email::before {
+    @extend .c-icon;
+    content: "\f0e0";
+    font-family: FontAwesome;
+  }
+
+  &__pwd::before {
+    @extend .c-icon;
+    content: "\f023";
+    font-family: FontAwesome;
+  }
+}

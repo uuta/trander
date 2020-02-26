@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Bars v-show="loading"></Bars>
     <div class="container--small">
       <ul class="tab">
         <li
@@ -24,9 +25,15 @@
             </ul>
           </div>
           <label for="login-email">メールアドレス</label>
-          <input type="email" class="form__item" id="login-email" v-model="loginForm.email" placeholder="PC・スマホどちらでも可">
+          <div class="form__wrap">
+            <div class="c-icon__email"></div>
+            <input type="email" class="form__item" id="login-email" v-model="loginForm.email" placeholder="PC・スマホどちらでも可">
+          </div>
           <label for="login-password">パスワード</label>
-          <input type="password" class="form__item" id="login-password" v-model="loginForm.password"  placeholder="6文字以上の半角英数字">
+          <div class="form__wrap">
+            <div class="c-icon__pwd"></div>
+            <input type="password" class="form__item" id="login-password" v-model="loginForm.password"  placeholder="6文字以上の半角英数字">
+          </div>
           <RouterLink to="/reset-password" class="panel__txt__right">
             パスワードをお忘れですか？
           </RouterLink>
@@ -41,7 +48,7 @@
         </form>
       </div>
       <div class="panel" v-show="tab === 2">
-        <div class="panel__hr">サインアップしましょう</div>
+        <div class="panel__hr">会員登録しましょう</div>
         <div class="panel__txt">こんにちは！もしよろしければあなたのことを教えてください。<br>以下の4つの項目を埋めるだけで<strong>会員登録は完了</strong>です。</div>
         <form class="form" @submit.prevent="register">
           <div v-if="registerErrors" class="errors">
@@ -56,15 +63,29 @@
             </ul>
           </div>
           <label for="username">お名前</label>
-          <input type="text" class="form__item" id="username" v-model="registerForm.name" placeholder="例）Trander太郎">
+          <div class="form__wrap">
+            <div class="c-icon__name"></div>
+            <input type="text" class="form__item" id="username" v-model="registerForm.name" placeholder="例）Trander太郎">
+          </div>
           <label for="email">メールアドレス</label>
-          <input type="text" class="form__item" id="email" v-model="registerForm.email" placeholder="PC・スマホどちらでも可">
+          <div class="form__wrap">
+            <div class="c-icon__email"></div>
+            <input type="text" class="form__item" id="email" v-model="registerForm.email" placeholder="PC・スマホどちらでも可">
+          </div>
           <label for="password">パスワード</label>
-          <input type="password" class="form__item" id="password" v-model="registerForm.password" placeholder="6文字以上の半角英数字">
+          <div class="form__wrap">
+            <div class="c-icon__pwd"></div>
+            <input type="password" class="form__item" id="password" v-model="registerForm.password" placeholder="6文字以上の半角英数字">
+          </div>
           <label for="password-confirmation">パスワード (確認)</label>
-          <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation" placeholder="6文字以上の半角英数字">
+          <div class="form__wrap">
+            <div class="c-icon__pwd"></div>
+            <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation" placeholder="6文字以上の半角英数字">
+          </div>
           <div class="form__button">
-            <button type="submit" class="button button--inverse">会員登録する</button>
+            <button type="submit" class="button button--inverse">
+              <span>会員登録する</span>
+              </button>
           </div>
         </form>
       </div>
@@ -74,8 +95,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import Bars from '../components/loader/Bars.vue'
 
 export default {
+  components: {
+    Bars
+  },
   data () {
     return {
       tab: 1,
@@ -93,7 +118,8 @@ export default {
   },
   computed: mapState({
     loginErrors: state => state.auth.loginErrorMessages,
-    registerErrors: state => state.auth.registerErrorMessages
+    registerErrors: state => state.auth.registerErrorMessages,
+    loading: state => state.auth.loading
   }),
   methods: {
     login () {

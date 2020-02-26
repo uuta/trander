@@ -1,6 +1,9 @@
 <template>
   <div class="container">
+    <vue-progress-bar></vue-progress-bar>
+    <Bars v-show="loading"></Bars>
     <div id="map">
+      <Registration></Registration>
       <Setting></Setting>
       <GmapMap :center="{lat:seeLat, lng:seeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
         <gmap-marker :position="{lat:currentLat, lng:currentLng}" :icon="icon_center">
@@ -24,21 +27,7 @@
         <button @click="setNewLocation" class="button_map button_map_info"><i class="fas fa-plus"></i></button>
       </div>
       <button class="button_map_setting"><i class="fas fa-cog" @click.self="showSettingModal"></i></button>
-      <div id="map_overlay" v-if="modal" @click.self="hiddenModal">
-        <div id="map_overlay_wrap">
-          <p><i class="fas fa-crown"></i> おめでとうございます！新しいロケーションを発見しました。</p>
-          <p v-if="cityName">
-            {{ cityName }}
-          </p>
-          <p> 早速、冒険に出てみましょう！</p>
-          <div v-if="lat">
-            {{ lat }}
-          </div>
-          <div v-if="lng">
-            {{ lng }}
-          </div>
-        </div>
-      </div>
+      <Searched></Searched>
     </div>
   </div>
 </template>
@@ -46,10 +35,16 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Setting from './Setting.vue'
+import Registration from '../components/modal/Registration.vue'
+import Searched from '../components/modal/Searched.vue'
+import Bars from '../components/loader/Bars.vue'
 
 export default {
   components: {
-    Setting
+    Setting,
+    Registration,
+    Searched,
+    Bars
   },
   data () {
     return {
@@ -61,6 +56,8 @@ export default {
   },
   created:function(){
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
+    this.checkRegistration()
+    this.$store.commit('external/setSettingModal', false)
   },
   computed: {
     ...mapState({
@@ -72,10 +69,10 @@ export default {
       seeLat: state => state.external.seeLat,
       seeLng: state => state.external.seeLng,
       icon: state => state.external.icon,
-      modal: state => state.external.modal,
       distance: state => state.external.distance,
       settingModal: state => state.external.settingModal,
-      errorMessages: state => state.external.errorMessages
+      errorMessages: state => state.external.errorMessages,
+      loading: state => state.auth.loading
     }),
     ...mapGetters({
       username: 'auth/username'
@@ -91,6 +88,9 @@ export default {
         this.$store.dispatch('external/getLoading', data)
       });
     },
+    checkRegistration() {
+      this.$store.dispatch('auth/checkRegistration')
+    },
     setNewLocation() {
       const data = {
         lat: this.currentLat,
@@ -99,13 +99,18 @@ export default {
         max: this.distance[1] * 1000
       }
       const router = this.$router
-      this.$store.dispatch('external/setNewLocation', {data, router})
+      this.showProgressBar(data, router)
     },
     hiddenModal() {
       this.$store.commit('external/setModal', false)
     },
     showSettingModal() {
       this.$store.commit('external/setSettingModal', true)
+    },
+    async showProgressBar(data, router) {
+      this.$Progress.start()
+      await this.$store.dispatch('external/setNewLocation', {data, router})
+      this.$Progress.finish()
     }
   }
 }

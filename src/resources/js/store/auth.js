@@ -11,7 +11,9 @@ const state = {
     loginErrorMessages: null,
     registerErrorMessages: null,
     resetErrorMessages: null,
-    regenerateErrorMessages: null
+    regenerateErrorMessages: null,
+    registerModal: false,
+    loading: false
 }
 
 const getters = {
@@ -41,6 +43,12 @@ const mutations = {
     },
     setRegenerateErrorMessages(state, messages) {
         state.regenerateErrorMessages = messages
+    },
+    setRegisterModal(state, registerModal) {
+        state.registerModal = registerModal
+    },
+    setLoading(state, loading) {
+        state.loading = loading
     }
 }
 
@@ -49,13 +57,16 @@ const actions = {
         data,
         router
     }) {
+        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/register', data)
+        context.commit('setLoading', false)
         if (response.status === CREATED) {
-             context.commit('setApiStatus', true)
-             context.commit('setUser', response.data)
-             router.push('/index')
-             return false
+            context.commit('setApiStatus', true)
+            context.commit('setUser', response.data)
+            context.commit('setRegisterModal', true)
+            router.push('/index')
+            return false
         }
 
         context.commit('setApiStatus', false)
@@ -69,8 +80,10 @@ const actions = {
         data,
         router
     }) {
+        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/login', data)
+        context.commit('setLoading', false)
 
         if (response.status === OK) {
             context.commit('setApiStatus', true)
@@ -86,8 +99,10 @@ const actions = {
         }
     },
     async logout(context, router) {
+        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/logout')
+        context.commit('setLoading', false)
 
         if (response.status === OK) {
             context.commit('setApiStatus', true)
@@ -112,12 +127,27 @@ const actions = {
         context.commit('setApiStatus', false)
         context.commit('error/setCode', response.status, { root: true })
     },
+    async checkRegistration(context) {
+        const response = await axios.get('/api/user')
+        const check = response.data.check_registration || null
+
+        if (response.status === OK) {
+            context.commit('setRegisterModal', check)
+        }
+    },
+    async hiddenRegisterModal(context) {
+        context.commit('setRegisterModal', false)
+        await axios.post('/api/change-registration')
+    },
     async resetPassword(context, {
         data,
         router
     }) {
+        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/reset-password', data)
+        context.commit('setLoading', false)
+
         if (response.status === OK) {
             context.commit('setEmail', data)
             router.push('/sent-email')

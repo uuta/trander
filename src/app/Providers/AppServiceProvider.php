@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use App\Components\GeoDBCitiesApi;
 
+use App\Repositories\CheckRepository;
 use App\Repositories\SettingRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('GeoDBCitiesApi', GeoDBCitiesApi::class);
         $this->app->bind('SettingRepository', SettingRepository::class);
+        $this->app->bind('CheckRepository', CheckRepository::class);
     }
 
     /**

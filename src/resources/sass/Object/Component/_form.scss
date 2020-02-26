@@ -1,23 +1,26 @@
 .form {
+  &__wrap {
+    position: relative;
+  }
+
   &__item {
     border: none;
-    border-bottom: 1px solid $blue-2;
-    border-radius: .25rem;
+    border-bottom: 1px solid $primary;
     font-size: 1rem;
-    margin-bottom: 1rem;
-    padding: .5em .75em;
+    margin-bottom: 2rem;
+    padding: 0.5em 3em 0.5em;
     width: 100%;
-    color: $blue-1;
 
     &::placeholder {
-      color: $blue-2;
+      color: $sub-v;
     }
   }
 
   label {
     display: block;
-    margin-bottom: .5rem;
-    color: $blue-1;
+    margin-bottom: .2rem;
+    color: $text-color;
+    font-weight: bold;
   }
 
   &__output {
@@ -31,7 +34,7 @@
 
   &__sns {
     &__wrap {
-      color: $blue-1;
+      color: $primary;
       padding: 2em 7em;
       display: flex;
       display: -webkit-box;
@@ -54,13 +57,13 @@
 
       &:hover {
         cursor: pointer;
-        border-color: $blue-2;
+        border-color: $primary-s;
         text-decoration-color: transparent;
       }
     }
 
     &__btn {
-      border: 1px solid $blue-1;
+      border: 1px solid $primary;
       border-radius: 50%;
       -ms-flex-preferred-size: 16%;
       transition: color .3s,
@@ -79,9 +82,9 @@
 
       &:hover {
         cursor: pointer;
-        color: $white-1;
-        background-color: $blue-2;
-        border-color: $blue-2;
+        color: $base;
+        background-color: $primary-v;
+        border-color: $primary-v;
         text-decoration-color: transparent;
       }
     }
