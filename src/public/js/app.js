@@ -5794,15 +5794,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container p-on_boarding__container" }, [
+    _c("img", { attrs: { src: "/assets/images/top_1.jpg" } }),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "p-on_boarding__msg" },
+      [
+        _c("h1", [_vm._v("街を発見しよう。")]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "RouterLink",
+          {
+            staticClass: "button button--inverse__top",
+            attrs: { to: "/login" }
+          },
+          [_vm._v("\n      ログインする\n    ")]
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("On Boarding")])
+    return _c("div", { staticClass: "p-on_boarding__desc" }, [
+      _c("p", [_vm._v("つまらない日常を変える都市発見アプリケーション。")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("世界各国で利用可能。知らない街を見つけましょう。")])
     ])
   }
 ]

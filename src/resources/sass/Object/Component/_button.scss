@@ -95,6 +95,20 @@
       color: #fff;
       opacity: .8;
     }
+
+    &__top {
+      @extend .button--inverse;
+
+      padding: 0.7rem 0.75rem;
+      width: 85%;
+      text-align: center;
+
+      &:hover {
+        background: $secondary;
+        color: #fff;
+        opacity: 1;
+      }
+    }
   }
 
   &--fluid {
