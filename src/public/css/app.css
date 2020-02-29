@@ -511,6 +511,7 @@ a {
   height: 100%;
   background: #fff;
   z-index: 5;
+  margin-top: -6rem;
 }
 
 .c-loader:before,
