@@ -5795,7 +5795,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container p-on_boarding__container" }, [
-    _c("img", { attrs: { src: "/assets/images/top_1.jpg" } }),
+    _c("img", {
+      attrs: {
+        src: "/assets/images/top_1.jpg",
+        srcset: "/assets/images/top_1_sp.jpg" + " 480w",
+        sizes: "100vh"
+      }
+    }),
     _vm._v(" "),
     _c(
       "div",

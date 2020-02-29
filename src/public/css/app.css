@@ -57,6 +57,12 @@ a {
   color: #5743ef;
 }
 
+@media screen and (max-width: 480px) {
+  main {
+    margin-bottom: 0;
+  }
+}
+
 .no__margin {
   margin: 0;
 }
@@ -123,6 +129,12 @@ a {
 
 .navbar__item {
   margin-left: 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  .navbar__brand img {
+    max-height: 2rem;
+  }
 }
 
 .footer {
@@ -743,6 +755,24 @@ a {
 
 .p-on_boarding__desc p {
   margin: 5px 0;
+}
+
+@media screen and (max-width: 480px) {
+  .p-on_boarding__container {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .p-on_boarding__msg {
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+    width: 90%;
+  }
+
+  .p-on_boarding__msg h1 {
+    font-size: 3rem;
+  }
 }
 
 .p-setting__wrap {
