@@ -230,7 +230,8 @@ a {
   border: 0;
 }
 
-.button--inverse {
+.button--inverse,
+.button--inverse__top {
   background: #3316F2;
   border-color: #3316F2;
   color: #fff;
@@ -243,10 +244,23 @@ a {
   margin-bottom: 1em;
 }
 
-.button--inverse:hover {
+.button--inverse:hover,
+.button--inverse__top:hover {
   background: #1CACBF;
   color: #fff;
   opacity: 0.8;
+}
+
+.button--inverse__top {
+  padding: 0.7rem 0.75rem;
+  width: 85%;
+  text-align: center;
+}
+
+.button--inverse__top:hover {
+  background: #1CACBF;
+  color: #fff;
+  opacity: 1;
 }
 
 .button--fluid {
@@ -497,6 +511,7 @@ a {
   height: 100%;
   background: #fff;
   z-index: 5;
+  margin-top: -6rem;
 }
 
 .c-loader:before,
@@ -697,6 +712,37 @@ a {
   text-align: center;
   background: #fff;
   margin: auto;
+}
+
+.p-on_boarding__container {
+  position: relative;
+  color: #fff;
+  padding: 0;
+  overflow: auto;
+  height: 101vh;
+  margin-top: -6rem;
+}
+
+.p-on_boarding__msg {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 7%;
+}
+
+.p-on_boarding__msg h1 {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+}
+
+.p-on_boarding__desc {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.p-on_boarding__desc p {
+  margin: 5px 0;
 }
 
 .p-setting__wrap {
