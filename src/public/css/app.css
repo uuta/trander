@@ -316,6 +316,17 @@ a {
   background: #dedede;
 }
 
+@media screen and (max-width: 480px) {
+  .button--inverse,
+  .button--inverse__top {
+    width: 90%;
+  }
+
+  .button_map_setting {
+    right: 20px;
+  }
+}
+
 .form__wrap {
   position: relative;
 }
@@ -424,6 +435,12 @@ a {
           text-decoration-color: transparent;
 }
 
+@media screen and (max-width: 480px) {
+  .form__sns__wrap {
+    padding: 2em 0;
+  }
+}
+
 .tab {
   display: -webkit-box;
   display: flex;
@@ -444,6 +461,18 @@ a {
   border-bottom: 2px solid #3316F2;
   color: #3316F2;
   font-weight: bold;
+}
+
+@media screen and (max-width: 480px) {
+  .tab {
+    -webkit-box-pack: center;
+            justify-content: center;
+  }
+
+  .tab__item {
+    width: 50%;
+    text-align: center;
+  }
 }
 
 .errors {
@@ -616,6 +645,12 @@ a {
   margin-bottom: 10px;
 }
 
+@media screen and (max-width: 480px) {
+  .c-modal__overlay__wrap__sml {
+    width: 90%;
+  }
+}
+
 .c-head_title__extreme {
   font-size: 3rem;
   margin: 20px 0;
@@ -724,6 +759,31 @@ a {
   text-align: center;
   background: #fff;
   margin: auto;
+}
+
+@media screen and (max-width: 480px) {
+  #map {
+    height: 87vh;
+  }
+
+  #map_info {
+    width: 90%;
+    padding: 10px 15px;
+  }
+
+  #map_info_desc {
+    width: 75%;
+  }
+
+  #map_overlay_wrap {
+    width: 95%;
+    height: 80%;
+    padding: 10px 20px;
+  }
+
+  .map_info_desc {
+    width: 75%;
+  }
 }
 
 .p-on_boarding__container {
@@ -871,5 +931,12 @@ a {
 .p-setting__elm__wrap:last-child:hover {
   border-color: #5743ef;
   color: inherit;
+}
+
+@media screen and (max-width: 480px) {
+  .p-setting__elm__wrap {
+    width: 100%;
+    background: #fff;
+  }
 }
 

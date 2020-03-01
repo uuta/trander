@@ -83,7 +83,7 @@
 
   &__elm {
 
-    &__wrap{
+    &__wrap {
       border-top: 2px solid $primary-s;
       width: 60%;
       text-align: left;
@@ -101,6 +101,17 @@
             border-color: $primary;
             color: inherit;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .p-setting {
+    &__elm {
+      &__wrap {
+        width: 100%;
+        background: $base;
       }
     }
   }

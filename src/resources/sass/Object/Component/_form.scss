@@ -90,3 +90,13 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .form {
+    &__sns {
+      &__wrap {
+        padding: 2em 0;
+      }
+    }
+  }
+}

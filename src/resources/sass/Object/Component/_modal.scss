@@ -46,3 +46,15 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .c-modal {
+    &__overlay {
+      &__wrap {
+        &__sml {
+          width: 90%;
+        }
+      }
+    }
+  }
+}
