@@ -5806,13 +5806,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container p-on_boarding__container" }, [
-    _c("img", {
-      attrs: {
-        src: "/assets/images/top_1.jpg",
-        srcset: "/assets/images/top_1_sp.jpg" + " 480w",
-        sizes: "100vh"
-      }
-    }),
+    _vm._m(0),
     _vm._v(" "),
     _c(
       "div",
@@ -5820,7 +5814,7 @@ var render = function() {
       [
         _c("h1", [_vm._v("街を発見しよう。")]),
         _vm._v(" "),
-        _vm._m(0),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "RouterLink",
@@ -5836,6 +5830,21 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("picture", [
+      _c("source", {
+        attrs: {
+          media: "(min-width: 480px)",
+          srcset: "/assets/images/top_1.jpg"
+        }
+      }),
+      _vm._v(" "),
+      _c("img", { attrs: { src: "/assets/images/top_1_sp.jpg" } })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
