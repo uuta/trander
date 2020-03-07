@@ -2504,6 +2504,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6110,6 +6119,7 @@ var render = function() {
         _c(
           "form",
           {
+            staticClass: "form",
             attrs: { autocomplete: "off" },
             on: {
               submit: function($event) {
@@ -6147,96 +6157,112 @@ var render = function() {
               _vm._v("メールアドレス")
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.regenerateForm.email,
-                  expression: "regenerateForm.email"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "email",
-                id: "email",
-                placeholder: "パスワードを新たに設定するメールアドレスを入力",
-                required: ""
-              },
-              domProps: { value: _vm.regenerateForm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "form__wrap" }, [
+              _c("div", { staticClass: "c-icon__email" }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.regenerateForm.email,
+                    expression: "regenerateForm.email"
                   }
-                  _vm.$set(_vm.regenerateForm, "email", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "email" } }, [_vm._v("パスワード")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.regenerateForm.password,
-                  expression: "regenerateForm.password"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "password",
-                id: "password",
-                placeholder: "6文字以上の半角英数字",
-                required: ""
-              },
-              domProps: { value: _vm.regenerateForm.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "email",
+                  id: "email",
+                  placeholder: "パスワードを新たに設定するメールアドレスを入力",
+                  required: ""
+                },
+                domProps: { value: _vm.regenerateForm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.regenerateForm, "email", $event.target.value)
                   }
-                  _vm.$set(_vm.regenerateForm, "password", $event.target.value)
                 }
-              }
-            }),
+              })
+            ]),
             _vm._v(" "),
-            _c("label", { attrs: { for: "email" } }, [
+            _c("label", { attrs: { for: "password" } }, [_vm._v("パスワード")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form__wrap" }, [
+              _c("div", { staticClass: "c-icon__pwd" }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.regenerateForm.password,
+                    expression: "regenerateForm.password"
+                  }
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "password",
+                  id: "password",
+                  placeholder: "6文字以上の半角英数字",
+                  required: ""
+                },
+                domProps: { value: _vm.regenerateForm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.regenerateForm,
+                      "password",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "password_check" } }, [
               _vm._v("パスワード (確認)")
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.regenerateForm.password_confirmation,
-                  expression: "regenerateForm.password_confirmation"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "password",
-                id: "password_confirmation",
-                placeholder: "6文字以上の半角英数字",
-                required: ""
-              },
-              domProps: { value: _vm.regenerateForm.password_confirmation },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "form__wrap" }, [
+              _c("div", { staticClass: "c-icon__pwd" }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.regenerateForm.password_confirmation,
+                    expression: "regenerateForm.password_confirmation"
                   }
-                  _vm.$set(
-                    _vm.regenerateForm,
-                    "password_confirmation",
-                    $event.target.value
-                  )
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "password",
+                  id: "password_confirmation",
+                  placeholder: "6文字以上の半角英数字",
+                  required: ""
+                },
+                domProps: { value: _vm.regenerateForm.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.regenerateForm,
+                      "password_confirmation",
+                      $event.target.value
+                    )
+                  }
                 }
-              }
-            }),
+              })
+            ]),
             _vm._v(" "),
             _c(
               "button",
@@ -26816,16 +26842,17 @@ var actions = {
             response = _context8.sent;
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context8.next = 11;
+              _context8.next = 12;
               break;
             }
 
             context.commit('setApiStatus', true);
+            console.log(response.data);
             context.commit('setUser', response.data);
-            router.push('/login');
+            router.push('/regenerate-password-complete');
             return _context8.abrupt("return", false);
 
-          case 11:
+          case 12:
             context.commit('setApiStatus', false);
 
             if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
@@ -26836,7 +26863,7 @@ var actions = {
               });
             }
 
-          case 13:
+          case 14:
           case "end":
             return _context8.stop();
         }
