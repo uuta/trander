@@ -231,6 +231,15 @@ a {
   transition: color 0.5s, text-decoration 0.5s, background-color 0.5s, -webkit-text-decoration 0.5s;
 }
 
+.button_map_info i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  margin: auto;
+}
+
 .button_map_info:hover {
   background: -webkit-gradient(linear, left top, left bottom, from(#3316F2), to(#1CACBF)) no-repeat 50% 50%/100% 100%;
   background: linear-gradient(#3316F2 0%, #1CACBF 100%) no-repeat 50% 50%/100% 100%;
