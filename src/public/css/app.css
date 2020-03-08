@@ -436,6 +436,10 @@ a {
 }
 
 @media screen and (max-width: 480px) {
+  .form__item {
+    font-size: 1.2rem;
+  }
+
   .form__sns__wrap {
     padding: 2em 0;
   }
