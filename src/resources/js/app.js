@@ -5,6 +5,7 @@ import './bootstrap'
 import store from './store'
 import vueGoogleMaps from './vueGoogleMaps'
 import vueProgressBar from './vueProgressBar'
+import './tagManager'
 
 const createApp = async () => {
     await store.dispatch('auth/currentUser')

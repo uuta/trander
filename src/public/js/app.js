@@ -5367,6 +5367,7 @@ var render = function() {
               "form",
               {
                 staticClass: "form",
+                attrs: { name: "form" },
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
@@ -5422,6 +5423,7 @@ var render = function() {
                     staticClass: "form__item",
                     attrs: {
                       type: "email",
+                      name: "email",
                       id: "login-email",
                       placeholder: "PC・スマホどちらでも可"
                     },
@@ -25290,6 +25292,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _vueGoogleMaps__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vueGoogleMaps */ "./resources/js/vueGoogleMaps.js");
 /* harmony import */ var _vueProgressBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vueProgressBar */ "./resources/js/vueProgressBar.js");
+/* harmony import */ var _tagManager__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tagManager */ "./resources/js/tagManager.js");
+/* harmony import */ var _tagManager__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_tagManager__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -27105,6 +27110,29 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./resources/js/tagManager.js":
+/*!************************************!*\
+  !*** ./resources/js/tagManager.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function (w, d, s, l, i) {
+  w[l] = w[l] || [];
+  w[l].push({
+    'gtm.start': new Date().getTime(),
+    event: 'gtm.js'
+  });
+  var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+  j.async = true;
+  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+  f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-N3KPTLQ');
 
 /***/ }),
 
