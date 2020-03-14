@@ -5852,7 +5852,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "p-on_boarding__desc" }, [
-      _c("p", [_vm._v("つまらない日常を変える都市発見アプリケーション。")]),
+      _c("p", [_vm._v("会社と自宅の往復から飛び出すための都市発見アプリ。")]),
       _vm._v(" "),
       _c("p", [_vm._v("世界各国で利用可能。知らない街を見つけましょう。")])
     ])

@@ -1,10 +1,16 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/ fb# prefix属性: http://ogp.me/ns/ prefix属性#">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
+    <meta property="og:image" content="{{ config('app.url') }}/assets/images/ogp.jpg" />
+    <meta name="description" content="{{ config('const.meta_description') }}">
+    <meta property="og:title" content="{{ config('app.name') }} | {{ config('const.title_description') }}" />
+    <meta property="og:description" content="{{ config('const.meta_description') }}" />
+    <meta property="og:site_name" content="{{ config('app.name') }}" />
+    <meta property="og:type" content="{{ config('const.og_type') }}" />
+    <title>{{ config('app.name') }} | {{ config('const.title_description') }}</title>
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
