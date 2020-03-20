@@ -38,7 +38,7 @@ class MailResetPasswordNotification extends ResetPassword
      */
     public function toMail($notifiable)
     {
-        $link = url("/reset-password/" . $this->token);
+        $link = url(config('app.url')."/regenerate-password/" . $this->token);
         return (new MailMessage)
             ->subject('パスワードをリセットする')
             ->line("こんにちは！パスワードを忘れてしまったという連絡をいただきましたので、パスワードのリセット用リンクをお送りします。以下をクリックして新しいパスワードを選択してください。")

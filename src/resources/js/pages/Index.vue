@@ -12,17 +12,17 @@
         </gmap-marker>
       </GmapMap>
       <div id="map_info">
-        <div>
-          <div v-if="cityName">
+        <div class="map_info_desc">
+          <p v-if="cityName">
             {{ cityName }}
-          </div>
-          <div v-else>
+          </p>
+          <p v-else>
             {{ username }}さん、こんにちは！<br>
             ボタンを押して、近くの街を探してみましょう。
-          </div>
-          <div v-if="errorMessages">
+          </p>
+          <p v-if="errorMessages">
             {{ errorMessages }}
-          </div>
+          </p>
         </div>
         <button @click="setNewLocation" class="button_map button_map_info"><i class="fas fa-plus"></i></button>
       </div>

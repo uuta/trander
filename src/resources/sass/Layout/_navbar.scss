@@ -41,3 +41,12 @@
     margin-left: 1rem;
   }
 }
+
+@media screen and (max-width: 480px) {
+   .navbar {
+
+    &__brand img {
+      max-height: 2rem;
+    }
+  }
+}

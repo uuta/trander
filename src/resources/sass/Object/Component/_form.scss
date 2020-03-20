@@ -6,7 +6,7 @@
   &__item {
     border: none;
     border-bottom: 1px solid $primary;
-    font-size: 1rem;
+    font-size: $font-nml;
     margin-bottom: 2rem;
     padding: 0.5em 3em 0.5em;
     width: 100%;
@@ -86,6 +86,20 @@
         background-color: $primary-v;
         border-color: $primary-v;
         text-decoration-color: transparent;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form {
+    &__item {
+      font-size: $font-mid;
+    }
+
+    &__sns {
+      &__wrap {
+        padding: 2em 0;
       }
     }
   }

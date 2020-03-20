@@ -10,16 +10,18 @@
             <p class="no__margin">{{ setDistance[0] }}km - {{ setDistance[1] }}km</p>
           </div>
         </div>
-        <vue-slider
-          ref="slider"
-          v-model="setDistance"
-          :enable-cross="false"
-          :dotSize="20"
-          :railStyle="{height: '8px', border: '1px solid #6e5ce8', background: '#fff'}"
-          :dotStyle="{ backgroundColor: '#3316F2', borderShadow: '#3316F2', boxShadow: '#3316F2'}"
-          :processStyle="{ backgroundColor: '#3316F2' }"
-          :tooltipStyle="{ backgroundColor: '#3316F2', borderColor: '#3316F2', borderShadow: '#3316F2' }"
-        ></vue-slider>
+        <div class="p-setting__vue-slider">
+          <vue-slider
+            ref="slider"
+            v-model="setDistance"
+            :enable-cross="false"
+            :dotSize="20"
+            :railStyle="{height: '8px', border: '1px solid #6e5ce8', background: '#fff'}"
+            :dotStyle="{ backgroundColor: '#3316F2', borderShadow: '#3316F2', boxShadow: '#3316F2'}"
+            :processStyle="{ backgroundColor: '#3316F2' }"
+            :tooltipStyle="{ backgroundColor: '#3316F2', borderColor: '#3316F2', borderShadow: '#3316F2' }"
+          ></vue-slider>
+        </div>
         <div class="p-setting__distance__msg">
           <p class="p-setting__distance__msg__lf">0km</p>
           <p class="p-setting__distance__msg__mid">{{ msg }}</p>

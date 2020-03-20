@@ -2371,6 +2371,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -2475,6 +2477,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5212,12 +5223,12 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { attrs: { id: "map_info" } }, [
-            _c("div", [
+            _c("div", { staticClass: "map_info_desc" }, [
               _vm.cityName
-                ? _c("div", [
+                ? _c("p", [
                     _vm._v("\n          " + _vm._s(_vm.cityName) + "\n        ")
                   ])
-                : _c("div", [
+                : _c("p", [
                     _vm._v(
                       "\n          " +
                         _vm._s(_vm.username) +
@@ -5230,7 +5241,7 @@ var render = function() {
                   ]),
               _vm._v(" "),
               _vm.errorMessages
-                ? _c("div", [
+                ? _c("p", [
                     _vm._v(
                       "\n          " + _vm._s(_vm.errorMessages) + "\n        "
                     )
@@ -5356,6 +5367,7 @@ var render = function() {
               "form",
               {
                 staticClass: "form",
+                attrs: { name: "form" },
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
@@ -5411,6 +5423,7 @@ var render = function() {
                     staticClass: "form__item",
                     attrs: {
                       type: "email",
+                      name: "email",
                       id: "login-email",
                       placeholder: "PC・スマホどちらでも可"
                     },
@@ -5795,7 +5808,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container p-on_boarding__container" }, [
-    _c("img", { attrs: { src: "/assets/images/top_1.jpg" } }),
+    _vm._m(0),
     _vm._v(" "),
     _c(
       "div",
@@ -5803,7 +5816,7 @@ var render = function() {
       [
         _c("h1", [_vm._v("街を発見しよう。")]),
         _vm._v(" "),
-        _vm._m(0),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "RouterLink",
@@ -5823,8 +5836,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("picture", [
+      _c("source", {
+        attrs: {
+          media: "(min-width: 480px)",
+          srcset: "/assets/images/top_1.jpg"
+        }
+      }),
+      _vm._v(" "),
+      _c("img", { attrs: { src: "/assets/images/top_1_sp.jpg" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "p-on_boarding__desc" }, [
-      _c("p", [_vm._v("つまらない日常を変える都市発見アプリケーション。")]),
+      _c("p", [_vm._v("会社と自宅の往復から飛び出すための都市発見アプリ。")]),
       _vm._v(" "),
       _c("p", [_vm._v("世界各国で利用可能。知らない街を見つけましょう。")])
     ])
@@ -5867,114 +5895,114 @@ var render = function() {
         },
         [
           _c("div", { attrs: { id: "map_overlay_wrap" } }, [
-            _c(
-              "div",
-              { staticClass: "container--small p-setting__wrap" },
-              [
-                _c("div", { staticClass: "c-head_title__big" }, [
-                  _vm._v("設定 - Setting")
-                ]),
-                _vm._v(" "),
-                _c("i", {
-                  staticClass: "fas fa-arrow-left p-setting__back",
-                  on: {
-                    click: function($event) {
-                      if ($event.target !== $event.currentTarget) {
-                        return null
-                      }
-                      return _vm.hiddenSettingModal($event)
+            _c("div", { staticClass: "container--small p-setting__wrap" }, [
+              _c("div", { staticClass: "c-head_title__big" }, [
+                _vm._v("設定 - Setting")
+              ]),
+              _vm._v(" "),
+              _c("i", {
+                staticClass: "fas fa-arrow-left p-setting__back",
+                on: {
+                  click: function($event) {
+                    if ($event.target !== $event.currentTarget) {
+                      return null
                     }
+                    return _vm.hiddenSettingModal($event)
                   }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "p-setting__distance__wrap" }, [
-                  _c("div", { staticClass: "p-setting__distance__info" }, [
-                    _c(
-                      "p",
-                      {
-                        staticClass:
-                          "c-head_title__mid c-head_title__bold no__margin"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "p-setting__distance__wrap" }, [
+                _c("div", { staticClass: "p-setting__distance__info" }, [
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "c-head_title__mid c-head_title__bold no__margin"
+                    },
+                    [_vm._v("次の地点までの距離")]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "no__margin" }, [
+                    _vm._v(
+                      _vm._s(_vm.setDistance[0]) +
+                        "km - " +
+                        _vm._s(_vm.setDistance[1]) +
+                        "km"
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "p-setting__vue-slider" },
+                [
+                  _c("vue-slider", {
+                    ref: "slider",
+                    attrs: {
+                      "enable-cross": false,
+                      dotSize: 20,
+                      railStyle: {
+                        height: "8px",
+                        border: "1px solid #6e5ce8",
+                        background: "#fff"
                       },
-                      [_vm._v("次の地点までの距離")]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "no__margin" }, [
-                      _vm._v(
-                        _vm._s(_vm.setDistance[0]) +
-                          "km - " +
-                          _vm._s(_vm.setDistance[1]) +
-                          "km"
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("vue-slider", {
-                  ref: "slider",
-                  attrs: {
-                    "enable-cross": false,
-                    dotSize: 20,
-                    railStyle: {
-                      height: "8px",
-                      border: "1px solid #6e5ce8",
-                      background: "#fff"
+                      dotStyle: {
+                        backgroundColor: "#3316F2",
+                        borderShadow: "#3316F2",
+                        boxShadow: "#3316F2"
+                      },
+                      processStyle: { backgroundColor: "#3316F2" },
+                      tooltipStyle: {
+                        backgroundColor: "#3316F2",
+                        borderColor: "#3316F2",
+                        borderShadow: "#3316F2"
+                      }
                     },
-                    dotStyle: {
-                      backgroundColor: "#3316F2",
-                      borderShadow: "#3316F2",
-                      boxShadow: "#3316F2"
-                    },
-                    processStyle: { backgroundColor: "#3316F2" },
-                    tooltipStyle: {
-                      backgroundColor: "#3316F2",
-                      borderColor: "#3316F2",
-                      borderShadow: "#3316F2"
+                    model: {
+                      value: _vm.setDistance,
+                      callback: function($$v) {
+                        _vm.setDistance = $$v
+                      },
+                      expression: "setDistance"
                     }
-                  },
-                  model: {
-                    value: _vm.setDistance,
-                    callback: function($$v) {
-                      _vm.setDistance = $$v
-                    },
-                    expression: "setDistance"
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "p-setting__distance__msg" }, [
-                  _c("p", { staticClass: "p-setting__distance__msg__lf" }, [
-                    _vm._v("0km")
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "p-setting__distance__msg__mid" }, [
-                    _vm._v(_vm._s(_vm.msg))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "p-setting__distance__msg__rf" }, [
-                    _vm._v("100km")
-                  ])
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "p-setting__distance__msg" }, [
+                _c("p", { staticClass: "p-setting__distance__msg__lf" }, [
+                  _vm._v("0km")
                 ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "button button--link p-setting__elm__wrap",
-                    on: { click: _vm.logout }
-                  },
-                  [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "p-setting__txt" }, [
-                      _vm._v("ログアウト")
-                    ]),
-                    _vm._v(" "),
-                    _c("i", {
-                      staticClass: "fas fa-caret-right p-setting__next"
-                    })
-                  ]
-                )
-              ],
-              1
-            )
+                _c("p", { staticClass: "p-setting__distance__msg__mid" }, [
+                  _vm._v(_vm._s(_vm.msg))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "p-setting__distance__msg__rf" }, [
+                  _vm._v("100km")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "button button--link p-setting__elm__wrap",
+                  on: { click: _vm.logout }
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "p-setting__txt" }, [
+                    _vm._v("ログアウト")
+                  ]),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "fas fa-caret-right p-setting__next" })
+                ]
+              )
+            ])
           ])
         ]
       )
@@ -6102,6 +6130,7 @@ var render = function() {
         _c(
           "form",
           {
+            staticClass: "form",
             attrs: { autocomplete: "off" },
             on: {
               submit: function($event) {
@@ -6139,96 +6168,112 @@ var render = function() {
               _vm._v("メールアドレス")
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.regenerateForm.email,
-                  expression: "regenerateForm.email"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "email",
-                id: "email",
-                placeholder: "パスワードを新たに設定するメールアドレスを入力",
-                required: ""
-              },
-              domProps: { value: _vm.regenerateForm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "form__wrap" }, [
+              _c("div", { staticClass: "c-icon__email" }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.regenerateForm.email,
+                    expression: "regenerateForm.email"
                   }
-                  _vm.$set(_vm.regenerateForm, "email", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "email" } }, [_vm._v("パスワード")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.regenerateForm.password,
-                  expression: "regenerateForm.password"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "password",
-                id: "password",
-                placeholder: "6文字以上の半角英数字",
-                required: ""
-              },
-              domProps: { value: _vm.regenerateForm.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "email",
+                  id: "email",
+                  placeholder: "パスワードを新たに設定するメールアドレスを入力",
+                  required: ""
+                },
+                domProps: { value: _vm.regenerateForm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.regenerateForm, "email", $event.target.value)
                   }
-                  _vm.$set(_vm.regenerateForm, "password", $event.target.value)
                 }
-              }
-            }),
+              })
+            ]),
             _vm._v(" "),
-            _c("label", { attrs: { for: "email" } }, [
+            _c("label", { attrs: { for: "password" } }, [_vm._v("パスワード")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form__wrap" }, [
+              _c("div", { staticClass: "c-icon__pwd" }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.regenerateForm.password,
+                    expression: "regenerateForm.password"
+                  }
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "password",
+                  id: "password",
+                  placeholder: "6文字以上の半角英数字",
+                  required: ""
+                },
+                domProps: { value: _vm.regenerateForm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.regenerateForm,
+                      "password",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "password_check" } }, [
               _vm._v("パスワード (確認)")
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.regenerateForm.password_confirmation,
-                  expression: "regenerateForm.password_confirmation"
-                }
-              ],
-              staticClass: "form__item",
-              attrs: {
-                type: "password",
-                id: "password_confirmation",
-                placeholder: "6文字以上の半角英数字",
-                required: ""
-              },
-              domProps: { value: _vm.regenerateForm.password_confirmation },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "form__wrap" }, [
+              _c("div", { staticClass: "c-icon__pwd" }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.regenerateForm.password_confirmation,
+                    expression: "regenerateForm.password_confirmation"
                   }
-                  _vm.$set(
-                    _vm.regenerateForm,
-                    "password_confirmation",
-                    $event.target.value
-                  )
+                ],
+                staticClass: "form__item",
+                attrs: {
+                  type: "password",
+                  id: "password_confirmation",
+                  placeholder: "6文字以上の半角英数字",
+                  required: ""
+                },
+                domProps: { value: _vm.regenerateForm.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.regenerateForm,
+                      "password_confirmation",
+                      $event.target.value
+                    )
+                  }
                 }
-              }
-            }),
+              })
+            ]),
             _vm._v(" "),
             _c(
               "button",
@@ -25247,6 +25292,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _vueGoogleMaps__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vueGoogleMaps */ "./resources/js/vueGoogleMaps.js");
 /* harmony import */ var _vueProgressBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vueProgressBar */ "./resources/js/vueProgressBar.js");
+/* harmony import */ var _tagManager__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tagManager */ "./resources/js/tagManager.js");
+/* harmony import */ var _tagManager__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_tagManager__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -26808,16 +26856,17 @@ var actions = {
             response = _context8.sent;
 
             if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-              _context8.next = 11;
+              _context8.next = 12;
               break;
             }
 
             context.commit('setApiStatus', true);
+            console.log(response.data);
             context.commit('setUser', response.data);
-            router.push('/login');
+            router.push('/regenerate-password-complete');
             return _context8.abrupt("return", false);
 
-          case 11:
+          case 12:
             context.commit('setApiStatus', false);
 
             if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
@@ -26828,7 +26877,7 @@ var actions = {
               });
             }
 
-          case 13:
+          case 14:
           case "end":
             return _context8.stop();
         }
@@ -27061,6 +27110,29 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./resources/js/tagManager.js":
+/*!************************************!*\
+  !*** ./resources/js/tagManager.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function (w, d, s, l, i) {
+  w[l] = w[l] || [];
+  w[l].push({
+    'gtm.start': new Date().getTime(),
+    event: 'gtm.js'
+  });
+  var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+  j.async = true;
+  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+  f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-N3KPTLQ');
 
 /***/ }),
 

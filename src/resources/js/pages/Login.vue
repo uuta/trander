@@ -15,7 +15,7 @@
         >会員登録</li>
       </ul>
       <div class="panel" v-show="tab === 1">
-        <form class="form" @submit.prevent="login">
+        <form class="form" name="form" @submit.prevent="login">
           <div v-if="loginErrors" class="errors">
             <ul v-if="loginErrors.email">
               <li v-for="msg in loginErrors.email" :key="msg">{{ msg }}</li>
@@ -27,7 +27,7 @@
           <label for="login-email">メールアドレス</label>
           <div class="form__wrap">
             <div class="c-icon__email"></div>
-            <input type="email" class="form__item" id="login-email" v-model="loginForm.email" placeholder="PC・スマホどちらでも可">
+            <input type="email" name="email" class="form__item" id="login-email" v-model="loginForm.email" placeholder="PC・スマホどちらでも可">
           </div>
           <label for="login-password">パスワード</label>
           <div class="form__wrap">

@@ -51,3 +51,34 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  #map {
+    height: 87vh;
+
+    &_info {
+      width: 90%;
+      padding: 10px 15px;
+
+      &_desc {
+        width: 75%;
+      }
+    }
+
+    &_overlay {
+      &_wrap {
+        width: 95%;
+        height: 80%;
+        padding: 10px 20px;
+      }
+    }
+  }
+
+  .map {
+    &_info {
+      &_desc {
+        width: 75%;
+      }
+    }
+  }
+}

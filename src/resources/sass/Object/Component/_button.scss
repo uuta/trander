@@ -67,6 +67,15 @@
       text-decoration .5s,
       background-color .5s;
 
+      & i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        margin: auto;
+      }
+
       &:hover {
         background: linear-gradient(#3316F2 0%, #1CACBF 100%) no-repeat 50% 50% / 100% 100%;
         color: $base;
@@ -150,6 +159,19 @@
 
     &:hover {
       background: $sub;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button {
+    &--inverse {
+      width: 90%;
+    }
+    &_map {
+      &_setting {
+        right: 20px;
+      }
     }
   }
 }

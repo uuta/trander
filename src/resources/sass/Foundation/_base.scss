@@ -30,3 +30,10 @@ img {
 a {
   color: $primary;
 }
+
+@media screen and (max-width: 480px) {
+  main {
+
+    margin-bottom: 0;
+  }
+}
