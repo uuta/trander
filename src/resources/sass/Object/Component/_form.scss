@@ -1,0 +1,106 @@
+.form {
+  &__wrap {
+    position: relative;
+  }
+
+  &__item {
+    border: none;
+    border-bottom: 1px solid $primary;
+    font-size: $font-nml;
+    margin-bottom: 2rem;
+    padding: 0.5em 3em 0.5em;
+    width: 100%;
+
+    &::placeholder {
+      color: $sub-v;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: .2rem;
+    color: $text-color;
+    font-weight: bold;
+  }
+
+  &__output {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    text-align: right;
+  }
+
+  &__sns {
+    &__wrap {
+      color: $primary;
+      padding: 2em 7em;
+      display: flex;
+      display: -webkit-box;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+    }
+    &__feature {
+      text-align: center;
+      height: 2.06em;
+      -ms-flex-preferred-size: 16%;
+      flex-basis: 16%;
+      line-height: 2em;
+      font-size: 2em;
+
+      &:not(:nth-child(3n)) {
+          margin-right: 26%;
+      }
+
+      &:hover {
+        cursor: pointer;
+        border-color: $primary-s;
+        text-decoration-color: transparent;
+      }
+    }
+
+    &__btn {
+      border: 1px solid $primary;
+      border-radius: 50%;
+      -ms-flex-preferred-size: 16%;
+      transition: color .3s,
+      text-decoration .3s,
+      background-color .3s;
+      display: block;
+      width: 60px;
+      height: 60px;
+      font-size: 30px;
+      line-height: 60px;
+      text-align: center;
+
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: $base;
+        background-color: $primary-v;
+        border-color: $primary-v;
+        text-decoration-color: transparent;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form {
+    &__item {
+      font-size: $font-mid;
+    }
+
+    &__sns {
+      &__wrap {
+        padding: 2em 0;
+      }
+    }
+  }
+}

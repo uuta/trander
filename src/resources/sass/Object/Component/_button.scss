@@ -1,0 +1,177 @@
+.button {
+  border: 1px solid $sub;
+  border-radius: .25rem;
+  color: $sub-v;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  padding: .5rem .75rem;
+  text-decoration: none;
+  transition:
+    border-color 300ms ease-in-out,
+    color 300ms ease-in-out;
+
+  &:hover {
+    border-color: $secondary;
+    color: $secondary;
+  }
+
+  .icon {
+    margin-right: .5em;
+  }
+
+  &_map {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-size: 30px;
+    color: $primary;
+    line-height: 55px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid $primary;
+
+    &_setting {
+      position: absolute;
+      font-size: 30px;
+      color: $primary-v;
+      right: 30px;
+      background-color: transparent;
+      border: none;
+      top: 20px;
+      padding: 0;
+      display: inline-block;
+      transition: color .3s,
+      text-decoration .3s,
+      background-color .3s;
+
+      &:hover {
+        color: $base;
+        cursor: pointer;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+
+    &_info {
+      position: absolute;
+      right: 20px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      transition: color .5s,
+      text-decoration .5s,
+      background-color .5s;
+
+      & i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        margin: auto;
+      }
+
+      &:hover {
+        background: linear-gradient(#3316F2 0%, #1CACBF 100%) no-repeat 50% 50% / 100% 100%;
+        color: $base;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &--link {
+    border: 0;
+  }
+
+  &--inverse {
+    background: $primary-v;
+    border-color: $primary-v;
+    color: #fff;
+    transition: opacity 300ms ease-in-out;
+    margin: 0 auto;
+    display: block;
+    width: 50%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    &:hover {
+      background: $secondary;
+      color: #fff;
+      opacity: .8;
+    }
+
+    &__top {
+      @extend .button--inverse;
+
+      padding: 0.7rem 0.75rem;
+      width: 85%;
+      text-align: center;
+
+      &:hover {
+        background: $secondary;
+        color: #fff;
+        opacity: 1;
+      }
+    }
+  }
+
+  &--fluid {
+    width: 100%;
+  }
+
+  &--like {
+    .icon {
+      color: $red;
+    }
+  }
+
+  &--liked {
+    background: $red;
+    border-color: $red;
+    color: #fff;
+
+    .icon {
+      color: #fff;
+    }
+
+    &:hover {
+      border-color: $red;
+      color: #fff;
+      opacity: .8;
+    }
+  }
+
+  &__modal {
+    background: $base;
+    border: none;
+    width: 100%;
+    height: 20%;
+    padding: 0;
+    cursor: pointer;
+    font-weight: bold;
+    color: #3316F2;
+    transition: background-color 300ms ease-in-out;
+
+    &:hover {
+      background: $sub;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button {
+    &--inverse {
+      width: 90%;
+    }
+    &_map {
+      &_setting {
+        right: 20px;
+      }
+    }
+  }
+}

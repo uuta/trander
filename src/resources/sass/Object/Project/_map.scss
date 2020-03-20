@@ -1,0 +1,84 @@
+#map {
+  height: 500px;
+  position: relative;
+
+  &_info {
+    background: #fff;
+    width: 45%;
+    min-height: 100px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    padding: 20px;
+  }
+
+  &_btn {
+    position: absolute;
+    top: 80px;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    margin: auto;
+    z-index: 1;
+
+    &_wrap {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      background: #fff;
+      margin: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #map {
+    height: 87vh;
+
+    &_info {
+      width: 90%;
+      padding: 10px 15px;
+
+      &_desc {
+        width: 75%;
+      }
+    }
+
+    &_overlay {
+      &_wrap {
+        width: 95%;
+        height: 80%;
+        padding: 10px 20px;
+      }
+    }
+  }
+
+  .map {
+    &_info {
+      &_desc {
+        width: 75%;
+      }
+    }
+  }
+}

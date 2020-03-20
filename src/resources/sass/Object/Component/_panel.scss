@@ -1,0 +1,28 @@
+.panel {
+  border: 1px solid $primary-s;
+  margin-top: 1rem;
+  padding: 1.5rem;
+  color: $text-color;
+
+  &__hr {
+    font-size: $font-mid;
+    font-weight: bold;
+  }
+
+  &__txt {
+    display: block;
+    padding: 0.5em 0.5em 1.2em 0.5em;
+
+    &__right {
+      display: block;
+      text-align: right;
+      padding: 0 0.75em;
+      color: $sub-v;
+
+      &:hover {
+          color: $secondary-v;
+          opacity: .8;
+      }
+    }
+  }
+}

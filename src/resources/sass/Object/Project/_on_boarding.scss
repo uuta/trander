@@ -1,0 +1,54 @@
+.p-on_boarding {
+
+  &__container {
+    position: relative;
+    color: #fff;
+    padding: 0;
+    overflow: auto;
+    height: 101vh;
+    margin-top: -6rem;
+  }
+
+  &__msg {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 7%;
+
+    & h1 {
+      font-size: $font-extreme-big;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__desc {
+    font-size: $font-mid;
+    margin-bottom: 2rem;
+
+    & p {
+      margin: 5px 0;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .p-on_boarding {
+
+    &__container {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    &__msg {
+      -webkit-transform: translateY(-50%) translateX(-50%);
+      transform: translateY(-50%) translateX(-50%);
+      left: 50%;
+      width: 90%;
+
+      & h1 {
+        font-size: $font-extreme;
+      }
+    }
+  }
+}

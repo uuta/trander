@@ -1,14 +1,31 @@
+// Foundation
+@import "Foundation/color";
+@import "Foundation/var";
+@import "Foundation/general";
+@import "Foundation/base";
+@import "Foundation/reset";
 
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Layout
+@import "Layout/container";
+@import "Layout/navbar";
+@import "Layout/footer";
 
-// Variables
-@import 'variables';
+// Object/Component
+@import "Object/Component/grid";
+@import "Object/Component/button";
+@import "Object/Component/form";
+@import "Object/Component/tab";
+@import "Object/Component/errors";
+@import "Object/Component/panel";
+@import "Object/Component/title";
+@import "Object/Component/loader";
+@import "Object/Component/modal";
+@import "Object/Component/head_title";
+@import "Object/Component/text";
+@import "Object/Component/wrap";
+@import "Object/Component/icon";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+// Object/Project
+@import "Object/Project/map";
+@import "Object/Project/on_boarding";
+@import "Object/Project/setting";
