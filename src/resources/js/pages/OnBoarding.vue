@@ -39,6 +39,9 @@
         <h2 class="title">Tranderが目指すもの</h2>
           <p>Tranderが目指すのは、最適化された日常にノイズを混ぜる仕組みづくりです。</p>
           <p>一見すればあなたに全く関係のない住宅街や山間部の過疎地、コンクリートジャングルの大都市が提案されるかもしれません。ときには国外の街の名前が出ることもあるでしょう。しかし、それでよいのです。自転車や自動車、電車などの手段を使い、思い切って出掛けてみましょう。きっと思わぬ発見があるはずです。</p>
+          <picture>
+            <img class="p-on_boarding__image" src="/assets/images/top_main_bottom2.jpg" alt="自転車">
+          </picture>
           <RouterLink class="button button--inverse__top__bottom" to="/login">
             ログインする
           </RouterLink>

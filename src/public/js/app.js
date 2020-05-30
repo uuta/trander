@@ -5770,6 +5770,8 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
             _c(
               "RouterLink",
               {
@@ -5783,7 +5785,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(4)
+      _vm._m(5)
     ])
   ])
 }
@@ -5881,6 +5883,17 @@ var staticRenderFns = [
           )
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("picture", [
+      _c("img", {
+        staticClass: "p-on_boarding__image",
+        attrs: { src: "/assets/images/top_main_bottom2.jpg", alt: "自転車" }
+      })
     ])
   },
   function() {
