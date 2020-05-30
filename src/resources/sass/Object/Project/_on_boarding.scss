@@ -1,5 +1,66 @@
 .p-on_boarding {
 
+  &__content {
+    text-align: center;
+    color: $text-color;
+
+    & h2 {
+      font-size: $font-extreme;
+      padding-top: 100px;
+      padding-bottom: 50px;
+    }
+
+    & p {
+      font-size: $font-big;
+      text-align: left;
+      padding-bottom: 30px;
+    }
+  }
+
+  &__wrap {
+  }
+
+  &__firstwrap {
+    height: 100%;
+    padding-left: 150px;
+    padding-right: 150px;
+    margin-bottom: 100px;
+  }
+
+  &__secondwrap {
+    height: 100%;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 100px;
+    background: $gradation-2;
+    color: #fff;
+    margin-left: -2.5%;
+    margin-right: -2.5%;
+    box-shadow: 0 1.9px 2.5px rgba(0, 0, 0, 0.057),
+    0 5px 6.1px rgba(0, 0, 0, 0.076),
+    0 10.1px 11.4px rgba(0, 0, 0, 0.086),
+    0 19.2px 19.8px rgba(0, 0, 0, 0.092),
+    0 38.4px 34.8px rgba(0, 0, 0, 0.1),
+    0 -1.9px 2.5px rgba(0, 0, 0, 0.057),
+    0 -5px 6.1px rgba(0, 0, 0, 0.076),
+    0 -10.1px 11.4px rgba(0, 0, 0, 0.086),
+    0 -19.2px 19.8px rgba(0, 0, 0, 0.092),
+    0 -38.4px 34.8px rgba(0, 0, 0, 0.1);
+  }
+
+  &__bottomwrap {
+    padding-bottom: 80px;
+
+    & p {
+      text-align: center;
+      padding-bottom: 0;
+    }
+  }
+
+  &__image {
+    max-width: 80%;
+  }
+
   &__container {
     position: relative;
     color: #fff;

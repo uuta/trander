@@ -35,7 +35,7 @@ a.link__wrap {
 }
 
 body {
-  color: #222;
+  color: #201f30;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin: 0;
 }
@@ -252,6 +252,7 @@ a {
 }
 
 .button--inverse,
+.button--inverse__top__bottom,
 .button--inverse__top {
   background: #3316F2;
   border-color: #3316F2;
@@ -266,6 +267,7 @@ a {
 }
 
 .button--inverse:hover,
+.button--inverse__top__bottom:hover,
 .button--inverse__top:hover {
   background: #1CACBF;
   color: #fff;
@@ -279,6 +281,18 @@ a {
 }
 
 .button--inverse__top:hover {
+  background: #1CACBF;
+  color: #fff;
+  opacity: 1;
+}
+
+.button--inverse__top__bottom {
+  padding: 0.7rem 0.75rem;
+  width: 45%;
+  text-align: center;
+}
+
+.button--inverse__top__bottom:hover {
   background: #1CACBF;
   color: #fff;
   opacity: 1;
@@ -327,7 +341,8 @@ a {
 
 @media screen and (max-width: 480px) {
   .button--inverse,
-  .button--inverse__top {
+  .button--inverse__top,
+  .button--inverse__top__bottom {
     width: 90%;
   }
 
@@ -372,7 +387,7 @@ a {
 .form label {
   display: block;
   margin-bottom: 0.2rem;
-  color: #222;
+  color: #201f30;
   font-weight: bold;
 }
 
@@ -499,7 +514,7 @@ a {
   border: 1px solid #D6D1F8;
   margin-top: 1rem;
   padding: 1.5rem;
-  color: #222;
+  color: #201f30;
 }
 
 .panel__hr {
@@ -797,6 +812,55 @@ a {
   .map_info_desc {
     width: 75%;
   }
+}
+
+.p-on_boarding__content {
+  text-align: center;
+  color: #201f30;
+}
+
+.p-on_boarding__content h2 {
+  font-size: 3rem;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+.p-on_boarding__content p {
+  font-size: 1.5rem;
+  text-align: left;
+  padding-bottom: 30px;
+}
+
+.p-on_boarding__firstwrap {
+  height: 100%;
+  padding-left: 150px;
+  padding-right: 150px;
+  margin-bottom: 100px;
+}
+
+.p-on_boarding__secondwrap {
+  height: 100%;
+  padding-left: 150px;
+  padding-right: 150px;
+  padding-bottom: 100px;
+  background: linear-gradient(153deg, #3316f2 35%, #1cacbf 100%);
+  color: #fff;
+  margin-left: -2.5%;
+  margin-right: -2.5%;
+  box-shadow: 0 1.9px 2.5px rgba(0, 0, 0, 0.057), 0 5px 6.1px rgba(0, 0, 0, 0.076), 0 10.1px 11.4px rgba(0, 0, 0, 0.086), 0 19.2px 19.8px rgba(0, 0, 0, 0.092), 0 38.4px 34.8px rgba(0, 0, 0, 0.1), 0 -1.9px 2.5px rgba(0, 0, 0, 0.057), 0 -5px 6.1px rgba(0, 0, 0, 0.076), 0 -10.1px 11.4px rgba(0, 0, 0, 0.086), 0 -19.2px 19.8px rgba(0, 0, 0, 0.092), 0 -38.4px 34.8px rgba(0, 0, 0, 0.1);
+}
+
+.p-on_boarding__bottomwrap {
+  padding-bottom: 80px;
+}
+
+.p-on_boarding__bottomwrap p {
+  text-align: center;
+  padding-bottom: 0;
+}
+
+.p-on_boarding__image {
+  max-width: 80%;
 }
 
 .p-on_boarding__container {

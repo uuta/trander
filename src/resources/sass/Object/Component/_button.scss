@@ -118,6 +118,20 @@
         opacity: 1;
       }
     }
+
+    &__top__bottom {
+      @extend .button--inverse;
+
+      padding: 0.7rem 0.75rem;
+      width: 45%;
+      text-align: center;
+
+      &:hover {
+        background: $secondary;
+        color: #fff;
+        opacity: 1;
+      }
+    }
   }
 
   &--fluid {
