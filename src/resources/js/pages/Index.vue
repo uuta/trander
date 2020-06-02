@@ -14,7 +14,7 @@
       <div id="map_info">
         <div class="map_info_desc">
           <p v-if="cityName">
-            {{ cityName }}
+            {{ region + ' ' + cityName }}
           </p>
           <p v-else>
             {{ username }}さん、こんにちは！<br>
@@ -62,6 +62,7 @@ export default {
   computed: {
     ...mapState({
       cityName: state => state.external.cityName,
+      region: state => state.external.region,
       lat: state => state.external.lat,
       lng: state => state.external.lng,
       currentLat: state => state.external.currentLat,

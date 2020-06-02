@@ -5,7 +5,7 @@
         <div>
           <p class="c-head_title__mid__modal"><i class="fas fa-crown"></i> 近くの都市を発見しました。</p>
           <p v-if="cityName">
-            {{ cityName }}
+            {{ region + ' ' + cityName }}
           </p>
           <p> 早速、冒険に出てみましょう！</p>
         </div>
@@ -24,6 +24,7 @@ export default {
       lat: state => state.external.lat,
       lng: state => state.external.lng,
       cityName: state => state.external.cityName,
+      region: state => state.external.region,
       modal: state => state.external.modal,
     })
   },
