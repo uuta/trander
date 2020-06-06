@@ -1880,6 +1880,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -1892,10 +1895,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     cityName: function cityName(state) {
       return state.external.cityName;
     },
+    region: function region(state) {
+      return state.external.region;
+    },
+    countryCode: function countryCode(state) {
+      return state.external.countryCode;
+    },
     modal: function modal(state) {
       return state.external.modal;
     }
-  })),
+  }), {
+    setCountryImg: function setCountryImg() {
+      if (this.countryCode != null) {
+        return 'https://www.countryflags.io/' + this.countryCode + '/flat/32.png';
+      }
+    }
+  }),
   methods: {
     hiddenModal: function hiddenModal() {
       this.$store.commit('external/setModal', false);
@@ -1929,6 +1944,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -1998,6 +2017,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     cityName: function cityName(state) {
       return state.external.cityName;
     },
+    region: function region(state) {
+      return state.external.region;
+    },
+    countryCode: function countryCode(state) {
+      return state.external.countryCode;
+    },
     lat: function lat(state) {
       return state.external.lat;
     },
@@ -2033,7 +2058,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     username: 'auth/username'
-  })),
+  }), {
+    setCountryImg: function setCountryImg() {
+      if (this.countryCode != null) {
+        return 'https://www.countryflags.io/' + this.countryCode + '/flat/32.png';
+      }
+    }
+  }),
   methods: {
     getCurrentLocation: function getCurrentLocation() {
       var _this = this;
@@ -5020,13 +5051,20 @@ var render = function() {
           _c("div", { staticClass: "c-modal__overlay__wrap__sml" }, [
             _c("div", { staticClass: "c-modal__msg__section" }, [
               _c("div", [
-                _vm._m(0),
-                _vm._v(" "),
                 _vm.cityName
-                  ? _c("p", [
-                      _vm._v(
-                        "\n          " + _vm._s(_vm.cityName) + "\n        "
-                      )
+                  ? _c("dl", { staticClass: "c-head_title__mid__modal" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("dd", [
+                        _c("img", {
+                          staticClass: "country_flag",
+                          attrs: { src: _vm.setCountryImg }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "desc" }, [
+                          _vm._v(_vm._s(_vm.region + " " + _vm.cityName))
+                        ])
+                      ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -5059,9 +5097,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "c-head_title__mid__modal" }, [
+    return _c("dt", [
       _c("i", { staticClass: "fas fa-crown" }),
-      _vm._v(" 近くの都市を発見しました。")
+      _vm._v("近くの街を見つけました！")
     ])
   }
 ]
@@ -5141,8 +5179,19 @@ var render = function() {
           _c("div", { attrs: { id: "map_info" } }, [
             _c("div", { staticClass: "map_info_desc" }, [
               _vm.cityName
-                ? _c("p", [
-                    _vm._v("\n          " + _vm._s(_vm.cityName) + "\n        ")
+                ? _c("dl", { staticClass: "map_info_items" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("dd", [
+                      _c("img", {
+                        staticClass: "country_flag",
+                        attrs: { src: _vm.setCountryImg }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "desc" }, [
+                        _vm._v(_vm._s(_vm.region + " " + _vm.cityName))
+                      ])
+                    ])
                   ])
                 : _c("p", [
                     _vm._v(
@@ -5197,7 +5246,17 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("dt", [
+      _c("i", { staticClass: "fas fa-crown" }),
+      _vm._v("街を見つけました！")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -26946,6 +27005,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var state = {
   cityName: null,
+  region: null,
+  countryCode: null,
   lat: null,
   lng: null,
   currentLat: null,
@@ -26963,6 +27024,8 @@ var getters = {};
 var mutations = {
   setNewLocation: function setNewLocation(state, value) {
     state.cityName = value.city;
+    state.region = value.region;
+    state.countryCode = value.countryCode;
     state.lat = value.latitude;
     state.lng = value.longitude;
     state.seeLat = value.latitude;

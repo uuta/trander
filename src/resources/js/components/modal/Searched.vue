@@ -3,10 +3,13 @@
     <div class="c-modal__overlay__wrap__sml">
       <div class="c-modal__msg__section">
         <div>
-          <p class="c-head_title__mid__modal"><i class="fas fa-crown"></i> 近くの都市を発見しました。</p>
-          <p v-if="cityName">
-            {{ region + ' ' + cityName }}
-          </p>
+          <dl v-if="cityName" class="c-head_title__mid__modal">
+            <dt><i class="fas fa-crown"></i>近くの街を見つけました！</dt>
+            <dd>
+              <img :src="setCountryImg" class="country_flag">
+              <span class="desc">{{region + " " + cityName }}</span>
+            </dd>
+          </dl>
           <p> 早速、冒険に出てみましょう！</p>
         </div>
       </div>
@@ -25,8 +28,14 @@ export default {
       lng: state => state.external.lng,
       cityName: state => state.external.cityName,
       region: state => state.external.region,
+      countryCode: state => state.external.countryCode,
       modal: state => state.external.modal,
-    })
+    }),
+    setCountryImg: function() {
+      if (this.countryCode != null) {
+        return 'https://www.countryflags.io/' + this.countryCode + '/flat/32.png'
+      }
+    }
   },
   methods: {
     hiddenModal() {

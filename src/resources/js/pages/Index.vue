@@ -13,9 +13,13 @@
       </GmapMap>
       <div id="map_info">
         <div class="map_info_desc">
-          <p v-if="cityName">
-            {{ region + ' ' + cityName }}
-          </p>
+          <dl v-if="cityName" class="map_info_items">
+            <dt><i class="fas fa-crown"></i>街を見つけました！</dt>
+            <dd>
+              <img :src="setCountryImg" class="country_flag">
+              <span class="desc">{{region + " " + cityName }}</span>
+            </dd>
+          </dl>
           <p v-else>
             {{ username }}さん、こんにちは！<br>
             ボタンを押して、近くの街を探してみましょう。
@@ -51,7 +55,7 @@ export default {
       icon_center: {
         url: '/assets/images/current_location.png',
         scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
-      }
+      },
     }
   },
   created:function(){
@@ -63,6 +67,7 @@ export default {
     ...mapState({
       cityName: state => state.external.cityName,
       region: state => state.external.region,
+      countryCode: state => state.external.countryCode,
       lat: state => state.external.lat,
       lng: state => state.external.lng,
       currentLat: state => state.external.currentLat,
@@ -77,7 +82,12 @@ export default {
     }),
     ...mapGetters({
       username: 'auth/username'
-    })
+    }),
+    setCountryImg: function() {
+      if (this.countryCode != null) {
+        return 'https://www.countryflags.io/' + this.countryCode + '/flat/32.png'
+      }
+    }
   },
   methods: {
      getCurrentLocation() {
@@ -112,7 +122,7 @@ export default {
       this.$Progress.start()
       await this.$store.dispatch('external/setNewLocation', {data, router})
       this.$Progress.finish()
-    }
+    },
   }
 }
 </script>

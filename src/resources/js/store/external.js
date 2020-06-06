@@ -7,6 +7,7 @@ import {
 const state = {
   cityName: null,
   region: null,
+  countryCode: null,
   lat: null,
   lng: null,
   currentLat: null,
@@ -27,6 +28,7 @@ const mutations = {
   setNewLocation(state, value) {
     state.cityName = value.city
     state.region = value.region
+    state.countryCode = value.countryCode
     state.lat = value.latitude
     state.lng = value.longitude
     state.seeLat = value.latitude
@@ -81,7 +83,6 @@ const actions = {
   },
   async setNewLocation(context, { data, router }) {
     const res = await axios.post('/api/external/geo-db-cities', data)
-    console.log(res)
 
     // レスポンスが空ではない時の処理
     if (res.status === OK && res.data.status === OK) {
