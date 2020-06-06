@@ -95,20 +95,33 @@
 
 @media screen and (max-width: 480px) {
   .p-on_boarding {
-
+    &__content {
+      & h2 {
+        font-size: $font-very-big;
+      }
+      & p {
+        line-height: 2em;
+      }
+    }
     &__container {
       height: 100vh;
     }
-
     &__msg {
       -webkit-transform: translateY(-50%) translateX(-50%);
       transform: translateY(-50%) translateX(-50%);
       left: 50%;
       width: 90%;
-
       & h1 {
         font-size: $font-extreme;
       }
+    }
+    &__firstwrap {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    &__secondwrap {
+      padding-left: 20px;
+      padding-right: 20px;
     }
   }
 }

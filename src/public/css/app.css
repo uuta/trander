@@ -957,6 +957,14 @@ a {
 }
 
 @media screen and (max-width: 480px) {
+  .p-on_boarding__content h2 {
+    font-size: 2rem;
+  }
+
+  .p-on_boarding__content p {
+    line-height: 2em;
+  }
+
   .p-on_boarding__container {
     height: 100vh;
   }
@@ -970,6 +978,16 @@ a {
 
   .p-on_boarding__msg h1 {
     font-size: 3rem;
+  }
+
+  .p-on_boarding__firstwrap {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .p-on_boarding__secondwrap {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
