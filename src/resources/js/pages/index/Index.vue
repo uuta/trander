@@ -39,9 +39,9 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Setting from './Setting.vue'
-import Registration from '../components/modal/Registration.vue'
-import Searched from '../components/modal/Searched.vue'
-import Bars from '../components/loader/Bars.vue'
+import Registration from './Registration.vue'
+import Searched from './Searched.vue'
+import Bars from '../../components/loader/Bars.vue'
 
 export default {
   components: {

@@ -43,7 +43,7 @@
   import vueSlider from 'vue-slider-component'
   import 'vue-slider-component/theme/default.css'
 
-  import { DISTANCE_MSG } from '../util'
+  import { DISTANCE_MSG } from '../../util'
 
   export default {
     components: {

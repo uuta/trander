@@ -35,7 +35,7 @@ a.link__wrap {
 }
 
 body {
-  color: #201f30;
+  color: #22332e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin: 0;
 }
@@ -387,7 +387,7 @@ a {
 .form label {
   display: block;
   margin-bottom: 0.2rem;
-  color: #201f30;
+  color: #22332e;
   font-weight: bold;
 }
 
@@ -514,7 +514,7 @@ a {
   border: 1px solid #D6D1F8;
   margin-top: 1rem;
   padding: 1.5rem;
-  color: #201f30;
+  color: #22332e;
 }
 
 .panel__hr {
@@ -878,7 +878,7 @@ a {
 
 .p-on_boarding__content {
   text-align: center;
-  color: #201f30;
+  color: #22332e;
 }
 
 .p-on_boarding__content h2 {
@@ -1074,6 +1074,7 @@ a {
   text-align: left;
   position: relative;
   border-radius: 0;
+  background-color: #fff;
 }
 
 .p-setting__elm__wrap:first-of-type {
