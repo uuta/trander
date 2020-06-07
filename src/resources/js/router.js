@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Login from './pages/Login.vue'
 import OnBoarding from './pages/OnBoarding.vue'
 import Index from './pages/index/Index.vue'
-import Setting from './pages/index/Setting.vue'
+import Setting from './pages/index/Modal/Setting.vue'
 
 import Reset from './pages/resetPasswords/Reset.vue'
 import SentEmail from './pages/resetPasswords/SentEmail.vue'
