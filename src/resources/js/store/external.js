@@ -1,7 +1,6 @@
 import {
   OK,
   NO_RECORD,
-  DISTANCE_MSG
 } from '../util'
 
 const state = {
@@ -19,7 +18,8 @@ const state = {
   settingModal: false,
   distance: [0, 100],
   msg: '車や電車で遠出しましょう',
-  errorMessages: null
+  errorMessages: null,
+  suggestPushing: false,
 }
 
 const getters = {}
@@ -35,6 +35,7 @@ const mutations = {
     state.seeLng = value.longitude
     state.icon = true
     state.modal = true
+    setTimeout(() => state.suggestPushing = true, 5000);
   },
   setModal(state, value) {
     state.modal = value
@@ -61,6 +62,9 @@ const mutations = {
   setErrorMessages(state, value) {
     state.errorMessages = value
   },
+  setSuggestPushing(state, value) {
+    state.suggestPushing = value
+  },
 }
 
 const actions = {
@@ -82,6 +86,7 @@ const actions = {
     context.commit('setCurrentLocation', data)
   },
   async setNewLocation(context, { data, router }) {
+    context.commit('setSuggestPushing', false)
     const res = await axios.post('/api/external/geo-db-cities', data)
 
     // レスポンスが空ではない時の処理

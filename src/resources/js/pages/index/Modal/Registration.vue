@@ -30,6 +30,7 @@ export default {
   methods: {
     hiddenRegisterModal() {
       this.$store.dispatch('auth/hiddenRegisterModal')
+      this.$store.commit('external/setSuggestPushing', true)
     }
   }
 }

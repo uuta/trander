@@ -82,6 +82,21 @@
         }
       }
     }
+    &_dialog {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background-color: $sub-s;
+
+      :before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        right: 32px;
+        border: 15px solid transparent;
+        border-top: 30px solid $sub-s;
+      }
+    }
   }
 }
 

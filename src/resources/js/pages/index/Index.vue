@@ -27,6 +27,9 @@
           <p v-if="errorMessages">
             {{ errorMessages }}
           </p>
+          <transition name="fade">
+            <SuggestPushing v-show="suggestPushing"></SuggestPushing>
+          </transition>
         </div>
         <button @click="setNewLocation" class="button_map button_map_info"><i class="fas fa-plus"></i></button>
       </div>
@@ -41,6 +44,7 @@ import { mapState, mapGetters } from 'vuex'
 import Setting from './Modal/Setting.vue'
 import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
+import SuggestPushing from './Modal/Suggest/Pushing.vue'
 import Bars from '../../components/loader/Bars.vue'
 
 export default {
@@ -48,6 +52,7 @@ export default {
     Setting,
     Registration,
     Searched,
+    SuggestPushing,
     Bars
   },
   data () {
@@ -78,6 +83,7 @@ export default {
       distance: state => state.external.distance,
       settingModal: state => state.external.settingModal,
       errorMessages: state => state.external.errorMessages,
+      suggestPushing: state => state.external.suggestPushing,
       loading: state => state.auth.loading
     }),
     ...mapGetters({

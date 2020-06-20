@@ -673,6 +673,12 @@ a {
   margin-bottom: 10px;
 }
 
+.c-modal_dialog {
+  display: block;
+  background-color: #fff;
+  padding: 10px;
+}
+
 @media screen and (max-width: 480px) {
   .c-modal__overlay__wrap__sml {
     width: 90%;
@@ -764,6 +770,15 @@ a {
   font-family: FontAwesome;
 }
 
+.fade-enter-active {
+  -webkit-transition: opacity 2s;
+  transition: opacity 2s;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
 #map {
   height: 500px;
   position: relative;
@@ -849,6 +864,22 @@ a {
 
 .map_info_items dd .desc {
   vertical-align: middle;
+}
+
+.map_info_dialog {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background-color: #f1f1f1;
+}
+
+.map_info_dialog :before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 32px;
+  border: 15px solid transparent;
+  border-top: 30px solid #f1f1f1;
 }
 
 @media screen and (max-width: 480px) {

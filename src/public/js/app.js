@@ -1933,17 +1933,16 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     login: function login() {
       var data = this.loginForm;
-      var router = this.$router; // authストアのloginアクションを呼び出す
-
+      var router = this.$router;
       this.$store.dispatch('auth/login', {
         data: data,
         router: router
       });
+      this.$store.commit('external/setSuggestPushing', true);
     },
     register: function register() {
       var data = this.registerForm;
-      var router = this.$router; // authストアのresigterアクションを呼び出す
-
+      var router = this.$router;
       this.$store.dispatch('auth/register', {
         data: data,
         router: router
@@ -1976,7 +1975,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modal_Setting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Modal/Setting.vue */ "./resources/js/pages/index/Modal/Setting.vue");
 /* harmony import */ var _Modal_Registration_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Modal/Registration.vue */ "./resources/js/pages/index/Modal/Registration.vue");
 /* harmony import */ var _Modal_Searched_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Modal/Searched.vue */ "./resources/js/pages/index/Modal/Searched.vue");
-/* harmony import */ var _components_loader_Bars_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/loader/Bars.vue */ "./resources/js/components/loader/Bars.vue");
+/* harmony import */ var _Modal_Suggest_Pushing_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Modal/Suggest/Pushing.vue */ "./resources/js/pages/index/Modal/Suggest/Pushing.vue");
+/* harmony import */ var _components_loader_Bars_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/loader/Bars.vue */ "./resources/js/components/loader/Bars.vue");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -2023,6 +2023,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -2033,7 +2037,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Setting: _Modal_Setting_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     Registration: _Modal_Registration_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     Searched: _Modal_Searched_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Bars: _components_loader_Bars_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    SuggestPushing: _Modal_Suggest_Pushing_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Bars: _components_loader_Bars_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   data: function data() {
     return {
@@ -2093,6 +2098,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     errorMessages: function errorMessages(state) {
       return state.external.errorMessages;
+    },
+    suggestPushing: function suggestPushing(state) {
+      return state.external.suggestPushing;
     },
     loading: function loading(state) {
       return state.auth.loading;
@@ -2214,6 +2222,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     hiddenRegisterModal: function hiddenRegisterModal() {
       this.$store.dispatch('auth/hiddenRegisterModal');
+      this.$store.commit('external/setSuggestPushing', true);
     }
   }
 });
@@ -2421,6 +2430,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('auth/logout', router);
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({})),
+  methods: {}
 });
 
 /***/ }),
@@ -5784,42 +5823,67 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { attrs: { id: "map_info" } }, [
-            _c("div", { staticClass: "map_info_desc" }, [
-              _vm.cityName
-                ? _c("dl", { staticClass: "map_info_items" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c("dd", [
-                      _c("img", {
-                        staticClass: "country_flag",
-                        attrs: { src: _vm.setCountryImg }
-                      }),
+            _c(
+              "div",
+              { staticClass: "map_info_desc" },
+              [
+                _vm.cityName
+                  ? _c("dl", { staticClass: "map_info_items" }, [
+                      _vm._m(0),
                       _vm._v(" "),
-                      _c("span", { staticClass: "desc" }, [
-                        _vm._v(_vm._s(_vm.region + " " + _vm.cityName))
+                      _c("dd", [
+                        _c("img", {
+                          staticClass: "country_flag",
+                          attrs: { src: _vm.setCountryImg }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "desc" }, [
+                          _vm._v(_vm._s(_vm.region + " " + _vm.cityName))
+                        ])
                       ])
                     ])
-                  ])
-                : _c("p", [
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm.username) +
-                        "さん、こんにちは！"
-                    ),
-                    _c("br"),
-                    _vm._v(
-                      "\n          ボタンを押して、近くの街を探してみましょう。\n        "
-                    )
-                  ]),
-              _vm._v(" "),
-              _vm.errorMessages
-                ? _c("p", [
-                    _vm._v(
-                      "\n          " + _vm._s(_vm.errorMessages) + "\n        "
-                    )
-                  ])
-                : _vm._e()
-            ]),
+                  : _c("p", [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.username) +
+                          "さん、こんにちは！"
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n          ボタンを押して、近くの街を探してみましょう。\n        "
+                      )
+                    ]),
+                _vm._v(" "),
+                _vm.errorMessages
+                  ? _c("p", [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.errorMessages) +
+                          "\n        "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "transition",
+                  { attrs: { name: "fade" } },
+                  [
+                    _c("SuggestPushing", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.suggestPushing,
+                          expression: "suggestPushing"
+                        }
+                      ]
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "button",
@@ -6186,6 +6250,39 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "p-setting__icon" }, [
       _c("i", { staticClass: "fas fa-sign-out-alt" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=template&id=280d85e5&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=template&id=280d85e5& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-modal_dialog map_info_dialog" }, [
+      _c("span", [_vm._v("新たな街を探してみる？")])
     ])
   }
 ]
@@ -26073,6 +26170,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/index/Modal/Suggest/Pushing.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/pages/index/Modal/Suggest/Pushing.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Pushing_vue_vue_type_template_id_280d85e5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pushing.vue?vue&type=template&id=280d85e5& */ "./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=template&id=280d85e5&");
+/* harmony import */ var _Pushing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pushing.vue?vue&type=script&lang=js& */ "./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Pushing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Pushing_vue_vue_type_template_id_280d85e5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Pushing_vue_vue_type_template_id_280d85e5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/index/Modal/Suggest/Pushing.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pushing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Pushing.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pushing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=template&id=280d85e5&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=template&id=280d85e5& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pushing_vue_vue_type_template_id_280d85e5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Pushing.vue?vue&type=template&id=280d85e5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/index/Modal/Suggest/Pushing.vue?vue&type=template&id=280d85e5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pushing_vue_vue_type_template_id_280d85e5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pushing_vue_vue_type_template_id_280d85e5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/resetPasswords/Complete.vue":
 /*!********************************************************!*\
   !*** ./resources/js/pages/resetPasswords/Complete.vue ***!
@@ -27017,7 +27183,8 @@ var state = {
   settingModal: false,
   distance: [0, 100],
   msg: '車や電車で遠出しましょう',
-  errorMessages: null
+  errorMessages: null,
+  suggestPushing: false
 };
 var getters = {};
 var mutations = {
@@ -27031,6 +27198,9 @@ var mutations = {
     state.seeLng = value.longitude;
     state.icon = true;
     state.modal = true;
+    setTimeout(function () {
+      return state.suggestPushing = true;
+    }, 5000);
   },
   setModal: function setModal(state, value) {
     state.modal = value;
@@ -27056,6 +27226,9 @@ var mutations = {
   },
   setErrorMessages: function setErrorMessages(state, value) {
     state.errorMessages = value;
+  },
+  setSuggestPushing: function setSuggestPushing(state, value) {
+    state.suggestPushing = value;
   }
 };
 var actions = {
@@ -27099,10 +27272,11 @@ var actions = {
         switch (_context2.prev = _context2.next) {
           case 0:
             data = _ref.data, router = _ref.router;
-            _context2.next = 3;
+            context.commit('setSuggestPushing', false);
+            _context2.next = 4;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/external/geo-db-cities', data));
 
-          case 3:
+          case 4:
             res = _context2.sent;
 
             // レスポンスが空ではない時の処理
@@ -27117,7 +27291,7 @@ var actions = {
               context.commit('setErrorMessages', errors);
             }
 
-          case 6:
+          case 7:
           case "end":
             return _context2.stop();
         }

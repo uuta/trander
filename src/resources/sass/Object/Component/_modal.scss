@@ -1,5 +1,4 @@
 .c-modal {
-
   &__overlay {
     position: absolute;
     top: 0;
@@ -20,7 +19,7 @@
       right: 0;
       bottom: 0;
       text-align: center;
-      background: #fff;
+      background: $base;
       margin: auto;
 
       &__sml {
@@ -44,6 +43,12 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
+  }
+
+  &_dialog {
+    display: block;
+    background-color: $base;
+    padding: 10px;
   }
 }
 
