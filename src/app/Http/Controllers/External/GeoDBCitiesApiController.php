@@ -20,7 +20,7 @@ class GeoDBCitiesApiController extends Controller
   {
     $location = $this->GeoDBCitiesApi->getLatAndLng($request);
     $response = $this->GeoDBCitiesApi->apiRequest($location);
-    $addedResponse = $this->GeoDBCitiesApi->addRequest($response);
+    $addedResponse = $this->GeoDBCitiesApi->addRequest($request, $response);
     return $addedResponse;
   }
 }
