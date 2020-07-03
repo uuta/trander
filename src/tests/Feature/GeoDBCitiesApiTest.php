@@ -18,6 +18,7 @@ class GeoDBCitiesApiTest extends TestCase
     }
 
     /**
+     * 正常
      * @test
      */
     public function should_GeoDBCities_APIへのリクエストに成功する()
@@ -31,10 +32,19 @@ class GeoDBCitiesApiTest extends TestCase
         ];
         $response = $this->post(route('geo-db-cities'), $request);
         $response
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => [[
+                    'countryCode' => 'JP',
+                    'region' => 'Hokkaidō Prefecture',
+                    'distance' => 1946.629
+                ]]
+            ]);
+            $this->assertCount(1, $response->json(['data']));
     }
 
     /**
+     * 正常
      * @test
      */
     public function should_GeoDBCities_APIへのリクエストで204が返ってくる()
