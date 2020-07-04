@@ -16,6 +16,7 @@ class GeoDBCitiesApiTest extends TestCase
     {
         parent::setUp();
         $this->seed('MWaysSeeder');
+        $this->seed('MDirectionSeeder');
     }
 
     /**
