@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\MWay;
+use Illuminate\Support\Facades\DB;
 
 class GeoDBCitiesApiTest extends TestCase
 {
@@ -48,6 +48,9 @@ class GeoDBCitiesApiTest extends TestCase
         $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
+        // 方角の確認
+        $directions = DB::table('m_directions')->select('direction_name')->get()->toArray();
+        $this->assertTrue(in_array($data['direction'], array_column($directions, 'direction_name')));
     }
 
     /**

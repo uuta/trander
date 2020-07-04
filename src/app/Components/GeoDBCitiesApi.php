@@ -14,6 +14,9 @@ use App\Mway;
 
 class GeoDBCitiesApi
 {
+  private $direction;
+  private $angle;
+
   /**
    * 現在地を元にランダムに地点を取得する
    * @param object $request
@@ -22,7 +25,7 @@ class GeoDBCitiesApi
   public function getLatAndLng($request)
   {
     // ランダムに角度を生成する
-    $angle = $this->generateAngle();
+    $this->angle = $this->generateAngle();
 
     // ランダムに距離を生成する
     $distance = $this->generateDistance($request);
@@ -30,7 +33,7 @@ class GeoDBCitiesApi
     // 提案先の地点をランダムに生成する
     $currentLocation = new Coordinate($request->lat, $request->lng);
     $bearingEllipsoidal = new BearingEllipsoidal();
-    $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $angle, $distance);
+    $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $this->angle, $distance);
     $commaDestination = $destination->format(new DecimalDegrees(','));
     
     // 緯度経度のフォーマットを整える
@@ -122,6 +125,12 @@ class GeoDBCitiesApi
       $data['ways'] = $ways;
     }
 
+    // レスポンスに方角を追加する
+    foreach($responseBody['data'] as &$data) {
+      $this->getDirection();
+      $data['direction'] = $this->direction;
+    }
+
     // レスポンスにステータスコードを追加する
     $status = $response->getStatusCode();
     $responseBody += ['status' => $status];
@@ -152,7 +161,7 @@ class GeoDBCitiesApi
     $coordinate2 = new Coordinate($response['latitude'], $response['longitude']);
     $calculator = new Vincenty();
     $distance = ($calculator->getDistance($coordinate1, $coordinate2) * 0.001);
-    return round($distance, 1);
+    return (float)round($distance, 1);
   }
 
   /**
@@ -172,5 +181,19 @@ class GeoDBCitiesApi
       $ways[$key] = $way[0]->recommend_frequency;
     }
     return $ways;
+  }
+
+  /**
+   * Get a direction from the angle
+   * @return string
+   */
+  private function getDirection()
+  {
+    $angle = $this->angle;
+    $data = DB::table('m_directions')->where([
+      ['min_angle', '<=', $angle],
+      ['max_angle', '>', $angle]
+    ])->get();
+    $this->direction = $data[0]->direction_name;
   }
 }
