@@ -9,6 +9,8 @@ use Location\Bearing\BearingEllipsoidal;
 use Location\Coordinate;
 use Location\Formatter\Coordinate\DecimalDegrees;
 use Location\Distance\Vincenty;
+use Illuminate\Support\Facades\DB;
+use App\Mway;
 
 class GeoDBCitiesApi
 {
@@ -104,13 +106,19 @@ class GeoDBCitiesApi
   {
     $responseBody = json_decode($response->getBody()->getContents(), true);
 
+    // レスポンスの距離を上書きする
     foreach($responseBody['data'] as &$data) {
-        // レスポンスボディの距離を上書きする
-        $distance = $this->getDistance($request, $data);
-        $data['distance'] = $distance;
+      $distance = $this->getDistance($request, $data);
+      $data['distance'] = $distance;
     }
 
-    // レスポンスボディにステータスコードを追加する
+    // レスポンスに移動手段の推奨度を追加する
+    foreach($responseBody['data'] as &$data) {
+      $ways = $this->getWayOfRecommend($distance);
+      $data['ways'] = $ways;
+    }
+
+    // レスポンスにステータスコードを追加する
     $status = $response->getStatusCode();
     $responseBody += ['status' => $status];
 
@@ -139,6 +147,26 @@ class GeoDBCitiesApi
     $coordinate1 = new Coordinate($request->lat, $request->lng);
     $coordinate2 = new Coordinate($response['latitude'], $response['longitude']);
     $calculator = new Vincenty();
-    return $calculator->getDistance($coordinate1, $coordinate2);
+    $distance = ($calculator->getDistance($coordinate1, $coordinate2) * 0.001);
+    return round($distance, 1);
+  }
+
+  /**
+   * Get the recommend frequencies of ways
+   * @param float $distance: 距離
+   * @return array
+   */
+  private function getWayOfRecommend($distance) : array
+  {
+    $ways = [];
+    foreach(MWay::WAYS as $key => $value) {
+      $way = DB::table('m_ways')->where([
+        ['way_id', $value],
+        ['min_distance', '<=', $distance],
+        ['max_distance', '>', $distance]
+      ])->get();
+      $ways[$key] = $way[0]->recommend_frequency;
+    }
+    return $ways;
   }
 }

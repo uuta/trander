@@ -15,6 +15,7 @@ class GeoDBCitiesApiTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        $this->seed('MWaysSeeder');
     }
 
     /**
@@ -37,7 +38,12 @@ class GeoDBCitiesApiTest extends TestCase
                 'data' => [[
                     'countryCode' => 'JP',
                     'region' => 'Hokkaidō Prefecture',
-                    'distance' => 1946.629
+                    'distance' => 1.9,
+                    'ways' => [
+                        'walking' => 2,
+                        'bycicle' => 1,
+                        'car' => 0,
+                    ]
                 ]]
             ]);
             $this->assertCount(1, $response->json(['data']));
