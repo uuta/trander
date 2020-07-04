@@ -16,8 +16,8 @@ class GeoDBCitiesApi
 {
   /**
    * 現在地を元にランダムに地点を取得する
-   * @param  object  $request
-   * @return  string
+   * @param object $request
+   * @return string
    */
   public function getLatAndLng($request)
   {
@@ -34,8 +34,7 @@ class GeoDBCitiesApi
     $commaDestination = $destination->format(new DecimalDegrees(','));
     
     // 緯度経度のフォーマットを整える
-    $location = $this->adjustLatAndLngFormat($commaDestination);
-    return $location;
+    return $this->adjustLatAndLngFormat($commaDestination);
   }
 
   /**
@@ -45,8 +44,7 @@ class GeoDBCitiesApi
   private function generateAngle()
   {
     $max = 360;
-    $rand_f = rand() / mt_getrandmax() * $max;
-    return $rand_f;
+    return rand() / mt_getrandmax() * $max;
   }
 
   /**
@@ -57,14 +55,13 @@ class GeoDBCitiesApi
   {
     $min = $request->min;
     $max = $request->max;
-    $rand_f = rand($min, $max);
-    return $rand_f;
+    return rand($min, $max);
   }
 
   /**
    * 緯度経度のフォーマットを整える
-   * @param  string $destination
-   * @return  string
+   * @param string $destination
+   * @return string
    */
   private function adjustLatAndLngFormat($destination)
   {
@@ -81,8 +78,8 @@ class GeoDBCitiesApi
 
   /**
    * GeoDBCitiesにリクエストを送信してレスポンスを受け取る
-   * @param  string  $location
-   * @return  array
+   * @param string $location
+   * @return array
    */
   public function apiRequest($location)
   {
@@ -105,9 +102,9 @@ class GeoDBCitiesApi
 
   /**
    * レスポンスに情報を追加する
-   * @param  object  $request
-   * @param  object  $response
-   * @return  array
+   * @param object $request
+   * @param object $response
+   * @return array
    */
   public function addRequest(object $request, object $response)
   {
