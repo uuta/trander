@@ -6,7 +6,7 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Log;
+use App\MWay;
 
 class GeoDBCitiesApiTest extends TestCase
 {
@@ -29,24 +29,24 @@ class GeoDBCitiesApiTest extends TestCase
             'lat' => 43.067883,
             'lng' => 141.322995,
             'min' => 0,
-            'max' => 25,
+            'max' => 50000,
         ];
         $response = $this->post(route('geo-db-cities'), $request);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'data' => [[
-                    'countryCode' => 'JP',
-                    'region' => 'Hokkaidō Prefecture',
-                    'distance' => 1.9,
-                    'ways' => [
-                        'walking' => 2,
-                        'bycicle' => 1,
-                        'car' => 0,
-                    ]
-                ]]
-            ]);
-            $this->assertCount(1, $response->json(['data']));
+        $response->assertStatus(200);
+
+        // レスポンスの中身の確認
+        $data = $response->json(['data']);
+        $data = array_shift($data);
+        $this->assertCount(1, $response->json(['data']));
+        $this->assertInternalType('string', $data['countryCode']);
+        $this->assertInternalType('string', $data['city']);
+        $this->assertInternalType('string', $data['region']);
+        $this->assertInternalType('float', $data['distance']);
+        $this->assertInternalType('array', $data['ways']);
+        ;
+        $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
+        $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
+        $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
     }
 
     /**
@@ -60,7 +60,7 @@ class GeoDBCitiesApiTest extends TestCase
             'lat' => 35.188444,
             'lng' => 152.442722,
             'min' => 0,
-            'max' => 25,
+            'max' => 50000,
         ];
         $code = 'データなし';
         $message = '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。';

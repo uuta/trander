@@ -21,19 +21,26 @@ class GeoDBCitiesApi
    */
   public function getLatAndLng($request)
   {
+    // ランダムに角度を生成する
+    $angle = $this->generateAngle();
+
+    // ランダムに距離を生成する
+    $distance = $this->generateDistance($request);
+
+    // 提案先の地点をランダムに生成する
     $currentLocation = new Coordinate($request->lat, $request->lng);
     $bearingEllipsoidal = new BearingEllipsoidal();
-    $angle = $this->generateAngle();
-    $distance = $this->generateDistance($request);
     $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $angle, $distance);
     $commaDestination = $destination->format(new DecimalDegrees(','));
+    
+    // 緯度経度のフォーマットを整える
     $location = $this->adjustLatAndLngFormat($commaDestination);
     return $location;
   }
 
   /**
    * ランダムに角度を生成する
-   * @return  double
+   * @return float
    */
   private function generateAngle()
   {
@@ -44,7 +51,7 @@ class GeoDBCitiesApi
 
   /**
    * ランダムに距離を生成する
-   * @return  double
+   * @return float
    */
   private function generateDistance($request)
   {
