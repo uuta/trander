@@ -1,5 +1,5 @@
 #map {
-  height: 500px;
+  height: 100%;
   position: relative;
 
   &_info {
@@ -165,8 +165,6 @@
 
 @media screen and (max-width: 480px) {
   #map {
-    height: 87vh;
-
     &_info {
       width: 90%;
       padding: 15px 15px;

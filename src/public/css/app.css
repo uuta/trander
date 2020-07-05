@@ -41,8 +41,9 @@ body {
 }
 
 main {
-  margin-bottom: 6rem;
-  margin-top: 6rem;
+  padding-bottom: 2rem;
+  padding-top: 6rem;
+  height: 100vh;
 }
 
 figure {
@@ -77,13 +78,16 @@ dd {
 
 .container {
   margin: 0 auto;
-  max-width: 100vw;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
   padding: 0 2%;
 }
 
 .container--small {
   margin: 0 auto;
   max-width: 600px;
+  margin-bottom: 30px;
 }
 
 .navbar {
@@ -784,7 +788,7 @@ dd {
 }
 
 #map {
-  height: 500px;
+  height: 100%;
   position: relative;
 }
 
@@ -952,10 +956,6 @@ dd {
 }
 
 @media screen and (max-width: 480px) {
-  #map {
-    height: 87vh;
-  }
-
   #map_info {
     width: 90%;
     padding: 15px 15px;
