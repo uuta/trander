@@ -19,6 +19,27 @@
               <img :src="setCountryImg" class="country_flag">
               <span class="desc">{{region + " " + cityName }}</span>
             </dd>
+            <dd class="info">距離：{{distance}} km</dd>
+            <dd class="info">方角：{{direction}}</dd>
+            <dd>
+              <ul class="flex items">
+                <li class="item"><i class="fas fa-walking" :class="[
+                  walking === RECOMMEND_FREQUENCY.NONE ? 'none'
+                  : walking === RECOMMEND_FREQUENCY.MIDDLE ? 'middle'
+                  : 'high'
+                ]"></i></li>
+                <li class="item"><i class="fas fa-biking" :class="[
+                  bycicle === RECOMMEND_FREQUENCY.NONE ? 'none'
+                  : bycicle === RECOMMEND_FREQUENCY.MIDDLE ? 'middle'
+                  : 'high'
+                ]"></i></li>
+                <li class="item"><i class="fas fa-car" :class="[
+                  car === RECOMMEND_FREQUENCY.NONE ? 'none'
+                  : car === RECOMMEND_FREQUENCY.MIDDLE ? 'middle'
+                  : 'high'
+                ]"></i></li>
+              </ul>
+            </dd>
           </dl>
           <p v-else>
             {{ username }}さん、こんにちは！<br>
@@ -46,6 +67,7 @@ import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
 import SuggestPushing from './Modal/Suggest/Pushing.vue'
 import Bars from '../../components/loader/Bars.vue'
+import CONST_EXTERNAL from '../../const/external.js'
 
 export default {
   components: {
@@ -67,6 +89,7 @@ export default {
     this.getCurrentLocation() // DOMの読み込み前に現在地を取得
     this.checkRegistration()
     this.$store.commit('external/setSettingModal', false)
+    this.RECOMMEND_FREQUENCY = CONST_EXTERNAL.RECOMMEND_FREQUENCY
   },
   computed: {
     ...mapState({
@@ -84,6 +107,11 @@ export default {
       settingModal: state => state.external.settingModal,
       errorMessages: state => state.external.errorMessages,
       suggestPushing: state => state.external.suggestPushing,
+      direction: state => state.external.direction,
+      distance: state => state.external.distance,
+      walking: state => state.external.walking,
+      bycicle: state => state.external.bycicle,
+      car: state => state.external.car,
       loading: state => state.auth.loading
     }),
     ...mapGetters({
@@ -96,7 +124,7 @@ export default {
     }
   },
   methods: {
-     getCurrentLocation() {
+    getCurrentLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
         const data = {
           lat: position.coords.latitude,

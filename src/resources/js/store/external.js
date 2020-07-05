@@ -20,6 +20,11 @@ const state = {
   msg: '車や電車で遠出しましょう',
   errorMessages: null,
   suggestPushing: false,
+  distance: null,
+  direction: null,
+  walking: null,
+  bycicle: null,
+  car: null,
 }
 
 const getters = {}
@@ -35,7 +40,12 @@ const mutations = {
     state.seeLng = value.longitude
     state.icon = true
     state.modal = true
-    setTimeout(() => state.suggestPushing = true, 5000);
+    setTimeout(() => state.suggestPushing = true, 5000)
+    state.distance = value.distance
+    state.direction = value.direction
+    state.walking = value.ways.walking
+    state.bycicle = value.ways.bycicle
+    state.car = value.ways.car
   },
   setModal(state, value) {
     state.modal = value
