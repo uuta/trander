@@ -14,14 +14,14 @@
       <div id="map_info">
         <div class="map_info_desc">
           <dl v-if="cityName" class="map_info_items">
-            <dt><i class="fas fa-crown"></i>街を見つけました！</dt>
-            <dd>
+            <dt class="title"><i class="fas fa-crown"></i>街を見つけました！</dt>
+            <dd class="list">
               <img :src="setCountryImg" class="country_flag">
               <span class="desc">{{region + " " + cityName }}</span>
             </dd>
-            <dd class="info">距離：{{distance}} km</dd>
-            <dd class="info">方角：{{direction}}</dd>
-            <dd>
+            <dd class="list info">距離：{{distance}} km</dd>
+            <dd class="list info">方角：{{direction}}</dd>
+            <dd class="list">
               <ul class="flex items">
                 <li class="item"><i class="fas fa-walking" :class="[
                   walking === RECOMMEND_FREQUENCY.NONE ? 'none'
@@ -41,10 +41,13 @@
               </ul>
             </dd>
           </dl>
-          <p v-else>
-            {{ username }}さん、こんにちは！<br>
-            ボタンを押して、近くの街を探してみましょう。
-          </p>
+          <dl class="map_info_introduction" v-else>
+            <dt class="title"><i class="fas fa-street-view"></i>さぁ、冒険の世界へ...</dt>
+            <dd class="list">
+              {{ username }}さん、こんにちは！<br>
+              ボタンを押して、近くの街を探してみましょう。
+            </dd>
+          </dl>
           <p v-if="errorMessages">
             {{ errorMessages }}
           </p>

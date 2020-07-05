@@ -31,6 +31,10 @@ a {
   color: $primary;
 }
 
+dd {
+  margin-left: 0;
+}
+
 @media screen and (max-width: 480px) {
   main {
 

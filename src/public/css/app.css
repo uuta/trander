@@ -57,6 +57,10 @@ a {
   color: #5743ef;
 }
 
+dd {
+  margin-left: 0;
+}
+
 @media screen and (max-width: 480px) {
   main {
     margin-bottom: 0;
@@ -845,21 +849,23 @@ a {
   margin-top: 3px;
 }
 
-.map_info_items dt {
+.map_info_items .title {
   font-weight: bold;
   text-align: center;
+  margin: 0;
 }
 
-.map_info_items dd {
+.map_info_items .list {
   -webkit-margin-start: 0;
           margin-inline-start: 0;
+  width: 80%;
 }
 
-.map_info_items dd.info {
+.map_info_items .list.info {
   padding-left: 10px;
 }
 
-.map_info_items dd .country_flag {
+.map_info_items .list .country_flag {
   -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
   -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
   -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
@@ -867,11 +873,11 @@ a {
   vertical-align: middle;
 }
 
-.map_info_items dd .desc {
+.map_info_items .list .desc {
   vertical-align: middle;
 }
 
-.map_info_items dd .items {
+.map_info_items .list .items {
   font-size: 1.5rem;
   margin: 0;
   list-style-type: none;
@@ -879,29 +885,29 @@ a {
   padding-top: 15px;
 }
 
-.map_info_items dd .item {
+.map_info_items .list .item {
   position: relative;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.map_info_items dd .item i {
+.map_info_items .list .item i {
   margin-right: 0;
 }
 
-.map_info_items dd .item i.none {
+.map_info_items .list .item i.none {
   color: #8a8a8a;
 }
 
-.map_info_items dd .item i.middle {
+.map_info_items .list .item i.middle {
   color: #5743ef;
 }
 
-.map_info_items dd .item i.high {
+.map_info_items .list .item i.high {
   color: #3316F2;
 }
 
-.map_info_items dd .item i.high:after {
+.map_info_items .list .item i.high:after {
   content: "\25CF";
   position: absolute;
   color: #e4406f;
@@ -929,6 +935,22 @@ a {
   border-top: 30px solid #f1f1f1;
 }
 
+.map_info_introduction {
+  margin: 0;
+}
+
+.map_info_introduction .title {
+  text-align: center;
+}
+
+.map_info_introduction .title i {
+  padding-right: 10px;
+}
+
+.map_info_introduction .list {
+  width: 80%;
+}
+
 @media screen and (max-width: 480px) {
   #map {
     height: 87vh;
@@ -936,7 +958,7 @@ a {
 
   #map_info {
     width: 90%;
-    padding: 10px 15px;
+    padding: 15px 15px;
   }
 
   #map_info_desc {
@@ -949,7 +971,7 @@ a {
     padding: 10px 20px;
   }
 
-  .map_info_desc {
+  .map_info_items .dd {
     width: 75%;
   }
 }

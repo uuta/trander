@@ -53,7 +53,7 @@
 }
 
 .map {
-  &_info{
+  &_info {
     &_items {
       margin: 0;
 
@@ -62,13 +62,15 @@
         margin-top: 3px;
       }
 
-      dt {
+      .title {
         font-weight: bold;
         text-align: center;
+        margin: 0;
       }
 
-      dd {
+      .list {
         margin-inline-start: 0;
+        width: 80%;
 
         &.info {
           padding-left: 10px;
@@ -143,6 +145,21 @@
         border-top: 30px solid $sub-s;
       }
     }
+    &_introduction {
+      margin: 0;
+
+      .title {
+        text-align: center;
+
+        i {
+          padding-right: 10px;
+        }
+      }
+
+      .list {
+        width: 80%;
+      }
+    }
   }
 }
 
@@ -152,7 +169,7 @@
 
     &_info {
       width: 90%;
-      padding: 10px 15px;
+      padding: 15px 15px;
 
       &_desc {
         width: 75%;
@@ -170,8 +187,10 @@
 
   .map {
     &_info {
-      &_desc {
-        width: 75%;
+      &_items {
+        .dd {
+          width: 75%;
+        }
       }
     }
   }
