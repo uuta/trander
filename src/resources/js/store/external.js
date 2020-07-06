@@ -16,7 +16,7 @@ const state = {
   icon: false,
   modal: false,
   settingModal: false,
-  distance: [0, 100],
+  rangeOfDistance: [0, 100],
   msg: '車や電車で遠出しましょう',
   errorMessages: null,
   suggestPushing: false,
@@ -53,8 +53,8 @@ const mutations = {
   setSettingModal(state, value) {
     state.settingModal = value
   },
-  setDistance(state, value) {
-    state.distance = value
+  setRangeOfDistance(state, value) {
+    state.rangeOfDistance = value
   },
   setMsg(state, value) {
     state.msg = value
@@ -66,7 +66,7 @@ const mutations = {
     state.seeLng = value.lng
   },
   setSetting(state, value) {
-    state.distance = value
+    state.rangeOfDistance = value
     state.settingModal = false
   },
   setErrorMessages(state, value) {
@@ -83,10 +83,10 @@ const actions = {
 
     // レスポンスが空ではない時の処理
     if (res.status === OK && Object.keys(res.data).length) {
-        const distance = [
+        const rangeOfDistance = [
             res.data.min_distance, res.data.max_distance
         ]
-        context.commit('setDistance', distance)
+        context.commit('setRangeOfDistance', rangeOfDistance)
     }
     // レスポンスが空の処理
     if (res.status === OK && !Object.keys(res.data).length) {
@@ -111,8 +111,8 @@ const actions = {
       context.commit('setErrorMessages', errors)
     }
   },
-  async setSetting(context, { distance, setting }) {
-    context.commit('setSetting', distance)
+  async setSetting(context, { rangeOfDistance, setting }) {
+    context.commit('setSetting', rangeOfDistance)
     await axios.post('/api/setting', setting)
   }
 }

@@ -106,7 +106,7 @@ export default {
       seeLat: state => state.external.seeLat,
       seeLng: state => state.external.seeLng,
       icon: state => state.external.icon,
-      distance: state => state.external.distance,
+      rangeOfDistance: state => state.external.rangeOfDistance,
       settingModal: state => state.external.settingModal,
       errorMessages: state => state.external.errorMessages,
       suggestPushing: state => state.external.suggestPushing,
@@ -143,8 +143,8 @@ export default {
       const data = {
         lat: this.currentLat,
         lng: this.currentLng,
-        min: this.distance[0] * 1000,
-        max: this.distance[1] * 1000
+        min: this.rangeOfDistance[0] * 1000,
+        max: this.rangeOfDistance[1] * 1000
       }
       const router = this.$router
       this.showProgressBar(data, router)

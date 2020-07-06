@@ -7,13 +7,13 @@
         <div class="p-setting__distance__wrap">
           <div class="p-setting__distance__info">
             <p class="c-head_title__mid c-head_title__bold no__margin">次の地点までの距離</p>
-            <p class="no__margin">{{ setDistance[0] }}km - {{ setDistance[1] }}km</p>
+            <p class="no__margin">{{ setRangeOfDistance[0] }}km - {{ setRangeOfDistance[1] }}km</p>
           </div>
         </div>
         <div class="p-setting__vue-slider">
           <vue-slider
             ref="slider"
-            v-model="setDistance"
+            v-model="setRangeOfDistance"
             :enable-cross="false"
             :dotSize="20"
             :railStyle="{height: '8px', border: '1px solid #6e5ce8', background: '#fff'}"
@@ -54,31 +54,31 @@
         settingModal: state => state.external.settingModal,
         msg: state => state.external.msg
       }),
-      setDistance: {
+      setRangeOfDistance: {
         get() {
-          return this.$store.state.external.distance
+          return this.$store.state.external.rangeOfDistance
         },
-        set(distance) {
-          this.updateDistance(distance)
+        set(rangeOfDistance) {
+          this.updateRangeOfDistance(rangeOfDistance)
         }
       }
     },
     methods: {
       hiddenSettingModal() {
-        const distance = this.setDistance
+        const rangeOfDistance = this.setRangeOfDistance
         const setting = {
-          lat: this.setDistance[0],
-          lng: this.setDistance[1]
+          lat: this.setRangeOfDistance[0],
+          lng: this.setRangeOfDistance[1]
         }
-        this.$store.dispatch('external/setSetting', {distance, setting})
+        this.$store.dispatch('external/setSetting', {rangeOfDistance, setting})
       },
-      updateDistance(distance){
-        const msg = this.setMsg(distance)
-        this.$store.commit('external/setDistance', distance)
+      updateRangeOfDistance(rangeOfDistance){
+        const msg = this.setMsg(rangeOfDistance)
+        this.$store.commit('external/setRangeOfDistance', rangeOfDistance)
         this.$store.commit('external/setMsg', msg)
       },
-      setMsg(distance) {
-        var max = distance[1]
+      setMsg(rangeOfDistance) {
+        var max = rangeOfDistance[1]
         for (let [standard, msg] of Object.entries(DISTANCE_MSG)) {
           if (max <= standard) {
             return msg
