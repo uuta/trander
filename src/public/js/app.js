@@ -1977,7 +1977,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modal_Searched_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Modal/Searched.vue */ "./resources/js/pages/index/Modal/Searched.vue");
 /* harmony import */ var _Modal_Suggest_Pushing_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Modal/Suggest/Pushing.vue */ "./resources/js/pages/index/Modal/Suggest/Pushing.vue");
 /* harmony import */ var _components_loader_Bars_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/loader/Bars.vue */ "./resources/js/components/loader/Bars.vue");
+/* harmony import */ var _const_external_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../const/external.js */ "./resources/js/const/external.js");
 
+
+var _mapState;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -2026,6 +2029,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2058,8 +2086,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     this.checkRegistration();
     this.$store.commit('external/setSettingModal', false);
+    this.RECOMMEND_FREQUENCY = _const_external_js__WEBPACK_IMPORTED_MODULE_7__["default"].RECOMMEND_FREQUENCY;
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])((_mapState = {
     cityName: function cityName(state) {
       return state.external.cityName;
     },
@@ -2102,10 +2131,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     suggestPushing: function suggestPushing(state) {
       return state.external.suggestPushing;
     },
-    loading: function loading(state) {
-      return state.auth.loading;
+    direction: function direction(state) {
+      return state.external.direction;
     }
-  }), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+  }, _defineProperty(_mapState, "distance", function distance(state) {
+    return state.external.distance;
+  }), _defineProperty(_mapState, "walking", function walking(state) {
+    return state.external.walking;
+  }), _defineProperty(_mapState, "bycicle", function bycicle(state) {
+    return state.external.bycicle;
+  }), _defineProperty(_mapState, "car", function car(state) {
+    return state.external.car;
+  }), _defineProperty(_mapState, "loading", function loading(state) {
+    return state.auth.loading;
+  }), _mapState)), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     username: 'auth/username'
   }), {
     setCountryImg: function setCountryImg() {
@@ -5831,7 +5870,7 @@ var render = function() {
                   ? _c("dl", { staticClass: "map_info_items" }, [
                       _vm._m(0),
                       _vm._v(" "),
-                      _c("dd", [
+                      _c("dd", { staticClass: "list" }, [
                         _c("img", {
                           staticClass: "country_flag",
                           attrs: { src: _vm.setCountryImg }
@@ -5840,18 +5879,75 @@ var render = function() {
                         _c("span", { staticClass: "desc" }, [
                           _vm._v(_vm._s(_vm.region + " " + _vm.cityName))
                         ])
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "list info" }, [
+                        _vm._v("距離：" + _vm._s(_vm.distance) + " km")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "list info" }, [
+                        _vm._v("方角：" + _vm._s(_vm.direction))
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "list" }, [
+                        _c("ul", { staticClass: "flex items" }, [
+                          _c("li", { staticClass: "item" }, [
+                            _c("i", {
+                              staticClass: "fas fa-walking",
+                              class: [
+                                _vm.walking === _vm.RECOMMEND_FREQUENCY.NONE
+                                  ? "none"
+                                  : _vm.walking ===
+                                    _vm.RECOMMEND_FREQUENCY.MIDDLE
+                                  ? "middle"
+                                  : "high"
+                              ]
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "item" }, [
+                            _c("i", {
+                              staticClass: "fas fa-biking",
+                              class: [
+                                _vm.bycicle === _vm.RECOMMEND_FREQUENCY.NONE
+                                  ? "none"
+                                  : _vm.bycicle ===
+                                    _vm.RECOMMEND_FREQUENCY.MIDDLE
+                                  ? "middle"
+                                  : "high"
+                              ]
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "item" }, [
+                            _c("i", {
+                              staticClass: "fas fa-car",
+                              class: [
+                                _vm.car === _vm.RECOMMEND_FREQUENCY.NONE
+                                  ? "none"
+                                  : _vm.car === _vm.RECOMMEND_FREQUENCY.MIDDLE
+                                  ? "middle"
+                                  : "high"
+                              ]
+                            })
+                          ])
+                        ])
                       ])
                     ])
-                  : _c("p", [
-                      _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.username) +
-                          "さん、こんにちは！"
-                      ),
-                      _c("br"),
-                      _vm._v(
-                        "\n          ボタンを押して、近くの街を探してみましょう。\n        "
-                      )
+                  : _c("dl", { staticClass: "map_info_introduction" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "list" }, [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(_vm.username) +
+                            "さん、こんにちは！"
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\n            ボタンを押して、近くの街を探してみましょう。\n          "
+                        )
+                      ])
                     ]),
                 _vm._v(" "),
                 _vm.errorMessages
@@ -5922,9 +6018,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("dt", [
+    return _c("dt", { staticClass: "title" }, [
       _c("i", { staticClass: "fas fa-crown" }),
       _vm._v("街を見つけました！")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("dt", { staticClass: "title" }, [
+      _c("i", { staticClass: "fas fa-street-view" }),
+      _vm._v("さぁ、冒険の世界へ...")
     ])
   }
 ]
@@ -25719,6 +25824,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/const/external.js":
+/*!****************************************!*\
+  !*** ./resources/js/const/external.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var RECOMMEND_FREQUENCY = Object.freeze({
+  NONE: 0,
+  MIDDLE: 1,
+  HIGH: 2
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  RECOMMEND_FREQUENCY: RECOMMEND_FREQUENCY
+});
+
+/***/ }),
+
 /***/ "./resources/js/pages/Login.vue":
 /*!**************************************!*\
   !*** ./resources/js/pages/Login.vue ***!
@@ -27168,7 +27293,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
 
 
-var state = {
+var _state;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var state = (_state = {
   cityName: null,
   region: null,
   countryCode: null,
@@ -27185,7 +27315,7 @@ var state = {
   msg: '車や電車で遠出しましょう',
   errorMessages: null,
   suggestPushing: false
-};
+}, _defineProperty(_state, "distance", null), _defineProperty(_state, "direction", null), _defineProperty(_state, "walking", null), _defineProperty(_state, "bycicle", null), _defineProperty(_state, "car", null), _state);
 var getters = {};
 var mutations = {
   setNewLocation: function setNewLocation(state, value) {
@@ -27201,6 +27331,11 @@ var mutations = {
     setTimeout(function () {
       return state.suggestPushing = true;
     }, 5000);
+    state.distance = value.distance;
+    state.direction = value.direction;
+    state.walking = value.ways.walking;
+    state.bycicle = value.ways.bycicle;
+    state.car = value.ways.car;
   },
   setModal: function setModal(state, value) {
     state.modal = value;
@@ -27508,8 +27643,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_progressbar__WEBPACK_IMPORTED
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/yutaaoki/GoogleDrive/Project-kinky/20191109_trander/trander/src/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/yutaaoki/GoogleDrive/Project-kinky/20191109_trander/trander/src/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /work/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /work/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
