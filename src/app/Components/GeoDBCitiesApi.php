@@ -10,7 +10,7 @@ use Location\Coordinate;
 use Location\Formatter\Coordinate\DecimalDegrees;
 use Location\Distance\Vincenty;
 use Illuminate\Support\Facades\DB;
-use App\Mway;
+use App\MWay;
 
 class GeoDBCitiesApi
 {
