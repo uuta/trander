@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Log;
+use App\MWay;
+use Illuminate\Support\Facades\DB;
 
 class GeoDBCitiesApiTest extends TestCase
 {
@@ -15,9 +15,12 @@ class GeoDBCitiesApiTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        $this->seed('MWaysSeeder');
+        $this->seed('MDirectionSeeder');
     }
 
     /**
+     * 正常
      * @test
      */
     public function should_GeoDBCities_APIへのリクエストに成功する()
@@ -27,14 +30,31 @@ class GeoDBCitiesApiTest extends TestCase
             'lat' => 43.067883,
             'lng' => 141.322995,
             'min' => 0,
-            'max' => 25,
+            'max' => 50000,
         ];
         $response = $this->post(route('geo-db-cities'), $request);
-        $response
-            ->assertStatus(200);
+        $response->assertStatus(200);
+
+        // レスポンスの中身の確認
+        $data = $response->json(['data']);
+        $data = array_shift($data);
+        $this->assertCount(1, $response->json(['data']));
+        $this->assertInternalType('string', $data['countryCode']);
+        $this->assertInternalType('string', $data['city']);
+        $this->assertInternalType('string', $data['region']);
+        $this->assertInternalType('float', $data['distance']);
+        $this->assertInternalType('array', $data['ways']);
+        ;
+        $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
+        $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
+        $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
+        // 方角の確認
+        $directions = DB::table('m_directions')->select('direction_name')->get()->toArray();
+        $this->assertTrue(in_array($data['direction'], array_column($directions, 'direction_name')));
     }
 
     /**
+     * 正常
      * @test
      */
     public function should_GeoDBCities_APIへのリクエストで204が返ってくる()
@@ -44,7 +64,7 @@ class GeoDBCitiesApiTest extends TestCase
             'lat' => 35.188444,
             'lng' => 152.442722,
             'min' => 0,
-            'max' => 25,
+            'max' => 50000,
         ];
         $code = 'データなし';
         $message = '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。';

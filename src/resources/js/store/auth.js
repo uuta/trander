@@ -172,7 +172,6 @@ const actions = {
         const response = await axios.post('/api/regenerate-password', data)
         if (response.status === OK) {
             context.commit('setApiStatus', true)
-            console.log(response.data)
             context.commit('setUser', response.data)
             router.push('/regenerate-password-complete')
             return false

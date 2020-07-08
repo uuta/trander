@@ -1,5 +1,4 @@
 .c-modal {
-
   &__overlay {
     position: absolute;
     top: 0;
@@ -20,7 +19,7 @@
       right: 0;
       bottom: 0;
       text-align: center;
-      background: #fff;
+      background: $base;
       margin: auto;
 
       &__sml {
@@ -34,7 +33,7 @@
   &__msg__section {
     background: $gradation-2;
     color: #fff;
-    height: 80%;
+    height: 90%;
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -44,6 +43,12 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
+  }
+
+  &_dialog {
+    display: block;
+    background-color: $base;
+    padding: 10px;
   }
 }
 
@@ -55,6 +60,9 @@
           width: 90%;
         }
       }
+    }
+    &__msg__section {
+      height: 80%;
     }
   }
 }

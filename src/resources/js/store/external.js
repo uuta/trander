@@ -1,11 +1,12 @@
 import {
   OK,
   NO_RECORD,
-  DISTANCE_MSG
 } from '../util'
 
 const state = {
   cityName: null,
+  region: null,
+  countryCode: null,
   lat: null,
   lng: null,
   currentLat: null,
@@ -15,9 +16,15 @@ const state = {
   icon: false,
   modal: false,
   settingModal: false,
-  distance: [0, 100],
+  rangeOfDistance: [0, 100],
   msg: '車や電車で遠出しましょう',
-  errorMessages: null
+  errorMessages: null,
+  suggestPushing: false,
+  distance: null,
+  direction: null,
+  walking: null,
+  bycicle: null,
+  car: null,
 }
 
 const getters = {}
@@ -25,12 +32,20 @@ const getters = {}
 const mutations = {
   setNewLocation(state, value) {
     state.cityName = value.city
+    state.region = value.region
+    state.countryCode = value.countryCode
     state.lat = value.latitude
     state.lng = value.longitude
     state.seeLat = value.latitude
     state.seeLng = value.longitude
     state.icon = true
     state.modal = true
+    setTimeout(() => state.suggestPushing = true, 5000)
+    state.distance = value.distance
+    state.direction = value.direction
+    state.walking = value.ways.walking
+    state.bycicle = value.ways.bycicle
+    state.car = value.ways.car
   },
   setModal(state, value) {
     state.modal = value
@@ -38,8 +53,8 @@ const mutations = {
   setSettingModal(state, value) {
     state.settingModal = value
   },
-  setDistance(state, value) {
-    state.distance = value
+  setRangeOfDistance(state, value) {
+    state.rangeOfDistance = value
   },
   setMsg(state, value) {
     state.msg = value
@@ -51,11 +66,14 @@ const mutations = {
     state.seeLng = value.lng
   },
   setSetting(state, value) {
-    state.distance = value
+    state.rangeOfDistance = value
     state.settingModal = false
   },
   setErrorMessages(state, value) {
     state.errorMessages = value
+  },
+  setSuggestPushing(state, value) {
+    state.suggestPushing = value
   },
 }
 
@@ -65,10 +83,10 @@ const actions = {
 
     // レスポンスが空ではない時の処理
     if (res.status === OK && Object.keys(res.data).length) {
-        const distance = [
+        const rangeOfDistance = [
             res.data.min_distance, res.data.max_distance
         ]
-        context.commit('setDistance', distance)
+        context.commit('setRangeOfDistance', rangeOfDistance)
     }
     // レスポンスが空の処理
     if (res.status === OK && !Object.keys(res.data).length) {
@@ -78,6 +96,7 @@ const actions = {
     context.commit('setCurrentLocation', data)
   },
   async setNewLocation(context, { data, router }) {
+    context.commit('setSuggestPushing', false)
     const res = await axios.post('/api/external/geo-db-cities', data)
 
     // レスポンスが空ではない時の処理
@@ -92,8 +111,8 @@ const actions = {
       context.commit('setErrorMessages', errors)
     }
   },
-  async setSetting(context, { distance, setting }) {
-    context.commit('setSetting', distance)
+  async setSetting(context, { rangeOfDistance, setting }) {
+    context.commit('setSetting', rangeOfDistance)
     await axios.post('/api/setting', setting)
   }
 }

@@ -125,13 +125,12 @@ export default {
     login () {
       const data = this.loginForm
       const router = this.$router
-      // authストアのloginアクションを呼び出す
       this.$store.dispatch('auth/login', {data, router})
+      this.$store.commit('external/setSuggestPushing', true)
     },
     register () {
       const data = this.registerForm
       const router = this.$router
-      // authストアのresigterアクションを呼び出す
       this.$store.dispatch('auth/register', {data, router})
     },
     clearError () {
