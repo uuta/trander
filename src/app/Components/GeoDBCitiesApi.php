@@ -91,7 +91,6 @@ class GeoDBCitiesApi
     $response = $client->request("GET", $sourceUrl, [
       'query' => [
         'limit' => '1',
-        'countryIds' => 'JP',
         'location' => $location,
         'radius' => '100',
       ],
