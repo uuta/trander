@@ -8,10 +8,12 @@
     <meta name="description" content="{{ config('const.meta_description') }}">
     <meta property="og:title" content="{{ config('app.name') }} | {{ config('const.title_description') }}" />
     <meta property="og:description" content="{{ config('const.meta_description') }}" />
+    <meta property="og:url" content="{{ config('app.url') }}" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     <meta property="og:type" content="{{ config('const.og_type') }}" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:site" content="@Yutti_Onioni" />
+    <meta property="fb:app_id" content="1502996483181400" />
     <title>{{ config('app.name') }} | {{ config('const.title_description') }}</title>
 
     <!-- Scripts -->
