@@ -10,6 +10,8 @@
     <meta property="og:description" content="{{ config('const.meta_description') }}" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     <meta property="og:type" content="{{ config('const.og_type') }}" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:site" content="@Yutti_Onioni" />
     <title>{{ config('app.name') }} | {{ config('const.title_description') }}</title>
 
     <!-- Scripts -->
