@@ -38,10 +38,13 @@
       padding: 2em 7em;
       display: flex;
       display: -webkit-box;
-      -webkit-box-pack: center;
       justify-content: center;
       -webkit-box-align: center;
       align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -ms-flex-pack: center;
+      -webkit-box-pack: center;
     }
     &__feature {
       text-align: center;
