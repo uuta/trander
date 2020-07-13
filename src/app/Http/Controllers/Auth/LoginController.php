@@ -59,44 +59,57 @@ class LoginController extends Controller
 
     /**
      * ソーシャル認証 リクエスト
-     * @return mixed
+     *
+     * @param string $social: SNSの名称
+     * @return object
      */
-    public function socialLogin($social)
+    public function socialLogin(string $social) : object
     {
         return Socialite::with($social)->redirect();
     }
 
-    public function socialCallback($social)
+    /**
+     * ソーシャル認証 コールバック
+     *
+     * @param string $social: SNSの名称
+     * @return object
+     */
+    public function socialCallback(string $social) : object
     {
-        $providerUser = Socialite::driver($social)->user();
+        try {
+            $providerUser = Socialite::driver($social)->user();
 
-        // 既に存在するユーザーかを確認
-        $socialUser = SocialUser::where('provider_user_id', $providerUser->id)
-            ->where('provider', $social)
-            ->first();
+            // 既に存在するユーザーかを確認
+            $socialUser = SocialUser::where('provider_user_id', $providerUser->id)
+                ->where('provider', $social)
+                ->first();
 
-        if ($socialUser) {
-            // 既存のユーザーはログインしてトップページへ
-            Auth::login($socialUser->user, true);
+            if ($socialUser) {
+                // 既存のユーザーはログインしてトップページへ
+                Auth::login($socialUser->user, true);
+                return redirect()->secure('/index#');
+            }
+
+            // 新しいユーザーを作成
+            $user = new User();
+            $user->unique_id = $providerUser->getNickname();
+            $user->name = $providerUser->getName();
+            $user->avatar = $providerUser->getAvatar();
+
+            $socialUser = new SocialUser();
+            $socialUser->provider = $social;
+            $socialUser->provider_user_id = $providerUser->id;
+
+            DB::transaction(function () use ($user, $socialUser) {
+                $user->save();
+                $user->socialUsers()->save($socialUser);
+            });
+
+            Auth::login($user, true);
             return redirect()->secure('/index#');
+        } catch (\Exception $e) {
+            Log::warning($e);
+            return redirect()->secure('/login');
         }
-
-        // 新しいユーザーを作成
-        $user = new User();
-        $user->unique_id = $providerUser->getNickname();
-        $user->name = $providerUser->getName();
-        $user->avatar = $providerUser->getAvatar();
-
-        $socialUser = new SocialUser();
-        $socialUser->provider = $social;
-        $socialUser->provider_user_id = $providerUser->id;
-
-        DB::transaction(function () use ($user, $socialUser) {
-            $user->save();
-            $user->socialUsers()->save($socialUser);
-        });
-
-        Auth::login($user, true);
-        return redirect()->secure('/index#');
     }
 }
