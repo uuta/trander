@@ -1,17 +1,15 @@
 .button {
   border: 1px solid $sub;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   color: $sub-v;
   cursor: pointer;
   display: inline-block;
   font-family: inherit;
   font-size: 1rem;
   outline: none;
-  padding: .5rem .75rem;
+  padding: 0.5rem 0.75rem;
   text-decoration: none;
-  transition:
-    border-color 300ms ease-in-out,
-    color 300ms ease-in-out;
+  transition: border-color 300ms ease-in-out, color 300ms ease-in-out;
 
   &:hover {
     border-color: $secondary;
@@ -19,7 +17,7 @@
   }
 
   .icon {
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
 
   &_map {
@@ -43,9 +41,7 @@
       top: 20px;
       padding: 0;
       display: inline-block;
-      transition: color .3s,
-      text-decoration .3s,
-      background-color .3s;
+      transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
 
       &:hover {
         color: $base;
@@ -63,9 +59,7 @@
       top: 0;
       bottom: 0;
       margin: auto;
-      transition: color .5s,
-      text-decoration .5s,
-      background-color .5s;
+      transition: color 0.5s, text-decoration 0.5s, background-color 0.5s;
 
       & i {
         position: absolute;
@@ -77,7 +71,7 @@
       }
 
       &:hover {
-        background: linear-gradient(#3316F2 0%, #1CACBF 100%) no-repeat 50% 50% / 100% 100%;
+        background: linear-gradient(#3316f2 0%, #1cacbf 100%) no-repeat 50% 50% / 100% 100%;
         color: $base;
         cursor: pointer;
       }
@@ -102,7 +96,7 @@
     &:hover {
       background: $secondary;
       color: #fff;
-      opacity: .8;
+      opacity: 0.8;
     }
 
     &__top {
@@ -156,7 +150,7 @@
     &:hover {
       border-color: $red;
       color: #fff;
-      opacity: .8;
+      opacity: 0.8;
     }
   }
 
@@ -168,11 +162,30 @@
     padding: 0;
     cursor: pointer;
     font-weight: bold;
-    color: #3316F2;
+    color: #3316f2;
     transition: background-color 300ms ease-in-out;
 
     &:hover {
       background: $sub;
+    }
+  }
+
+  &.link {
+    border-style: none;
+    background: none;
+    color: #3316f2;
+    padding: 0;
+    text-decoration: underline;
+  }
+
+  &.close {
+    display: block;
+    margin: auto;
+    background: $base;
+    &:before {
+      content: "\f00d";
+      font-family: FontAwesome;
+      padding-right: 0.5em;
     }
   }
 }

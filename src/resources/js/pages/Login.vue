@@ -82,6 +82,10 @@
             <div class="c-icon__pwd"></div>
             <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation" placeholder="6文字以上の半角英数字">
           </div>
+          <div class="list-menu">
+            <ul><label><input type="checkbox"><button class="button link" type="button" @click="moveLink(`/terms-of-service`)">利用規約</button>に同意する</label></ul>
+            <ul><label><input type="checkbox"><button class="button link" type="button" @click="moveLink(`/privacy-policy`)">プライバシーポリシー</button>に同意する</label></ul>
+          </div>
           <div class="form__button">
             <button type="submit" class="button button--inverse">
               <span>会員登録する</span>
@@ -136,6 +140,9 @@ export default {
     clearError () {
       this.$store.commit('auth/setLoginErrorMessages', null)
       this.$store.commit('auth/setRegisterErrorMessages', null)
+    },
+    moveLink (url) {
+      window.open(url, '_blank')
     }
   },
   created () {
