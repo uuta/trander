@@ -38,4 +38,3 @@ Route::namespace('External')->group(function () {
 // セッティング
 Route::get('/setting', 'SettingController@get')->name('setting.get');
 Route::post('/setting', 'SettingController@store')->name('setting.store');
-Route::post('/test2', 'SettingController@test');

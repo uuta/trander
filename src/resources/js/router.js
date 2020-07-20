@@ -115,7 +115,7 @@ const routes = [{
   }
 },
 {
-  path: '/terms-of-Service',
+  path: '/terms-of-service',
   component: TermsOfService,
 },
 {
