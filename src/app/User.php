@@ -8,6 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    // 利用規約
+    const NOT_AGREE_TO_TERMS_OF_SERVICE = 0;
+    const AGREE_TO_TERMS_OF_SERVICE = 1;
+
+    // プライバシポリシー
+    const NOT_AGREE_TO_PRIVACY_POLICY = 0;
+    const AGREE_TO_PRIVACY_POLICY = 1;
+
     use Notifiable;
 
     /**
