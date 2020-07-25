@@ -25,6 +25,8 @@ const state = {
   walking: null,
   bycicle: null,
   car: null,
+  geoLocationModal: false,
+  geoLocationSetting: null
 }
 
 const getters = {}
@@ -75,6 +77,13 @@ const mutations = {
   setSuggestPushing(state, value) {
     state.suggestPushing = value
   },
+  setGeoLocationModal(state, value) {
+    state.geoLocationModal = value
+  },
+  setGeoLocationSetting(state, value) {
+    state.geoLocationModal = true
+    state.geoLocationSetting = value
+  },
 }
 
 const actions = {
@@ -83,17 +92,21 @@ const actions = {
 
     // レスポンスが空ではない時の処理
     if (res.status === OK && Object.keys(res.data).length) {
-        const rangeOfDistance = [
-            res.data.min_distance, res.data.max_distance
-        ]
-        context.commit('setRangeOfDistance', rangeOfDistance)
+      const rangeOfDistance = [
+        res.data.min_distance, res.data.max_distance
+      ]
+      context.commit('setRangeOfDistance', rangeOfDistance)
     }
+
     // レスポンスが空の処理
     if (res.status === OK && !Object.keys(res.data).length) {
       ;
     }
+
     // 現在地をセット
     context.commit('setCurrentLocation', data)
+    // 現在地権限モーダルの削除
+    context.commit('setGeoLocationModal', false)
   },
   async setNewLocation(context, { data, router }) {
     context.commit('setSuggestPushing', false)

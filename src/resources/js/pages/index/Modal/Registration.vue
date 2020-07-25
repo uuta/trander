@@ -1,5 +1,5 @@
 <template>
-  <div class="c-modal__overlay" v-if="registerModal" @click.self="hiddenRegisterModal">
+  <div class="c-modal__overlay" @click.self="hiddenRegisterModal">
     <div class="c-modal__overlay__wrap__sml">
         <div class="c-modal__msg__section">
           <div>
@@ -20,7 +20,6 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      registerModal: state => state.auth.registerModal,
       username: state => state.auth.user
     }),
     username() {
