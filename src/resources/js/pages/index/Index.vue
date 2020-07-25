@@ -3,7 +3,8 @@
     <vue-progress-bar></vue-progress-bar>
     <Bars v-show="loading"></Bars>
     <div id="map">
-      <Registration></Registration>
+      <Registration v-if="registerModal"></Registration>
+      <SuggestCurrentLocation v-if="geoLocationModal"></SuggestCurrentLocation>
       <Setting></Setting>
       <GmapMap :center="{lat:seeLat, lng:seeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
         <gmap-marker :position="{lat:currentLat, lng:currentLng}" :icon="icon_center">
@@ -69,8 +70,11 @@ import Setting from './Modal/Setting.vue'
 import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
 import SuggestPushing from './Modal/Suggest/Pushing.vue'
+import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
 import Bars from '../../components/loader/Bars.vue'
 import CONST_EXTERNAL from '../../const/external.js'
+import { BROWSER } from '../../const/common.js'
+import { checkBrowser } from '../../extension/checkBrowser.js'
 
 export default {
   components: {
@@ -78,9 +82,10 @@ export default {
     Registration,
     Searched,
     SuggestPushing,
+    SuggestCurrentLocation,
     Bars
   },
-  data () {
+  data() {
     return {
       icon_center: {
         url: '/assets/images/current_location.png',
@@ -88,11 +93,12 @@ export default {
       },
     }
   },
-  created:function(){
-    this.getCurrentLocation() // DOMの読み込み前に現在地を取得
-    this.checkRegistration()
-    this.$store.commit('external/setSettingModal', false)
+  created() {
     this.RECOMMEND_FREQUENCY = CONST_EXTERNAL.RECOMMEND_FREQUENCY
+    this.SUGGEST = CONST_EXTERNAL.CURRENT_LOCATION_SUGGEST
+    this.checkRegistration()
+    this.judgeGeoLocation()
+    this.$store.commit('external/setSettingModal', false)
   },
   computed: {
     ...mapState({
@@ -115,6 +121,8 @@ export default {
       walking: state => state.external.walking,
       bycicle: state => state.external.bycicle,
       car: state => state.external.car,
+      geoLocationModal: state => state.external.geoLocationModal,
+      registerModal: state => state.auth.registerModal,
       loading: state => state.auth.loading
     }),
     ...mapGetters({
@@ -127,14 +135,73 @@ export default {
     }
   },
   methods: {
+    judgeGeoLocation() {
+      // In case, browser doesn't support
+      if (!navigator.geolocation) {
+        this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.BROWSER)
+      }
+
+      // Check a browser name
+      const browser = checkBrowser();
+
+      // Permission of current location setting
+      if (browser === BROWSER.EDGE || browser === BROWSER.CHROME || browser === BROWSER.FIREFOX || browser === BROWSER.OPERA) {
+        navigator.permissions.query({name: 'geolocation'}).then(result => {
+          if(result.state === 'granted') {
+            this.getCurrentLocation()
+          }
+          if(result.state === 'prompt') {
+            this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.SUGGEST)
+            this.getCurrentLocation()
+          }
+          if(result.state === 'denied') {
+            this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.PERMISSION)
+          }
+          result.onchange = function() {
+            if(result.state === 'granted') {
+              this.getCurrentLocation()
+            }
+            if(result.state === 'denied') {
+              this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.PERMISSION)
+            }
+          }
+        })
+      } else {
+        this.getCurrentLocation()
+      }
+    },
     getCurrentLocation() {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const data = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-        this.$store.dispatch('external/getLoading', data)
-      });
+      const options = {
+        enableHighAccuracy: false,
+        timeout: 10000,
+        maximumAge: 0,
+      }
+
+      navigator.geolocation.getCurrentPosition(this.successGetCurrentPosition, this.errorGetCurrentPosition, options)
+    },
+    successGetCurrentPosition(position) {
+      const data = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      this.$store.dispatch('external/getLoading', data)
+    },
+    errorGetCurrentPosition(error) {
+      // Show an error modal
+      switch (error.code) {
+        case 1: // Permission denied
+          this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.PERMISSION)
+          break
+        case 2: // Position unavailable
+          this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.UNAVAILABLE)
+          break
+        case 3: // Timeout
+          this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.TIMEOUT)
+          break
+        default:
+          this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.UNAVAILABLE)
+          break
+      }
     },
     checkRegistration() {
       this.$store.dispatch('auth/checkRegistration')
