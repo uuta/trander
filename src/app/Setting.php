@@ -12,4 +12,9 @@ class Setting extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function settingHistory()
+    {
+        return $this->hasMany(SettingHistory::class);
+    }
 }
