@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use App\Setting;
 
 /**
  * setting登録
@@ -11,6 +12,7 @@ $factory->define(App\Setting::class, function (Faker $faker) {
         'user_id' => null,
         'min_distance' => null,
         'max_distance' => null,
+        'direction_type' => null,
     ];
 });
 
@@ -24,5 +26,6 @@ $factory->state(App\Setting::class, 'register user and safe distance', function 
         },
         'min_distance' => 15,
         'max_distance' => 78,
+        'direction_type' => Setting::DIRECTION_TYPE['east'],
     ];
 });

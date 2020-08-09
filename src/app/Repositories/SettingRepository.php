@@ -17,7 +17,7 @@ class SettingRepository
 
   public function getSetting()
   {
-    return DB::table($this->table)->where('user_id', Auth::id())->first();
+    return DB::table($this->table)->select('min_distance', 'max_distance', 'direction_type')->where('user_id', Auth::id())->first();
   }
 
   public function setSetting($request)
@@ -28,7 +28,8 @@ class SettingRepository
       ],
       [
         'min_distance' => $request['lat'],
-        'max_distance' => $request['lng']
+        'max_distance' => $request['lng'],
+        'direction_type' => $request['direction_type'],
       ]
     );
   }

@@ -43,9 +43,9 @@ class SettingApiTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'user_id' => $this->setting->user_id,
                 'min_distance' => $this->setting->min_distance,
-                'max_distance' => $this->setting->max_distance
+                'max_distance' => $this->setting->max_distance,
+                'direction_type' => $this->setting->direction_type,
             ]);
     }
 
