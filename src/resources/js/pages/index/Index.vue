@@ -122,6 +122,7 @@ export default {
       bycicle: state => state.external.bycicle,
       car: state => state.external.car,
       geoLocationModal: state => state.external.geoLocationModal,
+      directionType: state => state.external.directionType,
       registerModal: state => state.auth.registerModal,
       loading: state => state.auth.loading
     }),
@@ -211,7 +212,8 @@ export default {
         lat: this.currentLat,
         lng: this.currentLng,
         min: this.rangeOfDistance[0] * 1000,
-        max: this.rangeOfDistance[1] * 1000
+        max: this.rangeOfDistance[1] * 1000,
+        direction_type: this.directionType,
       }
       const router = this.$router
       this.showProgressBar(data, router)
