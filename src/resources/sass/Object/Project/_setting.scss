@@ -2,6 +2,11 @@
 
   &__wrap {
     position: relative;
+
+    & .top-section {
+      margin: 20px 0;
+      height: 30px;
+    }
   }
 
   &__back {
@@ -23,11 +28,24 @@
   &__distance {
 
     &__info {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+
+      & .title {
+        font-weight: normal;
+        color: $primary-v;
+        font-size: $font-big;
+        margin: 0;
+      }
+
+      & .desc {
+        color: #8a8a8a;
+        margin: 0;
+      }
     }
 
     &__msg {
       position: relative;
+      margin-bottom: 2em;
 
       &__lf {
         position: absolute;

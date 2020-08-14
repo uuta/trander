@@ -1,0 +1,16 @@
+.vue-slider {
+  &-rail {
+    border-radius: 0px !important;
+  }
+
+  &-dot-handle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:after {
+      color: $base;
+      content: "●";
+    }
+  }
+}

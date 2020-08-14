@@ -2,12 +2,12 @@
   <div id="map_overlay" v-if="settingModal" @click.self="hiddenSettingModal">
     <div id="map_overlay_wrap">
       <div class="container--small p-setting__wrap">
-        <div class="c-head_title__big">設定</div>
+        <div class="top-section"></div>
         <i class="fas fa-arrow-left p-setting__back" @click.self="hiddenSettingModal"></i>
         <div class="p-setting__distance__wrap">
           <div class="p-setting__distance__info">
-            <p class="c-head_title__mid c-head_title__bold no__margin">次の地点までの距離</p>
-            <p class="no__margin">{{ setRangeOfDistance[0] }}km - {{ setRangeOfDistance[1] }}km</p>
+            <p class="title">次の地点までの距離</p>
+            <p class="desc">{{ setRangeOfDistance[0] }}km - {{ setRangeOfDistance[1] }}km</p>
           </div>
         </div>
         <div class="p-setting__vue-slider">
