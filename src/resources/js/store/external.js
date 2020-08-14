@@ -76,7 +76,6 @@ const mutations = {
   setSetting(state, value) {
     state.rangeOfDistance = value.distance
     state.directionType = value.directionType
-    state.settingModal = false
   },
   setErrorMessages(state, value) {
     state.errorMessages = value
@@ -142,9 +141,10 @@ const actions = {
       context.commit('setErrorMessages', errors)
     }
   },
-  async setSetting(context, { rangeOfDistance, setting }) {
-    context.commit('setSetting', rangeOfDistance)
-    await axios.post('/api/setting', setting)
+  async setSetting(context, { states, parameters }) {
+    context.commit('setSetting', states)
+    context.commit('setSettingModal', false)
+    await axios.post('/api/setting', parameters)
   },
   async setDirectionType(context, data) {
     context.commit('setDirectionType', data)

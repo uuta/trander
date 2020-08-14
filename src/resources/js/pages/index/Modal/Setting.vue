@@ -71,16 +71,16 @@
     },
     methods: {
       hiddenSettingModal() {
-        const rangeOfDistance = {
+        const states = {
           distance: this.setRangeOfDistance,
           directionType: this.directionType
         }
-        const setting = {
+        const parameters = {
           min: this.setRangeOfDistance[0],
           max: this.setRangeOfDistance[1],
           direction_type: this.directionType
         }
-        this.$store.dispatch('external/setSetting', {rangeOfDistance, setting})
+        this.$store.dispatch('external/setSetting', {states, parameters})
       },
       updateRangeOfDistance(rangeOfDistance){
         const msg = this.setMsg(rangeOfDistance)
