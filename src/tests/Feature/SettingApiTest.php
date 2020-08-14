@@ -8,7 +8,6 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class SettingApiTest extends TestCase
@@ -43,9 +42,9 @@ class SettingApiTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'user_id' => $this->setting->user_id,
                 'min_distance' => $this->setting->min_distance,
-                'max_distance' => $this->setting->max_distance
+                'max_distance' => $this->setting->max_distance,
+                'direction_type' => $this->setting->direction_type,
             ]);
     }
 
@@ -65,8 +64,9 @@ class SettingApiTest extends TestCase
         $response_test->assertStatus(200);
 
         $distance = [
-            'lat' => 15,
-            'lng' => 33
+            'min' => 15,
+            'max' => 33,
+            'direction_type' => Setting::DIRECTION_TYPE['north'],
         ];
         // setting_post_APIにリクエストして成功する
         $response = $this->post(route('setting.get'), $distance);
@@ -75,8 +75,18 @@ class SettingApiTest extends TestCase
         // データが保存されていることを確認する
         $this->assertDatabaseHas('settings', [
             'user_id' => $this->user->id,
-            'min_distance' => 15,
-            'max_distance' => 33
+            'min_distance' => $distance['min'],
+            'max_distance' => $distance['max'],
+            'direction_type' => $distance['direction_type'],
+        ]);
+
+        $setting = DB::table('settings')->where('user_id', $this->user->id)->first();
+
+        $this->assertDatabaseHas('setting_historys', [
+            'setting_id' => $setting->id,
+            'min_distance' => $distance['min'],
+            'max_distance' => $distance['max'],
+            'direction_type' => $distance['direction_type'],
         ]);
     }
 
@@ -99,8 +109,9 @@ class SettingApiTest extends TestCase
         $response_test->assertStatus(200);
 
         $distance = [
-            'lat' => $this->setting->min_distance,
-            'lng' => $this->setting->max_distance
+            'min' => $this->setting->min_distance,
+            'max' => $this->setting->max_distance,
+            'direction_type' => $this->setting->direction_type,
         ];
         // setting_post_APIにリクエストして成功する
         $response = $this->post(route('setting.get'), $distance);
@@ -110,7 +121,17 @@ class SettingApiTest extends TestCase
         $this->assertDatabaseHas('settings', [
             'user_id' => $this->setting->user_id,
             'min_distance' => $this->setting->min_distance,
-            'max_distance' => $this->setting->max_distance
+            'max_distance' => $this->setting->max_distance,
+            'direction_type' => $this->setting->direction_type,
+        ]);
+
+        $setting = DB::table('settings')->where('user_id', $this->setting->user_id)->first();
+
+        $this->assertDatabaseHas('setting_historys', [
+            'setting_id' => $setting->id,
+            'min_distance' => $distance['min'],
+            'max_distance' => $distance['max'],
+            'direction_type' => $distance['direction_type'],
         ]);
     }
 }

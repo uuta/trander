@@ -3,6 +3,10 @@ import {
   NO_RECORD,
 } from '../util'
 
+import {
+  DIRECTION_TYPE
+} from '../const/external'
+
 const state = {
   cityName: null,
   region: null,
@@ -26,7 +30,9 @@ const state = {
   bycicle: null,
   car: null,
   geoLocationModal: false,
-  geoLocationSetting: null
+  geoLocationSetting: null,
+  directionType: DIRECTION_TYPE.NONE.NUM,
+  settingDirection: false,
 }
 
 const getters = {}
@@ -68,8 +74,8 @@ const mutations = {
     state.seeLng = value.lng
   },
   setSetting(state, value) {
-    state.rangeOfDistance = value
-    state.settingModal = false
+    state.rangeOfDistance = value.distance
+    state.directionType = value.directionType
   },
   setErrorMessages(state, value) {
     state.errorMessages = value
@@ -84,6 +90,13 @@ const mutations = {
     state.geoLocationModal = true
     state.geoLocationSetting = value
   },
+  setSettingDirection(state, value) {
+    state.settingDirection = value
+  },
+  setDirectionType(state, value) {
+    state.directionType = value
+    state.settingDirection = false
+  },
 }
 
 const actions = {
@@ -92,10 +105,14 @@ const actions = {
 
     // レスポンスが空ではない時の処理
     if (res.status === OK && Object.keys(res.data).length) {
-      const rangeOfDistance = [
-        res.data.min_distance, res.data.max_distance
-      ]
-      context.commit('setRangeOfDistance', rangeOfDistance)
+      const settings = {
+        distance: [
+          res.data.min_distance,
+          res.data.max_distance
+        ],
+        directionType: res.data.direction_type,
+      }
+      context.commit('setSetting', settings)
     }
 
     // レスポンスが空の処理
@@ -124,10 +141,14 @@ const actions = {
       context.commit('setErrorMessages', errors)
     }
   },
-  async setSetting(context, { rangeOfDistance, setting }) {
-    context.commit('setSetting', rangeOfDistance)
-    await axios.post('/api/setting', setting)
-  }
+  async setSetting(context, { states, parameters }) {
+    context.commit('setSetting', states)
+    context.commit('setSettingModal', false)
+    await axios.post('/api/setting', parameters)
+  },
+  async setDirectionType(context, data) {
+    context.commit('setDirectionType', data)
+  },
 }
 export default {
   namespaced: true,

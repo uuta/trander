@@ -2,6 +2,11 @@
 
   &__wrap {
     position: relative;
+
+    & .top-section {
+      margin: 20px 0;
+      height: 30px;
+    }
   }
 
   &__back {
@@ -23,11 +28,24 @@
   &__distance {
 
     &__info {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+
+      & .title {
+        font-weight: normal;
+        color: $primary-v;
+        font-size: $font-big;
+        margin: 0;
+      }
+
+      & .desc {
+        color: #8a8a8a;
+        margin: 0;
+      }
     }
 
     &__msg {
       position: relative;
+      margin-bottom: 2em;
 
       &__lf {
         position: absolute;
@@ -50,7 +68,7 @@
   }
 
   &__icon {
-    background: $primary;
+    background: $primary-v;
     border-radius: 50%;
     -ms-flex-preferred-size: 16%;
     display: block;
@@ -60,15 +78,18 @@
     font-size: 20px;
     line-height: 45px;
     text-align: center;
-    display: inline-block;
-    margin-left: 5%;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
 
   &__txt {
-    -ms-flex-preferred-size: 32%;
-    flex-basis: 50%;
-    display: inline-block;
-    margin-left: 5%;
+    width: 60%;
+    padding-left: 0.5em;
+    margin: auto;
+    display: block;
   }
 
   &__next {
@@ -82,26 +103,31 @@
   }
 
   &__elm {
+    width: 60%;
+    margin: auto;
+
+    &:first-child {
+      margin-top: 20px;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid $primary;
+    }
 
     &__wrap {
-      border-top: 2px solid $primary-s;
-      width: 60%;
+      border-top: 1px solid $primary;
+      width: 100%;
       text-align: left;
       position: relative;
       border-radius: 0;
       background-color: #fff;
+      min-height: 80px;
 
-      &:first-of-type {
-        margin-top: 20px;
-      }
-
-      &:last-child {
-        border-bottom: 2px solid $primary-s;
-
-        &:hover {
-            border-color: $primary;
-            color: inherit;
-        }
+      &:hover {
+        border-color: $primary-v;
+        transition: color .3s,
+        text-decoration .3s,
+        background-color .3s;
       }
     }
   }
@@ -110,6 +136,8 @@
 @media screen and (max-width: 480px) {
   .p-setting {
     &__elm {
+      width: 90%;
+
       &__wrap {
         width: 100%;
         background: $base;

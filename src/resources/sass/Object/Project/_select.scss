@@ -1,0 +1,62 @@
+.p-select-overlay {
+  position: absolute;
+  width: 60%;
+  z-index: 20;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+
+  .wrap {
+    width: 100%;
+    margin: auto;
+    background: $base;
+  }
+
+  .title {
+    padding-top: 1em;
+  }
+
+  .item {
+    button {
+      background: $base;
+      border: none;
+      width: 100%;
+      padding-left: 1.5em;
+      font-size: 1.2em;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      text-align: left;
+      transition: 0.3s;
+
+      &:hover {
+        background: $secondary;
+        color: $base;
+        cursor: pointer;
+      }
+
+      &.active {
+        background: $primary-v;
+        color: $base;
+        position: relative;
+
+        &:after {
+          content: "\f00c";
+          font-family: FontAwesome;
+          color: $base;
+          position: absolute;
+          top: 50%;
+          right: 1.5em;
+          margin-top: -10px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .p-select-overlay {
+    width: 100%;
+  }
+}

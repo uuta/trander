@@ -11,6 +11,7 @@ use Location\Formatter\Coordinate\DecimalDegrees;
 use Location\Distance\Vincenty;
 use Illuminate\Support\Facades\DB;
 use App\MWay;
+use App\Setting;
 
 class GeoDBCitiesApi
 {
@@ -25,7 +26,7 @@ class GeoDBCitiesApi
   public function getLatAndLng($request)
   {
     // ランダムに角度を生成する
-    $this->angle = $this->generateAngle();
+    $this->angle = $this->generateAngle($request);
 
     // ランダムに距離を生成する
     $distance = $this->generateDistance($request);
@@ -35,19 +36,33 @@ class GeoDBCitiesApi
     $bearingEllipsoidal = new BearingEllipsoidal();
     $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $this->angle, $distance);
     $commaDestination = $destination->format(new DecimalDegrees(','));
-    
+
     // 緯度経度のフォーマットを整える
     return $this->adjustLatAndLngFormat($commaDestination);
   }
 
   /**
    * ランダムに角度を生成する
+   * @param object $request
    * @return float
    */
-  private function generateAngle()
+  private function generateAngle(object $request)
   {
-    $max = 360;
-    return rand() / mt_getrandmax() * $max;
+    // Only when direction_type is north, get 0 or 1
+    $num = mt_rand(0, 1);
+    $direction = $request->direction_type === Setting::DIRECTION_TYPE['north']
+      ? Setting::DIRECTION_ANGLE[1][$num]
+      : Setting::DIRECTION_ANGLE[$request->direction_type];
+
+    if ($direction === Setting::DIRECTION_ANGLE[1][1]
+      || $request->direction_type === Setting::DIRECTION_TYPE['south']
+      || $request->direction_type === Setting::DIRECTION_TYPE['west']
+    ) {
+      $angle = $direction['min'] + mt_rand() / mt_getrandmax() * ($direction['max'] - $direction['min']);
+    } else {
+      $angle = mt_rand() / mt_getrandmax() * $direction['max'];
+    }
+    return $angle;
   }
 
   /**
@@ -115,7 +130,7 @@ class GeoDBCitiesApi
     // レスポンスの距離を上書きする
     foreach($responseBody['data'] as &$data) {
       $distance = $this->getDistance($request, $data);
-      $data['distance'] = $distance;
+      $data['distance'] = (float)$distance;
     }
 
     // レスポンスに移動手段の推奨度を追加する

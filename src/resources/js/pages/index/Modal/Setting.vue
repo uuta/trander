@@ -2,12 +2,12 @@
   <div id="map_overlay" v-if="settingModal" @click.self="hiddenSettingModal">
     <div id="map_overlay_wrap">
       <div class="container--small p-setting__wrap">
-        <div class="c-head_title__big">設定 - Setting</div>
+        <div class="top-section"></div>
         <i class="fas fa-arrow-left p-setting__back" @click.self="hiddenSettingModal"></i>
         <div class="p-setting__distance__wrap">
           <div class="p-setting__distance__info">
-            <p class="c-head_title__mid c-head_title__bold no__margin">次の地点までの距離</p>
-            <p class="no__margin">{{ setRangeOfDistance[0] }}km - {{ setRangeOfDistance[1] }}km</p>
+            <p class="title">次の地点までの距離</p>
+            <p class="desc">{{ setRangeOfDistance[0] }}km - {{ setRangeOfDistance[1] }}km</p>
           </div>
         </div>
         <div class="p-setting__vue-slider">
@@ -27,11 +27,14 @@
           <p class="p-setting__distance__msg__mid">{{ msg }}</p>
           <p class="p-setting__distance__msg__rf">100km</p>
         </div>
-        <button class="button button--link p-setting__elm__wrap" @click="logout">
-          <div class="p-setting__icon"><i class="fas fa-sign-out-alt"></i></div>
-          <p class="p-setting__txt">ログアウト</p>
-          <i class="fas fa-caret-right p-setting__next"></i>
-        </button>
+        <Direction></Direction>
+        <div class="p-setting__elm">
+          <button class="button button--link p-setting__elm__wrap" @click="logout">
+            <div class="p-setting__icon"><i class="fas fa-sign-out-alt"></i></div>
+            <p class="p-setting__txt">ログアウト</p>
+            <i class="fas fa-caret-right p-setting__next"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -42,17 +45,20 @@
 
   import vueSlider from 'vue-slider-component'
   import 'vue-slider-component/theme/default.css'
+  import Direction from './Setting/Direction.vue'
 
   import { DISTANCE_MSG } from '../../../util'
 
   export default {
     components: {
-      vueSlider
+      vueSlider,
+      Direction
     },
     computed: {
       ...mapState({
         settingModal: state => state.external.settingModal,
-        msg: state => state.external.msg
+        msg: state => state.external.msg,
+        directionType: state => state.external.directionType
       }),
       setRangeOfDistance: {
         get() {
@@ -65,12 +71,16 @@
     },
     methods: {
       hiddenSettingModal() {
-        const rangeOfDistance = this.setRangeOfDistance
-        const setting = {
-          lat: this.setRangeOfDistance[0],
-          lng: this.setRangeOfDistance[1]
+        const states = {
+          distance: this.setRangeOfDistance,
+          directionType: this.directionType
         }
-        this.$store.dispatch('external/setSetting', {rangeOfDistance, setting})
+        const parameters = {
+          min: this.setRangeOfDistance[0],
+          max: this.setRangeOfDistance[1],
+          direction_type: this.directionType
+        }
+        this.$store.dispatch('external/setSetting', {states, parameters})
       },
       updateRangeOfDistance(rangeOfDistance){
         const msg = this.setMsg(rangeOfDistance)
@@ -88,7 +98,7 @@
       logout () {
         const router = this.$router
         this.$store.dispatch('auth/logout', router)
-      }
+      },
     }
   }
 </script>
