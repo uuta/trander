@@ -12,6 +12,7 @@
     right: 0;
     bottom: 20px;
     padding: 20px;
+    filter: drop-shadow(0px 3px 10px rgb(200, 200, 200));
   }
 
   &_btn {
@@ -186,6 +187,9 @@
   .map {
     &_info {
       &_items {
+        & .title {
+          font-size: 5vw;
+        }
         .dd {
           width: 75%;
         }

@@ -15,7 +15,7 @@
       <div id="map_info">
         <div class="map_info_desc">
           <dl v-if="cityName" class="map_info_items">
-            <dt class="title"><i class="fas fa-crown"></i>街を見つけました！</dt>
+            <dt class="title"><i class="fas fa-smile"></i>荷物をまとめて出かけよう！</dt>
             <dd class="list">
               <img :src="setCountryImg" class="country_flag">
               <span class="desc">{{region + " " + cityName }}</span>
