@@ -40,8 +40,8 @@ body {
 }
 
 main {
-  padding-bottom: 2rem;
-  padding-top: 6rem;
+  padding-bottom: 1rem;
+  padding-top: 5rem;
   height: 100vh;
 }
 
@@ -758,6 +758,21 @@ dd {
   margin: 20px 0;
 }
 
+.vue-slider-rail {
+  border-radius: 0px !important;
+}
+
+.vue-slider-dot-handle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vue-slider-dot-handle:after {
+  color: #fff;
+  content: "\25CF";
+}
+
 .c-icon,
 .c-icon__pwd::before,
 .c-icon__email::before,
@@ -807,6 +822,8 @@ dd {
   right: 0;
   bottom: 20px;
   padding: 20px;
+  -webkit-filter: drop-shadow(0px 3px 10px #c8c8c8);
+          filter: drop-shadow(0px 3px 10px #c8c8c8);
 }
 
 #map_btn {
@@ -969,11 +986,23 @@ dd {
 
   #map_overlay_wrap {
     width: 95%;
-    height: 80%;
+    height: 90%;
     padding: 10px 20px;
   }
 
+  .map_info_items .title {
+    font-size: 5vw;
+  }
+
   .map_info_items .dd {
+    width: 75%;
+  }
+
+  .map_info_introduction .title {
+    font-size: 5vw;
+  }
+
+  .map_info_introduction .list {
     width: 75%;
   }
 }
@@ -1095,6 +1124,11 @@ dd {
   position: relative;
 }
 
+.p-setting__wrap .top-section {
+  margin: 20px 0;
+  height: 30px;
+}
+
 .p-setting__back {
   position: absolute;
   left: 1%;
@@ -1112,11 +1146,24 @@ dd {
 }
 
 .p-setting__distance__info {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.p-setting__distance__info .title {
+  font-weight: normal;
+  color: #3316F2;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.p-setting__distance__info .desc {
+  color: #8a8a8a;
+  margin: 0;
 }
 
 .p-setting__distance__msg {
   position: relative;
+  margin-bottom: 2em;
 }
 
 .p-setting__distance__msg__lf {
@@ -1138,7 +1185,7 @@ dd {
 }
 
 .p-setting__icon {
-  background: #5743ef;
+  background: #3316F2;
   border-radius: 50%;
   -ms-flex-preferred-size: 16%;
   display: block;
@@ -1148,14 +1195,17 @@ dd {
   font-size: 20px;
   line-height: 45px;
   text-align: center;
-  display: inline-block;
-  margin-left: 5%;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
 }
 
 .p-setting__txt {
-  flex-basis: 50%;
-  display: inline-block;
-  margin-left: 5%;
+  width: 60%;
+  padding-left: 0.5em;
+  margin: auto;
+  display: block;
 }
 
 .p-setting__next {
@@ -1167,32 +1217,109 @@ dd {
   right: 5%;
 }
 
-.p-setting__elm__wrap {
-  border-top: 2px solid #D6D1F8;
+.p-setting__elm {
   width: 60%;
+  margin: auto;
+}
+
+.p-setting__elm:first-child {
+  margin-top: 20px;
+}
+
+.p-setting__elm:last-child {
+  border-bottom: 1px solid #5743ef;
+}
+
+.p-setting__elm__wrap {
+  border-top: 1px solid #5743ef;
+  width: 100%;
   text-align: left;
   position: relative;
   border-radius: 0;
   background-color: #fff;
+  min-height: 80px;
 }
 
-.p-setting__elm__wrap:first-of-type {
-  margin-top: 20px;
-}
-
-.p-setting__elm__wrap:last-child {
-  border-bottom: 2px solid #D6D1F8;
-}
-
-.p-setting__elm__wrap:last-child:hover {
-  border-color: #5743ef;
-  color: inherit;
+.p-setting__elm__wrap:hover {
+  border-color: #3316F2;
+  transition: color 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
+  transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
+  transition: color 0.3s, text-decoration 0.3s, background-color 0.3s, -webkit-text-decoration 0.3s;
 }
 
 @media screen and (max-width: 480px) {
+  .p-setting__elm {
+    width: 90%;
+  }
+
   .p-setting__elm__wrap {
     width: 100%;
     background: #fff;
+  }
+
+  .p-setting__distance__info .title {
+    font-size: 6vw;
+  }
+}
+
+.p-select-overlay {
+  position: absolute;
+  width: 60%;
+  z-index: 20;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.5);
+}
+
+.p-select-overlay .wrap {
+  width: 100%;
+  margin: auto;
+  background: #fff;
+}
+
+.p-select-overlay .title {
+  padding-top: 1em;
+}
+
+.p-select-overlay .item button {
+  background: #fff;
+  border: none;
+  width: 100%;
+  padding-left: 1.5em;
+  font-size: 1.2em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: left;
+  transition: 0.3s;
+}
+
+.p-select-overlay .item button:hover {
+  background: #1CACBF;
+  color: #fff;
+  cursor: pointer;
+}
+
+.p-select-overlay .item button.active {
+  background: #3316F2;
+  color: #fff;
+  position: relative;
+}
+
+.p-select-overlay .item button.active:after {
+  content: "\F00C";
+  font-family: FontAwesome;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 1.5em;
+  margin-top: -10px;
+}
+
+@media screen and (max-width: 480px) {
+  .p-select-overlay {
+    width: 100%;
   }
 }
 
