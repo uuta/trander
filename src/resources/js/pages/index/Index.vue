@@ -43,7 +43,7 @@
             </dd>
           </dl>
           <dl class="map_info_introduction" v-else>
-            <dt class="title"><i class="fas fa-street-view"></i>さぁ、冒険の世界へ...</dt>
+            <dt class="title"><i class="fas fa-street-view"></i>新しい街に行ってみよう</dt>
             <dd class="list">
               {{ username }}さん、こんにちは！<br>
               ボタンを押して、近くの街を探してみましょう。

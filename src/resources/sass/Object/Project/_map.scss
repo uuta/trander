@@ -178,7 +178,7 @@
     &_overlay {
       &_wrap {
         width: 95%;
-        height: 80%;
+        height: 90%;
         padding: 10px 20px;
       }
     }
@@ -188,9 +188,18 @@
     &_info {
       &_items {
         & .title {
-          font-size: 5vw;
+          font-size: $vw5;
         }
         .dd {
+          width: 75%;
+        }
+      }
+
+      &_introduction {
+        & .title {
+          font-size: $vw5;
+        }
+        & .list {
           width: 75%;
         }
       }
