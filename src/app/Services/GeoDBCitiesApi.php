@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components;
+namespace App\Services;
 
 // Guzzleモジュールのクラス読み込み
 use GuzzleHttp\Client;

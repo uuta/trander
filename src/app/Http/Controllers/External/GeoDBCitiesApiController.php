@@ -5,7 +5,7 @@ namespace App\Http\Controllers\External;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use App\Components\GeoDBCitiesApi;
+use App\Services\GeoDBCitiesApi;
 use App\Http\Requests\GeoDBCitiesApiRequest;
 
 class GeoDBCitiesApiController extends Controller
