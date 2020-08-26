@@ -37,3 +37,8 @@ Route::namespace('External')->group(function () {
 // セッティング
 Route::get('/setting', 'SettingController@get')->name('setting.get');
 Route::post('/setting', 'SettingController@store')->name('setting.store');
+
+// Test
+Route::namespace('Test')->group(function () {
+    Route::get('/dev-test', 'TestController@weather')->name('test.get');
+});
