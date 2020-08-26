@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Setting::class);
     }
+
+    public function requestCountHistory()
+    {
+        return $this->hasMany(RequestCountHistory::class);
+    }
 }
