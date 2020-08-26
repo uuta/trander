@@ -31,7 +31,6 @@ Route::namespace('Auth')->group(function () {
 
 // 外部API
 Route::namespace('External')->group(function () {
-    Route::post('/external/resas', 'ResasApiController@request')->name('resas');
     Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
 });
 
