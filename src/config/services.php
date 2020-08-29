@@ -57,4 +57,8 @@ return [
         'client_secret' => env('GOOGLE_APP_SECRET'),
         'redirect'      => env('GOOGLE_CALLBACK_URL')
     ],
+
+    'yahoo_local_search' => [
+        'app_id'        => env('YAHOO_LOCAL_SEARCH'),
+    ],
 ];

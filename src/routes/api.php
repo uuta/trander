@@ -32,6 +32,7 @@ Route::namespace('Auth')->group(function () {
 // 外部API
 Route::namespace('External')->group(function () {
     Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
+    Route::get('/external/facility', 'FacilityController@index')->name('facility.get')->middleware('auth');
 });
 
 // セッティング
