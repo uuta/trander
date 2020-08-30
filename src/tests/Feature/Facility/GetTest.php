@@ -2,30 +2,13 @@
 
 namespace Tests\Feature\Facility;
 
-use App\User;
-use Tests\TestCase;
+use Tests\LoginTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\RequestCountHistory;
 
-class GetTest extends TestCase
+class GetTest extends LoginTestCase
 {
-    use RefreshDatabase;
-
     private const ROUTE = 'facility.get';
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        // Make a test user
-        $this->user = factory(User::class)->create();
-        $login = $this->json('POST', route('login'), [
-            'email' => $this->user->email,
-            'password' => 'secret',
-        ]);
-        $login->assertStatus(200);
-    }
 
     /**
      * 正常
