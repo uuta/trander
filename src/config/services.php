@@ -61,4 +61,9 @@ return [
     'yahoo_local_search' => [
         'app_id'        => env('YAHOO_LOCAL_SEARCH'),
     ],
+
+    'rakuten_hotel_search' => [
+        'app_id'        => env('RAKUTEN_HOTEL_SEARCH'),
+        'affiliate_id'        => env('RAKUTEN_AFFILIATE_ID'),
+    ],
 ];

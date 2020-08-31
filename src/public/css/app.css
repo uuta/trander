@@ -188,7 +188,7 @@ dd {
   color: #5743ef;
   line-height: 55px;
   text-align: center;
-  background: #fff;
+  background: #fffff1;
   border: 1px solid #5743ef;
 }
 
@@ -813,7 +813,7 @@ dd {
 }
 
 #map_info {
-  background: #fff;
+  background: #fffff1;
   width: 45%;
   min-height: 100px;
   position: absolute;

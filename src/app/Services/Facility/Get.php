@@ -9,7 +9,7 @@ use App\Services\ExternalResponse;
 
 class Get extends ExternalResponse
 {
-    const CITY = [
+    protected $addedResponse = [
         'key' => [
             ['name' => 'name', 'content' => "['Name']"],
             ['name' => 'genre', 'content' => "['Property']['Genre'][0]['Name']"],

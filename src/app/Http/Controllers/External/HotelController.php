@@ -4,13 +4,13 @@ namespace App\Http\Controllers\External;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\NormalizedController;
-use App\Services\Facility\Get as FacilityGet;
-use App\Http\Requests\Facility\GetRequest;
+use App\Http\Requests\Hotel\GetRequest;
+use App\Services\Hotel\Get as HotelGet;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 use App\RequestCountHistory;
 
-class FacilityController extends NormalizedController
+class HotelController extends NormalizedController
 {
     public function index(GetRequest $request)
     {
@@ -19,13 +19,13 @@ class FacilityController extends NormalizedController
             $this->normarize_request($request);
 
             // Request
-            $FacilityGet = new FacilityGet($request);
+            $FacilityGet = new HotelGet($request);
             $FacilityGet->apiRequest();
             $response = $FacilityGet->formatResponse();
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getYahooLocalSearch']);
+            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getSimpleHotelSearch']);
 
             return $this->normarize_response($response);
         }

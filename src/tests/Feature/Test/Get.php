@@ -18,8 +18,9 @@ class Get extends TestCase
         $response = $this->get(route('test.get'), $request);
 
         // レスポンスの中身の確認
-        $data = $response->json(['list']);
-        var_dump($data);
+        // $data = $response->json(['list']);
+        $data = $response->json(['hotels']);
+        dd($data);
 
         $response->assertStatus(200);
     }

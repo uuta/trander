@@ -11,16 +11,15 @@ class TestController extends Controller
     public function index()
     {
         $client = new Client();
-        $sourceUrl = "https://map.yahooapis.jp/search/local/V1/localSearch";
+        $sourceUrl = "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20170426";
         $response = $client->request("GET", $sourceUrl, [
             'query' => [
-                'appid' => 'dj00aiZpPXBBQ1R1c2p1enVZdiZzPWNvbnN1bWVyc2VjcmV0Jng9MTU-',
-                'lat' => 35.729013,
-                'lon' => 139.708185,
-                'dist' => 5,
-                'sort' => 'hybrid',
-                'query' => '温泉',
-                'output' => 'json'
+                'applicationId' => config('services.rakuten_hotel_search.app_id'),
+                'affiliateId' => config('services.rakuten_hotel_search.affiliate_id'),
+                'latitude' => 43.067883,
+                'longitude' => 141.322995,
+                'searchRadius' => 3,
+                'datumType' => 1,
             ]
         ]);
         $responseBody = json_decode($response->getBody()->getContents(), true);

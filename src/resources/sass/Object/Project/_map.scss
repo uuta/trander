@@ -3,7 +3,7 @@
   position: relative;
 
   &_info {
-    background: #fff;
+    background: $base-wrap;
     width: 45%;
     min-height: 100px;
     position: absolute;
@@ -47,7 +47,7 @@
       right: 0;
       bottom: 0;
       text-align: center;
-      background: #fff;
+      background: $base;
       margin: auto;
     }
   }

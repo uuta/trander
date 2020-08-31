@@ -18,11 +18,11 @@ abstract class ExternalResponse
     protected $request;
     protected $response;
     protected $data = [];
+    protected $addedResponse;
 
-    public function __construct(object $request, array $addedResponse)
+    public function __construct(object $request)
     {
         $this->request = $request;
-        $this->addedResponse = $addedResponse;
     }
 
     /**
