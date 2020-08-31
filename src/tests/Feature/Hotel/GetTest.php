@@ -45,7 +45,7 @@ class GetTest extends LoginTestCase
      * 準正常
      * @test
      */
-    public function should_facility_APIへのリクエストが失敗する（バリデーション）（空）()
+    public function should_hotel_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
         $request = [];
@@ -64,7 +64,7 @@ class GetTest extends LoginTestCase
      * 準正常
      * @test
      */
-    public function should_facility_APIへのリクエストが失敗する（バリデーション）（最大・最小値）()
+    public function should_hotel_APIへのリクエストが失敗する（バリデーション）（最大・最小値）()
     {
         // Uncorrected parameter
         $request = [
