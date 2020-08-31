@@ -34,6 +34,7 @@ Route::namespace('External')->group(function () {
     Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
     Route::get('/external/facility', 'FacilityController@index')->name('facility.get')->middleware('auth');
     Route::get('/external/hotel', 'HotelController@index')->name('hotel.get')->middleware('auth');
+    Route::get('/external/weather', 'WeatherController@index')->name('weather.get')->middleware('auth');
 });
 
 // セッティング
@@ -42,5 +43,5 @@ Route::post('/setting', 'SettingController@store')->name('setting.store');
 
 // Test
 Route::namespace('Test')->group(function () {
-    Route::get('/dev-test', 'TestController@index')->name('test.get');
+    Route::get('/dev-test', 'TestController@weather')->name('test.get');
 });

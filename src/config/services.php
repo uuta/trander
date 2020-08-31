@@ -66,4 +66,8 @@ return [
         'app_id'        => env('RAKUTEN_HOTEL_SEARCH'),
         'affiliate_id'        => env('RAKUTEN_AFFILIATE_ID'),
     ],
+
+    'open_weather_map' => [
+        'app_id'        => env('OPEN_WEATHER_MAP'),
+    ],
 ];

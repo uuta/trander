@@ -32,7 +32,7 @@ class TestController extends Controller
         $sourceUrl = "https://api.openweathermap.org/data/2.5/forecast";
         $response = $client->request("GET", $sourceUrl, [
             'query' => [
-                'appid' => '79697f49246abcc3f454e07df1853310',
+                'appid' => config('services.open_weather_map.app_id'),
                 'lat' => -74.694581,
                 'lon' =>  164.112461,
                 'lang' => 'ja',
