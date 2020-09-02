@@ -35,6 +35,7 @@ Route::namespace('External')->group(function () {
     Route::get('/external/facility', 'FacilityController@index')->name('facility.get')->middleware('auth');
     Route::get('/external/hotel', 'HotelController@index')->name('hotel.get')->middleware('auth');
     Route::get('/external/weather', 'WeatherController@index')->name('weather.get')->middleware('auth');
+    Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get')->middleware('auth');
 });
 
 // セッティング
@@ -44,4 +45,5 @@ Route::post('/setting', 'SettingController@store')->name('setting.store');
 // Test
 Route::namespace('Test')->group(function () {
     Route::get('/dev-test', 'TestController@weather')->name('test.get');
+    Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
 });

@@ -64,7 +64,7 @@ abstract class ExternalResponse
      *
      * @param array $value
      * @param string $path
-     * @return ?string $value
+     * @return ?string
      */
     private function get_value(array $value, string $path) : ?string
     {

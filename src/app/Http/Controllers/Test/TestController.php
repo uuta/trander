@@ -42,4 +42,13 @@ class TestController extends Controller
         $responseBody = json_decode($response->getBody()->getContents(), true);
         return $responseBody;
     }
+
+    public function wiki()
+    {
+        $client = new Client();
+        $sourceUrl = "https://www.wikidata.org/wiki/Special:EntityData/Q1134006";
+        $response = $client->request("GET", $sourceUrl);
+        $responseBody = json_decode($response->getBody()->getContents(), true);
+        return $responseBody;
+    }
 }

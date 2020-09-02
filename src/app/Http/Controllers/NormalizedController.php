@@ -31,12 +31,31 @@ class NormalizedController extends Controller
     }
 
     /**
-     * Change request parameter from snake case to camel case
+     * Change response parameter from snake case to camel case
      *
      * @param ?array $response
      * @return ?array
      */
     protected function normarize_response(?array $response) {
+        if(isset($response)) {
+            foreach ($response['data'] as $key => $value) {
+                if(preg_match('/[_]/', $key)){
+                    $new_key = Str::camel($key);
+                    $response['data'][$new_key] = $value;
+                    unset($response['data'][$key]);
+                }
+            }
+        }
+        return $response;
+    }
+
+    /**
+     * Change multiple response parameter from snake case to camel case
+     *
+     * @param ?array $response
+     * @return ?array
+     */
+    protected function normarize_multiple_response(?array $response) {
         if(isset($response)) {
             foreach ($response['data'] as $i => $v) {
                 foreach ($v as $key => $value) {
