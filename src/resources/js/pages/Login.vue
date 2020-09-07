@@ -165,7 +165,7 @@
 
 <script>
 import {mapState} from 'vuex';
-import Bars from '../components/loader/Bars.vue';
+import Bars from '../components/atoms/loader/Bars.vue';
 
 export default {
   components: {

@@ -23,6 +23,11 @@ a.link__wrap {
   border-radius: 50%;
 }
 
+.negate_btn {
+  border: none;
+  background: none;
+}
+
 *,
 *::before,
 *::after {
@@ -940,6 +945,19 @@ dd {
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
+}
+
+.map_info_items .show_detail {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  font-size: 1.5em;
+  color: #8a8a8a;
+  cursor: pointer;
+}
+
+.map_info_items .show_detail i {
+  margin-right: 0;
 }
 
 .map_info_dialog {

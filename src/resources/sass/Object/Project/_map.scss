@@ -130,6 +130,18 @@
           }
         }
       }
+      .show_detail {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        font-size: 1.5em;
+        color: #8a8a8a;
+        cursor: pointer;
+
+        i {
+          margin-right: 0;
+        }
+      }
     }
     &_dialog {
       position: absolute;

@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from './pages/Login.vue'
-import OnBoarding from './pages/OnBoarding.vue'
-import Index from './pages/index/Index.vue'
-import Setting from './pages/index/Modal/Setting.vue'
+import Login from '../pages/Login.vue'
+import OnBoarding from '../pages/OnBoarding.vue'
+import Index from '../pages/index/Index.vue'
+import Setting from '../pages/index/Modal/Setting.vue'
 
-import Reset from './pages/resetPasswords/Reset.vue'
-import SentEmail from './pages/resetPasswords/SentEmail.vue'
-import Regenerate from './pages/resetPasswords/Regenerate.vue'
-import RegenerateComplete from './pages/resetPasswords/Complete.vue'
+import Reset from '../pages/resetPasswords/Reset.vue'
+import SentEmail from '../pages/resetPasswords/SentEmail.vue'
+import Regenerate from '../pages/resetPasswords/Regenerate.vue'
+import RegenerateComplete from '../pages/resetPasswords/Complete.vue'
 
-import TermsOfService from './pages/services/TermsOfService.vue'
-import PrivacyPolicy from './pages/services/PrivacyPolicy.vue'
+import TermsOfService from '../pages/services/TermsOfService.vue'
+import PrivacyPolicy from '../pages/services/PrivacyPolicy.vue'
 
-import SystemError from './pages/errors/System.vue'
+import SystemError from '../pages/errors/System.vue'
 
-import store from './store'
+import store from '../store'
 
 // VueRouterプラグインを使用する
 // これによって<RouterView />コンポーネントなどを使うことができる
@@ -46,6 +46,17 @@ const routes = [{
 },
 {
   path: '/index',
+  component: Index,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+},
+{
+  path: '/index/:countryCode/:region/:name',
   component: Index,
   beforeEnter(to, from, next) {
     if (store.getters['auth/check']) {

@@ -41,6 +41,7 @@
                 ]"></i></li>
               </ul>
             </dd>
+            <button class="negate_btn show_detail"><i class="fas fa-angle-up"></i></button>
           </dl>
           <dl class="map_info_introduction" v-else>
             <dt class="title"><i class="fas fa-street-view"></i>新しい街に行ってみよう</dt>
@@ -71,7 +72,7 @@ import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
 import SuggestPushing from './Modal/Suggest/Pushing.vue'
 import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
-import Bars from '../../components/loader/Bars.vue'
+import Bars from '../../components/atoms/loader/Bars.vue'
 import CONST_EXTERNAL from '../../const/external.js'
 import { BROWSER } from '../../const/common.js'
 import { checkBrowser } from '../../extension/checkBrowser.js'
