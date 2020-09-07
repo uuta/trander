@@ -1,6 +1,6 @@
 import {
     getCookieValue
-} from './util'
+} from '../util'
 
 window.axios = require('axios')
 
