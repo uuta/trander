@@ -44,6 +44,6 @@ Route::post('/setting', 'SettingController@store')->name('setting.store');
 
 // Test
 Route::namespace('Test')->group(function () {
-    Route::get('/dev-test', 'TestController@weather')->name('test.get');
+    Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
     Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
 });
