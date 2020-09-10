@@ -1,4 +1,4 @@
-import { BROWSER } from '../const/common.js';
+import { BROWSER } from '../../const/common.js';
 
 export function checkBrowser() {
   const userAgent = window.navigator.userAgent.toLowerCase();

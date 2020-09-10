@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container p-city_detail">
     <vue-progress-bar></vue-progress-bar>
     <Bars v-show="loading"></Bars>
-    <div id="map">
+    <div id="map" class="show_city_detail">
       <Registration v-if="registerModal"></Registration>
       <SuggestCurrentLocation v-if="geoLocationModal"></SuggestCurrentLocation>
       <Setting></Setting>
@@ -62,12 +62,14 @@
       <button class="button_map_setting"><i class="fas fa-cog" @click.self="showSettingModal"></i></button>
       <Searched></Searched>
     </div>
+    <CityDetail></CityDetail>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Setting from './Modal/Setting.vue'
+import CityDetail from '../cityDetails/index.vue'
 import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
 import SuggestPushing from './Modal/Suggest/Pushing.vue'
@@ -75,11 +77,12 @@ import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
 import Bars from '../../components/atoms/loader/Bars.vue'
 import CONST_EXTERNAL from '../../const/external.js'
 import { BROWSER } from '../../const/common.js'
-import { checkBrowser } from '../../extension/checkBrowser.js'
+import { checkBrowser } from '../../services/common/checkBrowser.js'
 
 export default {
   components: {
     Setting,
+    CityDetail,
     Registration,
     Searched,
     SuggestPushing,

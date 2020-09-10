@@ -2,6 +2,10 @@
   height: 100%;
   position: relative;
 
+  &.show_city_detail {
+    flex: 1;
+  }
+
   &_info {
     background: $base-wrap;
     width: 45%;
