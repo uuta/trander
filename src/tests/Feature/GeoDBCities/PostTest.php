@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\GeoDBCities;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,7 +9,7 @@ use App\MWay;
 use Illuminate\Support\Facades\DB;
 use App\Setting;
 
-class GeoDBCitiesApiTest extends TestCase
+class PostTest extends TestCase
 {
     use RefreshDatabase;
 

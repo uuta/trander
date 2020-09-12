@@ -6,8 +6,9 @@ namespace App\Services\Hotel;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use App\Services\ExternalResponse;
+use App\Services\Factries\ExternalResponse\ExternalResponseFactory;
 
-class Get extends ExternalResponse
+class Get extends ExternalResponseFactory
 {
     protected $addedResponse = [
         'key' => [
@@ -19,6 +20,7 @@ class Get extends ExternalResponse
             ['name' => 'hotelThumbnailUrl', 'content' => "['hotel'][0]['hotelBasicInfo']['hotelThumbnailUrl']"],
         ],
         'response' => 'hotels',
+        'hierarchy' => ExternalResponseFactory::HIERARCHY['second'],
     ];
 
     /**

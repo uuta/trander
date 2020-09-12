@@ -32,6 +32,7 @@ Route::namespace('Auth')->group(function () {
 // 外部API
 Route::namespace('External')->group(function () {
     Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
+    Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get')->middleware('auth');
     Route::get('/external/facility', 'FacilityController@index')->name('facility.get')->middleware('auth');
     Route::get('/external/hotel', 'HotelController@index')->name('hotel.get')->middleware('auth');
     Route::get('/external/weather', 'WeatherController@index')->name('weather.get')->middleware('auth');

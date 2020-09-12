@@ -41,7 +41,10 @@
                 ]"></i></li>
               </ul>
             </dd>
-            <button class="negate_btn show_detail"><i class="fas fa-angle-up"></i></button>
+            <RouterLink class="negate_btn show_detail" to="/index/aaa">
+              <i class="fas fa-angle-up"></i>
+            </RouterLink>
+            <!-- <button class="negate_btn show_detail"><i class="fas fa-angle-up"></i></button> -->
           </dl>
           <dl class="map_info_introduction" v-else>
             <dt class="title"><i class="fas fa-street-view"></i>新しい街に行ってみよう</dt>

@@ -17,8 +17,8 @@ class GetTest extends LoginTestCase
     public function should_weather_APIへのリクエストに成功する()
     {
         $request = [
-            'lat' => 43.067883,
-            'lng' => 141.322995,
+            'lat' => 28.028910,
+            'lng' => 86.780009,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);

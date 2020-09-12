@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Factries\ExternalResponse;
 
 use Illuminate\Support\Facades\Log;
 
-
 /**
- * Define response key and the destination for request
+ * First hierarchy
  *
  * @author Yuta Aoki
  */
-abstract class ExternalResponse
+class First
 {
     /**
      * Request parameters
@@ -20,15 +19,12 @@ abstract class ExternalResponse
     protected $data = [];
     protected $addedResponse;
 
-    public function __construct(object $request)
+    public function __construct(object $request, object $response, array $addedResponse)
     {
         $this->request = $request;
+        $this->response = $response;
+        $this->addedResponse = $addedResponse;
     }
-
-    /**
-     * Define where is requested
-     */
-    abstract public function apiRequest();
 
     /**
      * Format the response
@@ -39,9 +35,7 @@ abstract class ExternalResponse
     {
         $response = json_decode($this->response->getBody()->getContents(), true);
         $feature = $response[$this->addedResponse['response']];
-        foreach($feature as $index => $value) {
-            $this->addResponse($index, $value);
-        }
+        $this->addResponse($feature);
         return $this->data;
     }
 
@@ -51,11 +45,11 @@ abstract class ExternalResponse
      * @param int $index
      * @param array $value
      */
-    private function addResponse(int $index, array $value) : void
+    private function addResponse(array $value) : void
     {
         foreach($this->addedResponse['key'] as $array) {
             $variable = $this->get_value($value, $array['content']);
-            $this->data['data'][$index][$array['name']] = $variable;
+            $this->data['data'][$array['name']] = $variable;
         }
     }
 

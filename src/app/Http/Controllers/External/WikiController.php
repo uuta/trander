@@ -19,9 +19,9 @@ class WikiController extends NormalizedController
             $this->normarize_request($request);
 
             // Request
-            $FacilityGet = new WikiCityGet($request);
-            $FacilityGet->apiRequest();
-            $response = $FacilityGet->formatResponse();
+            $WikiGet = new WikiCityGet($request);
+            $WikiGet->apiRequest();
+            $response = $WikiGet->formatResponse();
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();

@@ -21,7 +21,8 @@ class FacilityController extends NormalizedController
             // Request
             $FacilityGet = new FacilityGet($request);
             $FacilityGet->apiRequest();
-            $response = $FacilityGet->formatResponse();
+            $GetResponse = $FacilityGet->get_response();
+            $response = $GetResponse->formatResponse();
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();

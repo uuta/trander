@@ -19,9 +19,10 @@ class WeatherController extends NormalizedController
             $this->normarize_request($request);
 
             // Request
-            $FacilityGet = new WeatherGet($request);
-            $FacilityGet->apiRequest();
-            $response = $FacilityGet->formatResponse();
+            $WeatherGet = new WeatherGet($request);
+            $WeatherGet->apiRequest();
+            $GetResponse = $WeatherGet->get_response();
+            $response = $GetResponse->formatResponse();
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();

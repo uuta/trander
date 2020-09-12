@@ -6,8 +6,9 @@ namespace App\Services\Wiki;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use App\Services\ExternalResponse;
+use App\Services\Factries\ExternalResponse\ExternalResponseFactory;
 
-class GetCity extends ExternalResponse
+class GetCity extends ExternalResponseFactory
 {
     protected $addedResponse = [
         'key' => [

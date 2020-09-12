@@ -19,9 +19,10 @@ class HotelController extends NormalizedController
             $this->normarize_request($request);
 
             // Request
-            $FacilityGet = new HotelGet($request);
-            $FacilityGet->apiRequest();
-            $response = $FacilityGet->formatResponse();
+            $HotelGet = new HotelGet($request);
+            $HotelGet->apiRequest();
+            $GetResponse = $HotelGet->get_response();
+            $response = $GetResponse->formatResponse();
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();

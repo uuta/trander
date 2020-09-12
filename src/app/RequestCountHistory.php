@@ -14,6 +14,7 @@ class RequestCountHistory extends Model
         'getYahooLocalSearch' => 2,
         'getSimpleHotelSearch' => 3,
         'getCurrentWeather' => 4,
+        'getGeoDbCitiesId' => 5,
     ];
 
     public $timestamps = false;

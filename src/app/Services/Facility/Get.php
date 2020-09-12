@@ -5,9 +5,9 @@ namespace App\Services\Facility;
 // Guzzleモジュールのクラス読み込み
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
-use App\Services\ExternalResponse;
+use App\Services\Factries\ExternalResponse\ExternalResponseFactory;
 
-class Get extends ExternalResponse
+class Get extends ExternalResponseFactory
 {
     protected $addedResponse = [
         'key' => [
@@ -17,6 +17,7 @@ class Get extends ExternalResponse
             ['name' => 'lead_image', 'content' => "['Property']['LeadImage']"],
         ],
         'response' => 'Feature',
+        'hierarchy' => ExternalResponseFactory::HIERARCHY['second'],
     ];
 
     /**

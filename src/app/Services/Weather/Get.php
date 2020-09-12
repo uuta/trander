@@ -5,9 +5,9 @@ namespace App\Services\Weather;
 // Guzzleモジュールのクラス読み込み
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
-use App\Services\ExternalResponse;
+use App\Services\Factries\ExternalResponse\ExternalResponseFactory;
 
-class Get extends ExternalResponse
+class Get extends ExternalResponseFactory
 {
     protected $addedResponse = [
         'key' => [
@@ -19,6 +19,7 @@ class Get extends ExternalResponse
             ['name' => 'snow', 'content' => "['snow']['3h']"],
         ],
         'response' => 'list',
+        'hierarchy' => ExternalResponseFactory::HIERARCHY['second'],
     ];
 
     /**
