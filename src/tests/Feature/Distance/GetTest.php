@@ -33,7 +33,7 @@ class GetTest extends LoginTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json(['data']);
+        $data = $response->json();
         $this->assertCount(3, $data);
         $this->assertArrayHasKey('distance', $data);
         $this->assertArrayHasKey('ways', $data);

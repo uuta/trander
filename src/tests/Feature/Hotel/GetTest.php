@@ -24,8 +24,8 @@ class GetTest extends LoginTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json(['data']);
-        $this->assertCount(30, $response->json(['data']));
+        $data = $response->json();
+        $this->assertCount(30, $data);
         $value = array_shift($data);
         $this->assertArrayHasKey('hotelName', $value);
         $this->assertArrayHasKey('hotelInformationUrl', $value);

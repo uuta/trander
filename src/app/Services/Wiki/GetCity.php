@@ -96,6 +96,6 @@ class GetCity extends ExternalResponseFactory
                 }
             }
         }
-        $this->data['data'][$array['name']] = $variable;
+        $this->data[$array['name']] = $variable;
     }
 }

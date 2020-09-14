@@ -38,11 +38,11 @@ class NormalizedController extends Controller
      */
     protected function normarize_response(?array $response) {
         if(isset($response)) {
-            foreach ($response['data'] as $key => $value) {
+            foreach ($response as $key => $value) {
                 if(preg_match('/[_]/', $key)){
                     $new_key = Str::camel($key);
-                    $response['data'][$new_key] = $value;
-                    unset($response['data'][$key]);
+                    $response[$new_key] = $value;
+                    unset($response[$key]);
                 }
             }
         }
@@ -57,12 +57,12 @@ class NormalizedController extends Controller
      */
     protected function normarize_multiple_response(?array $response) {
         if(isset($response)) {
-            foreach ($response['data'] as $i => $v) {
+            foreach ($response as $i => $v) {
                 foreach ($v as $key => $value) {
                     if(preg_match('/[_]/', $key)){
                         $new_key = Str::camel($key);
-                        $response['data'][$i][$new_key] = $value;
-                        unset($response['data'][$i][$key]);
+                        $response[$i][$new_key] = $value;
+                        unset($response[$i][$key]);
                     }
                 }
             }

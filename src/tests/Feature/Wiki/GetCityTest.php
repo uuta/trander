@@ -23,8 +23,8 @@ class GetCityTest extends LoginTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json(['data']);
-        $this->assertCount(3, $response->json(['data']));
+        $data = $response->json();
+        $this->assertCount(3, $data);
         $this->assertArrayHasKey('population', $data);
         $this->assertArrayHasKey('area', $data);
         $this->assertArrayHasKey('inception', $data);
@@ -49,8 +49,8 @@ class GetCityTest extends LoginTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json(['data']);
-        $this->assertCount(3, $response->json(['data']));
+        $data = $response->json();
+        $this->assertCount(3, $data);
         $this->assertArrayHasKey('population', $data);
         $this->assertArrayHasKey('area', $data);
         $this->assertArrayHasKey('inception', $data);

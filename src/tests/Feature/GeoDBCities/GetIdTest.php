@@ -23,8 +23,8 @@ class GetIdTest extends LoginTestCase
         $response->assertStatus(200);
 
         // レスポンスの中身の確認
-        $data = $response->json(['data']);
-        $this->assertCount(8, $response->json(['data']));
+        $data = $response->json();
+        $this->assertCount(8, $data);
         $this->assertArrayHasKey('city', $data);
         $this->assertArrayHasKey('country', $data);
         $this->assertArrayHasKey('countryCode', $data);

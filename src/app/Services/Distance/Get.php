@@ -15,7 +15,6 @@ class Get
     private $direction;
     private $distance;
     private $angle;
-    private $data;
 
     public function __construct(object $request)
     {
@@ -42,13 +41,13 @@ class Get
     public function get_response() : array
     {
         // Add the distance among 2 location
-        $data['data']['distance'] = $this->get_distance();
+        $data['distance'] = $this->get_distance();
 
         // Add the ways of recommendation
-        $data['data']['ways'] = $this->get_way_of_recommend();
+        $data['ways'] = $this->get_way_of_recommend();
 
         // Add the direction
-        $data['data']['direction'] = $this->get_direction();
+        $data['direction'] = $this->get_direction();
 
         return $data;
     }

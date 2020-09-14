@@ -51,7 +51,7 @@ class Second
     {
         foreach($this->addedResponse['key'] as $array) {
             $variable = $this->get_value($value, $array['content']);
-            $this->data['data'][$index][$array['name']] = $variable;
+            $this->data[$index][$array['name']] = $variable;
         }
     }
 

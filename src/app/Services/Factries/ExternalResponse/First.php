@@ -49,7 +49,7 @@ class First
     {
         foreach($this->addedResponse['key'] as $array) {
             $variable = $this->get_value($value, $array['content']);
-            $this->data['data'][$array['name']] = $variable;
+            $this->data[$array['name']] = $variable;
         }
     }
 
