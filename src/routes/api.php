@@ -39,6 +39,9 @@ Route::namespace('External')->group(function () {
     Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get')->middleware('auth');
 });
 
+// Distance
+Route::get('/distance', 'DistanceController@index')->name('distance.get')->middleware('auth');
+
 // セッティング
 Route::get('/setting', 'SettingController@get')->name('setting.get');
 Route::post('/setting', 'SettingController@store')->name('setting.store');
