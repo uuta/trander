@@ -4,6 +4,7 @@
     <Bars v-show="loading"></Bars>
     <div id="map" class="show_city_detail">
       <Registration v-if="registerModal"></Registration>
+      <Error></Error>
       <SuggestCurrentLocation v-if="geoLocationModal"></SuggestCurrentLocation>
       <Setting></Setting>
       <GmapMap :center="{lat:seeLat, lng:seeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
@@ -53,9 +54,6 @@
               ボタンを押して、近くの街を探してみましょう。
             </dd>
           </dl>
-          <p v-if="errorMessages">
-            {{ errorMessages }}
-          </p>
           <transition name="fade">
             <SuggestPushing v-show="suggestPushing"></SuggestPushing>
           </transition>
@@ -77,6 +75,7 @@ import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
 import SuggestPushing from './Modal/Suggest/Pushing.vue'
 import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
+import Error from '../../components/organisms/errors/Modal.vue'
 import Bars from '../../components/atoms/loader/Bars.vue'
 import CONST_EXTERNAL from '../../const/external.js'
 import { BROWSER } from '../../const/common.js'
@@ -90,6 +89,7 @@ export default {
     Searched,
     SuggestPushing,
     SuggestCurrentLocation,
+    Error,
     Bars
   },
   data() {

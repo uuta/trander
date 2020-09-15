@@ -24,6 +24,7 @@ const state = {
   rangeOfDistance: [0, 100],
   msg: '車や電車で遠出しましょう',
   errorMessages: null,
+  errorModal: false,
   suggestPushing: false,
   distance: null,
   direction: null,
@@ -82,6 +83,10 @@ const mutations = {
   },
   setErrorMessages(state, value) {
     state.errorMessages = value
+    state.errorModal = true
+  },
+  setErrorModal(state, value) {
+    state.errorModal = value
   },
   setSuggestPushing(state, value) {
     state.suggestPushing = value

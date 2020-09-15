@@ -168,6 +168,10 @@
     &:hover {
       background: $sub;
     }
+
+    &.error {
+      color: $fourth;
+    }
   }
 
   &.link {
