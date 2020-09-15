@@ -103,7 +103,6 @@ const mutations = {
   setHotel(state, value) {
     state.hotels = value
     state.hotelsShowing = true
-    console.log(value)
   },
 }
 

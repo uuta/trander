@@ -4,11 +4,11 @@
     <div class="slider_wrap" v-if="hotelsShowing">
       <div class="content hotel" v-for="hotel in hotels">
         <a v-bind:href="hotel.hotelInformationUrl" target="_blank" class="link">
-          <picture class="thumbnail">
+          <picture class="thumbnail position_parent">
             <img class="image" :src="hotel.hotelThumbnailUrl" @error="showDefImg">
+            <p class="title position_child">{{hotel.hotelName}}</p>
           </picture>
           <dl class="info">
-            <dt class="title">{{hotel.hotelName}}</dt>
             <dd class="price">{{getHotelPrice(hotel.hotelMinCharge)}}</dd>
             <dd class="rating">{{hotel.reviewAverage}}</dd>
           </dl>

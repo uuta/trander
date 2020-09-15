@@ -129,6 +129,23 @@
               .link {
                 color: $text-color;
                 text-decoration: none;
+
+                .thumbnail {
+                  background: $black;
+
+                  .image {
+                    opacity: .6;
+                  }
+
+                  .title {
+                    position: absolute;
+                    color: #fff;
+                    width: 80%;
+                    white-space: normal;
+                    font-size: $font-nml;
+                    text-align: center;
+                  }
+                }
               }
             }
 
