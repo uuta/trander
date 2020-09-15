@@ -1,56 +1,57 @@
 <template>
   <div class="contents_wrap recommend">
-    <h3 class="title">ホテル・宿泊施設（楽天トラベル）</h3>
-    <div class="slider_wrap">
-      <div class="content">
-        <picture class="thumbnail">
-          <img class="image" :src="thumbnail">
-        </picture>
-        <dl class="info">
-          <dt class="title">前野原温泉 さやの湯処</dt>
-          <dd class="price">1,980円〜</dd>
-          <dd class="rating">★★★★☆</dd>
-        </dl>
-      </div>
-      <div class="content">
-        <picture class="thumbnail">
-          <img class="image" :src="thumbnail">
-        </picture>
-        <dl class="info">
-          <dt class="title">前野原温泉 さやの湯処</dt>
-          <dd class="price">1,980円〜</dd>
-          <dd class="rating">★★★★☆</dd>
-        </dl>
-      </div>
-      <div class="content">
-        <picture class="thumbnail">
-          <img class="image" :src="thumbnail">
-        </picture>
-        <dl class="info">
-          <dt class="title">前野原温泉 さやの湯処</dt>
-          <dd class="price">1,980円〜</dd>
-          <dd class="rating">★★★★☆</dd>
-        </dl>
-      </div>
-      <div class="content">
-        <picture class="thumbnail">
-          <img class="image" :src="thumbnail">
-        </picture>
-        <dl class="info">
-          <dt class="title">前野原温泉 さやの湯処</dt>
-          <dd class="price">1,980円〜</dd>
-          <dd class="rating">★★★★☆</dd>
-        </dl>
+    <h3 class="title" @click="getHotel">ホテル・宿泊施設（楽天トラベル）</h3>
+    <div class="slider_wrap" v-if="hotelsShowing">
+      <div class="content hotel" v-for="hotel in hotels">
+        <a v-bind:href="hotel.hotelInformationUrl" target="_blank" class="link">
+          <picture class="thumbnail">
+            <img class="image" :src="hotel.hotelThumbnailUrl" @error="showDefImg">
+          </picture>
+          <dl class="info">
+            <dt class="title">{{hotel.hotelName}}</dt>
+            <dd class="price">{{getHotelPrice(hotel.hotelMinCharge)}}</dd>
+            <dd class="rating">{{hotel.reviewAverage}}</dd>
+          </dl>
+        </a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
-      thumbnail: 'https://source.unsplash.com/featured/?tokyo'
+      thumbnail: 'https://source.unsplash.com/featured/?tokyo',
+      defImg: '/assets/images/hotels/hotel.png',
+    }
+  },
+  computed: {
+    ...mapState({
+      lat: state => state.external.lat,
+      lng: state => state.external.lng,
+      hotels: state => state.external.hotels,
+      hotelsShowing: state => state.external.hotelsShowing,
+    }),
+  },
+  methods: {
+    getHotel() {
+      const params = {
+        params: {
+          lat: this.lat,
+          lng: this.lng,
+        }
+      }
+      this.$store.dispatch('external/getHotel', params)
+    },
+    showDefImg(event) {
+      event.target.src = this.defImg
+    },
+    getHotelPrice(value) {
+      const price = value === null ? '宿泊プランなし' : value + '円〜'
+      return price
     }
   },
 }

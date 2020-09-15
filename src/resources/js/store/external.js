@@ -1,6 +1,7 @@
 import {
   OK,
   NO_RECORD,
+  UNPROCESSABLE_ENTITY,
 } from '../util'
 
 import {
@@ -33,6 +34,8 @@ const state = {
   geoLocationSetting: null,
   directionType: DIRECTION_TYPE.NONE.NUM,
   settingDirection: false,
+  hotels: null,
+  hotelsShowing: false,
 }
 
 const getters = {}
@@ -97,6 +100,11 @@ const mutations = {
     state.directionType = value
     state.settingDirection = false
   },
+  setHotel(state, value) {
+    state.hotels = value
+    state.hotelsShowing = true
+    console.log(value)
+  },
 }
 
 const actions = {
@@ -149,6 +157,20 @@ const actions = {
   async setDirectionType(context, data) {
     context.commit('setDirectionType', data)
   },
+  // Hotel
+  async getHotel(context, params) {
+    const res = await axios.get('/api/external/hotel', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setHotel', resData)
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  }
 }
 export default {
   namespaced: true,
