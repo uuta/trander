@@ -171,8 +171,7 @@ const actions = {
     }
 
     if (res.status === NO_RECORD) {
-      console.log(resData)
-      // context.commit('setHotel', resData)
+      return false;
     }
 
     if (res.status === UNPROCESSABLE_ENTITY) {
