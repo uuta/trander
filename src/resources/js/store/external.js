@@ -37,6 +37,7 @@ const state = {
   settingDirection: false,
   hotels: null,
   hotelsShowing: false,
+  facilities: null,
 }
 
 const getters = {}
@@ -109,6 +110,9 @@ const mutations = {
     state.hotels = value
     state.hotelsShowing = true
   },
+  setFacility(state, value) {
+    state.facilities = value
+  },
 }
 
 const actions = {
@@ -168,6 +172,25 @@ const actions = {
 
     if (res.status === OK) {
       context.commit('setHotel', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Facility
+  async getFacility(context, params) {
+    const res = await axios.get('/api/external/facility', params)
+    const resData = res.data
+    console.log(resData)
+
+    if (res.status === OK) {
+      context.commit('setFacility', resData)
     }
 
     if (res.status === NO_RECORD) {

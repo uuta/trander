@@ -29,6 +29,7 @@ class GetTest extends LoginTestCase
         $value = array_shift($data);
         $this->assertArrayHasKey('name', $value);
         $this->assertArrayHasKey('genre', $value);
+        $this->assertArrayHasKey('code', $value);
         $this->assertArrayHasKey('rating', $value);
         $this->assertArrayHasKey('leadImage', $value);
 

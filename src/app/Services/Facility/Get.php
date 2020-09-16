@@ -13,6 +13,7 @@ class Get extends ExternalResponseFactory
         'key' => [
             ['name' => 'name', 'content' => "['Name']"],
             ['name' => 'genre', 'content' => "['Property']['Genre'][0]['Name']"],
+            ['name' => 'code', 'content' => "['Property']['Genre'][0]['Code']"],
             ['name' => 'rating', 'content' => "['Property']['Rating']"],
             ['name' => 'lead_image', 'content' => "['Property']['LeadImage']"],
         ],
@@ -37,6 +38,8 @@ class Get extends ExternalResponseFactory
                 'lon' => $this->request->lng,
                 'dist' => 5,
                 'results' => 100,
+                'image' => true,
+                'detail' => 'full',
                 'sort' => 'hybrid',
                 'output' => 'json'
             ]
