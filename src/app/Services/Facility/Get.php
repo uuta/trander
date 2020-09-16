@@ -22,8 +22,12 @@ class Get extends ExternalResponseFactory
 
     /**
      * Request to yahoo! local search API
+     * It doesn't need to return a response in general, but it requires a response for error handling
+     *
+     * @return object
      */
-    public function apiRequest() {
+    public function apiRequest() : object
+    {
         $client = new Client();
         $sourceUrl = "https://map.yahooapis.jp/search/local/V1/localSearch";
         $this->response = $client->request("GET", $sourceUrl, [
@@ -37,5 +41,6 @@ class Get extends ExternalResponseFactory
                 'output' => 'json'
             ]
         ]);
+        return $this->response;
     }
 }

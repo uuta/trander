@@ -7,8 +7,7 @@ use App\Services\GeoDBCitiesApi;
 use App\Http\Requests\GeoDBCitiesApiRequest;
 use App\Http\Requests\GeoDBCities\GetIdRequest;
 use App\Http\Controllers\NormalizedController;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\BadResponseException;
 use App\RequestCountHistory;
 use App\Services\GeoDBCities\GetId as GeoDBCitiesGetId;
 
@@ -47,12 +46,10 @@ class GeoDBCitiesApiController extends NormalizedController
 
             return $this->normarize_response($response);
         }
-        catch (RequestException $e)
+        catch (BadResponseException $e)
         {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
+            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return response()->json($response, $e->getResponse()->getStatusCode());
         }
     }
 }

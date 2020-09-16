@@ -60,4 +60,17 @@ class GetIdTest extends LoginTestCase
                 ]
             ]);
     }
+
+    /**
+     * 準正常
+     * @test
+     */
+    public function should_GetId_GeoDBCities_APIへのリクエストが失敗する（404）()
+    {
+        $request = [
+            'id' => 1232147491279,
+        ];
+        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response->assertStatus(404);
+    }
 }

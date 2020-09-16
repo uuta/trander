@@ -79,4 +79,18 @@ class GetTest extends LoginTestCase
                 ]
             ]);
     }
+
+    /**
+     * 準正常
+     * @test
+     */
+    public function should_facility_APIへのリクエストが失敗する（404）()
+    {
+        $request = [
+            'lat' => 36.676576,
+            'lng' => 150.121322,
+        ];
+        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response->assertStatus(404);
+    }
 }

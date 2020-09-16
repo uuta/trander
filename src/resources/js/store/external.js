@@ -170,6 +170,11 @@ const actions = {
       context.commit('setHotel', resData)
     }
 
+    if (res.status === NO_RECORD) {
+      console.log(resData)
+      // context.commit('setHotel', resData)
+    }
+
     if (res.status === UNPROCESSABLE_ENTITY) {
       const resErrors = res.data.errors
       context.commit('setErrorMessages', resErrors)

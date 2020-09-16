@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\NormalizedController;
 use App\Http\Requests\Hotel\GetRequest;
 use App\Services\Hotel\Get as HotelGet;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\BadResponseException;
 use App\RequestCountHistory;
 
 class HotelController extends NormalizedController
@@ -30,12 +29,10 @@ class HotelController extends NormalizedController
 
             return $this->normarize_multiple_response($response);
         }
-        catch (RequestException $e)
+        catch (BadResponseException $e)
         {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
+            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return response()->json($response, $e->getResponse()->getStatusCode());
         }
     }
 }

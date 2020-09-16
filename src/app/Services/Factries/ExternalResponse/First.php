@@ -33,7 +33,7 @@ class First
      */
     public function formatResponse() : ?array
     {
-        $response = json_decode($this->response->getBody()->getContents(), true);
+        $response = json_decode($this->response->getBody(), true);
         $feature = $response[$this->addedResponse['response']];
         $this->addResponse($feature);
         return $this->data;

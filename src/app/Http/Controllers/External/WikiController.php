@@ -4,10 +4,9 @@ namespace App\Http\Controllers\External;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\NormalizedController;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Wiki\GetCity as WikiCityGet;
 use App\Http\Requests\Wiki\GetCityRequest;
-use GuzzleHttp\Psr7;
 use App\RequestCountHistory;
 
 class WikiController extends NormalizedController
@@ -29,12 +28,10 @@ class WikiController extends NormalizedController
 
             return $this->normarize_response($response);
         }
-        catch (RequestException $e)
+        catch (BadResponseException $e)
         {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
+            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return response()->json($response, $e->getResponse()->getStatusCode());
         }
     }
 }

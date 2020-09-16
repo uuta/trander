@@ -5,9 +5,8 @@ namespace App\Http\Controllers\External;
 use Illuminate\Http\Request;
 use App\Http\Controllers\NormalizedController;
 use App\Http\Requests\Weather\GetRequest;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Weather\Get as WeatherGet;
-use GuzzleHttp\Psr7;
 use App\RequestCountHistory;
 
 class WeatherController extends NormalizedController
@@ -30,12 +29,10 @@ class WeatherController extends NormalizedController
 
             return $this->normarize_multiple_response($response);
         }
-        catch (RequestException $e)
+        catch (BadResponseException $e)
         {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
+            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return response()->json($response, $e->getResponse()->getStatusCode());
         }
     }
 }

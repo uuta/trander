@@ -99,4 +99,17 @@ class GetCityTest extends LoginTestCase
                 ]
             ]);
     }
+
+    /**
+     * 準正常
+     * @test
+     */
+    public function should_GetId_GeoDBCities_APIへのリクエストが失敗する（400）()
+    {
+        $request = [
+            'wikiId' => 'Q739718973891789'
+        ];
+        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response->assertStatus(400);
+    }
 }

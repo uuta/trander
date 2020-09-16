@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\NormalizedController;
 use App\Services\Facility\Get as FacilityGet;
 use App\Http\Requests\Facility\GetRequest;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\BadResponseException;
 use App\RequestCountHistory;
 
 class FacilityController extends NormalizedController
@@ -20,7 +19,15 @@ class FacilityController extends NormalizedController
 
             // Request
             $FacilityGet = new FacilityGet($request);
-            $FacilityGet->apiRequest();
+
+            $facilityGetResponse = $FacilityGet->apiRequest();
+            $decodeResponse = json_decode($facilityGetResponse->getBody(), true);
+
+            // Error handling
+            if($decodeResponse['ResultInfo']['Count'] === 0) {
+                return response()->json($decodeResponse, 404);
+            }
+
             $GetResponse = $FacilityGet->get_response();
             $response = $GetResponse->formatResponse();
 
@@ -30,12 +37,10 @@ class FacilityController extends NormalizedController
 
             return $this->normarize_multiple_response($response);
         }
-        catch (RequestException $e)
+        catch (BadResponseException $e)
         {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
+            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return response()->json($response, $e->getResponse()->getStatusCode());
         }
     }
 }
