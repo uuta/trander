@@ -38,6 +38,7 @@ const state = {
   hotels: null,
   hotelsShowing: false,
   facilities: null,
+  weathers: null,
 }
 
 const getters = {}
@@ -113,6 +114,9 @@ const mutations = {
   setFacility(state, value) {
     state.facilities = value
   },
+  setWeather(state, value) {
+    state.weathers = value
+  },
 }
 
 const actions = {
@@ -187,10 +191,27 @@ const actions = {
   async getFacility(context, params) {
     const res = await axios.get('/api/external/facility', params)
     const resData = res.data
-    console.log(resData)
 
     if (res.status === OK) {
       context.commit('setFacility', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Weather
+  async getWeather(context, params) {
+    const res = await axios.get('/api/external/weather', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setWeather', resData)
     }
 
     if (res.status === NO_RECORD) {
