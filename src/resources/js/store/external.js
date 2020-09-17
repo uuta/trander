@@ -18,6 +18,7 @@ const state = {
   currentLng: null,
   seeLat: null,
   seeLng: null,
+  wikiDataId: null,
   icon: false,
   modal: false,
   settingModal: false,
@@ -39,6 +40,7 @@ const state = {
   hotelsShowing: false,
   facilities: null,
   weathers: null,
+  wiki: null,
 }
 
 const getters = {}
@@ -52,6 +54,7 @@ const mutations = {
     state.lng = value.longitude
     state.seeLat = value.latitude
     state.seeLng = value.longitude
+    state.wikiDataId = value.wikiDataId
     state.icon = true
     state.modal = true
     setTimeout(() => state.suggestPushing = true, 5000)
@@ -116,6 +119,9 @@ const mutations = {
   },
   setWeather(state, value) {
     state.weathers = value
+  },
+  setWiki(state, value) {
+    state.wiki = value
   },
 }
 
@@ -222,7 +228,25 @@ const actions = {
       const resErrors = res.data.errors
       context.commit('setErrorMessages', resErrors)
     }
-  }
+  },
+  // Wiki
+  async getWiki(context, params) {
+    const res = await axios.get('/api/external/wiki-city', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setWiki', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
 }
 export default {
   namespaced: true,

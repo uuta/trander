@@ -10,6 +10,7 @@
       </picture>
     </div>
     <div class="content_container">
+      <Wiki></Wiki>
       <Hotel></Hotel>
       <Facility></Facility>
       <Weather></Weather>
@@ -19,12 +20,14 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import Wiki from '../../components/organisms/cityDetails/Wiki'
 import Hotel from '../../components/organisms/cityDetails/Hotel'
 import Facility from '../../components/organisms/cityDetails/Facility'
 import Weather from '../../components/organisms/cityDetails/Weather'
 
 export default {
   components: {
+    Wiki,
     Hotel,
     Facility,
     Weather,

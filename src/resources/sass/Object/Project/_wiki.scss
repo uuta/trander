@@ -1,0 +1,26 @@
+.p-wiki {
+  .summary {
+    display: flex;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -ms-justify-content: space-between;
+    text-align: center;
+    margin: 0;
+    padding: 0 20px;
+
+    .item {
+      list-style-type: none;
+      min-width: 100px;
+
+      .icon {
+        font-size: $font-very-big;
+      }
+
+      .info {
+        color: $third;
+      }
+    }
+  }
+}
