@@ -34,11 +34,13 @@
           color: $base;
           position: absolute;
           top: 50%;
-          transform: translateY(-50%); /*要素の大きさの半分ずつを戻す*/
-          -webkit-transform: translateY(-50%);
+          left: 50%;
+          transform: translateY(-50%) translateX(-50%);
+          -webkit-transform: translateY(-50%) translateX(-50%);
           margin: 0;
-          margin-left: 10px;
           margin-right: 10px;
+          width: 80%;
+          text-align: center;
 
           .flag {
             vertical-align: middle;
