@@ -46,6 +46,7 @@ const routes = [{
 },
 {
   path: '/index',
+  name: 'index',
   component: Index,
   beforeEnter(to, from, next) {
     if (store.getters['auth/check']) {
@@ -57,6 +58,7 @@ const routes = [{
 },
 {
   path: '/index/:cityId',
+  name: 'cityDetail',
   component: Index,
   beforeEnter(to, from, next) {
     if (store.getters['auth/check']) {

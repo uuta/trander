@@ -139,12 +139,18 @@
         position: absolute;
         bottom: 15px;
         left: 50%;
-        font-size: 1.5em;
-        color: #8a8a8a;
         cursor: pointer;
 
-        i {
-          margin-right: 0;
+        .item_btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: $font-mid;
+
+          i {
+            margin-right: 0;
+            color: $sub-v;
+          }
         }
       }
     }

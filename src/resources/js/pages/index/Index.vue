@@ -62,7 +62,6 @@ export default {
   },
   computed: {
     ...mapState({
-      countryCode: state => state.external.countryCode,
       lat: state => state.external.lat,
       lng: state => state.external.lng,
       currentLat: state => state.external.currentLat,

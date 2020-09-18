@@ -28,8 +28,11 @@
             ]"></i></li>
           </ul>
         </dd>
-        <RouterLink class="negate_btn show_detail" to="/index/aaa">
-          <i class="fas fa-angle-up"></i>
+        <RouterLink v-if="showAngleBtn" class="negate_btn show_detail" :to="{name: 'cityDetail', params: {cityId: wikiDataId}}">
+          <button class="item_btn" @click="setCityDetail"><i class="fas fa-angle-up"></i></button>
+        </RouterLink>
+        <RouterLink v-else class="negate_btn show_detail" :to="{name: 'index'}">
+          <button class="item_btn"><i class="fas fa-angle-right"></i></button>
         </RouterLink>
       </dl>
       <dl class="map_info_introduction" v-else>
@@ -61,6 +64,9 @@ export default {
   },
   computed: {
     ...mapState({
+      lat: state => state.external.lat,
+      lng: state => state.external.lng,
+      countryCode: state => state.external.countryCode,
       currentLat: state => state.external.currentLat,
       currentLng: state => state.external.currentLng,
       rangeOfDistance: state => state.external.rangeOfDistance,
@@ -73,6 +79,7 @@ export default {
       walking: state => state.external.walking,
       bycicle: state => state.external.bycicle,
       car: state => state.external.car,
+      wikiDataId: state => state.external.wikiDataId,
     }),
     ...mapGetters({
       username: 'auth/username'
@@ -81,7 +88,10 @@ export default {
       if (this.countryCode != null) {
         return 'https://www.countryflags.io/' + this.countryCode + '/flat/32.png'
       }
-    }
+    },
+    showAngleBtn: function() {
+      return !Object.keys(this.$route.params).length
+    },
   },
   methods: {
     setNewLocation() {
@@ -99,6 +109,23 @@ export default {
       this.$Progress.start()
       await this.$store.dispatch('external/setNewLocation', {data, router})
       this.$Progress.finish()
+    },
+    setCityDetail() {
+      const latLng = {
+        params: {
+          lat: this.lat,
+          lng: this.lng,
+        }
+      }
+      const wiki = {
+        params: {
+          wikiId: this.wikiDataId,
+        }
+      }
+      this.$store.dispatch('external/getHotel', latLng)
+      this.$store.dispatch('external/getFacility', latLng)
+      this.$store.dispatch('external/getWeather', latLng)
+      this.$store.dispatch('external/getWiki', wiki)
     },
   },
 }
