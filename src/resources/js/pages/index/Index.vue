@@ -13,53 +13,7 @@
         <gmap-marker v-if="icon" :position="{lat:lat, lng:lng}">
         </gmap-marker>
       </GmapMap>
-      <div id="map_info">
-        <div class="map_info_desc">
-          <dl v-if="cityName" class="map_info_items">
-            <dt class="title"><i class="fas fa-smile"></i>荷物をまとめて出かけよう！</dt>
-            <dd class="list">
-              <img :src="setCountryImg" class="country_flag">
-              <span class="desc">{{region + " " + cityName }}</span>
-            </dd>
-            <dd class="list info">距離：{{distance}} km</dd>
-            <dd class="list info">方角：{{direction}}</dd>
-            <dd class="list">
-              <ul class="flex items">
-                <li class="item"><i class="fas fa-walking" :class="[
-                  walking === RECOMMEND_FREQUENCY.NONE ? 'none'
-                  : walking === RECOMMEND_FREQUENCY.MIDDLE ? 'middle'
-                  : 'high'
-                ]"></i></li>
-                <li class="item"><i class="fas fa-biking" :class="[
-                  bycicle === RECOMMEND_FREQUENCY.NONE ? 'none'
-                  : bycicle === RECOMMEND_FREQUENCY.MIDDLE ? 'middle'
-                  : 'high'
-                ]"></i></li>
-                <li class="item"><i class="fas fa-car" :class="[
-                  car === RECOMMEND_FREQUENCY.NONE ? 'none'
-                  : car === RECOMMEND_FREQUENCY.MIDDLE ? 'middle'
-                  : 'high'
-                ]"></i></li>
-              </ul>
-            </dd>
-            <RouterLink class="negate_btn show_detail" to="/index/aaa">
-              <i class="fas fa-angle-up"></i>
-            </RouterLink>
-            <!-- <button class="negate_btn show_detail"><i class="fas fa-angle-up"></i></button> -->
-          </dl>
-          <dl class="map_info_introduction" v-else>
-            <dt class="title"><i class="fas fa-street-view"></i>新しい街に行ってみよう</dt>
-            <dd class="list">
-              {{ username }}さん、こんにちは！<br>
-              ボタンを押して、近くの街を探してみましょう。
-            </dd>
-          </dl>
-          <transition name="fade">
-            <SuggestPushing v-show="suggestPushing"></SuggestPushing>
-          </transition>
-        </div>
-        <button @click="setNewLocation" class="button_map button_map_info"><i class="fas fa-plus"></i></button>
-      </div>
+      <MapInfo></MapInfo>
       <button class="button_map_setting"><i class="fas fa-cog" @click.self="showSettingModal"></i></button>
       <Searched></Searched>
     </div>
@@ -71,9 +25,9 @@
 import { mapState, mapGetters } from 'vuex'
 import Setting from './Modal/Setting.vue'
 import CityDetail from '../cityDetails/index.vue'
+import MapInfo from '../../components/organisms/index/mapInfo.vue'
 import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
-import SuggestPushing from './Modal/Suggest/Pushing.vue'
 import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
 import Error from '../../components/organisms/errors/Modal.vue'
 import Bars from '../../components/atoms/loader/Bars.vue'
@@ -85,9 +39,9 @@ export default {
   components: {
     Setting,
     CityDetail,
+    MapInfo,
     Registration,
     Searched,
-    SuggestPushing,
     SuggestCurrentLocation,
     Error,
     Bars
@@ -101,7 +55,6 @@ export default {
     }
   },
   created() {
-    this.RECOMMEND_FREQUENCY = CONST_EXTERNAL.RECOMMEND_FREQUENCY
     this.SUGGEST = CONST_EXTERNAL.CURRENT_LOCATION_SUGGEST
     this.checkRegistration()
     this.judgeGeoLocation()
@@ -109,8 +62,6 @@ export default {
   },
   computed: {
     ...mapState({
-      cityName: state => state.external.cityName,
-      region: state => state.external.region,
       countryCode: state => state.external.countryCode,
       lat: state => state.external.lat,
       lng: state => state.external.lng,
@@ -119,28 +70,12 @@ export default {
       seeLat: state => state.external.seeLat,
       seeLng: state => state.external.seeLng,
       icon: state => state.external.icon,
-      rangeOfDistance: state => state.external.rangeOfDistance,
       settingModal: state => state.external.settingModal,
       errorMessages: state => state.external.errorMessages,
-      suggestPushing: state => state.external.suggestPushing,
-      direction: state => state.external.direction,
-      distance: state => state.external.distance,
-      walking: state => state.external.walking,
-      bycicle: state => state.external.bycicle,
-      car: state => state.external.car,
       geoLocationModal: state => state.external.geoLocationModal,
-      directionType: state => state.external.directionType,
       registerModal: state => state.auth.registerModal,
       loading: state => state.auth.loading
     }),
-    ...mapGetters({
-      username: 'auth/username'
-    }),
-    setCountryImg: function() {
-      if (this.countryCode != null) {
-        return 'https://www.countryflags.io/' + this.countryCode + '/flat/32.png'
-      }
-    }
   },
   methods: {
     judgeGeoLocation() {
@@ -214,27 +149,11 @@ export default {
     checkRegistration() {
       this.$store.dispatch('auth/checkRegistration')
     },
-    setNewLocation() {
-      const data = {
-        lat: this.currentLat,
-        lng: this.currentLng,
-        min: this.rangeOfDistance[0] * 1000,
-        max: this.rangeOfDistance[1] * 1000,
-        direction_type: this.directionType,
-      }
-      const router = this.$router
-      this.showProgressBar(data, router)
-    },
     hiddenModal() {
       this.$store.commit('external/setModal', false)
     },
     showSettingModal() {
       this.$store.commit('external/setSettingModal', true)
-    },
-    async showProgressBar(data, router) {
-      this.$Progress.start()
-      await this.$store.dispatch('external/setNewLocation', {data, router})
-      this.$Progress.finish()
     },
   }
 }

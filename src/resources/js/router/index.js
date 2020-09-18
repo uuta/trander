@@ -56,7 +56,7 @@ const routes = [{
   }
 },
 {
-  path: '/index/:countryCode/:region/:name',
+  path: '/index/:cityId',
   component: Index,
   beforeEnter(to, from, next) {
     if (store.getters['auth/check']) {

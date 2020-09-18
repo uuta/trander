@@ -1,6 +1,7 @@
 #map {
   height: 100%;
   position: relative;
+  box-shadow: 0 3px 5px $sub;
 
   &.show_city_detail {
     flex: 1;
