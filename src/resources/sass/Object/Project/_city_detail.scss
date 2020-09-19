@@ -9,6 +9,18 @@
     display: flex;
     flex-flow: column;
     height: 100%;
+    animation: SlideIn .5s;
+
+    @keyframes SlideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(64px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
     .heading {
       max-width: 100%;
@@ -22,6 +34,10 @@
         background: $black;
         display: block;
         position: relative;
+        -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.5));
+        -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.5));
+        -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.5));
+        filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.5));
 
         .image {
           width: 100%;
@@ -187,6 +203,10 @@
                 .icon {
                   width: 50%;
                   object-fit: cover;
+                  -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+                  -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+                  -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+                  filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
                 }
               }
 

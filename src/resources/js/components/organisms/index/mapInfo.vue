@@ -28,8 +28,8 @@
             ]"></i></li>
           </ul>
         </dd>
-        <RouterLink v-if="showAngleBtn" class="negate_btn show_detail" :to="{name: 'cityDetail', params: {cityId: wikiDataId}}">
-          <button class="item_btn" @click="setCityDetail"><i class="fas fa-angle-up"></i></button>
+        <RouterLink v-if="showAngleBtn" class="negate_btn show_detail" :to="{name: 'cityDetail', params: {cityId: cityId}}">
+          <button class="item_btn"><i class="fas fa-angle-up"></i></button>
         </RouterLink>
         <RouterLink v-else class="negate_btn show_detail" :to="{name: 'index'}">
           <button class="item_btn"><i class="fas fa-angle-right"></i></button>
@@ -80,6 +80,7 @@ export default {
       bycicle: state => state.external.bycicle,
       car: state => state.external.car,
       wikiDataId: state => state.external.wikiDataId,
+      cityId: state => state.external.cityId,
     }),
     ...mapGetters({
       username: 'auth/username'
@@ -108,6 +109,7 @@ export default {
     async showProgressBar(data, router) {
       this.$Progress.start()
       await this.$store.dispatch('external/setNewLocation', {data, router})
+      this.setCityDetail()
       this.$Progress.finish()
     },
     setCityDetail() {

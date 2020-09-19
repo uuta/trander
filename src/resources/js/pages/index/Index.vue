@@ -2,7 +2,7 @@
   <div class="container p-city_detail">
     <vue-progress-bar></vue-progress-bar>
     <Bars v-show="loading"></Bars>
-    <div id="map" class="show_city_detail">
+    <div id="map" v-bind:class="{show_city_detail: isShowCityDetail}">
       <Registration v-if="registerModal"></Registration>
       <Error></Error>
       <SuggestCurrentLocation v-if="geoLocationModal"></SuggestCurrentLocation>
@@ -69,12 +69,16 @@ export default {
       seeLat: state => state.external.seeLat,
       seeLng: state => state.external.seeLng,
       icon: state => state.external.icon,
+      wikiDataId: state => state.external.wikiDataId,
       settingModal: state => state.external.settingModal,
       errorMessages: state => state.external.errorMessages,
       geoLocationModal: state => state.external.geoLocationModal,
       registerModal: state => state.auth.registerModal,
       loading: state => state.auth.loading
     }),
+    isShowCityDetail() {
+      return Boolean(Object.keys(this.$route.params).length)
+    },
   },
   methods: {
     judgeGeoLocation() {
@@ -121,12 +125,46 @@ export default {
 
       navigator.geolocation.getCurrentPosition(this.successGetCurrentPosition, this.errorGetCurrentPosition, options)
     },
-    successGetCurrentPosition(position) {
+    async successGetCurrentPosition(position) {
       const data = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
-      this.$store.dispatch('external/getLoading', data)
+      await this.$store.dispatch('external/getLoading', data)
+
+      if (Boolean(Object.keys(this.$route.params).length)) {
+        const cityId = {
+          params: {
+            id: Number(this.$route.params.cityId),
+          }
+        }
+        await this.$store.dispatch('external/getCityById', cityId)
+
+        const distanceLatLng = {
+          params: {
+            lat: this.currentLat,
+            lng: this.currentLng,
+            cityLat: this.lat,
+            cityLng: this.lng,
+          }
+        }
+        const latLng = {
+          params: {
+            lat: this.lat,
+            lng: this.lng,
+          }
+        }
+        const wiki = {
+          params: {
+            wikiId: this.wikiDataId,
+          }
+        }
+        this.$store.dispatch('external/getDistance', distanceLatLng)
+        this.$store.dispatch('external/getHotel', latLng)
+        this.$store.dispatch('external/getFacility', latLng)
+        this.$store.dispatch('external/getWeather', latLng)
+        this.$store.dispatch('external/getWiki', wiki)
+      }
     },
     errorGetCurrentPosition(error) {
       // Show an error modal

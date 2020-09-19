@@ -59,7 +59,12 @@
       top: 0;
       bottom: 0;
       margin: auto;
-      transition: color 0.5s, text-decoration 0.5s, background-color 0.5s;
+      transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
+      -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+      -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+      -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+      filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+      border: none;
 
       & i {
         position: absolute;
@@ -71,7 +76,7 @@
       }
 
       &:hover {
-        background: linear-gradient(#3316f2 0%, #1cacbf 100%) no-repeat 50% 50% / 100% 100%;
+        background: $primary-v;
         color: $base;
         cursor: pointer;
       }

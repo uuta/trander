@@ -10,6 +10,7 @@ import {
 
 const state = {
   cityName: null,
+  cityId: null,
   region: null,
   countryCode: null,
   lat: null,
@@ -48,6 +49,7 @@ const getters = {}
 const mutations = {
   setNewLocation(state, value) {
     state.cityName = value.city
+    state.cityId = value.id
     state.region = value.region
     state.countryCode = value.countryCode
     state.lat = value.latitude
@@ -122,6 +124,21 @@ const mutations = {
   },
   setWiki(state, value) {
     state.wiki = value
+  },
+  setCityById(state, value) {
+    state.cityName = value.city
+    state.region = value.region
+    state.countryCode = value.countryCode
+    state.lat = value.latitude
+    state.lng = value.longitude
+    state.wikiDataId = value.wikiDataId
+  },
+  setDistance(state, value) {
+    state.distance = value.distance
+    state.direction = value.direction
+    state.walking = value.ways.walking
+    state.bycicle = value.ways.bycicle
+    state.car = value.ways.car
   },
 }
 
@@ -236,6 +253,42 @@ const actions = {
 
     if (res.status === OK) {
       context.commit('setWiki', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Get geo-db-cities
+  async getCityById(context, params) {
+    const res = await axios.get('/api/external/geo-db-cities', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setCityById', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Get distance
+  async getDistance(context, params) {
+    const res = await axios.get('/api/distance', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setDistance', resData)
     }
 
     if (res.status === NO_RECORD) {

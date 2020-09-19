@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" v-if="isShowCityDetail">
     <div class="heading">
       <picture class="thumbnail">
         <img class="image" :src="headerImage">
@@ -47,7 +47,10 @@ export default {
       if (this.countryCode != null) {
         return 'https://www.countryflags.io/' + this.countryCode + '/flat/32.png'
       }
-    }
+    },
+    isShowCityDetail() {
+      return Boolean(Object.keys(this.$route.params).length)
+    },
   },
 }
 </script>
