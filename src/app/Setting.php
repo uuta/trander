@@ -22,6 +22,16 @@ class Setting extends Model
         4 => ['min' => 180, 'max' => 360],
     ];
 
+    const LAT = [
+        'min' => -90,
+        'max' => 90,
+    ];
+
+    const LNG = [
+        'min' => -180,
+        'max' => 180,
+    ];
+
     public $timestamps = false;
 
     public function user()

@@ -1,6 +1,7 @@
 import {
   OK,
   NO_RECORD,
+  UNPROCESSABLE_ENTITY,
 } from '../util'
 
 import {
@@ -9,6 +10,7 @@ import {
 
 const state = {
   cityName: null,
+  cityId: null,
   region: null,
   countryCode: null,
   lat: null,
@@ -17,12 +19,14 @@ const state = {
   currentLng: null,
   seeLat: null,
   seeLng: null,
+  wikiDataId: null,
   icon: false,
   modal: false,
   settingModal: false,
   rangeOfDistance: [0, 100],
   msg: '車や電車で遠出しましょう',
   errorMessages: null,
+  errorModal: false,
   suggestPushing: false,
   distance: null,
   direction: null,
@@ -33,6 +37,11 @@ const state = {
   geoLocationSetting: null,
   directionType: DIRECTION_TYPE.NONE.NUM,
   settingDirection: false,
+  hotels: null,
+  hotelsShowing: false,
+  facilities: null,
+  weathers: null,
+  wiki: null,
 }
 
 const getters = {}
@@ -40,12 +49,14 @@ const getters = {}
 const mutations = {
   setNewLocation(state, value) {
     state.cityName = value.city
+    state.cityId = value.id
     state.region = value.region
     state.countryCode = value.countryCode
     state.lat = value.latitude
     state.lng = value.longitude
     state.seeLat = value.latitude
     state.seeLng = value.longitude
+    state.wikiDataId = value.wikiDataId
     state.icon = true
     state.modal = true
     setTimeout(() => state.suggestPushing = true, 5000)
@@ -79,6 +90,10 @@ const mutations = {
   },
   setErrorMessages(state, value) {
     state.errorMessages = value
+    state.errorModal = true
+  },
+  setErrorModal(state, value) {
+    state.errorModal = value
   },
   setSuggestPushing(state, value) {
     state.suggestPushing = value
@@ -96,6 +111,34 @@ const mutations = {
   setDirectionType(state, value) {
     state.directionType = value
     state.settingDirection = false
+  },
+  setHotel(state, value) {
+    state.hotels = value
+    state.hotelsShowing = true
+  },
+  setFacility(state, value) {
+    state.facilities = value
+  },
+  setWeather(state, value) {
+    state.weathers = value
+  },
+  setWiki(state, value) {
+    state.wiki = value
+  },
+  setCityById(state, value) {
+    state.cityName = value.city
+    state.region = value.region
+    state.countryCode = value.countryCode
+    state.lat = value.latitude
+    state.lng = value.longitude
+    state.wikiDataId = value.wikiDataId
+  },
+  setDistance(state, value) {
+    state.distance = value.distance
+    state.direction = value.direction
+    state.walking = value.ways.walking
+    state.bycicle = value.ways.bycicle
+    state.car = value.ways.car
   },
 }
 
@@ -148,6 +191,114 @@ const actions = {
   },
   async setDirectionType(context, data) {
     context.commit('setDirectionType', data)
+  },
+  // Hotel
+  async getHotel(context, params) {
+    const res = await axios.get('/api/external/hotel', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setHotel', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Facility
+  async getFacility(context, params) {
+    const res = await axios.get('/api/external/facility', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setFacility', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Weather
+  async getWeather(context, params) {
+    const res = await axios.get('/api/external/weather', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setWeather', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Wiki
+  async getWiki(context, params) {
+    const res = await axios.get('/api/external/wiki-city', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setWiki', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Get geo-db-cities
+  async getCityById(context, params) {
+    const res = await axios.get('/api/external/geo-db-cities', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setCityById', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Get distance
+  async getDistance(context, params) {
+    const res = await axios.get('/api/distance', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setDistance', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
   },
 }
 export default {

@@ -143,5 +143,12 @@
         background: $base;
       }
     }
+    &__distance {
+      &__info {
+        & .title {
+          font-size: $vw6;
+        }
+      }
+    }
   }
 }

@@ -256,7 +256,7 @@
 </template>
 
 <script>
-import ButtonClose from '../../components/button/Close.vue'
+import ButtonClose from '../../components/atoms/button/Close.vue'
 
 export default {
   components: {

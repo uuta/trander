@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
-use App\Components\GeoDBCitiesApi;
+use App\Services\GeoDBCitiesApi;
 
 use App\Repositories\CheckRepository;
 use App\Repositories\SettingRepository;
@@ -18,7 +18,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Services
         $this->app->bind('GeoDBCitiesApi', GeoDBCitiesApi::class);
+
+        // Repositories
         $this->app->bind('SettingRepository', SettingRepository::class);
         $this->app->bind('CheckRepository', CheckRepository::class);
     }

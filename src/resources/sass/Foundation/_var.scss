@@ -1,4 +1,4 @@
-// size
+// font size
 $font-extreme-big: 3.5rem;
 $font-extreme: 3rem;
 $font-very-big: 2rem;
@@ -6,3 +6,15 @@ $font-big: 1.5rem;
 $font-mid: 1.2rem;
 $font-nml: 1rem;
 $font-sml: 0.8rem;
+
+// font size (based on vw)
+$vw5: 5vw;
+$vw6: 6vw;
+
+// box-shadow
+$box-shadow: 6px 8px 37px -17px rgba(0,0,0,0.5);
+$box-shadow-general: 0px 0px 40px 0px rgba(0, 0, 0, 0.1);
+$box-shadow-v: 6px 8px 37px 5px rgba(0,0,0,0.3);
+
+// drop-shadow
+$drop-shadow: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));

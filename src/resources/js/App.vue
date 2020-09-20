@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue'
-// import Footer from './components/Footer.vue'
+import Navbar from './components/globals/Navbar.vue'
+// import Footer from './components/globals/Footer.vue'
 import { INTERNAL_SERVER_ERROR } from './util'
 
 export default {

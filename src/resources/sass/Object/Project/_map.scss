@@ -1,9 +1,15 @@
 #map {
   height: 100%;
   position: relative;
+  box-shadow: 0 3px 5px $sub;
+  width: 100%;
+
+  &.show_city_detail {
+    flex: 1;
+  }
 
   &_info {
-    background: #fff;
+    background: $sub-sss;
     width: 45%;
     min-height: 100px;
     position: absolute;
@@ -12,6 +18,7 @@
     right: 0;
     bottom: 20px;
     padding: 20px;
+    filter: drop-shadow(0px 3px 10px rgb(200, 200, 200));
   }
 
   &_btn {
@@ -46,7 +53,7 @@
       right: 0;
       bottom: 0;
       text-align: center;
-      background: #fff;
+      background: $base;
       margin: auto;
     }
   }
@@ -129,6 +136,24 @@
           }
         }
       }
+      .show_detail {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        cursor: pointer;
+
+        .item_btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: $font-mid;
+
+          i {
+            margin-right: 0;
+            color: $sub-v;
+          }
+        }
+      }
     }
     &_dialog {
       position: absolute;
@@ -165,6 +190,10 @@
 
 @media screen and (max-width: 480px) {
   #map {
+    &.show_city_detail {
+      display: none;
+    }
+
     &_info {
       width: 90%;
       padding: 15px 15px;
@@ -177,7 +206,7 @@
     &_overlay {
       &_wrap {
         width: 95%;
-        height: 80%;
+        height: 90%;
         padding: 10px 20px;
       }
     }
@@ -186,7 +215,19 @@
   .map {
     &_info {
       &_items {
+        & .title {
+          font-size: $vw5;
+        }
         .dd {
+          width: 75%;
+        }
+      }
+
+      &_introduction {
+        & .title {
+          font-size: $vw5;
+        }
+        & .list {
           width: 75%;
         }
       }

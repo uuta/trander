@@ -1,8 +1,9 @@
 .panel {
-  border: 1px solid $primary-s;
   margin-top: 1rem;
   padding: 1.5rem;
   color: $text-color;
+  -webkit-box-shadow: $box-shadow-general;
+  box-shadow: $box-shadow-general;
 
   &__hr {
     font-size: $font-mid;

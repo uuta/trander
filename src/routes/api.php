@@ -31,10 +31,23 @@ Route::namespace('Auth')->group(function () {
 
 // 外部API
 Route::namespace('External')->group(function () {
-    Route::post('/external/resas', 'ResasApiController@request')->name('resas');
     Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
+    Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get')->middleware('auth');
+    Route::get('/external/facility', 'FacilityController@index')->name('facility.get')->middleware('auth');
+    Route::get('/external/hotel', 'HotelController@index')->name('hotel.get')->middleware('auth');
+    Route::get('/external/weather', 'WeatherController@index')->name('weather.get')->middleware('auth');
+    Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get')->middleware('auth');
 });
+
+// Distance
+Route::get('/distance', 'DistanceController@index')->name('distance.get')->middleware('auth');
 
 // セッティング
 Route::get('/setting', 'SettingController@get')->name('setting.get');
 Route::post('/setting', 'SettingController@store')->name('setting.store');
+
+// Test
+Route::namespace('Test')->group(function () {
+    Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
+    Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
+});

@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import router from './router'
+import router from './router/index'
 import App from './App.vue'
-import './bootstrap'
+import './extension/bootstrap'
 import store from './store'
-import vueGoogleMaps from './vueGoogleMaps'
-import vueProgressBar from './vueProgressBar'
-import './tagManager'
+import vueGoogleMaps from './extension/vueGoogleMaps'
+import vueProgressBar from './extension//vueProgressBar'
+import './extension/tagManager'
 
 const createApp = async () => {
     await store.dispatch('auth/currentUser')
