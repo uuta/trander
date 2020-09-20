@@ -1,5 +1,8 @@
 <template>
-  <div class="wrap" v-if="isShowCityDetail">
+  <div class="p-city_detail_wrap" v-if="isShowCityDetail">
+    <RouterLink class="negate_btn back_to_index" :to="{name: 'index'}">
+      <button class="item_btn"><i class="fas fa-angle-right"></i></button>
+    </RouterLink>
     <div class="heading">
       <picture class="thumbnail">
         <img class="image" :src="headerImage">
@@ -32,11 +35,6 @@ export default {
     Facility,
     Weather,
   },
-  data() {
-    return {
-      headerImage: 'https://source.unsplash.com/featured/?tokyo'
-    }
-  },
   computed: {
     ...mapState({
       cityName: state => state.external.cityName,
@@ -50,6 +48,11 @@ export default {
     },
     isShowCityDetail() {
       return Boolean(Object.keys(this.$route.params).length)
+    },
+    headerImage() {
+      return 'https://source.unsplash.com/featured/?'
+        + this.region + '-'
+        + this.cityName
     },
   },
 }

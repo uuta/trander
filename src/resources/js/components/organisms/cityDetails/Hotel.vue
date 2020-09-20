@@ -50,7 +50,7 @@ export default {
       event.target.src = this.defImg
     },
     getHotelPrice(value) {
-      const price = value === null ? '宿泊プランなし' : value + '円〜'
+      const price = value === null ? '宿泊プランなし' : Number(value).toLocaleString() + '円〜'
       return price
     }
   },

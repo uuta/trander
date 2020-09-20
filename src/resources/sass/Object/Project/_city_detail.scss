@@ -1,7 +1,7 @@
 .p-city_detail {
   display: flex;
 
-  .wrap {
+  &_wrap {
     background: $base;
     width: 30vw;
     vertical-align:top;
@@ -10,6 +10,7 @@
     flex-flow: column;
     height: 100%;
     animation: SlideIn .5s;
+    position: relative;
 
     @keyframes SlideIn {
       0% {
@@ -19,6 +20,38 @@
       100% {
         opacity: 1;
         transform: translateX(0);
+      }
+    }
+
+    .back_to_index {
+      cursor: pointer;
+      height: 100%;
+      position: absolute;
+      width: 20px;
+      left: 0;
+      transition: color .3s,
+      text-decoration .3s,
+      background-color .3s;
+      background-color: $sub-sss;
+
+      &:hover {
+        text-decoration-color: transparent;
+        background-color: $sub-s;
+      }
+
+      .item_btn {
+        cursor: pointer;
+        border: none;
+        background: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+
+        i {
+          cursor: pointer;
+          color: $sub-v;
+        }
       }
     }
 
@@ -60,10 +93,10 @@
 
           .flag {
             vertical-align: middle;
-            -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
-            -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
-            -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
-            filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+            -webkit-filter: $drop-shadow;
+            -moz-filter: $drop-shadow;
+            -ms-filter: $drop-shadow;
+            filter: $drop-shadow;
           }
 
           .desc {
@@ -226,6 +259,15 @@
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .p-city_detail {
+    &_wrap {
+      width: 100%;
+      left: -10px;
     }
   }
 }

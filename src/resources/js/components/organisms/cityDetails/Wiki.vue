@@ -35,10 +35,10 @@ export default {
       wikiDataId: state => state.external.wikiDataId,
     }),
     setPopulation: function() {
-      return this.wiki === null ? '-' : this.wiki.population + '人'
+      return this.wiki === null ? '-' : Number(this.wiki.population).toLocaleString() + '人'
     },
     setArea: function() {
-      return this.wiki === null ? '-' : this.wiki.area + 'km'
+      return this.wiki === null ? '-' : Number(this.wiki.area).toLocaleString() + 'km'
     },
     setInception: function() {
       return this.wiki === null ? '-' : this.wiki.inception

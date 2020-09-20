@@ -28,7 +28,7 @@
     color: $primary;
     line-height: 55px;
     text-align: center;
-    background: $base-wrap;
+    background: $sub-sss;
     border: 1px solid $primary;
 
     &_setting {
@@ -97,6 +97,8 @@
     width: 50%;
     margin-top: 1em;
     margin-bottom: 1em;
+    -webkit-box-shadow: $box-shadow-v;
+    box-shadow: $box-shadow-v;
 
     &:hover {
       background: $secondary;

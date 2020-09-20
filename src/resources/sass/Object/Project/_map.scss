@@ -9,7 +9,7 @@
   }
 
   &_info {
-    background: $base-wrap;
+    background: $sub-sss;
     width: 45%;
     min-height: 100px;
     position: absolute;
@@ -190,6 +190,10 @@
 
 @media screen and (max-width: 480px) {
   #map {
+    &.show_city_detail {
+      display: none;
+    }
+
     &_info {
       width: 90%;
       padding: 15px 15px;
