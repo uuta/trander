@@ -14,17 +14,16 @@ class Get extends TestCase
      */
     public function should_test_APIへのリクエストに成功する()
     {
-        $this->test_weather();
+        $this->find_place();
     }
 
     /**
      * 正常
      */
-    private function test_wiki()
+    private function wiki()
     {
         $request = [];
         $response = $this->get(route('test.wiki.get'), $request);
-        // レスポンスの中身の確認
         $data = $response->json(['entities']['Q1134006']);
         var_dump($data);
 
@@ -34,11 +33,36 @@ class Get extends TestCase
     /**
      * 正常
      */
-    private function test_weather()
+    private function weather()
     {
         $request = [];
         $response = $this->get(route('test.weather.get'), $request);
-        // レスポンスの中身の確認
+        $data = $response->json();
+        dd($data);
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * 正常
+     */
+    private function find_place()
+    {
+        $request = [];
+        $response = $this->get(route('test.find_place.get'), $request);
+        $data = $response->json();
+        dd($data);
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * 正常
+     */
+    private function near_by_search()
+    {
+        $request = [];
+        $response = $this->get(route('test.near_by_search.get'), $request);
         $data = $response->json();
         dd($data);
 

@@ -70,4 +70,8 @@ return [
     'open_weather_map' => [
         'app_id'        => env('OPEN_WEATHER_MAP'),
     ],
+
+    'google_places' => [
+        'key'     => env('GOOGLE_PLACES'),
+    ],
 ];
