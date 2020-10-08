@@ -14,7 +14,7 @@ class Get extends TestCase
      */
     public function should_test_APIへのリクエストに成功する()
     {
-        $this->find_place();
+        $this->near_by_search();
     }
 
     /**
@@ -49,7 +49,7 @@ class Get extends TestCase
     private function find_place()
     {
         $request = [];
-        $response = $this->get(route('test.find_place.get'), $request);
+        $response = $this->get(route('test.find-place.get'), $request);
         $data = $response->json();
         dd($data);
 
@@ -62,7 +62,7 @@ class Get extends TestCase
     private function near_by_search()
     {
         $request = [];
-        $response = $this->get(route('test.near_by_search.get'), $request);
+        $response = $this->get(route('test.near-by-search.get'), $request);
         $data = $response->json();
         dd($data);
 

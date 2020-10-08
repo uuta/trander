@@ -37,6 +37,7 @@ Route::namespace('External')->group(function () {
     Route::get('/external/hotel', 'HotelController@index')->name('hotel.get')->middleware('auth');
     Route::get('/external/weather', 'WeatherController@index')->name('weather.get')->middleware('auth');
     Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get')->middleware('auth');
+    Route::get('/external/near-by-search', 'NearBySearchController@index')->name('near-by-search.get')->middleware('auth');
 });
 
 // Distance
@@ -50,6 +51,6 @@ Route::post('/setting', 'SettingController@store')->name('setting.store');
 Route::namespace('Test')->group(function () {
     Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
     Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
-    Route::get('/dev-test/find-place', 'TestController@find_place')->name('test.find_place.get');
-    Route::get('/dev-test/near-by-search', 'TestController@near_by_search')->name('test.near_by_search.get');
+    Route::get('/dev-test/find-place', 'TestController@find_place')->name('test.find-place.get');
+    Route::get('/dev-test/near-by-search', 'TestController@near_by_search')->name('test.near-by-search.get');
 });
