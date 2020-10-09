@@ -6,8 +6,8 @@ use App\Http\Controllers\NormalizedController;
 use App\Http\Requests\NearBySearch\GetRequest;
 use App\Services\NearBySearch\Get as NearBySearchGet;
 use GuzzleHttp\Exception\BadResponseException;
+use App\Services\Facades\GenerateLocation;
 use App\RequestCountHistory;
-
 
 class NearBySearchController extends NormalizedController
 {
@@ -17,8 +17,12 @@ class NearBySearchController extends NormalizedController
         {
             $this->normarize_request($request);
 
+            // Generate location
+            $Randomization = new GenerateLocation($request);
+            $location = $Randomization->generate_location();
+
             // Request
-            $NearBySearchGet = new NearBySearchGet($request);
+            $NearBySearchGet = new NearBySearchGet($request, $location);
             $NearBySearchGetResponse = $NearBySearchGet->apiRequest();
             $decodeResponse = json_decode($NearBySearchGetResponse->getBody(), true);
 

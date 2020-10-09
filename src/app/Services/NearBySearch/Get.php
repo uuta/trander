@@ -7,6 +7,12 @@ use App\Services\Factries\ExternalResponse\ExternalResponseFactory;
 
 class Get extends ExternalResponseFactory
 {
+    public function __construct(object $request, string $location)
+    {
+        $this->request = $request;
+        $this->location = $location;
+    }
+
     protected $addedResponse = [
         'key' => [
             ['name' => 'name', 'content' => "['name']"],
@@ -34,7 +40,7 @@ class Get extends ExternalResponseFactory
         $this->response = $client->request("GET", $sourceUrl, [
             'query' => [
                 'key' => config('services.google_places.key'),
-                'location' => $this->request->lat.','.$this->request->lng,
+                'location' => $this->location,
                 'radius' => 3000,
                 'keyword' => $this->request->keyword,
                 'language' => 'ja',
