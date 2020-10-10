@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\GeoDBCities;
 
-use Tests\TestCase;
+use Tests\LoginTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\MWay;
 use Illuminate\Support\Facades\DB;
 use App\Setting;
 
-class PostTest extends TestCase
+class PostTest extends LoginTestCase
 {
     use RefreshDatabase;
 
@@ -31,7 +31,7 @@ class PostTest extends TestCase
             'lat' => 43.067883,
             'lng' => 141.322995,
             'min' => 0,
-            'max' => 50000,
+            'max' => 50,
             'direction_type' => Setting::DIRECTION_TYPE['none']
         ];
         $response = $this->post(route('geo-db-cities'), $request);
@@ -65,8 +65,8 @@ class PostTest extends TestCase
         $request = [
             'lat' => 43.067883,
             'lng' => 141.322995,
-            'min' => 10000,
-            'max' => 50000,
+            'min' => 10,
+            'max' => 50,
             'direction_type' => Setting::DIRECTION_TYPE['south']
         ];
         $response = $this->post(route('geo-db-cities'), $request);
@@ -101,7 +101,7 @@ class PostTest extends TestCase
             'lat' => 35.188444,
             'lng' => 152.442722,
             'min' => 0,
-            'max' => 50000,
+            'max' => 50,
             'direction_type' => Setting::DIRECTION_TYPE['none']
         ];
         $code = 'データなし';
@@ -129,7 +129,7 @@ class PostTest extends TestCase
             'lat' => 43.067883,
             'lng' => 141.322995,
             'min' => 0,
-            'max' => 50000,
+            'max' => 50,
         ];
         $response = $this->post(route('geo-db-cities'), $request);
 

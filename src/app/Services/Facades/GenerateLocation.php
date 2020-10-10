@@ -45,6 +45,16 @@ class GenerateLocation
     }
 
     /**
+     * Get the angle
+     *
+     * @return float
+     */
+    public function get_angle() : float
+    {
+        return $this->angle;
+    }
+
+    /**
      * Generate an angle randomly
      */
     private function generate_angle()

@@ -8,6 +8,7 @@ use App\Http\Requests\GeoDBCitiesApiRequest;
 use App\Http\Requests\GeoDBCities\GetIdRequest;
 use App\Http\Controllers\NormalizedController;
 use GuzzleHttp\Exception\BadResponseException;
+use App\Services\Facades\GenerateLocation;
 use App\RequestCountHistory;
 use App\Services\GeoDBCities\GetId as GeoDBCitiesGetId;
 
@@ -22,9 +23,13 @@ class GeoDBCitiesApiController extends NormalizedController
 
     public function request(GeoDBCitiesApiRequest $request)
     {
-        $location = $this->GeoDBCitiesApi->getLatAndLng($request);
-        $response = $this->GeoDBCitiesApi->apiRequest($location);
-        $addedResponse = $this->GeoDBCitiesApi->addRequest($request, $response);
+        // Generate location
+        $Randomization = new GenerateLocation($request);
+        $location = $Randomization->generate_formatted_location();
+        $angle = $Randomization->get_angle();
+
+        $response = $this->GeoDBCitiesApi->api_request($location);
+        $addedResponse = $this->GeoDBCitiesApi->add_request($request, $response, $angle);
         return $addedResponse;
     }
 

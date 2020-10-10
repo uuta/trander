@@ -99,8 +99,8 @@ export default {
       const data = {
         lat: this.currentLat,
         lng: this.currentLng,
-        min: this.rangeOfDistance[0] * 1000,
-        max: this.rangeOfDistance[1] * 1000,
+        min: this.rangeOfDistance[0],
+        max: this.rangeOfDistance[1],
         direction_type: this.directionType,
       }
       const router = this.$router
