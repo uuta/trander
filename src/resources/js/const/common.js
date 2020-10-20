@@ -8,6 +8,12 @@ const BROWSER = Object.freeze({
   OPERA: 6,
 })
 
+const URL_TYPE = Object.freeze({
+  CITY: 0,
+  KW: 1,
+})
+
 export {
-  BROWSER
+  BROWSER,
+  URL_TYPE
 }

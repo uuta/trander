@@ -69,6 +69,18 @@ const routes = [{
   }
 },
 {
+  path: '/kw',
+  name: 'keyword',
+  component: Index,
+  beforeEnter(to, from, next) {
+    if (store.getters['auth/check']) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+},
+{
   path: '/setting',
   component: Setting,
   beforeEnter(to, from, next) {

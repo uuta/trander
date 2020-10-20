@@ -18,6 +18,7 @@
     right: 0;
     bottom: 20px;
     padding: 20px;
+    padding-top: 15px;
     filter: drop-shadow(0px 3px 10px rgb(200, 200, 200));
   }
 
@@ -196,24 +197,30 @@
 
       .list {
         display: inline-block;
-        padding: 5px;
         cursor: pointer;
 
         &:last-child {
           margin-left: 10px;
         }
 
-        &:hover {
-          background: $secondary;
-          color: $base;
-          transition: color .3s,
-          text-decoration .3s,
-          background-color .3s;
-        }
+        a {
+          padding: 5px;
+          display: block;
+          color: $text-color;
+          text-decoration: none;
 
-        &.active {
-          background: $secondary;
-          color: $base;
+          &:hover {
+            background: $secondary;
+            color: $base;
+            transition: color .3s,
+            text-decoration .3s,
+            background-color .3s;
+          }
+
+          &.active {
+            background: $secondary;
+            color: $base;
+          }
         }
       }
     }
