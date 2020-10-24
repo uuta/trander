@@ -32,7 +32,7 @@ import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
 import Error from '../../components/organisms/errors/Modal.vue'
 import Bars from '../../components/atoms/loader/Bars.vue'
 import CONST_EXTERNAL from '../../const/external.js'
-import { BROWSER } from '../../const/common.js'
+import { BROWSER, URL_TYPE } from '../../const/common.js'
 import { checkBrowser } from '../../services/common/checkBrowser.js'
 
 export default {
@@ -58,6 +58,7 @@ export default {
     this.SUGGEST = CONST_EXTERNAL.CURRENT_LOCATION_SUGGEST
     this.checkRegistration()
     this.judgeGeoLocation()
+    this.setSearchingUrl()
     this.$store.commit('external/setSettingModal', false)
   },
   computed: {
@@ -191,6 +192,12 @@ export default {
     },
     showSettingModal() {
       this.$store.commit('external/setSettingModal', true)
+    },
+    setSearchingUrl() {
+      const url = this.$route.path.indexOf('index') != -1
+        ? URL_TYPE.CITY
+        : URL_TYPE.KW
+      this.$store.commit('external/setSearchingUrl', url)
     },
   }
 }

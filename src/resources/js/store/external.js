@@ -42,6 +42,7 @@ const state = {
   facilities: null,
   weathers: null,
   wiki: null,
+  searchingUrl: null,
 }
 
 const getters = {}
@@ -139,6 +140,9 @@ const mutations = {
     state.walking = value.ways.walking
     state.bycicle = value.ways.bycicle
     state.car = value.ways.car
+  },
+  setSearchingUrl(state, value) {
+    state.searchingUrl = value
   },
 }
 

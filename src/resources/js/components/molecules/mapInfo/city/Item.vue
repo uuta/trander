@@ -37,7 +37,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import CONST_EXTERNAL from '../../../const/external.js'
+import CONST_EXTERNAL from '../../../../const/external.js'
 
 export default {
   created() {

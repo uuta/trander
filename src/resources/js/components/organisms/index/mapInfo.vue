@@ -2,8 +2,13 @@
   <div id="map_info">
     <SearchList></SearchList>
     <div class="map_info_desc">
-      <MapInfoItem v-if="cityName"></MapInfoItem>
-      <MapInfoIntroduction v-else></MapInfoIntroduction>
+      <template v-if="this.searchingUrl === this.URL_TYPE.CITY">
+        <CityItem v-if="cityName"></CityItem>
+        <CityIntroduction v-else></CityIntroduction>
+      </template>
+      <template v-if="this.searchingUrl === this.URL_TYPE.KW">
+        <KwIntroduction></KwIntroduction>
+      </template>
       <transition name="fade">
         <SuggestPushing v-show="suggestPushing"></SuggestPushing>
       </transition>
@@ -14,16 +19,24 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import { URL_TYPE } from '../../../const/common.js'
 import SuggestPushing from '../../../pages/index/Modal/Suggest/Pushing.vue'
-import MapInfoItem from '../../molecules/mapInfo/Item.vue'
-import MapInfoIntroduction from '../../molecules/mapInfo/Introduction.vue'
+import CityItem from '../../molecules/mapInfo/city/Item.vue'
+import CityIntroduction from '../../molecules/mapInfo/city/Introduction.vue'
+import KwIntroduction from '../../molecules/mapInfo/kw/Introduction.vue'
 import SearchList from '../../molecules/tab/SearchList.vue'
 
 export default {
+  data() {
+    return {
+      URL_TYPE,
+    }
+  },
   components: {
     SuggestPushing,
-    MapInfoItem,
-    MapInfoIntroduction,
+    CityItem,
+    CityIntroduction,
+    KwIntroduction,
     SearchList,
   },
   computed: {
@@ -37,6 +50,7 @@ export default {
       suggestPushing: state => state.external.suggestPushing,
       directionType: state => state.external.directionType,
       wikiDataId: state => state.external.wikiDataId,
+      searchingUrl: state => state.external.searchingUrl,
     }),
   },
   methods: {
