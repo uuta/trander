@@ -8,7 +8,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Keyword from './Keyword.vue'
+import Keyword from '../../molecules/mapInfo/kw/Keyword.vue'
 
 export default {
   components: {

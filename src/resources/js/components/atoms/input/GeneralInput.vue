@@ -19,7 +19,7 @@ export default {
     placeholder: { type: String, required: false }
   },
   methods: {
-    updateValue: function(e) {
+    updateValue(e) {
       this.$emit("input", e.target.value);
     }
   }

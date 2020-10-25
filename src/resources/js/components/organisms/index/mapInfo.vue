@@ -13,7 +13,17 @@
         <SuggestPushing v-show="suggestPushing"></SuggestPushing>
       </transition>
     </div>
-    <button @click="setNewLocation" class="button_map button_map_info"><i class="fas fa-plus"></i></button>
+    <button
+      @click="
+        searchingUrl === URL_TYPE.CITY
+        ? setNewLocation()
+        : searchingUrl === URL_TYPE.KW
+        ? setLocationByKw()
+        : false"
+      class="button_map button_map_info"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
   </div>
 </template>
 
@@ -23,7 +33,7 @@ import { URL_TYPE } from '../../../const/common.js'
 import SuggestPushing from '../../../pages/index/Modal/Suggest/Pushing.vue'
 import CityItem from '../../molecules/mapInfo/city/Item.vue'
 import CityIntroduction from '../../molecules/mapInfo/city/Introduction.vue'
-import KwIntroduction from '../../molecules/mapInfo/kw/Introduction.vue'
+import KwIntroduction from '..//kw/Introduction.vue'
 import SearchList from '../../molecules/tab/SearchList.vue'
 
 export default {
@@ -51,6 +61,7 @@ export default {
       directionType: state => state.external.directionType,
       wikiDataId: state => state.external.wikiDataId,
       searchingUrl: state => state.external.searchingUrl,
+      keyword: state => state.kw.keyword,
     }),
   },
   methods: {
@@ -87,6 +98,21 @@ export default {
       this.$store.dispatch('external/getFacility', latLng)
       this.$store.dispatch('external/getWeather', latLng)
       this.$store.dispatch('external/getWiki', wiki)
+    },
+    async setLocationByKw() {
+      const data = {
+        params: {
+          lat: this.currentLat,
+          lng: this.currentLng,
+          keyword: this.keyword,
+          min: this.rangeOfDistance[0],
+          max: this.rangeOfDistance[1],
+          directionType: this.directionType,
+        }
+      }
+      this.$Progress.start()
+      await this.$store.dispatch('kw/getNearBySearch', data)
+      this.$Progress.finish()
     },
   },
 }

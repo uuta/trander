@@ -41,6 +41,7 @@
               id="login-password"
               v-model="loginForm.password"
               placeholder="6文字以上の半角英数字"
+              autocomplete="current-password"
             />
           </div>
           <RouterLink to="/reset-password" class="panel__txt__right">
@@ -115,6 +116,7 @@
               id="password"
               v-model="registerForm.password"
               placeholder="6文字以上の半角英数字"
+              autocomplete="new-password"
             />
           </div>
           <label for="password-confirmation">パスワード (確認)</label>
@@ -126,6 +128,7 @@
               id="password-confirmation"
               v-model="registerForm.password_confirmation"
               placeholder="6文字以上の半角英数字"
+              autocomplete="new-password"
             />
           </div>
           <div class="list-menu">
