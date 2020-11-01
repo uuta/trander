@@ -67,18 +67,19 @@
     -webkit-box-pack: center;
     margin: auto;
     position: absolute;
-    top: 23%;
+    top: 13%;
     left: 50%;
-    transform: translateY(-23%) translateX(-50%);
-    -webkit-transform: translateY(-23%) translateX(-50%);
+    transform: translateY(-13%) translateX(-50%);
+    -webkit-transform: translateY(-13%) translateX(-50%);
     margin: auto;
+    flex-wrap: wrap;
 
     .container {
       box-sizing: border-box;
       padding: 0;
       width: 50%;
 
-      &:first-child {
+      &:nth-child(2){
         padding-right: 5px;
       }
 
@@ -95,6 +96,12 @@
         line-height: 30px;
         font-size: $font-mid;
         font-weight: bold;
+        vertical-align: middle;
+      }
+
+      &.wide {
+        width: 100%;
+        margin-bottom: 20px;
       }
     }
   }
