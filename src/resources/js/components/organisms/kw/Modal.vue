@@ -1,0 +1,51 @@
+<template>
+  <div class="c-modal__overlay p-map_kw_modal" @click.self="hiddenModal">
+    <div class="c-modal__overlay__wrap__sml">
+      <div class="c-modal__msg__section">
+        <div>
+          <dl class="c-head_title__mid__modal">
+            <dt>ロケーションを見つけました！</dt>
+            <dd>
+              <div class="icon_color">
+                <img :src="icon" class="icon">
+              </div>
+              <span class="desc">{{name}}</span>
+            </dd>
+          </dl>
+          <p class="rating">
+            <span class="number">{{rating}}</span>
+            <span class="star">★★★★★</span>
+            <span class="total_ratings">（{{userRatingsTotal}}）</span>
+          </p>
+        </div>
+      </div>
+      <button class="button__modal" @click.self="hiddenModal">OK</button>
+    </div>
+    <Buttons></Buttons>
+  </div>
+</template>
+
+<script>
+import { mapState, mapGetters } from 'vuex'
+import Buttons from './Buttons.vue'
+
+export default {
+  components: {
+    Buttons,
+  },
+  computed: {
+    ...mapState({
+      name: state => state.kw.name,
+      icon: state => state.kw.icon,
+      rating: state => state.kw.rating,
+      userRatingsTotal: state => state.kw.userRatingsTotal,
+      modal: state => state.kw.modal,
+    })
+  },
+  methods: {
+    hiddenModal() {
+      this.$store.commit('kw/setModal', false)
+    }
+  }
+}
+</script>

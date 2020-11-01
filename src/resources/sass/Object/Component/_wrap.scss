@@ -1,6 +1,18 @@
 .c-wrap {
-
   &__info {
     margin: 20px 0;
+  }
+
+  &_icon_text {
+    background: $base;
+    height: 50px;
+    padding: 10px 5px;
+    width: 100%;
+    transition: background-color 300ms ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background: $sub;
+    }
   }
 }

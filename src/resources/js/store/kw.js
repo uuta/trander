@@ -13,6 +13,7 @@ const state = {
   vicinity: null,
   userRatingsTotal: null,
   priceLevel: null,
+  modal: false,
   errorMessages: null,
   errorModal: false,
 }
@@ -32,9 +33,13 @@ const mutations = {
     state.vicinity = value.vicinity
     state.userRatingsTotal = value.userRatingsTotal
     state.priceLevel = value.priceLevel
+    state.modal = true
   },
   setKeyword(state, value) {
     state.keyword = value
+  },
+  setModal(state, value) {
+    state.modal = value
   },
 }
 

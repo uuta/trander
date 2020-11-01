@@ -13,6 +13,7 @@
         <gmap-marker v-if="icon" :position="{lat:lat, lng:lng}">
         </gmap-marker>
       </GmapMap>
+      <KwModal v-if="kwModal"></KwModal>
       <MapInfo></MapInfo>
       <button class="button_map_setting"><i class="fas fa-cog" @click.self="showSettingModal"></i></button>
       <Searched></Searched>
@@ -26,6 +27,7 @@ import { mapState, mapGetters } from 'vuex'
 import Setting from './Modal/Setting.vue'
 import CityDetail from '../cityDetails/index.vue'
 import MapInfo from '../../components/organisms/index/mapInfo.vue'
+import KwModal from '../../components/organisms/kw/Modal.vue'
 import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
 import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
@@ -40,11 +42,12 @@ export default {
     Setting,
     CityDetail,
     MapInfo,
+    KwModal,
     Registration,
     Searched,
     SuggestCurrentLocation,
     Error,
-    Bars
+    Bars,
   },
   data() {
     return {
@@ -75,7 +78,8 @@ export default {
       errorMessages: state => state.external.errorMessages,
       geoLocationModal: state => state.external.geoLocationModal,
       registerModal: state => state.auth.registerModal,
-      loading: state => state.auth.loading
+      loading: state => state.auth.loading,
+      kwModal: state => state.kw.modal,
     }),
     isShowCityDetail() {
       return Boolean(Object.keys(this.$route.params).length)
