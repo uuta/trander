@@ -29,7 +29,7 @@ class GetTest extends LoginTestCase
 
         // Make sure response data
         $data = $response->json();
-        $this->assertCount(7, $data);
+        $this->assertCount(10, $data);
         $this->assertArrayHasKey('name', $data);
         $this->assertArrayHasKey('icon', $data);
         $this->assertArrayHasKey('rating', $data);
@@ -37,6 +37,9 @@ class GetTest extends LoginTestCase
         $this->assertArrayHasKey('vicinity', $data);
         $this->assertArrayHasKey('userRatingsTotal', $data);
         $this->assertArrayHasKey('priceLevel', $data);
+        $this->assertArrayHasKey('lat', $data);
+        $this->assertArrayHasKey('lng', $data);
+        $this->assertArrayHasKey('placeId', $data);
 
         // Make sure imported record
         $this->assertDatabaseHas('request_count_historys', [
