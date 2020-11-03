@@ -13,6 +13,9 @@ const state = {
   vicinity: null,
   userRatingsTotal: null,
   priceLevel: null,
+  lat: null,
+  lng: null,
+  placeId: null,
   modal: false,
   errorMessages: null,
   errorModal: false,
@@ -33,6 +36,9 @@ const mutations = {
     state.vicinity = value.vicinity
     state.userRatingsTotal = value.userRatingsTotal
     state.priceLevel = value.priceLevel
+    state.lat = value.lat
+    state.lng = value.lng
+    state.placeId = value.placeId
     state.modal = true
   },
   setKeyword(state, value) {

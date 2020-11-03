@@ -8,23 +8,28 @@
       ></IconText>
     </div>
     <div class="container general">
-      <IconText
-        text="Google Map"
-        :image="googleMap"
-        className="c-wrap_icon_text"
-      ></IconText>
+      <a :href="googleMapUrl" target="_blank" class="link">
+        <IconText
+          text="Google Map"
+          :image="googleMap"
+          className="c-wrap_icon_text"
+        ></IconText>
+      </a>
     </div>
     <div class="container general">
-      <IconText
-        text="Street View"
-        :image="streetView"
-        className="c-wrap_icon_text"
-      ></IconText>
+      <a :href="streetViewUrl" target="_blank" class="link">
+        <IconText
+          text="Street View"
+          :image="streetView"
+          className="c-wrap_icon_text"
+        ></IconText>
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 import IconText from '../../atoms/container/IconText.vue'
 
 export default {
@@ -37,6 +42,19 @@ export default {
   },
   components: {
     IconText,
+  },
+  computed: {
+    ...mapState({
+      lat: state => state.kw.lat,
+      lng: state => state.kw.lng,
+      placeId: state => state.kw.placeId,
+    }),
+    googleMapUrl() {
+      return 'https://www.google.com/maps/search/?api=1&query=' + this.lat + ',' + this.lng + '&query_place_id=' + this.placeId
+    },
+    streetViewUrl() {
+      return 'https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + this.lat + ',' + this.lng
+    },
   },
 }
 </script>
