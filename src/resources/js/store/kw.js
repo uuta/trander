@@ -39,6 +39,7 @@ const mutations = {
     state.lat = value.lat
     state.lng = value.lng
     state.placeId = value.placeId
+    state.errorMessages = null
     state.modal = true
   },
   setKeyword(state, value) {
@@ -46,6 +47,9 @@ const mutations = {
   },
   setModal(state, value) {
     state.modal = value
+  },
+  undoErrorMessages(state) {
+    state.errorMessages = null
   },
 }
 
@@ -62,7 +66,7 @@ const actions = {
     }
 
     if (res.status === NO_RECORD) {
-      return false;
+      context.commit('undoErrorMessages')
     }
 
     if (res.status === UNPROCESSABLE_ENTITY) {

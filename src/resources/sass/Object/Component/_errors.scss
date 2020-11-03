@@ -4,3 +4,11 @@
   color: $error;
   margin-bottom: 1rem;
 }
+.c-errors {
+  &_common {
+    background: $error-s;
+    color: $base;
+    padding: 5px;
+    margin-top: 5px;
+  }
+}
