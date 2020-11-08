@@ -6,6 +6,7 @@ import {
 
 const state = {
   keyword: '',
+  successful: false,
   name: null,
   icon: null,
   rating: null,
@@ -17,6 +18,11 @@ const state = {
   lng: null,
   placeId: null,
   modal: false,
+  distance: null,
+  direction: null,
+  walking: null,
+  bycicle: null,
+  car: null,
   errorMessages: null,
   errorModal: false,
 }
@@ -29,6 +35,7 @@ const mutations = {
     state.errorModal = true
   },
   setNearBySearch(state, value) {
+    state.successful = true
     state.name = value.name
     state.icon = value.icon
     state.rating = value.rating
@@ -51,6 +58,13 @@ const mutations = {
   undoErrorMessages(state) {
     state.errorMessages = null
   },
+  setDistance(state, value) {
+    state.distance = value.distance
+    state.direction = value.direction
+    state.walking = value.ways.walking
+    state.bycicle = value.ways.bycicle
+    state.car = value.ways.car
+  },
 }
 
 const actions = {
@@ -67,6 +81,24 @@ const actions = {
 
     if (res.status === NO_RECORD) {
       context.commit('undoErrorMessages')
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Get distance
+  async getDistance(context, params) {
+    const res = await axios.get('/api/distance', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setDistance', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
     }
 
     if (res.status === UNPROCESSABLE_ENTITY) {

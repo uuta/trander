@@ -27,5 +27,26 @@
       cursor: pointer;
       background: $sub;
     }
+
+    &_general {
+      margin-inline-start: 0;
+      font-weight: normal;
+      vertical-align: middle;
+
+      & .icon {
+        width: 20px;
+        margin-right: 5px;
+        -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+        -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+        -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+        vertical-align: middle;
+      }
+
+      & .description {
+        vertical-align: middle;
+        line-height: 20px;
+      }
+    }
   }
 }

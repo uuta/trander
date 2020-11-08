@@ -1,0 +1,17 @@
+.c-text {
+  &_rating {
+    margin: 10px 0;
+
+    .number {
+      margin-right: 5px;
+    }
+
+    .total_ratings {
+      color: $sub-vv;
+    }
+
+    &.green {
+      color: $secondary;
+    }
+  }
+}

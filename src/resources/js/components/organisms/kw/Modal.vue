@@ -4,7 +4,7 @@
       <div class="c-modal__msg__section">
         <div>
           <dl class="c-head_title__mid__modal">
-            <dt>ロケーションを見つけました！</dt>
+            <dt>ねぇ、今日はここ行こうよ</dt>
             <dd>
               <div class="icon_color">
                 <img :src="icon" class="icon">

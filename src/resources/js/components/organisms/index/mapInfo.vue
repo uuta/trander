@@ -7,7 +7,8 @@
         <CityIntroduction v-else></CityIntroduction>
       </template>
       <template v-if="this.searchingUrl === this.URL_TYPE.KW">
-        <KwIntroduction></KwIntroduction>
+        <KwItem v-if="kwSuccessful"></KwItem>
+        <KwIntroduction v-else></KwIntroduction>
       </template>
       <transition name="fade">
         <SuggestPushing v-show="suggestPushing"></SuggestPushing>
@@ -34,6 +35,7 @@ import SuggestPushing from '../../../pages/index/Modal/Suggest/Pushing.vue'
 import CityItem from '../../molecules/mapInfo/city/Item.vue'
 import CityIntroduction from '../../molecules/mapInfo/city/Introduction.vue'
 import KwIntroduction from '..//kw/Introduction.vue'
+import KwItem from '../kw/Item.vue'
 import SearchList from '../../molecules/tab/SearchList.vue'
 
 export default {
@@ -46,6 +48,7 @@ export default {
     SuggestPushing,
     CityItem,
     CityIntroduction,
+    KwItem,
     KwIntroduction,
     SearchList,
   },
@@ -61,7 +64,10 @@ export default {
       directionType: state => state.external.directionType,
       wikiDataId: state => state.external.wikiDataId,
       searchingUrl: state => state.external.searchingUrl,
+      kwSuccessful: state => state.kw.successful,
       keyword: state => state.kw.keyword,
+      kwLat: state => state.kw.lat,
+      kwLng: state => state.kw.lng,
     }),
   },
   methods: {
@@ -112,6 +118,15 @@ export default {
       }
       this.$Progress.start()
       await this.$store.dispatch('kw/getNearBySearch', data)
+      const distanceLatLng = {
+        params: {
+          lat: this.currentLat,
+          lng: this.currentLng,
+          cityLat: this.kwLat,
+          cityLng: this.kwLng,
+        }
+      }
+      await this.$store.dispatch('kw/getDistance', distanceLatLng)
       this.$Progress.finish()
     },
   },

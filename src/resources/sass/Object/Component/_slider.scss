@@ -1,0 +1,26 @@
+.c-slider {
+  &_wrap {
+    width: 70%;
+    overflow-x: scroll;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+
+    .text_list {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 5px 10px;
+      margin-right: 10px;
+      background: $sub-middle;
+      color: $sub-v;
+      cursor: pointer;
+
+      &:hover {
+        background: $secondary;
+        color: $base;
+        transition: color .3s,
+        text-decoration .3s,
+        background-color .3s;
+      }
+    }
+  }
+}

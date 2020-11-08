@@ -54,6 +54,35 @@
     }
   }
 
+  &_info_items {
+    .title {
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+
+    .head_share {
+      position: absolute;
+      top: -65px;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+      width: 90%;
+      height: auto;
+      text-align: center;
+
+      .icon {
+        width: 21px;
+        vertical-align: middle;
+      }
+
+      .description {
+        line-height: 30px;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+    }
+  }
+
   &_google_btns {
     width: 30%;
     display: flex;
@@ -108,6 +137,14 @@
         width: 100%;
         margin-bottom: 20px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .p-map_kw {
+    &_google_btns {
+      width: 90%;
     }
   }
 }
