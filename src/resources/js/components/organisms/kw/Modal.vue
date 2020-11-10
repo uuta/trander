@@ -18,10 +18,10 @@
             <span class="total_ratings">（{{userRatingsTotal}}）</span>
           </p>
         </div>
+        <Buttons></Buttons>
       </div>
       <button class="button__modal" @click.self="hiddenModal">OK</button>
     </div>
-    <Buttons></Buttons>
   </div>
 </template>
 

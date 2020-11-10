@@ -84,7 +84,7 @@
   }
 
   &_google_btns {
-    width: 30%;
+    width: 100%;
     display: flex;
     display: -webkit-box;
     justify-content: center;
@@ -96,10 +96,10 @@
     -webkit-box-pack: center;
     margin: auto;
     position: absolute;
-    top: 13%;
+    top: -140px;
     left: 50%;
-    transform: translateY(-13%) translateX(-50%);
-    -webkit-transform: translateY(-13%) translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
     margin: auto;
     flex-wrap: wrap;
 
@@ -131,20 +131,13 @@
         font-size: $font-mid;
         font-weight: bold;
         vertical-align: middle;
+        color: $text-color;
       }
 
       &.wide {
         width: 100%;
         margin-bottom: 20px;
       }
-    }
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .p-map_kw {
-    &_google_btns {
-      width: 90%;
     }
   }
 }
