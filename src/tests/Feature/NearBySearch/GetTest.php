@@ -10,6 +10,12 @@ class GetTest extends LoginTestCase
 {
     private const ROUTE = 'near-by-search.get';
 
+    public function setUp()
+    {
+        parent::setUp();
+        $this->seed('MRatingsSeeder');
+    }
+
     /**
      * 正常
      * @test
@@ -29,7 +35,7 @@ class GetTest extends LoginTestCase
 
         // Make sure response data
         $data = $response->json();
-        $this->assertCount(10, $data);
+        $this->assertCount(11, $data);
         $this->assertArrayHasKey('name', $data);
         $this->assertArrayHasKey('icon', $data);
         $this->assertArrayHasKey('rating', $data);
@@ -40,6 +46,7 @@ class GetTest extends LoginTestCase
         $this->assertArrayHasKey('lat', $data);
         $this->assertArrayHasKey('lng', $data);
         $this->assertArrayHasKey('placeId', $data);
+        $this->assertArrayHasKey('ratingStar', $data);
 
         // Make sure imported record
         $this->assertDatabaseHas('request_count_historys', [

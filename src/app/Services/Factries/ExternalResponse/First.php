@@ -2,30 +2,15 @@
 
 namespace App\Services\Factries\ExternalResponse;
 
-use Illuminate\Support\Facades\Log;
+use App\Services\Factries\ExternalResponse\Base;
 
 /**
  * First hierarchy
  *
  * @author Yuta Aoki
  */
-class First
+class First extends Base
 {
-    /**
-     * Request parameters
-     */
-    protected $request;
-    protected $response;
-    protected $data = [];
-    protected $addedResponse;
-
-    public function __construct(object $request, object $response, array $addedResponse)
-    {
-        $this->request = $request;
-        $this->response = $response;
-        $this->addedResponse = $addedResponse;
-    }
-
     /**
      * Format the response
      *
@@ -36,6 +21,7 @@ class First
         $response = json_decode($this->response->getBody(), true);
         $feature = $response[$this->addedResponse['response']];
         $this->addResponse($feature);
+        $this->add_processed_response();
         return $this->data;
     }
 
@@ -70,5 +56,22 @@ class First
             $value = $value[$key];
         }
         return $value;
+    }
+
+    /**
+     * Determine how to process and execute it
+     *
+     * @return void
+     */
+    private function add_processed_response() : void
+    {
+        if (array_key_exists('processing', $this->addedResponse)) {
+            foreach($this->addedResponse['processing'] as $array) {
+                $this->data[$array['name']] =
+                    $array['type'] === self::PROCESSING['RATING']
+                    ? $this->get_rating((float)$this->data[$array['key_name']])
+                    : false;
+            }
+        }
     }
 }

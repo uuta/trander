@@ -2,30 +2,15 @@
 
 namespace App\Services\Factries\ExternalResponse;
 
-use Illuminate\Support\Facades\Log;
+use App\Services\Factries\ExternalResponse\Base;
 
 /**
  * Second hierarchy
  *
  * @author Yuta Aoki
  */
-class Second
+class Second extends Base
 {
-    /**
-     * Request parameters
-     */
-    protected $request;
-    protected $response;
-    protected $data = [];
-    protected $addedResponse;
-
-    public function __construct(object $request, object $response, array $addedResponse)
-    {
-        $this->request = $request;
-        $this->response = $response;
-        $this->addedResponse = $addedResponse;
-    }
-
     /**
      * Format the response
      *
@@ -37,6 +22,7 @@ class Second
         $feature = $response[$this->addedResponse['response']];
         foreach($feature as $index => $value) {
             $this->addResponse($index, $value);
+            $this->add_processed_response($index);
         }
         return $this->data;
     }
@@ -72,5 +58,23 @@ class Second
             $value = $value[$key];
         }
         return $value;
+    }
+
+    /**
+     * Determine how to process and execute it
+     *
+     * @param int $index
+     * @return void
+     */
+    private function add_processed_response(int $index) : void
+    {
+        if (array_key_exists('processing', $this->addedResponse)) {
+            foreach($this->addedResponse['processing'] as $array) {
+                $this->data[$index][$array['name']] =
+                    $array['type'] === self::PROCESSING['RATING']
+                    ? $this->get_rating((float)$this->data[$index][$array['key_name']])
+                    : false;
+            }
+        }
     }
 }

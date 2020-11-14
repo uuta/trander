@@ -19,7 +19,6 @@ abstract class ExternalResponseFactory
     ];
 
     protected $response;
-    protected $addedResponse;
 
     public function __construct(object $request)
     {

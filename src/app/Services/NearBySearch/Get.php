@@ -4,6 +4,7 @@ namespace App\Services\NearBySearch;
 
 use GuzzleHttp\Client;
 use App\Services\Factries\ExternalResponse\ExternalResponseFactory;
+use App\Services\Factries\ExternalResponse\Base;
 
 class Get extends ExternalResponseFactory
 {
@@ -28,6 +29,9 @@ class Get extends ExternalResponseFactory
         ],
         'response' => 'results',
         'hierarchy' => ExternalResponseFactory::HIERARCHY['second'],
+        'processing' => [
+            ['name' => 'rating_star', 'key_name' => 'rating', 'type' => Base::PROCESSING['RATING']],
+        ],
     ];
 
     /**
