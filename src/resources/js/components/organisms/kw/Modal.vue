@@ -14,7 +14,9 @@
           </dl>
           <p class="rating">
             <span class="number">{{rating}}</span>
-            <span class="star">★★★★★</span>
+            <span class="star_wrap">
+              <img :src="ratingPath">
+            </span>
             <span class="total_ratings">（{{userRatingsTotal}}）</span>
           </p>
         </div>
@@ -39,8 +41,12 @@ export default {
       icon: state => state.kw.icon,
       rating: state => state.kw.rating,
       userRatingsTotal: state => state.kw.userRatingsTotal,
+      ratingStar: state => state.kw.ratingStar,
       modal: state => state.kw.modal,
-    })
+    }),
+    ratingPath() {
+      return '/assets/icons/stars/rating_' + this.ratingStar + '.png'
+    }
   },
   methods: {
     hiddenModal() {

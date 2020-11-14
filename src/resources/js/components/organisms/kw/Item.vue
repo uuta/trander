@@ -13,6 +13,7 @@
       <Rating
         :rating="rating"
         :ratingsTotal="userRatingsTotal"
+        :ratingImg="ratingPath"
         color="green"
       ></Rating>
     </dd>
@@ -110,6 +111,7 @@ export default {
       icon: state => state.kw.icon,
       rating: state => state.kw.rating,
       userRatingsTotal: state => state.kw.userRatingsTotal,
+      ratingStar: state => state.kw.ratingStar,
       distance: state => state.kw.distance,
       direction: state => state.kw.direction,
       walking: state => state.kw.walking,
@@ -123,6 +125,9 @@ export default {
     },
     streetViewUrl() {
       return 'https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + this.lat + ',' + this.lng
+    },
+    ratingPath() {
+      return '/assets/icons/stars/rating_' + this.ratingStar + '.png'
     },
   },
   methods: {

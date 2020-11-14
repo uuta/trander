@@ -42,13 +42,21 @@
 
       .number {
         margin-right: 5px;
+        vertical-align: middle;
       }
 
-      .star {
-        font-size: $font-mid;
+      .star_wrap {
+        filter: invert(49%) sepia(220%) saturate(2218%) hue-rotate(36deg) brightness(286%) contrast(95%);
+        vertical-align: middle;
+
+        img {
+          width: 33%;
+          display: inline-block;
+        }
       }
 
       .total_ratings {
+        vertical-align: middle;
         color: $sub;
       }
     }

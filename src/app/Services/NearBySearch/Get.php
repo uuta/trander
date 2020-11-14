@@ -48,7 +48,7 @@ class Get extends ExternalResponseFactory
             'query' => [
                 'key' => config('services.google_places.key'),
                 'location' => $this->location,
-                'radius' => 3000,
+                'radius' => 5000,
                 'keyword' => $this->request->keyword,
                 'language' => 'ja',
             ]

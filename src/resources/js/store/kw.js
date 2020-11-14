@@ -14,6 +14,7 @@ const state = {
   vicinity: null,
   userRatingsTotal: null,
   priceLevel: null,
+  ratingStar: null,
   lat: null,
   lng: null,
   placeId: null,
@@ -43,6 +44,7 @@ const mutations = {
     state.vicinity = value.vicinity
     state.userRatingsTotal = value.userRatingsTotal
     state.priceLevel = value.priceLevel
+    state.ratingStar = value.ratingStar
     state.lat = value.lat
     state.lng = value.lng
     state.placeId = value.placeId
@@ -70,10 +72,8 @@ const mutations = {
 const actions = {
   // Get nearBySearch
   async getNearBySearch(context, params) {
-    console.log(params)
     const res = await axios.get('/api/external/near-by-search', params)
     const resData = res.data
-    console.log(resData)
 
     if (res.status === OK) {
       context.commit('setNearBySearch', resData)
