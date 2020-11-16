@@ -17,8 +17,6 @@ const state = {
   lng: null,
   currentLat: null,
   currentLng: null,
-  seeLat: null,
-  seeLng: null,
   wikiDataId: null,
   icon: false,
   modal: false,
@@ -55,8 +53,6 @@ const mutations = {
     state.countryCode = value.countryCode
     state.lat = value.latitude
     state.lng = value.longitude
-    state.seeLat = value.latitude
-    state.seeLng = value.longitude
     state.wikiDataId = value.wikiDataId
     state.icon = true
     state.modal = true
@@ -82,8 +78,8 @@ const mutations = {
   setCurrentLocation(state, value) {
     state.currentLat = value.lat
     state.currentLng = value.lng
-    state.seeLat = value.lat
-    state.seeLng = value.lng
+    state.lat = value.lat
+    state.lng = value.lng
   },
   setSetting(state, value) {
     state.rangeOfDistance = value.distance

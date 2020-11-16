@@ -7,10 +7,10 @@
       <Error></Error>
       <SuggestCurrentLocation v-if="geoLocationModal"></SuggestCurrentLocation>
       <Setting></Setting>
-      <GmapMap :center="{lat:seeLat, lng:seeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
+      <GmapMap :center="targetLocation" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
         <gmap-marker :position="{lat:currentLat, lng:currentLng}" :icon="icon_center">
         </gmap-marker>
-        <gmap-marker v-if="icon" :position="{lat:lat, lng:lng}">
+        <gmap-marker v-if="icon" :position="targetLocation">
         </gmap-marker>
       </GmapMap>
       <KwModal v-if="kwModal"></KwModal>
@@ -55,6 +55,10 @@ export default {
         url: '/assets/images/current_location.png',
         scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
       },
+      targetLocation: {
+        lng: null,
+        lat: null,
+      },
     }
   },
   created() {
@@ -70,8 +74,6 @@ export default {
       lng: state => state.external.lng,
       currentLat: state => state.external.currentLat,
       currentLng: state => state.external.currentLng,
-      seeLat: state => state.external.seeLat,
-      seeLng: state => state.external.seeLng,
       icon: state => state.external.icon,
       wikiDataId: state => state.external.wikiDataId,
       settingModal: state => state.external.settingModal,
@@ -80,6 +82,9 @@ export default {
       registerModal: state => state.auth.registerModal,
       loading: state => state.auth.loading,
       kwModal: state => state.kw.modal,
+      kwSuccessful: state => state.kw.successful,
+      kwLat: state => state.kw.lat,
+      kwLng: state => state.kw.lng,
     }),
     isShowCityDetail() {
       return Boolean(Object.keys(this.$route.params).length)
@@ -202,6 +207,16 @@ export default {
         ? URL_TYPE.CITY
         : URL_TYPE.KW
       this.$store.commit('external/setSearchingUrl', url)
+    },
+  },
+  watch: {
+    lat() {
+      this.targetLocation.lat = this.lat
+      this.targetLocation.lng = this.lng
+    },
+    kwLat() {
+      this.targetLocation.lat = Number(this.kwLat)
+      this.targetLocation.lng = Number(this.kwLng)
     },
   }
 }
