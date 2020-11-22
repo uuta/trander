@@ -17,6 +17,7 @@ class CreateGooglePlaceIds extends Migration
             $table->bigIncrements('id');
             $table->string('place_id')->index()->comment('Place ID');
             $table->string('name')->comment('Place name');
+            $table->string('icon')->comment('Icon path');
             $table->float('rating')->nullable()->comment('Average of rating');
             $table->string('photo')->nullable()->comment('Photo ID');
             $table->string('vicinity')->nullable()->comment('Address');
@@ -24,6 +25,7 @@ class CreateGooglePlaceIds extends Migration
             $table->integer('price_level')->nullable()->comment('Price Level');
             $table->float('lat')->comment('Latitude');
             $table->float('lng')->comment('Longitude');
+            $table->string('rating_star')->comment('Class for rating star');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->softDeletes()->nullable();
