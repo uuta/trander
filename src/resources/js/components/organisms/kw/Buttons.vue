@@ -52,7 +52,7 @@ export default {
       placeId: state => state.kw.placeId,
     }),
     twitterUrl() {
-      return 'https://twitter.com/intent/tweet?text=' + "ツイッターシェアボタンのサンプルコード" + "%20%23あめねこサンプルコード集" + '&url=' + "https://code.ameneko.com/twitter-share"
+      return 'https://twitter.com/intent/tweet?text=' + "今日はここに行くよ" + "%0a%0a%20%23Trander%0a%0a" + '&url=' + "https://trander.net"
     },
     googleMapUrl() {
       return 'https://www.google.com/maps/search/?api=1&query=' + this.lat + ',' + this.lng + '&query_place_id=' + this.placeId

@@ -47,6 +47,9 @@ Route::get('/distance', 'DistanceController@index')->name('distance.get')->middl
 Route::get('/setting', 'SettingController@get')->name('setting.get');
 Route::post('/setting', 'SettingController@store')->name('setting.store');
 
+// Google Place
+Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
+
 // Test
 Route::namespace('Test')->group(function () {
     Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
