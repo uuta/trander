@@ -23,8 +23,8 @@ class CreateGooglePlaceIds extends Migration
             $table->string('vicinity')->nullable()->comment('Address');
             $table->integer('user_ratings_total')->nullable()->comment('Sum of ratings');
             $table->integer('price_level')->nullable()->comment('Price Level');
-            $table->float('lat')->comment('Latitude');
-            $table->float('lng')->comment('Longitude');
+            $table->decimal('lat', 15, 7)->comment('Latitude');
+            $table->decimal('lng', 15, 7)->comment('Longitude');
             $table->string('rating_star')->comment('Class for rating star');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->nullable();

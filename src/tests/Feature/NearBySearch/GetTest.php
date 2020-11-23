@@ -48,7 +48,22 @@ class GetTest extends LoginTestCase
         $this->assertArrayHasKey('placeId', $data);
         $this->assertArrayHasKey('ratingStar', $data);
 
-        // Make sure imported record
+        // Make sure imported record in google place ids
+        $this->assertDatabaseHas('google_place_ids', [
+            'place_id' => $data['placeId'],
+            'name' => $data['name'],
+            'icon' => $data['icon'],
+            'rating' => (float)$data['rating'],
+            'photo' => $data['photo'],
+            'vicinity' => $data['vicinity'],
+            'user_ratings_total' => (int)$data['userRatingsTotal'],
+            'price_level' => $data['priceLevel'],
+            'lat' => $data['lat'],
+            'lng' => $data['lng'],
+            'rating_star' => $data['ratingStar'],
+        ]);
+
+        // Make sure imported record in history table
         $this->assertDatabaseHas('request_count_historys', [
             'user_id' => $this->user->id,
             'type_id' => RequestCountHistory::TYPE_ID['getNearBySearch'],

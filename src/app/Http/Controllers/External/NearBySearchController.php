@@ -7,6 +7,7 @@ use App\Http\Requests\NearBySearch\GetRequest;
 use App\Services\NearBySearch\Get as NearBySearchGet;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Facades\GenerateLocation;
+use App\GooglePlaceId;
 use App\RequestCountHistory;
 
 class NearBySearchController extends NormalizedController
@@ -34,6 +35,9 @@ class NearBySearchController extends NormalizedController
             $GetResponse = $NearBySearchGet->get_response();
             $response = $GetResponse->formatResponse();
             $oneResponse = $NearBySearchGet->get_content_randomly($response);
+
+            // Insert into google_place_ids
+            GooglePlaceId::insert_information($oneResponse);
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
