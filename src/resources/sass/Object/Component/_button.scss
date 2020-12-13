@@ -199,6 +199,35 @@
       padding-right: 0.5em;
     }
   }
+
+  &_square_text_img {
+    background: $primary-v;
+    text-align: center;
+    height: 55px;
+    width: 70%;
+    border: none;
+    transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
+    -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+
+    .icon {
+      width: 25px;
+      margin-right: 1em;
+      vertical-align: middle;
+    }
+
+    .description {
+      font-size: $font-mid;
+      color: $base;
+      vertical-align: middle;
+    }
+
+    &:hover {
+      background: $secondary;
+    }
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -210,6 +239,10 @@
       &_setting {
         right: 20px;
       }
+    }
+
+    &_square_text_img {
+      width: 100%;
     }
   }
 }

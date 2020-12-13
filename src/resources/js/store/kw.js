@@ -67,6 +67,20 @@ const mutations = {
     state.bycicle = value.ways.bycicle
     state.car = value.ways.car
   },
+  setGooglePlace(state, value) {
+    state.successful = true
+    state.name = value.name
+    state.icon = value.icon
+    state.rating = value.rating
+    state.photo = value.photo
+    state.vicinity = value.vicinity
+    state.userRatingsTotal = value.userRatingsTotal
+    state.priceLevel = value.priceLevel
+    state.lat = value.lat
+    state.lng = value.lng
+    state.placeId = value.placeId
+    state.ratingStar = value.ratingStar
+  },
 }
 
 const actions = {
@@ -95,6 +109,24 @@ const actions = {
 
     if (res.status === OK) {
       context.commit('setDistance', resData)
+    }
+
+    if (res.status === NO_RECORD) {
+      return false;
+    }
+
+    if (res.status === UNPROCESSABLE_ENTITY) {
+      const resErrors = res.data.errors
+      context.commit('setErrorMessages', resErrors)
+    }
+  },
+  // Get google place
+  async getGooglePlace(context, params) {
+    const res = await axios.get('/api/google-place', params)
+    const resData = res.data
+
+    if (res.status === OK) {
+      context.commit('setGooglePlace', resData)
     }
 
     if (res.status === NO_RECORD) {

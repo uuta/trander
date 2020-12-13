@@ -5,6 +5,7 @@ import Login from '../pages/Login.vue'
 import OnBoarding from '../pages/OnBoarding.vue'
 import Index from '../pages/index/Index.vue'
 import Setting from '../pages/index/Modal/Setting.vue'
+import ShareKeyword from '../pages/ShareKeyword.vue'
 
 import Reset from '../pages/resetPasswords/Reset.vue'
 import SentEmail from '../pages/resetPasswords/SentEmail.vue'
@@ -79,6 +80,11 @@ const routes = [{
       next('/login')
     }
   }
+},
+{
+  path: '/kw/share/:placeId',
+  name: 'shareKeyword',
+  component: ShareKeyword,
 },
 {
   path: '/setting',

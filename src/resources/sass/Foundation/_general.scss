@@ -88,4 +88,24 @@ a.link {
       margin-bottom: 10px;
     }
   }
+
+  &_40 {
+    margin: 40px;
+
+    &_l {
+      margin-left: 40px;
+    }
+
+    &_r {
+      margin-right: 40px;
+    }
+
+    &_t {
+      margin-top: 40px;
+    }
+
+    &_b {
+      margin-bottom: 40px;
+    }
+  }
 }
