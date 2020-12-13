@@ -81,6 +81,20 @@ const mutations = {
     state.placeId = value.placeId
     state.ratingStar = value.ratingStar
   },
+  resetParam(state) {
+    state.successful = false
+    state.name = null
+    state.icon = null
+    state.rating = null
+    state.photo = null
+    state.vicinity = null
+    state.userRatingsTotal = null
+    state.priceLevel = null
+    state.lat = null
+    state.lng = null
+    state.placeId = null
+    state.ratingStar = null
+  }
 }
 
 const actions = {

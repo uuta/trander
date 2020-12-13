@@ -55,6 +55,10 @@
         color: $text-color;
         display: block;
         transition: background-color 300ms ease-in-out;
+
+        &:hover {
+          background: $sub-4s;
+        }
       }
     }
 

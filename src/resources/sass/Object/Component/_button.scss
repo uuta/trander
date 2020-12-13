@@ -207,10 +207,7 @@
     width: 70%;
     border: none;
     transition: color 0.3s, text-decoration 0.3s, background-color 0.3s;
-    -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
-    -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
-    -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
-    filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    box-shadow: 6px 8px 37px 5px rgba(0, 0, 0, 0.3);
 
     .icon {
       width: 25px;

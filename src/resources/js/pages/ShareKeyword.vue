@@ -26,10 +26,13 @@
       ></IconText>
     </div>
     <div class="content_wrap center tall">
-      <SquareTextImg
-        text="あなたもやってみよう！"
-        :image="arrowPath"
-      ></SquareTextImg>
+      <RouterLink :to="{name: 'index'}">
+        <SquareTextImg
+          text="あなたもやってみよう！"
+          :image="arrowPath"
+          @click.native="resetParam()"
+        ></SquareTextImg>
+      </RouterLink>
     </div>
     <div class="content_wrap">
       <IconText
@@ -127,6 +130,9 @@ export default {
         }
       }
       this.$store.dispatch('kw/getGooglePlace', data)
+    },
+    resetParam() {
+      this.$store.commit('kw/resetParam')
     },
   },
 }
