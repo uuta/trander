@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MRating extends Model
 {
-    const RATING_MIN = 0;
-    const RATING_MAX = 5;
-
     /**
      * Get rating
      *
@@ -17,10 +14,7 @@ class MRating extends Model
      */
     public function get_rating(float $rating) : ?self
     {
-        if ($rating > self::RATING_MIN && $rating <= self::RATING_MAX) {
-            return MRating::whereRaw('min <= ' . $rating . ' and max >' . $rating)
-                    ->first();
-        }
-        return NULL;
+        return MRating::whereRaw('min <= ' . $rating . ' and max >' . $rating)
+                ->first();
     }
 }
