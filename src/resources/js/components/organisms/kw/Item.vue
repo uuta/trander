@@ -54,11 +54,13 @@
       :errorMessages="errorMessages"
     ></ValidationCommon>
     <dd class="container head_share">
-      <ContainerIconText
-        text="ツイートしてシェアする！"
-        :image="twitter"
-        className="c-wrap_icon_text"
-      ></ContainerIconText>
+      <a :href="twitterUrl" target="_blank" class="link">
+        <ContainerIconText
+          text="ツイートしてシェアする！"
+          :image="twitter"
+          className="c-wrap_icon_text"
+        ></ContainerIconText>
+      </a>
     </dd>
   </dl>
 </template>
@@ -120,6 +122,11 @@ export default {
       modal: state => state.kw.modal,
       errorMessages: state => state.kw.errorMessages,
     }),
+    twitterUrl() {
+      const url = 'https://trander.net/kw/share/' + this.placeId
+      const content = '今日はここに行きたい気分？%0a%0a' + "%20%23Trander%0a%0a" + "%20%23ネットの海で旅をしよう%0a%0a"
+      return 'https://twitter.com/intent/tweet?text=' + content + '&url=' + url
+    },
     googleMapUrl() {
       return 'https://www.google.com/maps/search/?api=1&query=' + this.lat + ',' + this.lng + '&query_place_id=' + this.placeId
     },

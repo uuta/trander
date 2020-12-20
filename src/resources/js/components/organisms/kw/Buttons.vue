@@ -52,7 +52,9 @@ export default {
       placeId: state => state.kw.placeId,
     }),
     twitterUrl() {
-      return 'https://twitter.com/intent/tweet?text=' + "今日はここに行くよ" + "%0a%0a%20%23Trander%0a%0a" + '&url=' + "https://trander.net"
+      const url = 'https://trander.net/kw/share/' + this.placeId
+      const content = 'ほら、こんな場所が出ました%0a%0a' + "%20%23Trander%0a%0a" + "%20%23ネットの海で旅をしよう%0a%0a"
+      return 'https://twitter.com/intent/tweet?text=' + content + '&url=' + url
     },
     googleMapUrl() {
       return 'https://www.google.com/maps/search/?api=1&query=' + this.lat + ',' + this.lng + '&query_place_id=' + this.placeId

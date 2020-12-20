@@ -78,6 +78,11 @@
       height: auto;
       text-align: center;
 
+      a {
+        color: $text-color;
+        text-decoration: none;
+      }
+
       .icon {
         width: 21px;
         vertical-align: middle;
