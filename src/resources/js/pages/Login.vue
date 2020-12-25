@@ -194,16 +194,21 @@ export default {
   computed: mapState({
     loginErrors: state => state.auth.loginErrorMessages,
     registerErrors: state => state.auth.registerErrorMessages,
-    loading: state => state.auth.loading,
+    loading: state => state.common.loading,
   }),
+  mounted() {
+    this.$store.commit('common/setLoading', false)
+  },
   methods: {
-    login() {
+    async login() {
+      this.$store.commit('common/setLoading', true)
       const data = this.loginForm;
       const router = this.$router;
       this.$store.dispatch('auth/login', {data, router});
       this.$store.commit('external/setSuggestPushing', true);
     },
     register() {
+      this.$store.commit('common/setLoading', true)
       const data = this.registerForm;
       const router = this.$router;
       this.$store.dispatch('auth/register', {data, router});

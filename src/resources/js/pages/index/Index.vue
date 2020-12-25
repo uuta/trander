@@ -56,8 +56,8 @@ export default {
         scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
       },
       targetLocation: {
-        lng: null,
-        lat: null,
+        lng: 0,
+        lat: 0,
       },
     }
   },
@@ -80,11 +80,11 @@ export default {
       errorMessages: state => state.external.errorMessages,
       geoLocationModal: state => state.external.geoLocationModal,
       registerModal: state => state.auth.registerModal,
-      loading: state => state.auth.loading,
       kwModal: state => state.kw.modal,
       kwSuccessful: state => state.kw.successful,
       kwLat: state => state.kw.lat,
       kwLng: state => state.kw.lng,
+      loading: state => state.common.loading,
     }),
     isShowCityDetail() {
       return Boolean(Object.keys(this.$route.params).length)
@@ -141,6 +141,7 @@ export default {
         lng: position.coords.longitude
       }
       await this.$store.dispatch('external/getLoading', data)
+      this.$store.commit('common/setLoading', false)
 
       if (Boolean(Object.keys(this.$route.params).length)) {
         const cityId = {
@@ -192,6 +193,7 @@ export default {
           this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.UNAVAILABLE)
           break
       }
+      this.$store.commit('common/setLoading', false)
     },
     checkRegistration() {
       this.$store.dispatch('auth/checkRegistration')
