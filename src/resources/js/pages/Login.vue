@@ -41,6 +41,7 @@
               id="login-password"
               v-model="loginForm.password"
               placeholder="6文字以上の半角英数字"
+              autocomplete="current-password"
             />
           </div>
           <RouterLink to="/reset-password" class="panel__txt__right">
@@ -115,6 +116,7 @@
               id="password"
               v-model="registerForm.password"
               placeholder="6文字以上の半角英数字"
+              autocomplete="new-password"
             />
           </div>
           <label for="password-confirmation">パスワード (確認)</label>
@@ -126,6 +128,7 @@
               id="password-confirmation"
               v-model="registerForm.password_confirmation"
               placeholder="6文字以上の半角英数字"
+              autocomplete="new-password"
             />
           </div>
           <div class="list-menu">
@@ -191,16 +194,21 @@ export default {
   computed: mapState({
     loginErrors: state => state.auth.loginErrorMessages,
     registerErrors: state => state.auth.registerErrorMessages,
-    loading: state => state.auth.loading,
+    loading: state => state.common.loading,
   }),
+  mounted() {
+    this.$store.commit('common/setLoading', false)
+  },
   methods: {
-    login() {
+    async login() {
+      this.$store.commit('common/setLoading', true)
       const data = this.loginForm;
       const router = this.$router;
       this.$store.dispatch('auth/login', {data, router});
       this.$store.commit('external/setSuggestPushing', true);
     },
     register() {
+      this.$store.commit('common/setLoading', true)
       const data = this.registerForm;
       const router = this.$router;
       this.$store.dispatch('auth/register', {data, router});

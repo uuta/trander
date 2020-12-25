@@ -1,0 +1,32 @@
+.c-text {
+  &_rating {
+    margin: 10px 0;
+
+    .number {
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+
+    .star_wrap {
+      vertical-align: middle;
+
+      img {
+        width: 105px;
+        display: inline-block;
+
+        &.green {
+          filter: invert(71%) sepia(360%) saturate(5106%) hue-rotate(155deg) brightness(86%) contrast(228%);
+        }
+      }
+    }
+
+    .total_ratings {
+      vertical-align: middle;
+      color: $sub-vv;
+    }
+
+    &.green {
+      color: $secondary;
+    }
+  }
+}

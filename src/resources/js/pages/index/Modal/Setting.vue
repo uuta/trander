@@ -95,9 +95,11 @@
           }
         }
       },
-      logout () {
+      async logout () {
         const router = this.$router
-        this.$store.dispatch('auth/logout', router)
+        this.$store.commit('common/setLoading', true)
+        await this.$store.dispatch('auth/logout', router)
+        this.$store.commit('common/setLoading', false)
       },
     }
   }

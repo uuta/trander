@@ -31,12 +31,13 @@ Route::namespace('Auth')->group(function () {
 
 // 外部API
 Route::namespace('External')->group(function () {
-    Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
+    Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities')->middleware('auth');
     Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get')->middleware('auth');
     Route::get('/external/facility', 'FacilityController@index')->name('facility.get')->middleware('auth');
     Route::get('/external/hotel', 'HotelController@index')->name('hotel.get')->middleware('auth');
     Route::get('/external/weather', 'WeatherController@index')->name('weather.get')->middleware('auth');
     Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get')->middleware('auth');
+    Route::get('/external/near-by-search', 'NearBySearchController@index')->name('near-by-search.get')->middleware('auth');
 });
 
 // Distance
@@ -46,10 +47,13 @@ Route::get('/distance', 'DistanceController@index')->name('distance.get')->middl
 Route::get('/setting', 'SettingController@get')->name('setting.get');
 Route::post('/setting', 'SettingController@store')->name('setting.store');
 
+// Google Place
+Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
+
 // Test
 Route::namespace('Test')->group(function () {
     Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
     Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
-    Route::get('/dev-test/find-place', 'TestController@find_place')->name('test.find_place.get');
-    Route::get('/dev-test/near-by-search', 'TestController@near_by_search')->name('test.near_by_search.get');
+    Route::get('/dev-test/find-place', 'TestController@find_place')->name('test.find-place.get');
+    Route::get('/dev-test/near-by-search', 'TestController@near_by_search')->name('test.near-by-search.get');
 });

@@ -5,101 +5,25 @@ namespace App\Services;
 // Guzzleモジュールのクラス読み込み
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
-use Location\Bearing\BearingEllipsoidal;
 use Location\Coordinate;
-use Location\Formatter\Coordinate\DecimalDegrees;
 use Location\Distance\Vincenty;
 use Illuminate\Support\Facades\DB;
 use App\MWay;
-use App\Setting;
 
 class GeoDBCitiesApi
 {
   private $direction;
   private $angle;
-
-  /**
-   * 現在地を元にランダムに地点を取得する
-   * @param object $request
-   * @return string
-   */
-  public function getLatAndLng($request)
-  {
-    // ランダムに角度を生成する
-    $this->angle = $this->generateAngle($request);
-
-    // ランダムに距離を生成する
-    $distance = $this->generateDistance($request);
-
-    // 提案先の地点をランダムに生成する
-    $currentLocation = new Coordinate($request->lat, $request->lng);
-    $bearingEllipsoidal = new BearingEllipsoidal();
-    $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $this->angle, $distance);
-    $commaDestination = $destination->format(new DecimalDegrees(','));
-
-    // 緯度経度のフォーマットを整える
-    return $this->adjustLatAndLngFormat($commaDestination);
-  }
-
-  /**
-   * ランダムに角度を生成する
-   * @param object $request
-   * @return float
-   */
-  private function generateAngle(object $request)
-  {
-    // Only when direction_type is north, get 0 or 1
-    $num = mt_rand(0, 1);
-    $direction = $request->direction_type === Setting::DIRECTION_TYPE['north']
-      ? Setting::DIRECTION_ANGLE[1][$num]
-      : Setting::DIRECTION_ANGLE[$request->direction_type];
-
-    if ($direction === Setting::DIRECTION_ANGLE[1][1]
-      || $request->direction_type === Setting::DIRECTION_TYPE['south']
-      || $request->direction_type === Setting::DIRECTION_TYPE['west']
-    ) {
-      $angle = $direction['min'] + mt_rand() / mt_getrandmax() * ($direction['max'] - $direction['min']);
-    } else {
-      $angle = mt_rand() / mt_getrandmax() * $direction['max'];
-    }
-    return $angle;
-  }
-
-  /**
-   * ランダムに距離を生成する
-   * @return float
-   */
-  private function generateDistance($request)
-  {
-    $min = $request->min;
-    $max = $request->max;
-    return rand($min, $max);
-  }
-
-  /**
-   * 緯度経度のフォーマットを整える
-   * @param string $destination
-   * @return string
-   */
-  private function adjustLatAndLngFormat($destination)
-  {
-    $adjustDestination = '';
-    $arr = explode(',', $destination);
-    foreach ($arr as $value) {
-      if (strpos($value, '-') !== true) {
-        $value = '+' . $value;
-      }
-      $adjustDestination .= $value;
-    }
-    return $adjustDestination;
-  }
+  private $distance;
+  private $ways;
 
   /**
    * GeoDBCitiesにリクエストを送信してレスポンスを受け取る
+   *
    * @param string $location
-   * @return array
+   * @return object
    */
-  public function apiRequest($location)
+  public function api_request($location) : object
   {
     $client = new Client();
     $sourceUrl = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
@@ -119,29 +43,31 @@ class GeoDBCitiesApi
 
   /**
    * レスポンスに情報を追加する
+   *
    * @param object $request
    * @param object $response
+   * @param float $angle
    * @return array
    */
-  public function addRequest(object $request, object $response)
+  public function add_request(object $request, object $response, float $angle) : array
   {
     $responseBody = json_decode($response->getBody()->getContents(), true);
 
     // レスポンスの距離を上書きする
     foreach($responseBody['data'] as &$data) {
-      $distance = $this->getDistance($request, $data);
-      $data['distance'] = (float)$distance;
+      $this->get_distance($request, $data);
+      $data['distance'] = $this->distance;
     }
 
     // レスポンスに移動手段の推奨度を追加する
     foreach($responseBody['data'] as &$data) {
-      $ways = $this->getWayOfRecommend($distance);
-      $data['ways'] = $ways;
+      $this->get_way_of_recommend();
+      $data['ways'] = $this->ways;
     }
 
     // レスポンスに方角を追加する
     foreach($responseBody['data'] as &$data) {
-      $this->getDirection();
+      $this->get_direction($angle);
       $data['direction'] = $this->direction;
     }
 
@@ -165,45 +91,43 @@ class GeoDBCitiesApi
 
   /**
    * 現在地と街までの距離を取得する
-   * @param object $request: リクエスト
-   * @param array $response: レスポンス
-   * @return float
+   *
+   * @param object $request
+   * @param array $response
    */
-  private function getDistance(object $request, array $response) : float
+  private function get_distance(object $request, array $response)
   {
     $coordinate1 = new Coordinate($request->lat, $request->lng);
     $coordinate2 = new Coordinate($response['latitude'], $response['longitude']);
     $calculator = new Vincenty();
     $distance = ($calculator->getDistance($coordinate1, $coordinate2) * 0.001);
-    return (float)round($distance, 1);
+    $this->distance = (float)round($distance, 1);
   }
 
   /**
    * Get the recommend frequencies of ways
-   * @param float $distance: 距離
-   * @return array
    */
-  private function getWayOfRecommend($distance) : array
+  private function get_way_of_recommend()
   {
     $ways = [];
     foreach(MWay::WAYS as $key => $value) {
       $way = DB::table('m_ways')->where([
         ['way_id', $value],
-        ['min_distance', '<=', $distance],
-        ['max_distance', '>', $distance]
+        ['min_distance', '<=', $this->distance],
+        ['max_distance', '>', $this->distance]
       ])->get();
       $ways[$key] = $way[0]->recommend_frequency;
     }
-    return $ways;
+    $this->ways = $ways;
   }
 
   /**
    * Get a direction from the angle
-   * @return string
+   *
+   * @param float $angle
    */
-  private function getDirection()
+  private function get_direction(float $angle)
   {
-    $angle = $this->angle;
     $data = DB::table('m_directions')->where([
       ['min_angle', '<=', $angle],
       ['max_angle', '>', $angle]

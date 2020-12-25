@@ -36,6 +36,10 @@ dd {
   margin-left: 0;
 }
 
+input {
+  outline: 0;
+}
+
 @media screen and (max-width: 480px) {
   main {
     margin-bottom: 0;

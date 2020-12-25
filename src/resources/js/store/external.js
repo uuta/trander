@@ -15,10 +15,8 @@ const state = {
   countryCode: null,
   lat: null,
   lng: null,
-  currentLat: null,
-  currentLng: null,
-  seeLat: null,
-  seeLng: null,
+  currentLat: 0,
+  currentLng: 0,
   wikiDataId: null,
   icon: false,
   modal: false,
@@ -42,6 +40,7 @@ const state = {
   facilities: null,
   weathers: null,
   wiki: null,
+  searchingUrl: null,
 }
 
 const getters = {}
@@ -54,8 +53,6 @@ const mutations = {
     state.countryCode = value.countryCode
     state.lat = value.latitude
     state.lng = value.longitude
-    state.seeLat = value.latitude
-    state.seeLng = value.longitude
     state.wikiDataId = value.wikiDataId
     state.icon = true
     state.modal = true
@@ -81,8 +78,8 @@ const mutations = {
   setCurrentLocation(state, value) {
     state.currentLat = value.lat
     state.currentLng = value.lng
-    state.seeLat = value.lat
-    state.seeLng = value.lng
+    state.lat = value.lat
+    state.lng = value.lng
   },
   setSetting(state, value) {
     state.rangeOfDistance = value.distance
@@ -139,6 +136,9 @@ const mutations = {
     state.walking = value.ways.walking
     state.bycicle = value.ways.bycicle
     state.car = value.ways.car
+  },
+  setSearchingUrl(state, value) {
+    state.searchingUrl = value
   },
 }
 

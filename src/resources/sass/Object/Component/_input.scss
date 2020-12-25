@@ -1,0 +1,21 @@
+.c-input {
+
+  &_general {
+    -webkit-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    -moz-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    -ms-filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    width: 70%;
+    margin: 10px 0;
+    font-size: $font-mid;
+    color: $sub-vv;
+    font-weight: bold;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}

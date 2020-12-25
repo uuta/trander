@@ -13,7 +13,6 @@ const state = {
     resetErrorMessages: null,
     regenerateErrorMessages: null,
     registerModal: false,
-    loading: false
 }
 
 const getters = {
@@ -47,9 +46,6 @@ const mutations = {
     setRegisterModal(state, registerModal) {
         state.registerModal = registerModal
     },
-    setLoading(state, loading) {
-        state.loading = loading
-    }
 }
 
 const actions = {
@@ -57,10 +53,8 @@ const actions = {
         data,
         router
     }) {
-        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/register', data)
-        context.commit('setLoading', false)
         if (response.status === CREATED) {
             context.commit('setApiStatus', true)
             context.commit('setUser', response.data)
@@ -80,10 +74,8 @@ const actions = {
         data,
         router
     }) {
-        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/login', data)
-        context.commit('setLoading', false)
 
         if (response.status === OK) {
             context.commit('setApiStatus', true)
@@ -99,10 +91,8 @@ const actions = {
         }
     },
     async logout(context, router) {
-        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/logout')
-        context.commit('setLoading', false)
 
         if (response.status === OK) {
             context.commit('setApiStatus', true)
@@ -143,10 +133,8 @@ const actions = {
         data,
         router
     }) {
-        context.commit('setLoading', true)
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/reset-password', data)
-        context.commit('setLoading', false)
 
         if (response.status === OK) {
             context.commit('setEmail', data)

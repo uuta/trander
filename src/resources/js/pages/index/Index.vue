@@ -7,12 +7,13 @@
       <Error></Error>
       <SuggestCurrentLocation v-if="geoLocationModal"></SuggestCurrentLocation>
       <Setting></Setting>
-      <GmapMap :center="{lat:seeLat, lng:seeLng}" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
+      <GmapMap :center="targetLocation" :zoom="14" :options="{disableDefaultUI:true}" style="width: 100%; height: 100%;">
         <gmap-marker :position="{lat:currentLat, lng:currentLng}" :icon="icon_center">
         </gmap-marker>
-        <gmap-marker v-if="icon" :position="{lat:lat, lng:lng}">
+        <gmap-marker v-if="icon" :position="targetLocation">
         </gmap-marker>
       </GmapMap>
+      <KwModal v-if="kwModal"></KwModal>
       <MapInfo></MapInfo>
       <button class="button_map_setting"><i class="fas fa-cog" @click.self="showSettingModal"></i></button>
       <Searched></Searched>
@@ -26,13 +27,14 @@ import { mapState, mapGetters } from 'vuex'
 import Setting from './Modal/Setting.vue'
 import CityDetail from '../cityDetails/index.vue'
 import MapInfo from '../../components/organisms/index/mapInfo.vue'
+import KwModal from '../../components/organisms/kw/Modal.vue'
 import Registration from './Modal/Registration.vue'
 import Searched from './Modal/Searched.vue'
 import SuggestCurrentLocation from './Modal/Suggest/CurrentLocation.vue'
 import Error from '../../components/organisms/errors/Modal.vue'
 import Bars from '../../components/atoms/loader/Bars.vue'
 import CONST_EXTERNAL from '../../const/external.js'
-import { BROWSER } from '../../const/common.js'
+import { BROWSER, URL_TYPE } from '../../const/common.js'
 import { checkBrowser } from '../../services/common/checkBrowser.js'
 
 export default {
@@ -40,11 +42,12 @@ export default {
     Setting,
     CityDetail,
     MapInfo,
+    KwModal,
     Registration,
     Searched,
     SuggestCurrentLocation,
     Error,
-    Bars
+    Bars,
   },
   data() {
     return {
@@ -52,12 +55,17 @@ export default {
         url: '/assets/images/current_location.png',
         scaledSize: {width: 30, height: 30, f: 'px', b: 'px'}
       },
+      targetLocation: {
+        lng: 0,
+        lat: 0,
+      },
     }
   },
   created() {
     this.SUGGEST = CONST_EXTERNAL.CURRENT_LOCATION_SUGGEST
     this.checkRegistration()
     this.judgeGeoLocation()
+    this.setSearchingUrl()
     this.$store.commit('external/setSettingModal', false)
   },
   computed: {
@@ -66,15 +74,17 @@ export default {
       lng: state => state.external.lng,
       currentLat: state => state.external.currentLat,
       currentLng: state => state.external.currentLng,
-      seeLat: state => state.external.seeLat,
-      seeLng: state => state.external.seeLng,
       icon: state => state.external.icon,
       wikiDataId: state => state.external.wikiDataId,
       settingModal: state => state.external.settingModal,
       errorMessages: state => state.external.errorMessages,
       geoLocationModal: state => state.external.geoLocationModal,
       registerModal: state => state.auth.registerModal,
-      loading: state => state.auth.loading
+      kwModal: state => state.kw.modal,
+      kwSuccessful: state => state.kw.successful,
+      kwLat: state => state.kw.lat,
+      kwLng: state => state.kw.lng,
+      loading: state => state.common.loading,
     }),
     isShowCityDetail() {
       return Boolean(Object.keys(this.$route.params).length)
@@ -131,6 +141,7 @@ export default {
         lng: position.coords.longitude
       }
       await this.$store.dispatch('external/getLoading', data)
+      this.$store.commit('common/setLoading', false)
 
       if (Boolean(Object.keys(this.$route.params).length)) {
         const cityId = {
@@ -182,6 +193,7 @@ export default {
           this.$store.commit('external/setGeoLocationSetting', this.SUGGEST.UNAVAILABLE)
           break
       }
+      this.$store.commit('common/setLoading', false)
     },
     checkRegistration() {
       this.$store.dispatch('auth/checkRegistration')
@@ -191,6 +203,22 @@ export default {
     },
     showSettingModal() {
       this.$store.commit('external/setSettingModal', true)
+    },
+    setSearchingUrl() {
+      const url = this.$route.path.indexOf('index') != -1
+        ? URL_TYPE.CITY
+        : URL_TYPE.KW
+      this.$store.commit('external/setSearchingUrl', url)
+    },
+  },
+  watch: {
+    lat() {
+      this.targetLocation.lat = this.lat
+      this.targetLocation.lng = this.lng
+    },
+    kwLat() {
+      this.targetLocation.lat = Number(this.kwLat)
+      this.targetLocation.lng = Number(this.kwLng)
     },
   }
 }
