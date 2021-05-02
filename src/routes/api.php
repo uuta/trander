@@ -1,30 +1,26 @@
 <?php
 
-// 会員登録
-Route::post('/register', 'Auth\RegisterController@register')->name('register');
-
-// ログイン
-Route::post('/login', 'Auth\LoginController@login')->name('login');
-
 // モーダル用の値変更
 Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
-
-// ログアウト
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログインユーザー
 Route::get('/user', function () {
     return Auth::user();
 })->name('user');
 
-// パスワードリセット
-Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
-
-// パスワード再設定
-Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
-
-// SNSログイン
+// Login
 Route::namespace('Auth')->group(function () {
+    // 会員登録
+    Route::post('/register', 'RegisterController@register')->name('register');
+    // ログイン
+    Route::post('/login', 'LoginController@login')->name('login');
+    // ログアウト
+    Route::post('/logout', 'LoginController@logout')->name('logout');
+    // パスワードリセット
+    Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
+    // パスワード再設定
+    Route::post('/regenerate-password', 'ForgotPasswordController@callResetPassword')->name('regenerate-password');
+    // SNS Login
     Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
     Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
 });
