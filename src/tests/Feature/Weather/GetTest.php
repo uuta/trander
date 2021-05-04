@@ -19,6 +19,7 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 28.028910,
             'lng' => 86.780009,
+            'api_token' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -48,7 +49,9 @@ class GetTest extends LoginTestCase
     public function should_weather_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [];
+        $request = [
+            'api_token' => $this->user->api_token
+        ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
             ->assertStatus(422)
@@ -70,6 +73,7 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 200,
             'lng' => 500,
+            'api_token' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
