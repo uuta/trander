@@ -7,7 +7,7 @@ Route::post('/change-registration', 'CheckController@changeRegistration')->name(
 // Get Login User
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+})->name('user');
 
 // Login
 Route::namespace('Auth')->group(function () {

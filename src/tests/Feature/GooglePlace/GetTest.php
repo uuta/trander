@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\GooglePlace;
 
-use Tests\TestCase;
+use Tests\LoginTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\GooglePlaceId;
 
-class GetTest extends TestCase
+class GetTest extends LoginTestCase
 {
     private const ROUTE = 'google-place.get';
     private const ID = 'ChIJrxB0hPyFGGARiBrTkA2Xd3I';
@@ -26,6 +26,7 @@ class GetTest extends TestCase
     {
         $request = [
             'placeId' => $this::ID,
+            'api_token' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
 
@@ -61,6 +62,7 @@ class GetTest extends TestCase
         // Not exist id
         $request = [
             'placeId' => 'Unfortunately, this id doesn\'t exist',
+            'api_token' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -74,7 +76,9 @@ class GetTest extends TestCase
     public function should_google_place_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [];
+        $request = [
+            'api_token' => $this->user->api_token,
+        ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
             ->assertStatus(422)
@@ -94,6 +98,7 @@ class GetTest extends TestCase
         // Uncorrected parameter
         $request = [
             'placeId' => 200,
+            'api_token' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response

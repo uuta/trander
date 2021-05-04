@@ -4,20 +4,15 @@ namespace Tests\Feature;
 
 use App\Setting;
 use App\User;
-use Tests\TestCase;
+use Tests\LoginTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
-class SettingApiTest extends TestCase
+class SettingApiTest extends LoginTestCase
 {
-    use RefreshDatabase;
-
-    public function setUp()
-    {
-        parent::setUp();
-    }
+    private const ROUTE_GET = 'setting.get';
+    private const ROUTE_STORE = 'setting.store';
 
     /**
      * @test
@@ -30,15 +25,11 @@ class SettingApiTest extends TestCase
         // 作成したテストユーザ検索
         $user = DB::table('users')->where('id', $this->setting->user_id)->first();
 
-        // ログイン
-        $response_test = $this->json('POST', route('login'), [
-            'email' => $user->email,
-            'password' => 'secret',
-        ]);
-        $response_test->assertStatus(200);
-
         // setting_get_APIにリクエストして成功する
-        $response = $this->get(route('setting.get'));
+        $request = [
+            'api_token' => $user->api_token,
+        ];
+        $response = $this->call('GET', route($this::ROUTE_GET), $request);
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -53,40 +44,31 @@ class SettingApiTest extends TestCase
      */
     public function should_setting_storeにリクエストしてデータが保存される（作成）()
     {
-        // テストユーザ作成
-        $this->user = factory(User::class)->create();
-
-        // ログイン
-        $response_test = $this->json('POST', route('login'), [
-            'email' => $this->user->email,
-            'password' => 'secret',
-        ]);
-        $response_test->assertStatus(200);
-
-        $distance = [
+        // setting_post_APIにリクエストして成功する
+        $request = [
             'min' => 15,
             'max' => 33,
             'direction_type' => Setting::DIRECTION_TYPE['north'],
+            'api_token' => $this->user->api_token,
         ];
-        // setting_post_APIにリクエストして成功する
-        $response = $this->post(route('setting.get'), $distance);
+        $response = $this->call('POST', route($this::ROUTE_STORE), $request);
         $response->assertStatus(200);
 
         // データが保存されていることを確認する
         $this->assertDatabaseHas('settings', [
             'user_id' => $this->user->id,
-            'min_distance' => $distance['min'],
-            'max_distance' => $distance['max'],
-            'direction_type' => $distance['direction_type'],
+            'min_distance' => $request['min'],
+            'max_distance' => $request['max'],
+            'direction_type' => $request['direction_type'],
         ]);
 
         $setting = DB::table('settings')->where('user_id', $this->user->id)->first();
 
         $this->assertDatabaseHas('setting_historys', [
             'setting_id' => $setting->id,
-            'min_distance' => $distance['min'],
-            'max_distance' => $distance['max'],
-            'direction_type' => $distance['direction_type'],
+            'min_distance' => $request['min'],
+            'max_distance' => $request['max'],
+            'direction_type' => $request['direction_type'],
         ]);
     }
 
@@ -96,42 +78,36 @@ class SettingApiTest extends TestCase
     public function should_setting_storeにリクエストしてデータが保存される（更新）()
     {
         // テストユーザ作成
-        $this->setting = factory(Setting::class)->states('register user and safe distance')->create();
+        $setting = factory(Setting::class)->states('register user and safe distance')->create();
 
         // 作成したテストユーザ検索
-        $user = DB::table('users')->where('id', $this->setting->user_id)->first();
+        $user = DB::table('users')->where('id', $setting->user_id)->first();
 
-        // ログイン
-        $response_test = $this->json('POST', route('login'), [
-            'email' => $user->email,
-            'password' => 'secret',
-        ]);
-        $response_test->assertStatus(200);
-
-        $distance = [
-            'min' => $this->setting->min_distance,
-            'max' => $this->setting->max_distance,
-            'direction_type' => $this->setting->direction_type,
+        $request = [
+            'min' => $setting->min_distance,
+            'max' => $setting->max_distance,
+            'direction_type' => $setting->direction_type,
+            'api_token' => $user->api_token,
         ];
         // setting_post_APIにリクエストして成功する
-        $response = $this->post(route('setting.get'), $distance);
+        $response = $this->call('POST', route($this::ROUTE_STORE), $request);
         $response->assertStatus(200);
 
         // データが保存されていることを確認する
         $this->assertDatabaseHas('settings', [
-            'user_id' => $this->setting->user_id,
-            'min_distance' => $this->setting->min_distance,
-            'max_distance' => $this->setting->max_distance,
-            'direction_type' => $this->setting->direction_type,
+            'user_id' => $setting->user_id,
+            'min_distance' => $setting->min_distance,
+            'max_distance' => $setting->max_distance,
+            'direction_type' => $setting->direction_type,
         ]);
 
-        $setting = DB::table('settings')->where('user_id', $this->setting->user_id)->first();
+        $setting = DB::table('settings')->where('user_id', $setting->user_id)->first();
 
         $this->assertDatabaseHas('setting_historys', [
             'setting_id' => $setting->id,
-            'min_distance' => $distance['min'],
-            'max_distance' => $distance['max'],
-            'direction_type' => $distance['direction_type'],
+            'min_distance' => $request['min'],
+            'max_distance' => $request['max'],
+            'direction_type' => $request['direction_type'],
         ]);
     }
 }

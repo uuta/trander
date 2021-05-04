@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\PlaceInfo;
 
-use Tests\TestCase;
+use Tests\LoginTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class Get extends TestCase
+class Get extends LoginTestCase
 {
     /**
      * 正常
@@ -22,8 +22,10 @@ class Get extends TestCase
      */
     private function wiki()
     {
-        $request = [];
-        $response = $this->get(route('test.wiki.get'), $request);
+        $request = [
+            'api_token' => $this->user->api_token,
+        ];
+        $response = $this->call('GET', route('test.wiki.get'), $request);
         $data = $response->json(['entities']['Q1134006']);
         var_dump($data);
 
@@ -35,8 +37,10 @@ class Get extends TestCase
      */
     private function weather()
     {
-        $request = [];
-        $response = $this->get(route('test.weather.get'), $request);
+        $request = [
+            'api_token' => $this->user->api_token,
+        ];
+        $response = $this->call('GET', route('test.weather.get'), $request);
         $data = $response->json();
         dd($data);
 
@@ -48,8 +52,10 @@ class Get extends TestCase
      */
     private function find_place()
     {
-        $request = [];
-        $response = $this->get(route('test.find-place.get'), $request);
+        $request = [
+            'api_token' => $this->user->api_token,
+        ];
+        $response = $this->call('GET', route('test.find-place.get'), $request);
         $data = $response->json();
         dd($data);
 
@@ -61,8 +67,10 @@ class Get extends TestCase
      */
     private function near_by_search()
     {
-        $request = [];
-        $response = $this->get(route('test.near-by-search.get'), $request);
+        $request = [
+            'api_token' => $this->user->api_token,
+        ];
+        $response = $this->call('GET', route('test.near-by-search.get'), $request);
         $data = $response->json();
         dd($data);
 

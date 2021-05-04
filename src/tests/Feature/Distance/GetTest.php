@@ -28,6 +28,7 @@ class GetTest extends LoginTestCase
             'lng' => 141.322995,
             'cityLat' => 43.068933,
             'cityLng' => 141.332181,
+            'api_token' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -47,7 +48,9 @@ class GetTest extends LoginTestCase
     public function should_get_distance_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [];
+        $request = [
+            'api_token' => $this->user->api_token
+        ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
             ->assertStatus(422)
@@ -73,6 +76,7 @@ class GetTest extends LoginTestCase
             'lng' => 500,
             'cityLat' => 200,
             'cityLng' => 500,
+            'api_token' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response

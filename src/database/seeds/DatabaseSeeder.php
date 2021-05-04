@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(['MWaysSeeder::class']);
         $this->call(['MDirectionSeeder::class']);
+        $this->call(['GooglePlaceIdsSeeder::class']);
     }
 }

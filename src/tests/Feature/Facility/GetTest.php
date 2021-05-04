@@ -19,6 +19,7 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 43.067883,
             'lng' => 141.322995,
+            'api_token' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -47,7 +48,9 @@ class GetTest extends LoginTestCase
     public function should_facility_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [];
+        $request = [
+            'api_token' => $this->user->api_token
+        ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
             ->assertStatus(422)
@@ -69,6 +72,7 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 200,
             'lng' => 500,
+            'api_token' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -90,6 +94,7 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 36.676576,
             'lng' => 150.121322,
+            'api_token' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(404);

@@ -17,7 +17,8 @@ class GetCityTest extends LoginTestCase
     public function should_city_wiki_APIへのリクエストに成功する()
     {
         $request = [
-            'wikiId' => 'Q237'
+            'wikiId' => 'Q237',
+            'api_token' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -43,7 +44,8 @@ class GetCityTest extends LoginTestCase
     public function should_city_wiki_APIへのリクエストに成功する（国内）()
     {
         $request = [
-            'wikiId' => 'Q817271'
+            'wikiId' => 'Q817271',
+            'api_token' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -69,7 +71,9 @@ class GetCityTest extends LoginTestCase
     public function should_city_wiki_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [];
+        $request = [
+            'api_token' => $this->user->api_token,
+        ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
             ->assertStatus(422)
@@ -89,6 +93,7 @@ class GetCityTest extends LoginTestCase
         // Uncorrected parameter
         $request = [
             'wikiId' => 200,
+            'api_token' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -107,7 +112,8 @@ class GetCityTest extends LoginTestCase
     public function should_GetId_GeoDBCities_APIへのリクエストが失敗する（400）()
     {
         $request = [
-            'wikiId' => 'Q739718973891789'
+            'wikiId' => 'Q739718973891789',
+            'api_token' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(400);
