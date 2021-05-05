@@ -32,8 +32,8 @@ class PostTest extends LoginTestCase
             'lng' => 141.322995,
             'min' => 0,
             'max' => 50,
-            'direction_type' => Setting::DIRECTION_TYPE['none'],
-            'api_token' => $this->user->api_token
+            'directionType' => Setting::DIRECTION_TYPE['none'],
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->post(route('geo-db-cities'), $request);
         $response->assertStatus(200);
@@ -68,8 +68,8 @@ class PostTest extends LoginTestCase
             'lng' => 141.322995,
             'min' => 10,
             'max' => 50,
-            'direction_type' => Setting::DIRECTION_TYPE['south'],
-            'api_token' => $this->user->api_token
+            'directionType' => Setting::DIRECTION_TYPE['south'],
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->post(route('geo-db-cities'), $request);
         $response->assertStatus(200);
@@ -104,8 +104,8 @@ class PostTest extends LoginTestCase
             'lng' => 152.442722,
             'min' => 0,
             'max' => 50,
-            'direction_type' => Setting::DIRECTION_TYPE['none'],
-            'api_token' => $this->user->api_token
+            'directionType' => Setting::DIRECTION_TYPE['none'],
+            'apiToken' => $this->user->api_token,
         ];
         $code = 'データなし';
         $message = '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。';
@@ -133,7 +133,7 @@ class PostTest extends LoginTestCase
             'lng' => 141.322995,
             'min' => 0,
             'max' => 50,
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->post(route('geo-db-cities'), $request);
 
@@ -141,7 +141,7 @@ class PostTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'direction_type' => ['「direction type」フィールドの入力は必須です。']
+                    'directionType' => ['「direction type」フィールドの入力は必須です。']
                 ]
             ]);
     }

@@ -18,7 +18,7 @@ class GetIdTest extends LoginTestCase
     {
         $request = [
             'id' => 123214,
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE, $request));
         $response->assertStatus(200);
@@ -51,7 +51,7 @@ class GetIdTest extends LoginTestCase
         // Uncorrected parameter
         $request = [
             'id' => 'string',
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE, $request));
         $response
@@ -71,7 +71,7 @@ class GetIdTest extends LoginTestCase
     {
         $request = [
             'id' => 1232147491279,
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(404);

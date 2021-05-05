@@ -12,8 +12,6 @@ class DistanceController extends NormalizedController
     //
     public function index(GetRequest $request)
     {
-        $this->normarize_request($request);
-
         $GetDistance = new GetDistance($request);
         $GetDistance->get_angle();
         $response = $GetDistance->get_response();

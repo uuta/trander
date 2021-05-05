@@ -23,7 +23,7 @@ class Get extends LoginTestCase
     private function wiki()
     {
         $request = [
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route('test.wiki.get'), $request);
         $data = $response->json(['entities']['Q1134006']);
@@ -38,7 +38,7 @@ class Get extends LoginTestCase
     private function weather()
     {
         $request = [
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route('test.weather.get'), $request);
         $data = $response->json();
@@ -53,7 +53,7 @@ class Get extends LoginTestCase
     private function find_place()
     {
         $request = [
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route('test.find-place.get'), $request);
         $data = $response->json();
@@ -68,7 +68,7 @@ class Get extends LoginTestCase
     private function near_by_search()
     {
         $request = [
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route('test.near-by-search.get'), $request);
         $data = $response->json();

@@ -28,7 +28,7 @@ class GetTest extends LoginTestCase
             'lng' => 141.322995,
             'cityLat' => 43.068933,
             'cityLng' => 141.332181,
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -49,7 +49,7 @@ class GetTest extends LoginTestCase
     {
         // Empty parameter
         $request = [
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -76,7 +76,7 @@ class GetTest extends LoginTestCase
             'lng' => 500,
             'cityLat' => 200,
             'cityLng' => 500,
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response

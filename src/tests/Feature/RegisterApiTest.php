@@ -20,7 +20,7 @@ class RegisterApiTest extends TestCase
             'name' => 'vuesplash user',
             'email' => 'dummy@email.com',
             'password' => 'test1234',
-            'password_confirmation' => 'test1234',
+            'passwordConfirmation' => 'test1234',
             'termsOfService' => User::AGREE_TO_TERMS_OF_SERVICE,
             'privacyPolicy' => User::AGREE_TO_PRIVACY_POLICY,
         ];

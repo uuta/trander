@@ -148,8 +148,8 @@ return [
         'name' => 'お名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
-        'termsOfService' => '利用規約',
-        'privacyPolicy' => 'プライバシポリシー',
+        'terms_of_service' => '利用規約',
+        'privacy_policy' => 'プライバシポリシー',
     ],
 
 ];

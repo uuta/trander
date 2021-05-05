@@ -18,7 +18,7 @@ class GetCityTest extends LoginTestCase
     {
         $request = [
             'wikiId' => 'Q237',
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -45,7 +45,7 @@ class GetCityTest extends LoginTestCase
     {
         $request = [
             'wikiId' => 'Q817271',
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -72,7 +72,7 @@ class GetCityTest extends LoginTestCase
     {
         // Empty parameter
         $request = [
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -93,7 +93,7 @@ class GetCityTest extends LoginTestCase
         // Uncorrected parameter
         $request = [
             'wikiId' => 200,
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -113,7 +113,7 @@ class GetCityTest extends LoginTestCase
     {
         $request = [
             'wikiId' => 'Q739718973891789',
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(400);

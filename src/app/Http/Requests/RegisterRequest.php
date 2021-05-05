@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\GooglePlace;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class GetRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,11 @@ class GetRequest extends FormRequest
     public function rules()
     {
         return [
-            'place_id' => 'required|string',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'terms_of_service' => ['accepted'],
+            'privacy_policy' => ['accepted'],
         ];
     }
 

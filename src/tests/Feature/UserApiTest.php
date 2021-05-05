@@ -17,7 +17,7 @@ class UserApiTest extends LoginTestCase
     public function should_ログイン中のユーザーを返却する()
     {
         $request = [
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE_GET), $request);
 

@@ -29,8 +29,8 @@ class GetRequest extends FormRequest
         return [
             'lat' => 'required|numeric|between:'. Setting::LAT['min']. ','. Setting::LAT['max'],
             'lng' => 'required|numeric|between:'. Setting::LNG['min']. ','. Setting::LNG['max'],
-            'cityLat' => 'required|numeric|between:'. Setting::LAT['min']. ','. Setting::LAT['max'],
-            'cityLng' => 'required|numeric|between:'. Setting::LNG['min']. ','. Setting::LNG['max'],
+            'city_lat' => 'required|numeric|between:'. Setting::LAT['min']. ','. Setting::LAT['max'],
+            'city_lng' => 'required|numeric|between:'. Setting::LNG['min']. ','. Setting::LNG['max'],
         ];
     }
 

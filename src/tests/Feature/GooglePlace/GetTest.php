@@ -26,7 +26,7 @@ class GetTest extends LoginTestCase
     {
         $request = [
             'placeId' => $this::ID,
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
 
@@ -62,7 +62,7 @@ class GetTest extends LoginTestCase
         // Not exist id
         $request = [
             'placeId' => 'Unfortunately, this id doesn\'t exist',
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -77,7 +77,7 @@ class GetTest extends LoginTestCase
     {
         // Empty parameter
         $request = [
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -98,7 +98,7 @@ class GetTest extends LoginTestCase
         // Uncorrected parameter
         $request = [
             'placeId' => 200,
-            'api_token' => $this->user->api_token,
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response

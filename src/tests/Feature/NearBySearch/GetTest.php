@@ -29,7 +29,7 @@ class GetTest extends LoginTestCase
             'max' => 3,
             'min' => 0,
             'directionType' => Setting::DIRECTION_TYPE['none'],
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(200);
@@ -79,7 +79,7 @@ class GetTest extends LoginTestCase
     {
         // Empty parameter
         $request = [
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -110,7 +110,7 @@ class GetTest extends LoginTestCase
             'max' => -10,
             'min' => -10,
             'directionType' => 'aaaaaa',
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response
@@ -140,7 +140,7 @@ class GetTest extends LoginTestCase
             'max' => 3,
             'min' => 0,
             'directionType' => Setting::DIRECTION_TYPE['none'],
-            'api_token' => $this->user->api_token
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request);
         $response->assertStatus(404);

@@ -27,15 +27,15 @@ class SettingApiTest extends LoginTestCase
 
         // setting_get_APIにリクエストして成功する
         $request = [
-            'api_token' => $user->api_token,
+            'apiToken' => $user->api_token,
         ];
         $response = $this->call('GET', route($this::ROUTE_GET), $request);
         $response
             ->assertStatus(200)
             ->assertJson([
-                'min_distance' => $this->setting->min_distance,
-                'max_distance' => $this->setting->max_distance,
-                'direction_type' => $this->setting->direction_type,
+                'minDistance' => $this->setting->min_distance,
+                'maxDistance' => $this->setting->max_distance,
+                'directionType' => $this->setting->direction_type,
             ]);
     }
 
@@ -48,8 +48,8 @@ class SettingApiTest extends LoginTestCase
         $request = [
             'min' => 15,
             'max' => 33,
-            'direction_type' => Setting::DIRECTION_TYPE['north'],
-            'api_token' => $this->user->api_token,
+            'directionType' => Setting::DIRECTION_TYPE['north'],
+            'apiToken' => $this->user->api_token,
         ];
         $response = $this->call('POST', route($this::ROUTE_STORE), $request);
         $response->assertStatus(200);
@@ -59,7 +59,7 @@ class SettingApiTest extends LoginTestCase
             'user_id' => $this->user->id,
             'min_distance' => $request['min'],
             'max_distance' => $request['max'],
-            'direction_type' => $request['direction_type'],
+            'direction_type' => $request['directionType'],
         ]);
 
         $setting = DB::table('settings')->where('user_id', $this->user->id)->first();
@@ -68,7 +68,7 @@ class SettingApiTest extends LoginTestCase
             'setting_id' => $setting->id,
             'min_distance' => $request['min'],
             'max_distance' => $request['max'],
-            'direction_type' => $request['direction_type'],
+            'direction_type' => $request['directionType'],
         ]);
     }
 
@@ -86,8 +86,8 @@ class SettingApiTest extends LoginTestCase
         $request = [
             'min' => $setting->min_distance,
             'max' => $setting->max_distance,
-            'direction_type' => $setting->direction_type,
-            'api_token' => $user->api_token,
+            'directionType' => $setting->direction_type,
+            'apiToken' => $user->api_token,
         ];
         // setting_post_APIにリクエストして成功する
         $response = $this->call('POST', route($this::ROUTE_STORE), $request);
@@ -107,7 +107,7 @@ class SettingApiTest extends LoginTestCase
             'setting_id' => $setting->id,
             'min_distance' => $request['min'],
             'max_distance' => $request['max'],
-            'direction_type' => $request['direction_type'],
+            'direction_type' => $request['directionType'],
         ]);
     }
 }
