@@ -8,9 +8,6 @@ Route::middleware('request.to.snake')->group(function () {
             return $request->user();
         })->name('user');
 
-        // モーダル用の値変更
-        Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
-
         // Login
         Route::namespace('Auth')->group(function () {
             // 会員登録
@@ -30,6 +27,9 @@ Route::middleware('request.to.snake')->group(function () {
 
         // Authentication
         Route::middleware('auth:api')->group(function () {
+
+            // モーダル用の値変更
+            Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
 
             // External API
             Route::namespace('External')->group(function () {

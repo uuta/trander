@@ -8,24 +8,24 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckRepository
 {
-  protected $table = 'users';
+    protected $table = 'users';
 
-  public function getAll()
-  {
-    return DB::table($this->table)->get();
-  }
+    public function getAll()
+    {
+        return DB::table($this->table)->get();
+    }
 
-  /**
-   * usersテーブルのcheck_registrationを0に変更する
-   */
-  public function changeRegistration() {
-    DB::table($this->table)->updateOrInsert(
-      [
-        'id' => Auth::id()
-      ],
-      [
-        'check_registration' => false,
-      ]
-    );
-  }
+    /**
+     * usersテーブルのcheck_registrationを0に変更する
+     */
+    public function changeRegistration() {
+        DB::table($this->table)->updateOrInsert(
+        [
+            'api_token' => Auth::id()
+        ],
+        [
+            'check_registration' => User::REGISTERED,
+        ]
+        );
+    }
 }

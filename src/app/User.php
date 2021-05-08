@@ -16,6 +16,10 @@ class User extends Authenticatable
     const NOT_AGREE_TO_PRIVACY_POLICY = 0;
     const AGREE_TO_PRIVACY_POLICY = 1;
 
+    // Check Registration
+    const REGISTERED = 0;
+    const NOT_REGISTERED = 1;
+
     use Notifiable;
 
     /**
