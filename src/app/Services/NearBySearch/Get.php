@@ -50,7 +50,7 @@ class Get extends ExternalResponseFactory
                 'location' => $this->location,
                 'radius' => 5000,
                 'keyword' => $this->request->keyword,
-                'language' => 'ja',
+                'language' => 'en',
             ]
         ]);
         return $this->response;
