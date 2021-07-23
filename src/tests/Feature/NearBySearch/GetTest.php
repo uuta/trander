@@ -86,12 +86,12 @@ class GetTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'lat' => ['「lat」フィールドの入力は必須です。'],
-                    'lng' => ['「lng」フィールドの入力は必須です。'],
-                    'keyword' => ['「keyword」フィールドの入力は必須です。'],
-                    'max' => ['「max」フィールドの入力は必須です。'],
-                    'min' => ['「min」フィールドの入力は必須です。'],
-                    'directionType' => ['「direction type」フィールドの入力は必須です。'],
+                    'lat' => ['The lat field is required.'],
+                    'lng' => ['The lng field is required.'],
+                    'keyword' => ['The keyword field is required.'],
+                    'max' => ['The max field is required.'],
+                    'min' => ['The min field is required.'],
+                    'directionType' => ['The direction type field is required.'],
                 ]
             ]);
     }
@@ -117,12 +117,12 @@ class GetTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'lat' => ['「lat」は、-90と90の間の値である必要があります。'],
-                    'lng' => ['「lng」は、-180と180の間の値である必要があります。'],
-                    'keyword' => ['「keyword」は文字列形式で入力する必要があります。'],
-                    'max' => ['「max」は、0と 100の間の値である必要があります。'],
-                    'min' => ['「min」は、0と 100の間の値である必要があります。'],
-                    'directionType' => ['「direction type」は、数値形式で入力してください。'],
+                    'lat' => ['The lat must be between -90 and 90.'],
+                    'lng' => ['The lng must be between -180 and 180.'],
+                    'keyword' => ['The keyword must be a string.'],
+                    'max' => ['The max must be between 0 and  100.'],
+                    'min' => ['The min must be between 0 and  100.'],
+                    'directionType' => ['The direction type must be an integer.'],
                 ]
             ]);
     }

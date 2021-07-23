@@ -84,7 +84,7 @@ class GetTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'placeId' => ['「place id」フィールドの入力は必須です。'],
+                    'placeId' => ['The place id field is required.'],
                 ]
             ]);
     }
@@ -105,7 +105,7 @@ class GetTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'placeId' => ['「place id」は文字列形式で入力する必要があります。'],
+                    'placeId' => ['The place id must be a string.'],
                 ]
             ]);
     }

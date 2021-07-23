@@ -58,7 +58,7 @@ class GetIdTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'id' => ['「id」は、数値形式で入力してください。'],
+                    'id' => ['The id must be an integer.'],
                 ]
             ]);
     }

@@ -56,10 +56,10 @@ class GetTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'lat' => ['「lat」フィールドの入力は必須です。'],
-                    'lng' => ['「lng」フィールドの入力は必須です。'],
-                    'cityLat' => ['「city lat」フィールドの入力は必須です。'],
-                    'cityLng' => ['「city lng」フィールドの入力は必須です。'],
+                    'lat' => ['The lat field is required.'],
+                    'lng' => ['The lng field is required.'],
+                    'cityLat' => ['The city lat field is required.'],
+                    'cityLng' => ['The city lng field is required.'],
                 ]
             ]);
     }
@@ -83,10 +83,10 @@ class GetTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'lat' => ['「lat」は、-90と90の間の値である必要があります。'],
-                    'lng' => ['「lng」は、-180と180の間の値である必要があります。'],
-                    'cityLat' => ['「city lat」は、-90と90の間の値である必要があります。'],
-                    'cityLng' => ['「city lng」は、-180と180の間の値である必要があります。'],
+                    'lat' => ['The lat must be between -90 and 90.'],
+                    'lng' => ['The lng must be between -180 and 180.'],
+                    'cityLat' => ['The city lat must be between -90 and 90.'],
+                    'cityLng' => ['The city lng must be between -180 and 180.'],
                 ]
             ]);
     }

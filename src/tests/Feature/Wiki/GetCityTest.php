@@ -79,7 +79,7 @@ class GetCityTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'wikiId' => ['「wiki id」フィールドの入力は必須です。'],
+                    'wikiId' => ['The wiki id field is required.'],
                 ]
             ]);
     }
@@ -100,7 +100,7 @@ class GetCityTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'wikiId' => ['「wiki id」は文字列形式で入力する必要があります。'],
+                    'wikiId' => ['The wiki id must be a string.'],
                 ]
             ]);
     }

@@ -107,18 +107,9 @@ class PostTest extends LoginTestCase
             'directionType' => Setting::DIRECTION_TYPE['none'],
             'apiToken' => $this->user->api_token,
         ];
-        $code = 'データなし';
-        $message = '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。';
         $response = $this->post(route('geo-db-cities'), $request);
         $response
-            ->assertStatus(200)
-            ->assertJson([
-                'status' => 204,
-                'errors' => [
-                    'code' => $code,
-                    'message' => $message
-                ]
-            ]);
+            ->assertStatus(204);
     }
 
     /**
@@ -141,7 +132,7 @@ class PostTest extends LoginTestCase
             ->assertStatus(422)
             ->assertJson([
                 'errors' => [
-                    'directionType' => ['「direction type」フィールドの入力は必須です。']
+                    'directionType' => ['The direction type field is required.']
                 ]
             ]);
     }
