@@ -23,6 +23,7 @@ class IndexResource extends JsonResource
 
         return [
             'name' => $name,
+            'wikiDataId' => property_exists($geo_db_cities, 'wikiDataId') ? "{$geo_db_cities->wikiDataId} " : '',
             'distance' => $geo_db_cities->distance,
             'direction' => $geo_db_cities->direction,
             'countryCode' => $geo_db_cities->countryCode,

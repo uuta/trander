@@ -37,8 +37,9 @@ class IndexTest extends LoginTestCase
 
         // Make sure response data
         $data = $response->json()['data'];
-        $this->assertCount(14, $data);
+        $this->assertCount(15, $data);
         $this->assertArrayHasKey('name', $data);
+        $this->assertArrayHasKey('wikiDataId', $data);
         $this->assertArrayHasKey('distance', $data);
         $this->assertArrayHasKey('direction', $data);
         $this->assertArrayHasKey('countryCode', $data);
