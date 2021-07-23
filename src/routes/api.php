@@ -52,6 +52,9 @@ Route::middleware('request.to.snake')->group(function () {
             // Google Place
             Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
 
+            // Cities
+            Route::get('/cities', 'CitiesController@index')->name('cities.get');
+
             // Test
             Route::namespace('Test')->group(function () {
                 Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');

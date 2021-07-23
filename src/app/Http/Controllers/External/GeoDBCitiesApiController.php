@@ -30,6 +30,10 @@ class GeoDBCitiesApiController extends NormalizedController
 
         $response = $this->GeoDBCitiesApi->api_request($location);
         $addedResponse = $this->GeoDBCitiesApi->add_request($request, $response, $angle);
+
+        if (empty($addedResponse['data'])) {
+            return Response([], 204);
+        }
         return $addedResponse;
     }
 

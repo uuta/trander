@@ -76,9 +76,9 @@ class TestController extends Controller
         $response = $client->request("GET", $sourceUrl, [
             'query' => [
                 'key' => config('services.google_places.key'),
-                'location' => '18.791899,98.978295',
+                'location' => '34.7966,134.99',
                 'radius' => 3000,
-                'keyword' => '電源カフェ',
+                'keyword' => 'Hyōgo Prefecture Miki',
                 'language' => 'ja',
             ]
         ]);

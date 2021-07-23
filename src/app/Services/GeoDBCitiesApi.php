@@ -71,21 +71,6 @@ class GeoDBCitiesApi
       $data['direction'] = $this->direction;
     }
 
-    // レスポンスにステータスコードを追加する
-    $status = $response->getStatusCode();
-    $responseBody += ['status' => $status];
-
-    if ($status === 200 && $responseBody['data'] === []) {
-      $responseBody['status'] = 204;
-      unset($responseBody['data']);
-      $responseBody +=
-        [
-          'errors' => [
-            'code' => 'データなし',
-            'message' => '該当するデータが存在しませんでした。距離を変更のうえ再度お試しください。'
-          ]
-        ];
-    }
     return $responseBody;
   }
 
