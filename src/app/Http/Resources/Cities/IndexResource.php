@@ -23,20 +23,20 @@ class IndexResource extends JsonResource
 
         return [
             'name' => $name,
-            'wikiDataId' => property_exists($geo_db_cities, 'wikiDataId') ? "{$geo_db_cities->wikiDataId} " : '',
+            'wikiDataId' => property_exists($geo_db_cities, 'wikiDataId') ? "{$geo_db_cities->wikiDataId}" : '',
             'distance' => $geo_db_cities->distance,
             'direction' => $geo_db_cities->direction,
             'countryCode' => $geo_db_cities->countryCode,
-            'icon' => $near_by_search->icon,
-            'rating' => $near_by_search->rating,
-            'photo' => $near_by_search->photo,
-            'vicinity' => $near_by_search->vicinity,
-            'userRatingsTotal' => $near_by_search->userRatingsTotal,
-            'priceLevel' => $near_by_search->priceLevel,
-            'lat' => $near_by_search->lat,
-            'lng' => $near_by_search->lng,
+            'icon' => property_exists($near_by_search, 'icon') ? "{$near_by_search->icon}" : '',
+            'rating' => property_exists($near_by_search, 'rating') ? "{$near_by_search->rating}" : '',
+            'photo' => property_exists($near_by_search, 'photo') ? "{$near_by_search->photo}" : '',
+            'vicinity' => property_exists($near_by_search, 'vicinity') ? "{$near_by_search->vicinity}" : '',
+            'userRatingsTotal' => property_exists($near_by_search, 'userRatingsTotal') ? (int) "{$near_by_search->userRatingsTotal}" : '',
+            'priceLevel' => property_exists($near_by_search, 'priceLevel') ? (int) "{$near_by_search->priceLevel}" : '',
+            'lat' => (float) $near_by_search->lat,
+            'lng' => (float) $near_by_search->lng,
             'placeId' => $near_by_search->placeId,
-            'ratingStar' => $near_by_search->ratingStar,
+            'ratingStar' => property_exists($near_by_search, 'ratingStar') ? "{$near_by_search->ratingStar}" : '',
         ];
     }
 }

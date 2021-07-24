@@ -45,6 +45,10 @@ class IndexService
         $data = $geo_db_cities->getData()->data[0];
         $keyword .= property_exists($data, 'region') ? "{$data->region} " : '';
         $keyword .= property_exists($data, 'name') ? "{$data->name}" : '';
+        $params['lat'] = $data->latitude;
+        $params['lng'] = $data->longitude;
+        $params['min'] = 0;
+        $params['max'] = 0;
         $params['keyword'] = $keyword;
         return $params;
     }

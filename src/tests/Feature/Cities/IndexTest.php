@@ -27,7 +27,7 @@ class IndexTest extends LoginTestCase
         $request = [
             'lat' => 34.673521,
             'lng' => 135.507772,
-            'max' => 3,
+            'max' => 100,
             'min' => 0,
             'directionType' => Setting::DIRECTION_TYPE['none'],
             'apiToken' => $this->user->api_token,
