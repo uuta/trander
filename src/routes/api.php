@@ -19,7 +19,7 @@ Route::middleware('request.to.snake')->group(function () {
             // パスワードリセット
             Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
             // パスワード再設定
-            Route::post('/regenerate-password', 'ForgotPasswordController@callResetPassword')->name('regenerate-password');
+            Route::put('/password', 'ForgotPasswordController@callResetPassword')->name('password.put');
             // SNS Login
             Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
             Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');

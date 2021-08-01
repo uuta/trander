@@ -62,7 +62,7 @@ class User extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
+        $this->notify(new \App\Notifications\MailResetPasswordNotification($token, $this));
     }
 
     public function socialUsers()
@@ -78,5 +78,10 @@ class User extends Authenticatable
     public function requestCountHistory()
     {
         return $this->hasMany(RequestCountHistory::class);
+    }
+
+    public function passwordResets()
+    {
+        return $this->hasMany(PasswordReset::class, 'email', 'email');
     }
 }
