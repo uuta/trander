@@ -11,8 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(['MWaysSeeder::class']);
-        $this->call(['MDirectionSeeder::class']);
-        $this->call(['GooglePlaceIdsSeeder::class']);
+        $this->call(['MWaysSeeder']);
+        $this->call(['MDirectionSeeder']);
+        $this->call(['GooglePlaceIdsSeeder']);
+        $this->call(['MRatingsSeeder']);
     }
 }
