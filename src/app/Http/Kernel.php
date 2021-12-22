@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'jwt' => \App\Http\Middleware\CheckIdToken::class,
         'request.to.snake' => \App\Http\Middleware\ConvertRequestFieldsToCamelCase::class,
         'response.to.camel' => \App\Http\Middleware\ConvertResponseFieldsToCamelCase::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,

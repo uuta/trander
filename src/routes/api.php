@@ -1,32 +1,29 @@
 <?php
+
 use Illuminate\Http\Request;
+use App\User;
 
 Route::middleware('request.to.snake')->group(function () {
     Route::middleware('response.to.camel')->group(function () {
+
         // Get Login User
-        Route::middleware('auth:api')->get('/user', function (Request $request) {
-            return $request->user();
+        Route::middleware('jwt')->get('/user', function (Request $request) {
+            return User::where('email', $request->auth0_email)->first();
         })->name('user');
 
-        // Login
+        // Authentication
         Route::namespace('Auth')->group(function () {
-            // 会員登録
             Route::post('/register', 'RegisterController@register')->name('register');
-            // ログイン
             Route::post('/login', 'LoginController@login')->name('login');
-            // ログアウト
             Route::post('/logout', 'LoginController@logout')->name('logout');
-            // パスワードリセット
             Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
-            // パスワード再設定
             Route::put('/password', 'ForgotPasswordController@callResetPassword')->name('password.put');
-            // SNS Login
             Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
             Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
         });
 
-        // Authentication
-        Route::middleware('auth:api')->group(function () {
+        // JWT
+        Route::middleware('jwt')->group(function () {
 
             // モーダル用の値変更
             Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
