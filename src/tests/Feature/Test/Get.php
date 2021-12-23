@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\PlaceInfo;
+namespace Tests\Feature\Test;
 
 use Tests\SetUpTestCase;
 use Illuminate\Foundation\Testing\WithFaker;

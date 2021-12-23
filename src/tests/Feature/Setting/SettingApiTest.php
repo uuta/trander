@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Setting;
 
 use App\Setting;
 use App\User;
@@ -19,9 +19,6 @@ class SettingApiTest extends SetUpTestCase
     {
         // テストユーザ作成
         $this->setting = factory(Setting::class)->states('register user and safe distance')->create();
-
-        // 作成したテストユーザ検索
-        $user = DB::table('users')->where('id', $this->setting->user_id)->first();
 
         // setting_get_APIにリクエストして成功する
         $request = [];
