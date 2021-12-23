@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\NearBySearch;
+namespace Tests\Feature\Api\NearBySearch;
 
 use App\User;
 use App\Setting;

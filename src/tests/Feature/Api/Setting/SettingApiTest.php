@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Setting;
+namespace Tests\Feature\Api\Setting;
 
 use App\Setting;
 use App\User;

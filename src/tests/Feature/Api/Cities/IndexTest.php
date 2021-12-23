@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Cities;
+namespace Tests\Feature\Api\Cities;
 
 use Tests\SetUpTestCase;
 use App\Setting;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Wiki;
+namespace Tests\Feature\Api\Wiki;
 
 use App\User;
 use Tests\SetUpTestCase;

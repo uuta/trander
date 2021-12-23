@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GooglePlace;
+namespace Tests\Feature\Api\GooglePlace;
 
 use Tests\SetUpTestCase;
 use App\GooglePlaceId;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GeoDBCities;
+namespace Tests\Feature\Api\GeoDBCities;
 
 use App\User;
 use Tests\SetUpTestCase;

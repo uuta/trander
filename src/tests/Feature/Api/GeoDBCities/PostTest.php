@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GeoDBCities;
+namespace Tests\Feature\Api\GeoDBCities;
 
 use Tests\SetUpTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
