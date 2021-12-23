@@ -2,12 +2,10 @@
 
 namespace Tests\Feature\Check;
 
-use Tests\LoginTestCase;
 use App\User;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\SetUpTestCase;
 
-class ChangeRegistrationTest extends LoginTestCase
+class ChangeRegistrationTest extends SetUpTestCase
 {
     private const ROUTE = 'change-registration';
 
@@ -17,15 +15,15 @@ class ChangeRegistrationTest extends LoginTestCase
      */
     public function should_Change_Registration_APIへのリクエストに成功する()
     {
-        $request = [
-            'apiToken' => $this->user->api_token,
-        ];
-        $response = $this->call('POST', route($this::ROUTE, $request));
+        $response = $this->call('POSt', route($this::ROUTE), [], [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // Make sure imported record
+        $user = User::where('email', config('const.test.email'))->first();
         $this->assertDatabaseHas('users', [
-            'api_token' => $this->user->api_token,
+            'email' => $user->email,
             'check_registration' => User::REGISTERED,
         ]);
     }

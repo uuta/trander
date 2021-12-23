@@ -41,7 +41,7 @@ class NearBySearchController extends NormalizedController
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getNearBySearch']);
+            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
 
             return $this->normarize_response($oneResponse);
         }

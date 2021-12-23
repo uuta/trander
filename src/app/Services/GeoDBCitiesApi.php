@@ -4,7 +4,6 @@ namespace App\Services;
 
 // Guzzleモジュールのクラス読み込み
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
 use Location\Coordinate;
 use Location\Distance\Vincenty;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +34,7 @@ class GeoDBCitiesApi
       ],
       'headers' => [
         'x-rapidapi-host' => 'wft-geo-db.p.rapidapi.com',
-        'x-rapidapi-key' => env('GEO_DB_CITIES_API')
+        'x-rapidapi-key' => config('const.geo_db_cities.api_key')
       ],
     ]);
     return $response;

@@ -21,9 +21,6 @@ class CitiesController extends NormalizedController
             return (new IndexResource([$geo_db_cities, $near_by_search]));
         }
 
-        // Empty
-        if ($geo_db_cities->status() === 204) {
-            return Response([], 204);
-        }
+        return Response($geo_db_cities->getContent(), $geo_db_cities->status());
     }
 }

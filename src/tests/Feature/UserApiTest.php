@@ -3,11 +3,9 @@
 namespace Tests\Feature;
 
 use App\User;
-use Tests\LoginTestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\SetUpTestCase;
 
-class UserApiTest extends LoginTestCase
+class UserApiTest extends SetUpTestCase
 {
     private const ROUTE_GET = 'user';
 
@@ -16,26 +14,15 @@ class UserApiTest extends LoginTestCase
      */
     public function should_ログイン中のユーザーを返却する()
     {
-        $request = [
-            'apiToken' => $this->user->api_token,
-        ];
-        $response = $this->call('GET', route($this::ROUTE_GET), $request);
+        $response = $this->call('GET', route($this::ROUTE_GET), [], [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
 
+        $user = User::where('email', config('const.test.email'))->first();
         $response
             ->assertStatus(200)
             ->assertJson([
-                'name' => $this->user->name,
+                'email' => $user->email,
             ]);
-    }
-
-    /**
-     * @test
-     */
-    public function should_ログインされていない場合は空文字を返却する()
-    {
-        $response = $this->call('GET', route($this::ROUTE_GET));
-
-        $response->assertStatus(302);
-        // $this->assertEquals("", $response->content());
     }
 }

@@ -6,11 +6,6 @@ use App\User;
 Route::middleware('request.to.snake')->group(function () {
     Route::middleware('response.to.camel')->group(function () {
 
-        // Get Login User
-        Route::middleware('jwt')->get('/user', function (Request $request) {
-            return User::where('email', $request->auth0_email)->first();
-        })->name('user');
-
         // Authentication
         Route::namespace('Auth')->group(function () {
             Route::post('/register', 'RegisterController@register')->name('register');
@@ -24,40 +19,47 @@ Route::middleware('request.to.snake')->group(function () {
 
         // JWT
         Route::middleware('jwt')->group(function () {
+            Route::middleware('first_or_create_user')->group(function () {
 
-            // モーダル用の値変更
-            Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
+                // Get Login User
+                Route::get('/user', function (Request $request) {
+                    return User::where('email', $request->auth0_email)->first();
+                })->name('user');
 
-            // External API
-            Route::namespace('External')->group(function () {
-                Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
-                Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
-                Route::get('/external/facility', 'FacilityController@index')->name('facility.get');
-                Route::get('/external/hotel', 'HotelController@index')->name('hotel.get');
-                Route::get('/external/weather', 'WeatherController@index')->name('weather.get');
-                Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get');
-                Route::get('/external/near-by-search', 'NearBySearchController@index')->name('near-by-search.get');
-            });
+                // モーダル用の値変更
+                Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
 
-            // Distance
-            Route::get('/distance', 'DistanceController@index')->name('distance.get');
+                // External API
+                Route::namespace('External')->group(function () {
+                    Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
+                    Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
+                    Route::get('/external/facility', 'FacilityController@index')->name('facility.get');
+                    Route::get('/external/hotel', 'HotelController@index')->name('hotel.get');
+                    Route::get('/external/weather', 'WeatherController@index')->name('weather.get');
+                    Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get');
+                    Route::get('/external/near-by-search', 'NearBySearchController@index')->name('near-by-search.get');
+                });
 
-            // Setting
-            Route::get('/setting', 'SettingController@get')->name('setting.get');
-            Route::post('/setting', 'SettingController@store')->name('setting.store');
+                // Distance
+                Route::get('/distance', 'DistanceController@index')->name('distance.get');
 
-            // Google Place
-            Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
+                // Setting
+                Route::get('/setting', 'SettingController@get')->name('setting.get');
+                Route::post('/setting', 'SettingController@store')->name('setting.store');
 
-            // Cities
-            Route::get('/cities', 'CitiesController@index')->name('cities.get');
+                // Google Place
+                Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
 
-            // Test
-            Route::namespace('Test')->group(function () {
-                Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
-                Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
-                Route::get('/dev-test/find-place', 'TestController@find_place')->name('test.find-place.get');
-                Route::get('/dev-test/near-by-search', 'TestController@near_by_search')->name('test.near-by-search.get');
+                // Cities
+                Route::get('/cities', 'CitiesController@index')->name('cities.get');
+
+                // Test
+                Route::namespace('Test')->group(function () {
+                    Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
+                    Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
+                    Route::get('/dev-test/find-place', 'TestController@find_place')->name('test.find-place.get');
+                    Route::get('/dev-test/near-by-search', 'TestController@near_by_search')->name('test.near-by-search.get');
+                });
             });
         });
     });

@@ -51,7 +51,7 @@ class GeoDBCitiesApiController extends NormalizedController
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCitiesId']);
+            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCitiesId'], $request->all()['userinfo']->id);
 
             return $this->normarize_response($response);
         }

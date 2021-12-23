@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Hotel;
 
-use Tests\LoginTestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\User;
+use Tests\SetUpTestCase;
 use App\RequestCountHistory;
 
-class GetTest extends LoginTestCase
+class GetTest extends SetUpTestCase
 {
     private const ROUTE = 'hotel.get';
 
@@ -19,9 +19,10 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 43.067883,
             'lng' => 141.322995,
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // Make sure response data
@@ -36,8 +37,9 @@ class GetTest extends LoginTestCase
         $this->assertArrayHasKey('hotelThumbnailUrl', $value);
 
         // Make sure imported record
+        $user = User::where('email', config('const.test.email'))->first();
         $this->assertDatabaseHas('request_count_historys', [
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'type_id' => RequestCountHistory::TYPE_ID['getSimpleHotelSearch'],
         ]);
     }
@@ -49,10 +51,10 @@ class GetTest extends LoginTestCase
     public function should_hotel_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [
-            'apiToken' => $this->user->api_token,
-        ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $request = [];
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -73,9 +75,10 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 200,
             'lng' => 500,
-            'api_token' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -95,9 +98,10 @@ class GetTest extends LoginTestCase
         $request = [
             'lat' => 36.010887,
             'lng' => 140.301335,
-            'api_token' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(404);
     }
 }

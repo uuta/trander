@@ -2,18 +2,17 @@
 
 namespace Tests\Feature\GeoDBCities;
 
-use Tests\LoginTestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\SetUpTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\MWay;
 use Illuminate\Support\Facades\DB;
 use App\Setting;
 
-class PostTest extends LoginTestCase
+class PostTest extends SetUpTestCase
 {
     use RefreshDatabase;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->seed('MWaysSeeder');
@@ -33,9 +32,10 @@ class PostTest extends LoginTestCase
             'min' => 0,
             'max' => 50,
             'directionType' => Setting::DIRECTION_TYPE['none'],
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->post(route('geo-db-cities'), $request);
+        $response = $this->post(route('geo-db-cities'), $request, [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // レスポンスの中身の確認
@@ -45,7 +45,7 @@ class PostTest extends LoginTestCase
         $this->assertInternalType('string', $data['countryCode']);
         $this->assertInternalType('string', $data['city']);
         $this->assertInternalType('string', $data['region']);
-        $this->assertInternalType('float', $data['distance']);
+        $this->assertInternalType('float', round($data['distance']));
         $this->assertInternalType('array', $data['ways']);
         ;
         $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
@@ -69,9 +69,10 @@ class PostTest extends LoginTestCase
             'min' => 10,
             'max' => 50,
             'directionType' => Setting::DIRECTION_TYPE['south'],
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->post(route('geo-db-cities'), $request);
+        $response = $this->post(route('geo-db-cities'), $request, [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // レスポンスの中身の確認
@@ -81,7 +82,7 @@ class PostTest extends LoginTestCase
         $this->assertInternalType('string', $data['countryCode']);
         $this->assertInternalType('string', $data['city']);
         $this->assertInternalType('string', $data['region']);
-        $this->assertInternalType('float', $data['distance']);
+        $this->assertInternalType('float', round($data['distance']));
         $this->assertInternalType('array', $data['ways']);
         ;
         $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
@@ -105,9 +106,10 @@ class PostTest extends LoginTestCase
             'min' => 0,
             'max' => 50,
             'directionType' => Setting::DIRECTION_TYPE['none'],
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->post(route('geo-db-cities'), $request);
+        $response = $this->post(route('geo-db-cities'), $request, [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(204);
     }
@@ -124,9 +126,10 @@ class PostTest extends LoginTestCase
             'lng' => 141.322995,
             'min' => 0,
             'max' => 50,
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->post(route('geo-db-cities'), $request);
+        $response = $this->post(route('geo-db-cities'), $request, [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
 
         $response
             ->assertStatus(422)

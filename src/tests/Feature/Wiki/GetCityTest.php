@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Wiki;
 
-use Tests\LoginTestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\User;
+use Tests\SetUpTestCase;
 use App\RequestCountHistory;
 
-class GetCityTest extends LoginTestCase
+class GetCityTest extends SetUpTestCase
 {
     private const ROUTE = 'wiki.city.get';
 
@@ -18,9 +18,10 @@ class GetCityTest extends LoginTestCase
     {
         $request = [
             'wikiId' => 'Q237',
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // Make sure response data
@@ -31,8 +32,9 @@ class GetCityTest extends LoginTestCase
         $this->assertArrayHasKey('inception', $data);
 
         // Make sure imported record
+        $user = User::where('email', config('const.test.email'))->first();
         $this->assertDatabaseHas('request_count_historys', [
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'type_id' => RequestCountHistory::TYPE_ID['getWikidata'],
         ]);
     }
@@ -45,9 +47,10 @@ class GetCityTest extends LoginTestCase
     {
         $request = [
             'wikiId' => 'Q817271',
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // Make sure response data
@@ -58,8 +61,9 @@ class GetCityTest extends LoginTestCase
         $this->assertArrayHasKey('inception', $data);
 
         // Make sure imported record
+        $user = User::where('email', config('const.test.email'))->first();
         $this->assertDatabaseHas('request_count_historys', [
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'type_id' => RequestCountHistory::TYPE_ID['getWikidata'],
         ]);
     }
@@ -71,10 +75,10 @@ class GetCityTest extends LoginTestCase
     public function should_city_wiki_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [
-            'apiToken' => $this->user->api_token,
-        ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $request = [];
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -93,9 +97,10 @@ class GetCityTest extends LoginTestCase
         // Uncorrected parameter
         $request = [
             'wikiId' => 200,
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -109,13 +114,14 @@ class GetCityTest extends LoginTestCase
      * 準正常
      * @test
      */
-    public function should_GetId_GeoDBCities_APIへのリクエストが失敗する（400）()
+    public function should_city_wiki_APIへのリクエストが失敗する（400）()
     {
         $request = [
             'wikiId' => 'Q739718973891789',
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(400);
     }
 }

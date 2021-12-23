@@ -16,7 +16,9 @@ class IndexService
      */
     public static function post_geo_db_cities_api(Request $request) : object
     {
-        return app()->handle(Request::create('/api/external/geo-db-cities', 'POST', $request->all()));
+        return app()->handle(Request::create('/api/external/geo-db-cities', 'POST', $request->all(), [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]));
     }
 
     /**
@@ -27,7 +29,9 @@ class IndexService
      */
     public static function get_near_by_search_api(array $params) : object
     {
-        return app()->handle(Request::create('/api/external/near-by-search', 'GET', $params));
+        return app()->handle(Request::create('/api/external/near-by-search', 'GET', $params, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]));
     }
 
     /**

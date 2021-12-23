@@ -24,7 +24,7 @@ class WikiController extends NormalizedController
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getWikidata']);
+            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getWikidata'], $request->all()['userinfo']->id);
 
             return $this->normarize_response($response);
         }

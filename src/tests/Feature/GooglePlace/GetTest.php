@@ -2,17 +2,15 @@
 
 namespace Tests\Feature\GooglePlace;
 
-use Tests\LoginTestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\SetUpTestCase;
 use App\GooglePlaceId;
 
-class GetTest extends LoginTestCase
+class GetTest extends SetUpTestCase
 {
     private const ROUTE = 'google-place.get';
     private const ID = 'ChIJrxB0hPyFGGARiBrTkA2Xd3I';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->seed('GooglePlaceIdsSeeder');
@@ -26,9 +24,10 @@ class GetTest extends LoginTestCase
     {
         $request = [
             'placeId' => $this::ID,
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
 
         // Get rows with request id
         $value = GooglePlaceId::where('place_id', $this::ID)->first();
@@ -62,9 +61,10 @@ class GetTest extends LoginTestCase
         // Not exist id
         $request = [
             'placeId' => 'Unfortunately, this id doesn\'t exist',
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(404);
     }
@@ -76,10 +76,10 @@ class GetTest extends LoginTestCase
     public function should_google_place_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [
-            'apiToken' => $this->user->api_token,
-        ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $request = [];
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -93,14 +93,15 @@ class GetTest extends LoginTestCase
      * 準正常
      * @test
      */
-    public function should_near_by_search_APIへのリクエストが失敗する（バリデーション）（値）()
+    public function should_google_place_APIへのリクエストが失敗する（バリデーション）（値）()
     {
         // Uncorrected parameter
         $request = [
             'placeId' => 200,
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([

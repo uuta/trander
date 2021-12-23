@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\PlaceInfo;
 
-use Tests\LoginTestCase;
+use Tests\SetUpTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class Get extends LoginTestCase
+class Get extends SetUpTestCase
 {
     /**
      * 正常

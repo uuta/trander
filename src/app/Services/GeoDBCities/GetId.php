@@ -33,7 +33,7 @@ class GetId extends ExternalResponseFactory
         $this->response = $client->request("GET", $sourceUrl, [
             'headers' => [
                 'x-rapidapi-host' => 'wft-geo-db.p.rapidapi.com',
-                'x-rapidapi-key' => env('GEO_DB_CITIES_API')
+                'x-rapidapi-key' => config('const.geo_db_cities.api_key')
             ],
         ]);
     }

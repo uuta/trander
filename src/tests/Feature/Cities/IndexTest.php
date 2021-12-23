@@ -2,15 +2,14 @@
 
 namespace Tests\Feature\Cities;
 
-use Tests\LoginTestCase;
+use Tests\SetUpTestCase;
 use App\Setting;
-use GuzzleHttp\Client;
 
-class IndexTest extends LoginTestCase
+class IndexTest extends SetUpTestCase
 {
     private const ROUTE = 'cities.get';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->seed('MWaysSeeder');
@@ -30,9 +29,10 @@ class IndexTest extends LoginTestCase
             'max' => 100,
             'min' => 0,
             'directionType' => Setting::DIRECTION_TYPE['none'],
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // Make sure response data
@@ -68,9 +68,10 @@ class IndexTest extends LoginTestCase
             'min' => 0,
             'max' => 50,
             'directionType' => Setting::DIRECTION_TYPE['none'],
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(204);
     }
 
@@ -85,9 +86,10 @@ class IndexTest extends LoginTestCase
             'lng' => 135.507772,
             'max' => 3,
             'directionType' => Setting::DIRECTION_TYPE['none'],
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
 
         $response
             ->assertStatus(422)

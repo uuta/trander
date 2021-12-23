@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Repositories\CheckRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\User;
 
 class CheckController extends Controller
@@ -19,7 +18,7 @@ class CheckController extends Controller
 
     public function changeRegistration(Request $request)
     {
-        $user = User::where('api_token', $request->get('api_token'))->first();
+        $user = User::where('email', $request->get('auth0_email'))->first();
         $user->check_registration = User::REGISTERED;
         $user->save();
     }

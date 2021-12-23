@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'first_or_create_user' => \App\Http\Middleware\FirstOrCreateUserMiddleware::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'jwt' => \App\Http\Middleware\CheckIdToken::class,
         'request.to.snake' => \App\Http\Middleware\ConvertRequestFieldsToCamelCase::class,

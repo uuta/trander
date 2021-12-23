@@ -19,5 +19,9 @@ return [
 
     'geo_db_cities' => [
         'api_key' => env('GEO_DB_CITIES_API', '')
+    ],
+
+    'test' => [
+        'email' => env('TEST_EMAIL', ''),
     ]
 ];

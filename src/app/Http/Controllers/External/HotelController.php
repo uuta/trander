@@ -25,7 +25,7 @@ class HotelController extends NormalizedController
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getSimpleHotelSearch']);
+            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getSimpleHotelSearch'], $request->all()['userinfo']->id);
 
             return $this->normarize_multiple_response($response);
         }

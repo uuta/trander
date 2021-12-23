@@ -2,15 +2,13 @@
 
 namespace Tests\Feature\Distance;
 
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\LoginTestCase;
+use Tests\SetUpTestCase;
 
-class GetTest extends LoginTestCase
+class GetTest extends SetUpTestCase
 {
     private const ROUTE = 'distance.get';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->seed('MWaysSeeder');
@@ -28,9 +26,10 @@ class GetTest extends LoginTestCase
             'lng' => 141.322995,
             'cityLat' => 43.068933,
             'cityLng' => 141.332181,
-            'apiToken' => $this->user->api_token
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // Make sure response data
@@ -48,10 +47,10 @@ class GetTest extends LoginTestCase
     public function should_get_distance_APIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
-        $request = [
-            'apiToken' => $this->user->api_token
-        ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $request = [];
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -76,9 +75,10 @@ class GetTest extends LoginTestCase
             'lng' => 500,
             'cityLat' => 200,
             'cityLng' => 500,
-            'apiToken' => $this->user->api_token
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([

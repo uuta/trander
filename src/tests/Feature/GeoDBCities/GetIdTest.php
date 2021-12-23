@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\GeoDBCities;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\LoginTestCase;
+use App\User;
+use Tests\SetUpTestCase;
 use App\RequestCountHistory;
 
-class GetIdTest extends LoginTestCase
+class GetIdTest extends SetUpTestCase
 {
     private const ROUTE = 'geo-db-cities.get';
 
@@ -18,9 +18,10 @@ class GetIdTest extends LoginTestCase
     {
         $request = [
             'id' => 123214,
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE, $request));
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(200);
 
         // レスポンスの中身の確認
@@ -36,8 +37,9 @@ class GetIdTest extends LoginTestCase
         $this->assertArrayHasKey('wikiDataId', $data);
 
         // Make sure imported record
+        $user = User::where('email', config('const.test.email'))->first();
         $this->assertDatabaseHas('request_count_historys', [
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'type_id' => RequestCountHistory::TYPE_ID['getGeoDbCitiesId'],
         ]);
     }
@@ -51,9 +53,10 @@ class GetIdTest extends LoginTestCase
         // Uncorrected parameter
         $request = [
             'id' => 'string',
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE, $request));
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -71,9 +74,10 @@ class GetIdTest extends LoginTestCase
     {
         $request = [
             'id' => 1232147491279,
-            'apiToken' => $this->user->api_token,
         ];
-        $response = $this->call('GET', route($this::ROUTE), $request);
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
         $response->assertStatus(404);
     }
 }
