@@ -3,8 +3,7 @@
 namespace App\Services\Cities;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\JsonResponse;
+use App\Http\Requests\Cities\IndexRequest;
 
 class IndexService
 {
@@ -17,7 +16,7 @@ class IndexService
     public static function post_geo_db_cities_api(Request $request) : object
     {
         return app()->handle(Request::create('/api/external/geo-db-cities', 'POST', $request->all(), [], [], [
-            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $request->bearerToken()
         ]));
     }
 
@@ -27,10 +26,10 @@ class IndexService
      * @param array $params
      * @return object
      */
-    public static function get_near_by_search_api(array $params) : object
+    public static function get_near_by_search_api(array $params, IndexRequest $request) : object
     {
         return app()->handle(Request::create('/api/external/near-by-search', 'GET', $params, [], [], [
-            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $request->bearerToken()
         ]));
     }
 

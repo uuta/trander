@@ -17,7 +17,7 @@ class CitiesController extends NormalizedController
         // Succeed
         if ($geo_db_cities->status() === 200) {
             $params = IndexService::generate_near_by_search_params($request, $geo_db_cities);
-            $near_by_search = IndexService::get_near_by_search_api($params);
+            $near_by_search = IndexService::get_near_by_search_api($params, $request);
             return (new IndexResource([$geo_db_cities, $near_by_search]));
         }
 
