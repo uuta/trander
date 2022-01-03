@@ -41,8 +41,8 @@ class SettingApiTest extends SetUpTestCase
     {
         // setting_post_APIにリクエストして成功する
         $request = [
-            'min' => 15,
-            'max' => 33,
+            'minDistance' => 15,
+            'maxDistance' => 33,
             'directionType' => Setting::DIRECTION_TYPE['north'],
         ];
         $response = $this->call('POST', route($this::ROUTE_STORE), $request, [], [], [
@@ -54,16 +54,16 @@ class SettingApiTest extends SetUpTestCase
         $user = User::where('email', config('const.test.email'))->first();
         $this->assertDatabaseHas('settings', [
             'user_id' => $user->id,
-            'min_distance' => $request['min'],
-            'max_distance' => $request['max'],
+            'min_distance' => $request['minDistance'],
+            'max_distance' => $request['maxDistance'],
             'direction_type' => $request['directionType'],
         ]);
 
         $setting = DB::table('settings')->where('user_id', $user->id)->first();
         $this->assertDatabaseHas('setting_historys', [
             'setting_id' => $setting->id,
-            'min_distance' => $request['min'],
-            'max_distance' => $request['max'],
+            'min_distance' => $request['minDistance'],
+            'max_distance' => $request['maxDistance'],
             'direction_type' => $request['directionType'],
         ]);
     }
@@ -77,8 +77,8 @@ class SettingApiTest extends SetUpTestCase
         $setting = factory(Setting::class)->states('register user and safe distance')->create();
 
         $request = [
-            'min' => $setting->min_distance,
-            'max' => $setting->max_distance,
+            'minDistance' => $setting->min_distance,
+            'maxDistance' => $setting->max_distance,
             'directionType' => $setting->direction_type,
         ];
         // setting_post_APIにリクエストして成功する
@@ -98,8 +98,8 @@ class SettingApiTest extends SetUpTestCase
         $setting = DB::table('settings')->where('user_id', $setting->user_id)->first();
         $this->assertDatabaseHas('setting_historys', [
             'setting_id' => $setting->id,
-            'min_distance' => $request['min'],
-            'max_distance' => $request['max'],
+            'min_distance' => $request['minDistance'],
+            'max_distance' => $request['maxDistance'],
             'direction_type' => $request['directionType'],
         ]);
     }

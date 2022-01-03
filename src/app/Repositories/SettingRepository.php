@@ -14,7 +14,6 @@ class SettingRepository
         return DB::table('settings')->get();
     }
 
-
     /**
      * Get setting by user id
      *
@@ -39,8 +38,8 @@ class SettingRepository
                 'user_id' => $request->userinfo->id
             ],
             [
-                'min_distance' => $request['min'],
-                'max_distance' => $request['max'],
+                'min_distance' => $request['min_distance'],
+                'max_distance' => $request['max_distance'],
                 'direction_type' => $request['direction_type'],
             ]
         );
@@ -50,8 +49,8 @@ class SettingRepository
         DB::table('setting_historys')->insert(
             [
                 'setting_id' => $setting->id,
-                'min_distance' => $request['min'],
-                'max_distance' => $request['max'],
+                'min_distance' => $request['min_distance'],
+                'max_distance' => $request['max_distance'],
                 'direction_type' => $request['direction_type'],
             ]
         );
