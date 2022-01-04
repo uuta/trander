@@ -9,7 +9,8 @@ use App\Http\Resources\Cities\IndexResource;
 
 class CitiesController extends NormalizedController
 {
-    public function index(IndexRequest $request) {
+    public function index(IndexRequest $request)
+    {
         $this->normarize_request($request);
 
         $geo_db_cities = IndexService::post_geo_db_cities_api($request);

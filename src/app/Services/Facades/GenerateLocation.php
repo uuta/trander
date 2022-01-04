@@ -29,7 +29,7 @@ class GenerateLocation
      *
      * @return string
      */
-    public function generate_location() : string
+    public function generate_location(): string
     {
         return $this->location;
     }
@@ -39,7 +39,7 @@ class GenerateLocation
      *
      * @return string
      */
-    public function generate_formatted_location() : string
+    public function generate_formatted_location(): string
     {
         return $this->format();
     }
@@ -49,7 +49,7 @@ class GenerateLocation
      *
      * @return float
      */
-    public function get_angle() : float
+    public function get_angle(): float
     {
         return $this->angle;
     }
@@ -61,14 +61,14 @@ class GenerateLocation
     {
         // Only when direction_type is north, get 0 or 1
         $num = mt_rand(0, 1);
-        $direction = $this->request->direction_type === Setting::DIRECTION_TYPE['north']
+        $direction = (int) $this->request->direction_type === Setting::DIRECTION_TYPE['north']
             ? Setting::DIRECTION_ANGLE[1][$num]
             : Setting::DIRECTION_ANGLE[$this->request->direction_type];
 
         if (
             $direction === Setting::DIRECTION_ANGLE[1][1]
-            || $this->request->direction_type === Setting::DIRECTION_TYPE['south']
-            || $this->request->direction_type === Setting::DIRECTION_TYPE['west']
+            || (int) $this->request->direction_type === Setting::DIRECTION_TYPE['south']
+            || (int) $this->request->direction_type === Setting::DIRECTION_TYPE['west']
         ) {
             $angle = $direction['min'] + mt_rand() / mt_getrandmax() * ($direction['max'] - $direction['min']);
         } else {
@@ -103,7 +103,7 @@ class GenerateLocation
      *
      * @return string
      */
-    private function format() : string
+    private function format(): string
     {
         $formatted = '';
         $arr = explode(',', $this->location);
