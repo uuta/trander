@@ -26,7 +26,7 @@ class IndexResource extends JsonResource
             'wikiDataId' => property_exists($geo_db_cities, 'wikiDataId') ? "{$geo_db_cities->wikiDataId}" : '',
             'distance' => $geo_db_cities->distance,
             'direction' => $geo_db_cities->direction,
-            'countryCode' => $geo_db_cities->countryCode,
+            'countryCode' => ($geo_db_cities->countryCode) ? strtolower($geo_db_cities->countryCode) : '',
             'icon' => property_exists($near_by_search, 'icon') ? "{$near_by_search->icon}" : '',
             'rating' => property_exists($near_by_search, 'rating') ? "{$near_by_search->rating}" : '',
             'photo' => property_exists($near_by_search, 'photo') ? "{$near_by_search->photo}" : '',

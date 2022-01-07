@@ -53,6 +53,8 @@ class IndexTest extends SetUpTestCase
         $this->assertArrayHasKey('lng', $data);
         $this->assertArrayHasKey('placeId', $data);
         $this->assertArrayHasKey('ratingStar', $data);
+
+        if ($data['countryCode']) $this->assertTrue(ctype_lower($data['countryCode']));
     }
 
     /**
