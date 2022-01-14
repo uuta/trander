@@ -24,10 +24,10 @@ class Get
     /**
      * Get the angle among the 2 location
      */
-    public function get_angle() : void
+    public function get_angle(): void
     {
         $current = new Coordinate($this->request->lat, $this->request->lng);
-        $city = new Coordinate($this->request->city_lat, $this->request->city_lng);
+        $city = new Coordinate($this->request->target_lat, $this->request->target_lng);
 
         $bearingCalculator = new BearingSpherical();
         $this->angle = $bearingCalculator->calculateBearing($current, $city);
@@ -38,7 +38,7 @@ class Get
      *
      * @return array
      */
-    public function get_response() : array
+    public function get_response(): array
     {
         // Add the distance among 2 location
         $data['distance'] = $this->get_distance();
@@ -57,10 +57,10 @@ class Get
      *
      * @return float
      */
-    private function get_distance() : float
+    private function get_distance(): float
     {
         $coordinate1 = new Coordinate($this->request->lat, $this->request->lng);
-        $coordinate2 = new Coordinate($this->request->city_lat, $this->request->city_lng);
+        $coordinate2 = new Coordinate($this->request->target_lat, $this->request->target_lng);
         $calculator = new Vincenty();
         $distance = ($calculator->getDistance($coordinate1, $coordinate2) * 0.001);
         $this->distance = (float)round($distance, 1);
@@ -72,7 +72,7 @@ class Get
      *
      * @return array
      */
-    private function get_way_of_recommend() : array
+    private function get_way_of_recommend(): array
     {
         $ways = [];
         foreach (MWay::WAYS as $key => $value) {
@@ -90,7 +90,7 @@ class Get
      * Get a direction from the angle
      * @return string
      */
-    private function get_direction() : string
+    private function get_direction(): string
     {
         $data = DB::table('m_directions')->where([
             ['min_angle', '<=', $this->angle],

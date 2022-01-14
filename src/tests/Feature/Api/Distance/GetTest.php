@@ -24,8 +24,8 @@ class GetTest extends SetUpTestCase
         $request = [
             'lat' => 43.067883,
             'lng' => 141.322995,
-            'cityLat' => 43.068933,
-            'cityLng' => 141.332181,
+            'targetLat' => 43.068933,
+            'targetLng' => 141.332181,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
             'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
@@ -57,8 +57,8 @@ class GetTest extends SetUpTestCase
                 'errors' => [
                     'lat' => ['The lat field is required.'],
                     'lng' => ['The lng field is required.'],
-                    'cityLat' => ['The city lat field is required.'],
-                    'cityLng' => ['The city lng field is required.'],
+                    'targetLat' => ['The target lat field is required.'],
+                    'targetLng' => ['The target lng field is required.'],
                 ]
             ]);
     }
@@ -73,8 +73,8 @@ class GetTest extends SetUpTestCase
         $request = [
             'lat' => 200,
             'lng' => 500,
-            'cityLat' => 200,
-            'cityLng' => 500,
+            'targetLat' => 200,
+            'targetLng' => 500,
         ];
         $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
             'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
@@ -85,8 +85,8 @@ class GetTest extends SetUpTestCase
                 'errors' => [
                     'lat' => ['The lat must be between -90 and 90.'],
                     'lng' => ['The lng must be between -180 and 180.'],
-                    'cityLat' => ['The city lat must be between -90 and 90.'],
-                    'cityLng' => ['The city lng must be between -180 and 180.'],
+                    'targetLat' => ['The target lat must be between -90 and 90.'],
+                    'targetLng' => ['The target lng must be between -180 and 180.'],
                 ]
             ]);
     }
