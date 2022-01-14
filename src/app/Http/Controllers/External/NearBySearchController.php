@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Controllers\NormalizedController;
 use App\Http\Requests\NearBySearch\GetRequest;
 use App\Services\NearBySearch\Get as NearBySearchGet;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Facades\GenerateLocation;
 use App\GooglePlaceId;
+use App\Http\Controllers\Controller;
 use App\RequestCountHistory;
+use App\Http\Resources\NearBySearch\IndexResource;
 
-class NearBySearchController extends NormalizedController
+class NearBySearchController extends Controller
 {
     public function index(GetRequest $request)
     {
-        try
-        {
-            $this->normarize_request($request);
-
+        try {
             // Generate location
             $Randomization = new GenerateLocation($request);
             $location = $Randomization->generate_location();
@@ -28,7 +26,7 @@ class NearBySearchController extends NormalizedController
             $decodeResponse = json_decode($NearBySearchGetResponse->getBody(), true);
 
             // Error handling
-            if(empty($decodeResponse['results'])) {
+            if (empty($decodeResponse['results'])) {
                 return response()->json($decodeResponse, 404);
             }
 
@@ -43,10 +41,8 @@ class NearBySearchController extends NormalizedController
             $requestCountHistory = new RequestCountHistory();
             $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
 
-            return $this->normarize_response($oneResponse);
-        }
-        catch (BadResponseException $e)
-        {
+            return (new IndexResource($oneResponse));
+        } catch (BadResponseException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($response, $e->getResponse()->getStatusCode());
         }

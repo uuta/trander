@@ -26,7 +26,7 @@ class GetTest extends SetUpTestCase
         $request = [
             'lat' => 35.691510,
             'lng' => 139.878927,
-            'keyword' => '温泉',
+            'keyword' => 'hot spa',
             'max' => 3,
             'min' => 0,
             'directionType' => Setting::DIRECTION_TYPE['none'],
@@ -37,7 +37,7 @@ class GetTest extends SetUpTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json();
+        $data = $response->json()['data'];
         $this->assertCount(11, $data);
         $this->assertArrayHasKey('name', $data);
         $this->assertArrayHasKey('icon', $data);
