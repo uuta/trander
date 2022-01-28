@@ -13,7 +13,7 @@ class IndexService
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public static function post_geo_db_cities_api(Request $request) : object
+    public static function postGeoDbCitiesApi(Request $request): object
     {
         return app()->handle(Request::create('/api/external/geo-db-cities', 'POST', $request->all(), [], [], [
             'HTTP_AUTHORIZATION' => 'Bearer ' . $request->bearerToken()
@@ -26,7 +26,7 @@ class IndexService
      * @param array $params
      * @return object
      */
-    public static function get_near_by_search_api(array $params, IndexRequest $request) : object
+    public static function getNearBySearchApi(array $params, IndexRequest $request): object
     {
         return app()->handle(Request::create('/api/external/near-by-search', 'GET', $params, [], [], [
             'HTTP_AUTHORIZATION' => 'Bearer ' . $request->bearerToken()
@@ -40,7 +40,7 @@ class IndexService
      * @param object $geo_db_cities
      * @return array
      */
-    public static function generate_near_by_search_params(Request $request, object $geo_db_cities) : array
+    public static function generateNearBySearchParams(Request $request, object $geo_db_cities): array
     {
         $params = [];
         $keyword = '';
