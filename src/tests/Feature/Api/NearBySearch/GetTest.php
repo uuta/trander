@@ -4,6 +4,7 @@ namespace Tests\Feature\Api\NearBySearch;
 
 use App\User;
 use App\Setting;
+use App\GooglePlaceId;
 use Tests\SetUpTestCase;
 use App\RequestCountHistory;
 
@@ -21,7 +22,7 @@ class GetTest extends SetUpTestCase
      * 正常
      * @test
      */
-    public function should_near_by_search_APIへのリクエストに成功する()
+    public function shouldNearBySearchAPIへのリクエストに成功する()
     {
         $request = [
             'lat' => 35.691510,
@@ -75,10 +76,44 @@ class GetTest extends SetUpTestCase
     }
 
     /**
+     * 正常
+     * @test
+     */
+    public function normalSuccessEmptyNearBySearchAPI()
+    {
+        $request = [
+            'lat' => 0,
+            'lng' => 0,
+            'keyword' => 'hot spa',
+            'max' => 3,
+            'min' => 0,
+            'directionType' => Setting::DIRECTION_TYPE['none'],
+        ];
+        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
+            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
+        ]);
+        $response->assertStatus(200);
+
+        // Make sure response data
+        $data = $response->json()['data'];
+        $this->assertCount(0, $data);
+
+        // Make sure imported record in google place ids
+        $this->assertNull(GooglePlaceId::find(1));
+
+        // Make sure imported record in history table
+        $user = User::where('email', config('const.test.email'))->first();
+        $this->assertNull(RequestCountHistory::where([
+            'user_id' => $user->id,
+            'type_id' => RequestCountHistory::TYPE_ID['getNearBySearch'],
+        ])->first());
+    }
+
+    /**
      * 準正常
      * @test
      */
-    public function should_near_by_search_APIへのリクエストが失敗する（バリデーション）（空）()
+    public function shouldNearBySearchAPIへのリクエストが失敗する（バリデーション）（空）()
     {
         // Empty parameter
         $request = [];
@@ -103,7 +138,7 @@ class GetTest extends SetUpTestCase
      * 準正常
      * @test
      */
-    public function should_near_by_search_APIへのリクエストが失敗する（バリデーション）（値）()
+    public function shouldNearBySearchApiへのリクエストが失敗する（バリデーション）（値）()
     {
         // Uncorrected parameter
         $request = [
@@ -129,25 +164,5 @@ class GetTest extends SetUpTestCase
                     'directionType' => ['The direction type must be an integer.'],
                 ]
             ]);
-    }
-
-    /**
-     * 準正常
-     * @test
-     */
-    public function should_near_by_search_APIへのリクエストが失敗する（404）()
-    {
-        $request = [
-            'lat' => 68.752491,
-            'lng' => 175.827562,
-            'keyword' => '温泉',
-            'max' => 3,
-            'min' => 0,
-            'directionType' => Setting::DIRECTION_TYPE['none'],
-        ];
-        $response = $this->call('GET', route($this::ROUTE), $request, [], [], [
-            'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
-        ]);
-        $response->assertStatus(404);
     }
 }

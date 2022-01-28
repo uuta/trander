@@ -2,47 +2,44 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Requests\NearBySearch\GetRequest;
-use App\Services\NearBySearch\Get as NearBySearchGet;
-use GuzzleHttp\Exception\BadResponseException;
-use App\Services\Facades\GenerateLocation;
 use App\GooglePlaceId;
-use App\Http\Controllers\Controller;
+use App\Http\Resources\EmptyResource;
 use App\RequestCountHistory;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Services\Facades\GenerateLocation;
+use App\Http\Requests\NearBySearch\GetRequest;
+use GuzzleHttp\Exception\BadResponseException;
 use App\Http\Resources\NearBySearch\IndexResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\UseCases\NearBySearch\NearBySearchGetUseCase;
 
 class NearBySearchController extends Controller
 {
     public function index(GetRequest $request)
     {
+        DB::beginTransaction();
         try {
             // Generate location
             $Randomization = new GenerateLocation($request);
             $location = $Randomization->generate_location();
 
             // Request
-            $NearBySearchGet = new NearBySearchGet($request, $location);
-            $NearBySearchGetResponse = $NearBySearchGet->apiRequest();
-            $decodeResponse = json_decode($NearBySearchGetResponse->getBody(), true);
-
-            // Error handling
-            if (empty($decodeResponse['results'])) {
-                return response()->json($decodeResponse, 404);
-            }
-
-            $GetResponse = $NearBySearchGet->get_response();
-            $response = $GetResponse->formatResponse();
-            $oneResponse = $NearBySearchGet->get_content_randomly($response);
+            $res = (new NearBySearchGetUseCase($request, $location))->handle();
 
             // Insert into google_place_ids
-            GooglePlaceId::insert_information($oneResponse);
+            GooglePlaceId::insert_information($res);
 
             // Insert a request history
-            $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
+            (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
 
-            return (new IndexResource($oneResponse));
+            DB::commit();
+            return (new IndexResource($res));
+        } catch (ModelNotFoundException $e) {
+            DB::commit();
+            return (new EmptyResource([]));
         } catch (BadResponseException $e) {
+            DB::rollBack();
             $response = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($response, $e->getResponse()->getStatusCode());
         }
