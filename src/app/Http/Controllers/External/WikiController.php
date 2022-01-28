@@ -13,23 +13,17 @@ class WikiController extends NormalizedController
 {
     public function city_index(GetCityRequest $request)
     {
-        try
-        {
-            $this->normarize_request($request);
-
+        try {
             // Request
             $WikiGet = new WikiCityGet($request);
             $WikiGet->apiRequest();
             $response = $WikiGet->formatResponse();
 
             // Insert a request history
-            $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getWikidata'], $request->all()['userinfo']->id);
+            (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getWikidata'], $request->all()['userinfo']->id);
 
-            return $this->normarize_response($response);
-        }
-        catch (BadResponseException $e)
-        {
+            return $response;
+        } catch (BadResponseException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($response, $e->getResponse()->getStatusCode());
         }
