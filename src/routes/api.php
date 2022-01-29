@@ -51,8 +51,16 @@ Route::middleware('request.to.snake')->group(function () {
                 // Google Place
                 Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
 
-                // Cities
-                Route::get('/cities', 'CitiesController@index')->name('cities.get');
+                // Rate Limit
+                Route::middleware('throttle:2, 0.15')->group(function () {
+                    Route::namespace('External')->group(function () {
+                        Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
+                        Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
+                        Route::get('/external/near-by-search', 'NearBySearchController@index')->name('near-by-search.get');
+                    });
+                    // Cities
+                    Route::get('/cities', 'CitiesController@index')->name('cities.get');
+                });
 
                 // Test
                 Route::namespace('Test')->group(function () {
