@@ -30,13 +30,10 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
 
         // External API
         Route::prefix('external')->namespace('External')->group(function () {
-            Route::post('/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
-            Route::get('/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
             Route::get('/facility', 'FacilityController@index')->name('facility.get');
             Route::get('/hotel', 'HotelController@index')->name('hotel.get');
             Route::get('/weather', 'WeatherController@index')->name('weather.get');
             Route::get('/wiki-city', 'WikiController@city_index')->name('wiki.city.get');
-            Route::get('/near-by-search', 'NearBySearchController@index')->name('near-by-search.get');
         });
 
         // Distance
