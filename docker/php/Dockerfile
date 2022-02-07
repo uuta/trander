@@ -12,6 +12,7 @@ RUN npm install -y -g n
 RUN n stable
 # RUN apt purge nodejs npm
 RUN npm install npm@latest -g
+RUN docker-php-ext-install bcmath pdo_mysql
 
 # composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
