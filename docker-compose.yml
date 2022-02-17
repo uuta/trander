@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: docker/php/Dockerfile.local
       args:
         - TZ=${TZ}
     volumes:
