@@ -48,4 +48,5 @@ jobs:
           --region us-central1 \
           --platform=managed \
           --add-cloudsql-instances ${{ secrets.SQL_CONNECTION_NAME }} \
+          --memory 2 \\
           --allow-unauthenticated
