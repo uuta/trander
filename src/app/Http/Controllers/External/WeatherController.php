@@ -25,7 +25,7 @@ class WeatherController extends NormalizedController
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getCurrentWeather']);
+            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getCurrentWeather'], $request->all()['userinfo']->id);
 
             return $this->normarize_multiple_response($response);
         }

@@ -18,9 +18,9 @@ class SettingController extends Controller
         $this->SettingRepository = $SettingRepository;
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $response = $this->SettingRepository->getSetting();
+        $response = $this->SettingRepository->getSetting($request->userinfo->id);
         $response_json = response()->json($response);
         return $response_json;
     }

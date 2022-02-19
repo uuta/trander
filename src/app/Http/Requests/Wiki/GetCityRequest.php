@@ -26,7 +26,7 @@ class GetCityRequest extends FormRequest
     public function rules()
     {
         return [
-            'wikiId' => 'required|string',
+            'wiki_id' => 'required|string',
         ];
     }
 

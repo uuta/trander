@@ -1,59 +1,68 @@
 <?php
 
-// 会員登録
-Route::post('/register', 'Auth\RegisterController@register')->name('register');
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\User;
 
-// ログイン
-Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
 
-// モーダル用の値変更
-Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
+    // Authentication
+    Route::namespace('Auth')->group(function () {
+        Route::post('/register', 'RegisterController@register')->name('register');
+        Route::post('/login', 'LoginController@login')->name('login');
+        Route::post('/logout', 'LoginController@logout')->name('logout');
+        Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
+        Route::put('/password', 'ForgotPasswordController@callResetPassword')->name('password.put');
+        Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
+        Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
+    });
 
-// ログアウト
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+    // JWT, craete a user
+    Route::middleware('jwt', 'first_or_create_user')->group(function () {
 
-// ログインユーザー
-Route::get('/user', function () {
-    return Auth::user();
-})->name('user');
+        // Get Login User
+        Route::get('/user', function (Request $request) {
+            return User::where('email', $request->auth0_email)->first();
+        })->name('user');
 
-// パスワードリセット
-Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
+        // モーダル用の値変更
+        Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
 
-// パスワード再設定
-Route::post('/regenerate-password', 'Auth\ForgotPasswordController@callResetPassword')->name('regenerate-password');
+        // External API
+        Route::prefix('external')->namespace('External')->group(function () {
+            Route::get('/facility', 'FacilityController@index')->name('facility.get');
+            Route::get('/hotel', 'HotelController@index')->name('hotel.get');
+            Route::get('/weather', 'WeatherController@index')->name('weather.get');
+            Route::get('/wiki-city', 'WikiController@city_index')->name('wiki.city.get');
+        });
 
-// SNSログイン
-Route::namespace('Auth')->group(function () {
-    Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
-    Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
-});
+        // Distance
+        Route::get('/distance', 'DistanceController@index')->name('distance.get');
 
-// 外部API
-Route::namespace('External')->group(function () {
-    Route::post('/external/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities')->middleware('auth');
-    Route::get('/external/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get')->middleware('auth');
-    Route::get('/external/facility', 'FacilityController@index')->name('facility.get')->middleware('auth');
-    Route::get('/external/hotel', 'HotelController@index')->name('hotel.get')->middleware('auth');
-    Route::get('/external/weather', 'WeatherController@index')->name('weather.get')->middleware('auth');
-    Route::get('/external/wiki-city', 'WikiController@city_index')->name('wiki.city.get')->middleware('auth');
-    Route::get('/external/near-by-search', 'NearBySearchController@index')->name('near-by-search.get')->middleware('auth');
-});
+        // Setting
+        Route::get('/setting', 'SettingController@get')->name('setting.get');
+        Route::post('/setting', 'SettingController@store')->name('setting.store');
 
-// Distance
-Route::get('/distance', 'DistanceController@index')->name('distance.get')->middleware('auth');
+        // Google Place
+        Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
 
-// セッティング
-Route::get('/setting', 'SettingController@get')->name('setting.get');
-Route::post('/setting', 'SettingController@store')->name('setting.store');
+        // Rate Limit
+        Route::middleware('throttle:2, 0.15')->group(function () {
+            Route::prefix('external')->namespace('External')->group(function () {
+                Route::post('/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
+                Route::get('/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
+                Route::get('/near-by-search', 'NearBySearchController@index')->name('near-by-search.get');
+            });
+            // Cities
+            Route::get('/cities', 'CitiesController@index')->name('cities.get');
+        });
 
-// Google Place
-Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
-
-// Test
-Route::namespace('Test')->group(function () {
-    Route::get('/dev-test/weather', 'TestController@weather')->name('test.weather.get');
-    Route::get('/dev-test/wiki', 'TestController@wiki')->name('test.wiki.get');
-    Route::get('/dev-test/find-place', 'TestController@find_place')->name('test.find-place.get');
-    Route::get('/dev-test/near-by-search', 'TestController@near_by_search')->name('test.near-by-search.get');
+        // Test
+        Route::prefix('dev-test')->namespace('Test')->group(function () {
+            Route::get('/weather', 'TestController@weather')->name('test.weather.get');
+            Route::get('/wiki', 'TestController@wiki')->name('test.wiki.get');
+            Route::get('/find-place', 'TestController@find_place')->name('test.find-place.get');
+            Route::get('/near-by-search', 'TestController@near_by_search')->name('test.near-by-search.get');
+        });
+    });
 });

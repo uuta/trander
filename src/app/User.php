@@ -16,6 +16,10 @@ class User extends Authenticatable
     const NOT_AGREE_TO_PRIVACY_POLICY = 0;
     const AGREE_TO_PRIVACY_POLICY = 1;
 
+    // Check Registration
+    const REGISTERED = 0;
+    const NOT_REGISTERED = 1;
+
     use Notifiable;
 
     /**
@@ -24,7 +28,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'api_token'
     ];
 
     /**
@@ -33,7 +40,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'unique_id',
+        'email_verified_at',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -50,7 +62,7 @@ class User extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
+        $this->notify(new \App\Notifications\MailResetPasswordNotification($token, $this));
     }
 
     public function socialUsers()
@@ -66,5 +78,10 @@ class User extends Authenticatable
     public function requestCountHistory()
     {
         return $this->hasMany(RequestCountHistory::class);
+    }
+
+    public function passwordResets()
+    {
+        return $this->hasMany(PasswordReset::class, 'email', 'email');
     }
 }

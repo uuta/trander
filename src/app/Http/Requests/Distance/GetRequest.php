@@ -27,14 +27,15 @@ class GetRequest extends FormRequest
     public function rules()
     {
         return [
-            'lat' => 'required|numeric|between:'. Setting::LAT['min']. ','. Setting::LAT['max'],
-            'lng' => 'required|numeric|between:'. Setting::LNG['min']. ','. Setting::LNG['max'],
-            'cityLat' => 'required|numeric|between:'. Setting::LAT['min']. ','. Setting::LAT['max'],
-            'cityLng' => 'required|numeric|between:'. Setting::LNG['min']. ','. Setting::LNG['max'],
+            'lat' => 'required|numeric|between:' . Setting::LAT['min'] . ',' . Setting::LAT['max'],
+            'lng' => 'required|numeric|between:' . Setting::LNG['min'] . ',' . Setting::LNG['max'],
+            'target_lat' => 'required|numeric|between:' . Setting::LAT['min'] . ',' . Setting::LAT['max'],
+            'target_lng' => 'required|numeric|between:' . Setting::LNG['min'] . ',' . Setting::LNG['max'],
         ];
     }
 
-    protected function failedValidation(Validator $validator) {
+    protected function failedValidation(Validator $validator)
+    {
         $res = response()->json([
             'errors' => $validator->errors(),
         ], 422);

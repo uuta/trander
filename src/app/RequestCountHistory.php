@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class RequestCountHistory extends Model
 {
+    protected $table = 'request_count_historys';
+
     const TYPE_ID = [
         'getGeoDbCities' => 0,
         'getWikidata' => 1,
@@ -31,12 +33,13 @@ class RequestCountHistory extends Model
      * Set a history record
      *
      * @param int $type_id
+     * @param int $user_id
      */
-    public function setHistory(int $type_id) : void
+    public function setHistory(int $type_id, int $user_id): void
     {
         DB::table('request_count_historys')->insert(
             [
-                'user_id' => Auth::id(),
+                'user_id' => $user_id,
                 'type_id' => $type_id,
             ]
         );

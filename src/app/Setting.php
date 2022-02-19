@@ -32,7 +32,16 @@ class Setting extends Model
         'max' => 180,
     ];
 
+    const DEFAULT_MIN_DISTANCE = 0;
+    const DEFAULT_MAX_DISTANCE = 1000;
+
     public $timestamps = false;
+
+    protected $attributes = [
+        "min_distance" => self::DEFAULT_MIN_DISTANCE,
+        "max_distance" => self::DEFAULT_MAX_DISTANCE,
+        "direction_type" => self::DIRECTION_TYPE['none'],
+    ];
 
     public function user()
     {

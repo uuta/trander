@@ -26,7 +26,7 @@ class GetRequest extends FormRequest
     public function rules()
     {
         return [
-            'placeId' => 'required|string',
+            'place_id' => 'required|string',
         ];
     }
 

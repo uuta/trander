@@ -9,6 +9,9 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
+use App\Http\Requests\Password\PutRequest;
+use App\User;
 
 class ForgotPasswordController extends Controller
 {
@@ -68,7 +71,7 @@ class ForgotPasswordController extends Controller
     }
 
     /**
-     * Handle reset password 
+     * Handle reset password
      */
     public function callResetPassword(Request $request)
     {
@@ -98,7 +101,8 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetResponse(Request $request, $response)
     {
-        return response()->json(['message' => 'Password reset successfully.']);
+        $apiToken = User::where('email', $request->get('email'))->first()['api_token'];
+        return response()->json(['apiToken' => $apiToken]);
     }
     /**
      * Get the response for a failed password reset.
@@ -110,9 +114,8 @@ class ForgotPasswordController extends Controller
     protected function sendResetFailedResponse(Request $request, $response)
     {
         return response()->json([
-            'message' => 'Failed, Invalid Token.',
             'errors' => [
-                'email' => ['E-mail address is different.']
+                'email' => ['Failed, Invalid Token.']
             ]
         ], 422);
     }

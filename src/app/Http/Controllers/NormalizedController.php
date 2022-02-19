@@ -18,10 +18,10 @@ class NormalizedController extends Controller
      * @param object $request
      * @return object
      */
-    protected function normarize_request(Object $request) : object
+    protected function normarize_request(Object $request): object
     {
         foreach ($request->all() as $key => $value) {
-            if(preg_match('/[A-Z]/', $key)){
+            if (preg_match('/[A-Z]/', $key)) {
                 $new_key = Str::snake($key);
                 $request->merge([$new_key => $request->$key]);
                 $request->offsetUnset($key);
@@ -36,10 +36,11 @@ class NormalizedController extends Controller
      * @param ?array $response
      * @return ?array
      */
-    protected function normarize_response(?array $response) {
-        if(isset($response)) {
+    protected function normarize_response(?array $response)
+    {
+        if (isset($response)) {
             foreach ($response as $key => $value) {
-                if(preg_match('/[_]/', $key)){
+                if (preg_match('/[_]/', $key)) {
                     $new_key = Str::camel($key);
                     $response[$new_key] = $value;
                     unset($response[$key]);
@@ -55,11 +56,12 @@ class NormalizedController extends Controller
      * @param ?array $response
      * @return ?array
      */
-    protected function normarize_multiple_response(?array $response) {
-        if(isset($response)) {
+    protected function normarize_multiple_response(?array $response)
+    {
+        if (isset($response)) {
             foreach ($response as $i => $v) {
                 foreach ($v as $key => $value) {
-                    if(preg_match('/[_]/', $key)){
+                    if (preg_match('/[_]/', $key)) {
                         $new_key = Str::camel($key);
                         $response[$i][$new_key] = $value;
                         unset($response[$i][$key]);

@@ -11,14 +11,18 @@ use Illuminate\Auth\Notifications\ResetPassword;
 class MailResetPasswordNotification extends ResetPassword
 {
     use Queueable;
+
+    private $email;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($token, $user)
     {
         parent::__construct($token);
+        $this->email = $user->email;
     }
     /**
      * Get the notification's delivery channels.
@@ -38,13 +42,13 @@ class MailResetPasswordNotification extends ResetPassword
      */
     public function toMail($notifiable)
     {
-        $link = url(config('app.url')."/regenerate-password/" . $this->token);
+        $link = url(config('app.url')."/password/regenerate?token={$this->token}&email={$this->email}");
         return (new MailMessage)
-            ->subject('Tranderのパスワードリセット')
-            ->line("こんにちは！パスワードを忘れてしまったという連絡をいただきましたので、パスワードのリセット用リンクをお送りします。以下をクリックして新しいパスワードを選択してください。")
-            ->action('新しいパスワードを選択する', $link)
-            ->line("リンクの有効期限は" . config('auth.passwords.users.expire') . "分です。")
-            ->line("もしも誤ってパスワードのリセットをリクエストされた場合は、このメールは無視してください。");
+            ->subject('[Trander] Password Reset')
+            ->line("Hello! You are receiving this email because we received a password reset request for your account.")
+            ->action('Reset Password', $link)
+            ->line("This password reset link will expire in " . config('auth.passwords.users.expire') . " minutes")
+            ->line("If you did not request a password reset, no further action is required.");
     }
 
     /**

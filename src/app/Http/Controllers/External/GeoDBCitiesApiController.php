@@ -30,6 +30,10 @@ class GeoDBCitiesApiController extends NormalizedController
 
         $response = $this->GeoDBCitiesApi->api_request($location);
         $addedResponse = $this->GeoDBCitiesApi->add_request($request, $response, $angle);
+
+        if (empty($addedResponse['data'])) {
+            return Response([], 204);
+        }
         return $addedResponse;
     }
 
@@ -47,7 +51,7 @@ class GeoDBCitiesApiController extends NormalizedController
 
             // Insert a request history
             $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCitiesId']);
+            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCitiesId'], $request->all()['userinfo']->id);
 
             return $this->normarize_response($response);
         }

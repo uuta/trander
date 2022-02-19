@@ -27,8 +27,8 @@ class PostSettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'min' => 'required|integer|between:0, 100',
-            'max' => 'required|integer|between:0, 100',
+            'min_distance' => 'required|integer|between:0, 100',
+            'max_distance' => 'required|integer|between:0, 100',
             'direction_type' => 'required|integer|between:'. Setting::DIRECTION_TYPE['none']. ','. Setting::DIRECTION_TYPE['west'],
         ];
     }

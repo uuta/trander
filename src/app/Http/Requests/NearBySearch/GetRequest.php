@@ -30,7 +30,7 @@ class GetRequest extends FormRequest
             'lat' => 'required|numeric|between:'. Setting::LAT['min']. ','. Setting::LAT['max'],
             'lng' => 'required|numeric|between:'. Setting::LNG['min']. ','. Setting::LNG['max'],
             'keyword' => 'required|string',
-            'directionType' => 'required|integer|between:'. Setting::DIRECTION_TYPE['none']. ','. Setting::DIRECTION_TYPE['west'],
+            'direction_type' => 'required|integer|between:'. Setting::DIRECTION_TYPE['none']. ','. Setting::DIRECTION_TYPE['west'],
             'min' => 'required|numeric|between:0, 100',
             'max' => 'required|numeric|between:0, 100',
         ];
