@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: |
           gcloud config set project ${{ secrets.GCP_PROJECT }}
-          docker build -f docker/Dockerfile.prod -t us.gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }} .
+          docker build -f docker/php/Dockerfile.production -t us.gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }} .
 
       # Push the Docker image
       - name: Push
