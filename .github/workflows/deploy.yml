@@ -45,7 +45,7 @@ jobs:
         run: |
           gcloud run deploy ${{ secrets.GCP_APPLICATION }} \
           --image us.gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }} \
-          --region asia-east1 \
+          --region us-central1 \
           --platform=managed \
           --add-cloudsql-instances ${{ secrets.SQL_CONNECTION_NAME }} \
           --allow-unauthenticated
