@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # initialize laravel
-cd /var/www/src
-composer install
+cd /work/src
+composer install --optimize-autoloader
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
