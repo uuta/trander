@@ -8,13 +8,6 @@ class GetTest extends SetUpTestCase
 {
     private const ROUTE = 'distance.get';
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->seed('MWaysSeeder');
-        $this->seed('MDirectionSeeder');
-    }
-
     /**
      * 正常
      * @test
