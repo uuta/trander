@@ -10,14 +10,6 @@ use App\Setting;
 
 class PostTest extends SetUpTestCase
 {
-    use RefreshDatabase;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->seed('MWaysSeeder');
-        $this->seed('MDirectionSeeder');
-    }
 
     /**
      * 正常
@@ -46,8 +38,7 @@ class PostTest extends SetUpTestCase
         $this->assertInternalType('string', $data['city']);
         $this->assertInternalType('string', $data['region']);
         $this->assertInternalType('float', round($data['distance']));
-        $this->assertInternalType('array', $data['ways']);
-        ;
+        $this->assertInternalType('array', $data['ways']);;
         $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
@@ -83,8 +74,7 @@ class PostTest extends SetUpTestCase
         $this->assertInternalType('string', $data['city']);
         $this->assertInternalType('string', $data['region']);
         $this->assertInternalType('float', round($data['distance']));
-        $this->assertInternalType('array', $data['ways']);
-        ;
+        $this->assertInternalType('array', $data['ways']);;
         $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));

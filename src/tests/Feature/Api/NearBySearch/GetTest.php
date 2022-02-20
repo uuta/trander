@@ -12,12 +12,6 @@ class GetTest extends SetUpTestCase
 {
     private const ROUTE = 'near-by-search.get';
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->seed('MRatingsSeeder');
-    }
-
     /**
      * 正常
      * @test
