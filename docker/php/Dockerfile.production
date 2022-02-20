@@ -23,6 +23,11 @@ COPY --from=build /app /work
 COPY docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN chmod 777 -R /work
 
+# Run npm
+WORKDIR /work/src
+RUN npm ci
+RUN npm run prod
+
 WORKDIR /
 RUN echo "Listen 8080" >> /etc/apache2/ports.conf
 RUN chown -R www-data:www-data /work
