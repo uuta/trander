@@ -19,7 +19,7 @@ services:
     volumes:
       - db-store:/var/lib/mysql
       - ./logs:/var/log/mysql
-      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER}
@@ -28,6 +28,22 @@ services:
       - TZ=${TZ}
     ports:
       - "3006:3306"
+
+  db-testing:
+    image: mysql:8.0
+    volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    tmpfs:
+      - /var/lib/mysql
+      - /var/log/mysql
+    environment:
+      - MYSQL_DATABASE=${TEST_DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - TZ=${TZ}
+    ports:
+      - "3007:3307"
 
 # Persistence data
 volumes:
