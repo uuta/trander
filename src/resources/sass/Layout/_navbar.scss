@@ -1,7 +1,7 @@
 .navbar {
   align-items: center;
-  background: #fff;
-  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, .1);
+  background: #111;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
   display: flex;
   height: 4rem;
   justify-content: space-between;
@@ -23,12 +23,12 @@
       color: inherit;
     }
 
-    & img{
+    & img {
       max-height: 3rem;
     }
 
     &:hover {
-      opacity: .6;
+      opacity: 0.6;
     }
   }
 
@@ -43,8 +43,7 @@
 }
 
 @media screen and (max-width: 480px) {
-   .navbar {
-
+  .navbar {
     &__brand img {
       max-height: 2rem;
     }
