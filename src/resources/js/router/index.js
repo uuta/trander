@@ -23,136 +23,137 @@ import store from '../store'
 // これによって<RouterView />コンポーネントなどを使うことができる
 Vue.use(VueRouter)
 
-const routes = [{
-  path: '/login',
-  component: Login,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next('/index')
-    } else {
-      next()
+const routes = [
+  //   {
+  //   path: '/login',
+  //   component: Login,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next('/index')
+  //     } else {
+  //       next()
+  //     }
+  //   }
+  // },
+  {
+    path: '/',
+    component: OnBoarding,
+    beforeEnter(to, from, next) {
+      if (store.getters['auth/check']) {
+        next('/index')
+      } else {
+        next()
+      }
     }
+  },
+  // {
+  //   path: '/index',
+  //   name: 'index',
+  //   component: Index,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next()
+  //     } else {
+  //       next('/login')
+  //     }
+  //   }
+  // },
+  // {
+  //   path: '/index/:cityId',
+  //   name: 'cityDetail',
+  //   component: Index,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next()
+  //     } else {
+  //       next('/login')
+  //     }
+  //   }
+  // },
+  // {
+  //   path: '/kw',
+  //   name: 'keyword',
+  //   component: Index,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next()
+  //     } else {
+  //       next('/login')
+  //     }
+  //   }
+  // },
+  {
+    path: '/kw/share/:placeId',
+    name: 'shareKeyword',
+    component: ShareKeyword,
+  },
+  // {
+  //   path: '/setting',
+  //   component: Setting,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next()
+  //     } else {
+  //       next('/login')
+  //     }
+  //   }
+  // },
+  {
+    path: '/500',
+    component: SystemError,
+  },
+  // {
+  //   path: '/reset-password',
+  //   component: Reset,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next('/index')
+  //     } else {
+  //       next()
+  //     }
+  //   }
+  // },
+  // {
+  //   path: '/sent-email',
+  //   component: SentEmail,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next('/index')
+  //     } else {
+  //       next()
+  //     }
+  //   }
+  // },
+  // {
+  //   path: '/regenerate-password/:token',
+  //   component: Regenerate,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next('/index')
+  //     } else {
+  //       next()
+  //     }
+  //   }
+  // },
+  // {
+  //   path: '/regenerate-password-complete',
+  //   component: RegenerateComplete,
+  //   beforeEnter(to, from, next) {
+  //     if (store.getters['auth/check']) {
+  //       next()
+  //     } else {
+  //       next('/login')
+  //     }
+  //   }
+  // },
+  {
+    path: '/terms-of-service',
+    component: TermsOfService,
+  },
+  {
+    path: '/privacy-policy',
+    component: PrivacyPolicy,
   }
-},
-{
-  path: '/',
-  component: OnBoarding,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next('/index')
-    } else {
-      next()
-    }
-  }
-},
-{
-  path: '/index',
-  name: 'index',
-  component: Index,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next()
-    } else {
-      next('/login')
-    }
-  }
-},
-{
-  path: '/index/:cityId',
-  name: 'cityDetail',
-  component: Index,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next()
-    } else {
-      next('/login')
-    }
-  }
-},
-{
-  path: '/kw',
-  name: 'keyword',
-  component: Index,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next()
-    } else {
-      next('/login')
-    }
-  }
-},
-{
-  path: '/kw/share/:placeId',
-  name: 'shareKeyword',
-  component: ShareKeyword,
-},
-{
-  path: '/setting',
-  component: Setting,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next()
-    } else {
-      next('/login')
-    }
-  }
-},
-{
-  path: '/500',
-  component: SystemError,
-},
-{
-  path: '/reset-password',
-  component: Reset,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next('/index')
-    } else {
-      next()
-    }
-  }
-},
-{
-  path: '/sent-email',
-  component: SentEmail,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next('/index')
-    } else {
-      next()
-    }
-  }
-},
-{
-  path: '/regenerate-password/:token',
-  component: Regenerate,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next('/index')
-    } else {
-      next()
-    }
-  }
-},
-{
-  path: '/regenerate-password-complete',
-  component: RegenerateComplete,
-  beforeEnter(to, from, next) {
-    if (store.getters['auth/check']) {
-      next()
-    } else {
-      next('/login')
-    }
-  }
-},
-{
-  path: '/terms-of-service',
-  component: TermsOfService,
-},
-{
-  path: '/privacy-policy',
-  component: PrivacyPolicy,
-}
 ]
 
 const router = new VueRouter({
