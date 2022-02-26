@@ -17,6 +17,9 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
         Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
     });
 
+    // Google Place
+    Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
+
     // JWT, craete a user
     Route::middleware('jwt', 'first_or_create_user')->group(function () {
 
@@ -42,9 +45,6 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
         // Setting
         Route::get('/setting', 'SettingController@get')->name('setting.get');
         Route::post('/setting', 'SettingController@store')->name('setting.store');
-
-        // Google Place
-        Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
 
         // Rate Limit
         Route::middleware('throttle:4, 0.05')->group(function () {
