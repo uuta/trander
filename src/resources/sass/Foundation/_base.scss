@@ -17,7 +17,7 @@ body {
 main {
   padding-bottom: 1rem;
   padding-top: 5rem;
-  height: 100vh;
+  background: $base;
 }
 
 figure {
@@ -29,7 +29,7 @@ img {
 }
 
 a {
-  color: $primary;
+  color: $secondary;
 }
 
 dd {
