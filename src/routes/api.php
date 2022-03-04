@@ -25,7 +25,7 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
 
         // Get Login User
         Route::get('/user', function (Request $request) {
-            return User::where('email', $request->auth0_email)->first();
+            return User::where('unique_id', $request->auth0_sub)->first();
         })->name('user');
 
         // モーダル用の値変更
