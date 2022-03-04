@@ -44,7 +44,7 @@ class CheckIdToken
         if ('RS256' === $token_alg) {
             // 指定したissuerからjwksを取得し、証明書(CERTIFICATE)で取得する
             $jwks_fetcher = new JWKFetcher();
-            $jwks = $jwks_fetcher->getKeys($token_issuer.'.well-known/jwks.json');
+            $jwks = $jwks_fetcher->getKeys($token_issuer . '.well-known/jwks.json');
             $signature_verifier = new AsymmetricVerifier($jwks);
         } else if ('HS256' === $token_alg) {
             $signature_verifier = new SymmetricVerifier(config('const.auth0.client_secret'));
@@ -67,7 +67,7 @@ class CheckIdToken
 
         // user_idを$requestに追加する。
         $request->merge([
-            'auth0_email' => $decoded_token['email']
+            'auth0_sub' => $decoded_token['sub']
         ]);
 
         return $next($request);

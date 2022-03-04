@@ -22,6 +22,6 @@ return [
     ],
 
     'test' => [
-        'email' => env('TEST_EMAIL', ''),
+        'sub' => env('TEST_SUB', ''),
     ]
 ];

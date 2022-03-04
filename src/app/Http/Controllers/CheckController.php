@@ -18,7 +18,7 @@ class CheckController extends Controller
 
     public function changeRegistration(Request $request)
     {
-        $user = User::where('email', $request->get('auth0_email'))->first();
+        $user = User::where('unique_id', $request->get('auth0_sub'))->first();
         $user->check_registration = User::REGISTERED;
         $user->save();
     }
