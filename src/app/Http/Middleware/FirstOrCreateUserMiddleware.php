@@ -18,7 +18,7 @@ class FirstOrCreateUserMiddleware
     public function handle($request, Closure $next)
     {
         $validator = Validator::make($request->all(), [
-            'auth0_email' => ['required', 'string', 'email', 'max:255'],
+            'auth0_sub' => ['required', 'string', 'max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -27,7 +27,7 @@ class FirstOrCreateUserMiddleware
             ], 422);
         }
 
-        $user = User::firstOrCreate(['email' => $request->auth0_email]);
+        $user = User::firstOrCreate(['unique_id' => $request->auth0_sub]);
         $request->merge([
             'userinfo' => $user
         ]);
