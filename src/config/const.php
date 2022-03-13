@@ -21,6 +21,10 @@ return [
         'api_key' => env('GEO_DB_CITIES_API', '')
     ],
 
+    'revenue_cat' => [
+        'api_key' => env('REVENUECAT_API_KEY', '')
+    ],
+
     'test' => [
         'sub' => env('TEST_SUB', ''),
     ]
