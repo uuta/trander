@@ -7,15 +7,15 @@ use App\User;
 Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
 
     // Authentication
-    Route::namespace('Auth')->group(function () {
-        Route::post('/register', 'RegisterController@register')->name('register');
-        Route::post('/login', 'LoginController@login')->name('login');
-        Route::post('/logout', 'LoginController@logout')->name('logout');
-        Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
-        Route::put('/password', 'ForgotPasswordController@callResetPassword')->name('password.put');
-        Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
-        Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
-    });
+    // Route::namespace('Auth')->group(function () {
+    //     Route::post('/register', 'RegisterController@register')->name('register');
+    //     Route::post('/login', 'LoginController@login')->name('login');
+    //     Route::post('/logout', 'LoginController@logout')->name('logout');
+    //     Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
+    //     Route::put('/password', 'ForgotPasswordController@callResetPassword')->name('password.put');
+    //     Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
+    //     Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
+    // });
 
     // Google Place
     Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
@@ -55,6 +55,11 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
             });
             // Cities
             Route::get('/cities', 'CitiesController@index')->name('cities.get');
+        });
+
+        // RevenueCat
+        Route::prefix('revenue-cat')->namespace('RevenueCats')->group(function () {
+            Route::get('/subscriber', 'SubscriberController@show')->name('revenuecat.subscriber.show');
         });
 
         // Test
