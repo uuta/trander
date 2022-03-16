@@ -22,7 +22,7 @@ class GeoDBCitiesApi
    * @param string $location
    * @return object
    */
-  public function api_request($location) : object
+  public function api_request($location): object
   {
     $client = new Client();
     $sourceUrl = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
@@ -48,25 +48,25 @@ class GeoDBCitiesApi
    * @param float $angle
    * @return array
    */
-  public function add_request(object $request, object $response, float $angle) : array
+  public function add_request(object $request, object $response, float $angle): array
   {
     $responseBody = json_decode($response->getBody()->getContents(), true);
 
     // レスポンスの距離を上書きする
-    foreach($responseBody['data'] as &$data) {
-      $this->get_distance($request, $data);
+    foreach ($responseBody['data'] as &$data) {
+      $this->getDistance($request, $data);
       $data['distance'] = $this->distance;
     }
 
     // レスポンスに移動手段の推奨度を追加する
-    foreach($responseBody['data'] as &$data) {
-      $this->get_way_of_recommend();
+    foreach ($responseBody['data'] as &$data) {
+      $this->getWayOfRecommend();
       $data['ways'] = $this->ways;
     }
 
     // レスポンスに方角を追加する
-    foreach($responseBody['data'] as &$data) {
-      $this->get_direction($angle);
+    foreach ($responseBody['data'] as &$data) {
+      $this->getDirection($angle);
       $data['direction'] = $this->direction;
     }
 
@@ -79,7 +79,7 @@ class GeoDBCitiesApi
    * @param object $request
    * @param array $response
    */
-  private function get_distance(object $request, array $response)
+  private function getDistance(object $request, array $response)
   {
     $coordinate1 = new Coordinate($request->lat, $request->lng);
     $coordinate2 = new Coordinate($response['latitude'], $response['longitude']);
@@ -91,10 +91,10 @@ class GeoDBCitiesApi
   /**
    * Get the recommend frequencies of ways
    */
-  private function get_way_of_recommend()
+  private function getWayOfRecommend()
   {
     $ways = [];
-    foreach(MWay::WAYS as $key => $value) {
+    foreach (MWay::WAYS as $key => $value) {
       $way = DB::table('m_ways')->where([
         ['way_id', $value],
         ['min_distance', '<=', $this->distance],
@@ -110,7 +110,7 @@ class GeoDBCitiesApi
    *
    * @param float $angle
    */
-  private function get_direction(float $angle)
+  private function getDirection(float $angle)
   {
     $data = DB::table('m_directions')->where([
       ['min_angle', '<=', $angle],
