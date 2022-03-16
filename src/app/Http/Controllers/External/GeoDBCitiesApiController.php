@@ -39,10 +39,7 @@ class GeoDBCitiesApiController extends NormalizedController
 
     public function index(GetIdRequest $request)
     {
-        try
-        {
-            $this->normarize_request($request);
-
+        try {
             // Request
             $GeoDBCitiesGetId = new GeoDBCitiesGetId($request);
             $GeoDBCitiesGetId->apiRequest();
@@ -53,10 +50,8 @@ class GeoDBCitiesApiController extends NormalizedController
             $requestCountHistory = new RequestCountHistory();
             $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCitiesId'], $request->all()['userinfo']->id);
 
-            return $this->normarize_response($response);
-        }
-        catch (BadResponseException $e)
-        {
+            return $response;
+        } catch (BadResponseException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($response, $e->getResponse()->getStatusCode());
         }
