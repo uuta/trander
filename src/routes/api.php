@@ -57,11 +57,6 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
             Route::get('/cities', 'CitiesController@index')->name('cities.get');
         });
 
-        // RevenueCat
-        Route::prefix('revenue-cat')->namespace('RevenueCats')->group(function () {
-            Route::get('/subscriber', 'SubscriberController@show')->name('revenuecat.subscriber.show');
-        });
-
         // Test
         Route::prefix('dev-test')->namespace('Test')->group(function () {
             Route::get('/weather', 'TestController@weather')->name('test.weather.get');
