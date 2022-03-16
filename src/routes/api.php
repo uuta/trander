@@ -43,8 +43,10 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
         Route::get('/distance', 'DistanceController@index')->name('distance.get');
 
         // Setting
-        Route::get('/setting', 'SettingController@get')->name('setting.get');
-        Route::post('/setting', 'SettingController@store')->name('setting.store');
+        Route::prefix('setting')->group(function () {
+            Route::get('/', 'SettingController@get')->name('setting.get');
+            Route::post('/', 'SettingController@store')->name('setting.store');
+        });
 
         // Rate Limit
         Route::middleware('throttle:4, 0.05', 'verify.subscriber')->group(function () {
