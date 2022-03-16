@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use App\User;
 
 Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
 
@@ -23,10 +21,11 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
     // JWT, craete a user
     Route::middleware('jwt', 'first_or_create_user')->group(function () {
 
-        // Get Login User
-        Route::get('/user', function (Request $request) {
-            return User::where('unique_id', $request->auth0_sub)->first();
-        })->name('user');
+        // User
+        Route::prefix('user')->group(function () {
+            Route::get('/', 'UserController@show')->name('user.show');
+            Route::post('/', 'UserController@create')->name('user.create');
+        });
 
         // モーダル用の値変更
         Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');

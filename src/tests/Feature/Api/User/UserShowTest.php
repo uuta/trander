@@ -5,9 +5,9 @@ namespace Tests\Feature\Api\User;
 use App\User;
 use Tests\SetUpTestCase;
 
-class UserApiTest extends SetUpTestCase
+class UserShowTest extends SetUpTestCase
 {
-    private const ROUTE_GET = 'user';
+    private const ROUTE_GET = 'user.show';
 
     /**
      * @test
