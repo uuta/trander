@@ -47,7 +47,7 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
         Route::post('/setting', 'SettingController@store')->name('setting.store');
 
         // Rate Limit
-        Route::middleware('throttle:4, 0.05')->group(function () {
+        Route::middleware('throttle:4, 0.05', 'verify.subscriber')->group(function () {
             Route::prefix('external')->namespace('External')->group(function () {
                 Route::post('/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
                 Route::get('/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
