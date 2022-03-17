@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\External;
 
-use Illuminate\Support\Facades\Log;
-use App\Services\GeoDBCitiesApi;
-use App\Http\Requests\GeoDBCitiesApiRequest;
-use App\Http\Requests\GeoDBCities\GetIdRequest;
-use App\Http\Controllers\NormalizedController;
-use GuzzleHttp\Exception\BadResponseException;
-use App\Services\Facades\GenerateLocation;
 use App\RequestCountHistory;
+use App\Services\GeoDBCitiesApi;
+use App\Http\Controllers\Controller;
+use App\Services\Facades\GenerateLocation;
+use App\Http\Requests\GeoDBCitiesApiRequest;
+use GuzzleHttp\Exception\BadResponseException;
+use App\Http\Requests\GeoDBCities\GetIdRequest;
 use App\Services\GeoDBCities\GetId as GeoDBCitiesGetId;
 
-class GeoDBCitiesApiController extends NormalizedController
+class GeoDBCitiesApiController extends Controller
 {
     protected $GeoDBCitiesApi;
 
