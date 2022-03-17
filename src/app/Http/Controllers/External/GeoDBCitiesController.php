@@ -13,7 +13,7 @@ use App\UseCases\GeoDBCities\GeoDBCitiesRequestUseCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\GeoDBCities\GeoDBCitiesRequestResource;
 
-class GeoDBCitiesApiController extends Controller
+class GeoDBCitiesController extends Controller
 {
     public function request(GeoDBCitiesApiRequest $request)
     {

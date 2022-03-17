@@ -50,8 +50,8 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
         // Rate Limit
         Route::middleware('throttle:4, 0.05', 'verify.subscriber')->group(function () {
             Route::prefix('external')->namespace('External')->group(function () {
-                Route::post('/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
-                Route::get('/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
+                Route::post('/geo-db-cities', 'GeoDBCitiesController@request')->name('geo-db-cities');
+                Route::get('/geo-db-cities', 'GeoDBCitiesController@index')->name('geo-db-cities.get');
                 Route::get('/near-by-search', 'NearBySearchController@index')->name('near-by-search.get');
             });
             // Cities

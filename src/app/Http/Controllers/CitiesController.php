@@ -8,6 +8,7 @@ use App\Http\Resources\Cities\IndexResource;
 
 class CitiesController extends Controller
 {
+    // TODO:
     public function index(IndexRequest $request)
     {
         $geo_db_cities = IndexService::postGeoDbCitiesApi($request);
