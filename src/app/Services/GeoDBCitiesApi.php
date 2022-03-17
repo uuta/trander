@@ -22,7 +22,7 @@ class GeoDBCitiesApi
    * @param string $location
    * @return object
    */
-  public function api_request($location): object
+  public function apiRequest($location): object
   {
     $client = new Client();
     $sourceUrl = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
@@ -48,7 +48,7 @@ class GeoDBCitiesApi
    * @param float $angle
    * @return array
    */
-  public function add_request(object $request, object $response, float $angle): array
+  public function addRequest(object $request, object $response, float $angle): array
   {
     $responseBody = json_decode($response->getBody()->getContents(), true);
 

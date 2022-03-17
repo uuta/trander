@@ -5,7 +5,7 @@ namespace App\Http\Controllers\External;
 use App\RequestCountHistory;
 use App\Services\GeoDBCitiesApi;
 use App\Http\Controllers\Controller;
-use App\Services\Facades\GenerateLocation;
+use App\Services\Facades\GenerateLocationService;
 use App\Http\Requests\GeoDBCitiesApiRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Http\Requests\GeoDBCities\GetIdRequest;
@@ -23,12 +23,12 @@ class GeoDBCitiesApiController extends Controller
     public function request(GeoDBCitiesApiRequest $request)
     {
         // Generate location
-        $Randomization = new GenerateLocation($request);
+        $Randomization = new GenerateLocationService($request);
         $location = $Randomization->generateFormattedLocation();
         $angle = $Randomization->getAngle();
 
-        $response = $this->GeoDBCitiesApi->api_request($location);
-        $addedResponse = $this->GeoDBCitiesApi->add_request($request, $response, $angle);
+        $response = $this->GeoDBCitiesApi->apiRequest($location);
+        $addedResponse = $this->GeoDBCitiesApi->addRequest($request, $response, $angle);
 
         if (empty($addedResponse['data'])) {
             return Response([], 204);

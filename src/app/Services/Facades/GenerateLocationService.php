@@ -7,7 +7,7 @@ use Location\Coordinate;
 use Location\Formatter\Coordinate\DecimalDegrees;
 use App\Setting;
 
-class GenerateLocation
+class GenerateLocationService
 {
     private $distance;
     private $angle;
