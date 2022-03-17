@@ -3,12 +3,10 @@
 namespace Tests\Feature\Api\GeoDBCities;
 
 use Tests\SetUpTestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\MWay;
 use Illuminate\Support\Facades\DB;
 use App\Setting;
 
-class PostTest extends SetUpTestCase
+class GeoDBCitiesPostTest extends SetUpTestCase
 {
     /**
      * 正常
@@ -31,16 +29,11 @@ class PostTest extends SetUpTestCase
 
         // レスポンスの中身の確認
         $data = $response->json(['data']);
-        $data = array_shift($data);
-        $this->assertCount(1, $response->json(['data']));
+        $this->assertCount(8, $data);
         $this->assertIsString($data['countryCode']);
         $this->assertIsString($data['city']);
         $this->assertIsString($data['region']);
         $this->assertIsFloat(round($data['distance']));
-        $this->assertIsArray($data['ways']);;
-        $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
-        $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
-        $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
         // 方角の確認
         $directions = DB::table('m_directions')->select('direction_name')->get()->toArray();
         $this->assertTrue(in_array($data['direction'], array_column($directions, 'direction_name')));
@@ -67,16 +60,11 @@ class PostTest extends SetUpTestCase
 
         // レスポンスの中身の確認
         $data = $response->json(['data']);
-        $data = array_shift($data);
-        $this->assertCount(1, $response->json(['data']));
+        $this->assertCount(8, $data);
         $this->assertIsString($data['countryCode']);
         $this->assertIsString($data['city']);
         $this->assertIsString($data['region']);
         $this->assertIsFloat(round($data['distance']));
-        $this->assertIsArray($data['ways']);;
-        $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
-        $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
-        $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
         // 方角の確認（北は方角として来る）
         $directions = DB::table('m_directions')->whereBetween('direction_id', [4, 8])->get()->toArray();
         $this->assertTrue(in_array($data['direction'], array_column($directions, 'direction_name')));

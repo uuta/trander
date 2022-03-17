@@ -3,37 +3,29 @@
 namespace App\Http\Controllers\External;
 
 use App\RequestCountHistory;
-use App\Services\GeoDBCitiesApi;
 use App\Http\Controllers\Controller;
-use App\Services\Facades\GenerateLocationService;
+use App\Http\Resources\EmptyResource;
 use App\Http\Requests\GeoDBCitiesApiRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Http\Requests\GeoDBCities\GetIdRequest;
 use App\Services\GeoDBCities\GetId as GeoDBCitiesGetId;
+use App\UseCases\GeoDBCities\GeoDBCitiesRequestUseCase;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Resources\GeoDBCities\GeoDBCitiesRequestResource;
 
 class GeoDBCitiesApiController extends Controller
 {
-    protected $GeoDBCitiesApi;
-
-    public function __construct(GeoDBCitiesApi $GeoDBCitiesApi)
-    {
-        $this->GeoDBCitiesApi = $GeoDBCitiesApi;
-    }
-
     public function request(GeoDBCitiesApiRequest $request)
     {
-        // Generate location
-        $Randomization = new GenerateLocationService($request);
-        $location = $Randomization->generateFormattedLocation();
-        $angle = $Randomization->getAngle();
-
-        $response = $this->GeoDBCitiesApi->apiRequest($location);
-        $addedResponse = $this->GeoDBCitiesApi->addRequest($request, $response, $angle);
-
-        if (empty($addedResponse['data'])) {
-            return Response([], 204);
+        try {
+            $data = (new GeoDBCitiesRequestUseCase($request))->handle();
+            return (new GeoDBCitiesRequestResource($data));
+        } catch (ModelNotFoundException $e) {
+            return response()->json((new EmptyResource([])), 204);
+        } catch (BadResponseException $e) {
+            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return response()->json($response, 500);
         }
-        return $addedResponse;
     }
 
     public function index(GetIdRequest $request)
