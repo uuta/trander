@@ -10,7 +10,6 @@ use App\Setting;
 
 class PostTest extends SetUpTestCase
 {
-
     /**
      * 正常
      * @test
@@ -34,11 +33,11 @@ class PostTest extends SetUpTestCase
         $data = $response->json(['data']);
         $data = array_shift($data);
         $this->assertCount(1, $response->json(['data']));
-        $this->assertInternalType('string', $data['countryCode']);
-        $this->assertInternalType('string', $data['city']);
-        $this->assertInternalType('string', $data['region']);
-        $this->assertInternalType('float', round($data['distance']));
-        $this->assertInternalType('array', $data['ways']);;
+        $this->assertIsString($data['countryCode']);
+        $this->assertIsString($data['city']);
+        $this->assertIsString($data['region']);
+        $this->assertIsFloat(round($data['distance']));
+        $this->assertIsArray($data['ways']);;
         $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
@@ -70,11 +69,11 @@ class PostTest extends SetUpTestCase
         $data = $response->json(['data']);
         $data = array_shift($data);
         $this->assertCount(1, $response->json(['data']));
-        $this->assertInternalType('string', $data['countryCode']);
-        $this->assertInternalType('string', $data['city']);
-        $this->assertInternalType('string', $data['region']);
-        $this->assertInternalType('float', round($data['distance']));
-        $this->assertInternalType('array', $data['ways']);;
+        $this->assertIsString($data['countryCode']);
+        $this->assertIsString($data['city']);
+        $this->assertIsString($data['region']);
+        $this->assertIsFloat(round($data['distance']));
+        $this->assertIsArray($data['ways']);;
         $this->assertTrue(in_array($data['ways']['walking'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['bycicle'], MWay::RECOMMEND_FREQUENCY));
         $this->assertTrue(in_array($data['ways']['car'], MWay::RECOMMEND_FREQUENCY));
