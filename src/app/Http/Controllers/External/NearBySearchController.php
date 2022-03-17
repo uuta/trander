@@ -20,12 +20,8 @@ class NearBySearchController extends Controller
     {
         DB::beginTransaction();
         try {
-            // Generate location
-            $Randomization = new GenerateLocationService($request);
-            $location = $Randomization->generateLocation();
-
             // Request
-            $res = (new NearBySearchGetUseCase($request, $location))->handle();
+            $res = (new NearBySearchGetUseCase($request))->handle();
 
             // Insert into google_place_ids
             GooglePlaceId::insert_information($res);

@@ -12,7 +12,6 @@ use App\MWay;
 class GeoDBCitiesApi
 {
   private $direction;
-  private $angle;
   private $distance;
   private $ways;
 

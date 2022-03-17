@@ -3,6 +3,7 @@
 namespace App\UseCases\NearBySearch;
 
 use GuzzleHttp\Client;
+use App\Services\Facades\GenerateLocationService;
 use App\UseCases\Interfaces\GetRamdomlyFromApiUseCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -12,10 +13,9 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
     private $response;
     private $oneData;
 
-    public function __construct(object $request, string $location)
+    public function __construct(object $request)
     {
         $this->request = $request;
-        $this->location = $location;
     }
 
     /**
@@ -25,11 +25,23 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     public function handle(): ?array
     {
+        $this->_generateLocation();
         $this->_apiRequest();
         $this->_verifyEmpty();
         $this->_formatResponse();
         $this->_getContentRandomly();
         return $this->_return();
+    }
+
+    /**
+     * Generate a location
+     *
+     * @return void
+     */
+    public function _generateLocation()
+    {
+        $service = new GenerateLocationService($this->request);
+        $this->location = $service->generateLocation();
     }
 
     /**
