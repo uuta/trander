@@ -22,7 +22,7 @@ class NearBySearchController extends Controller
         try {
             // Generate location
             $Randomization = new GenerateLocation($request);
-            $location = $Randomization->generate_location();
+            $location = $Randomization->generateLocation();
 
             // Request
             $res = (new NearBySearchGetUseCase($request, $location))->handle();

@@ -13,14 +13,13 @@ class WeatherController extends NormalizedController
 {
     public function index(GetRequest $request)
     {
-        try
-        {
+        try {
             $this->normarize_request($request);
 
             // Request
             $WeatherGet = new WeatherGet($request);
             $WeatherGet->apiRequest();
-            $GetResponse = $WeatherGet->get_response();
+            $GetResponse = $WeatherGet->getResponse();
             $response = $GetResponse->formatResponse();
 
             // Insert a request history
@@ -28,9 +27,7 @@ class WeatherController extends NormalizedController
             $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getCurrentWeather'], $request->all()['userinfo']->id);
 
             return $this->normarize_multiple_response($response);
-        }
-        catch (BadResponseException $e)
-        {
+        } catch (BadResponseException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($response, $e->getResponse()->getStatusCode());
         }

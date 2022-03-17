@@ -24,7 +24,7 @@ class Get
     /**
      * Get the angle among the 2 location
      */
-    public function get_angle(): void
+    public function getAngle(): void
     {
         $current = new Coordinate($this->request->lat, $this->request->lng);
         $city = new Coordinate($this->request->target_lat, $this->request->target_lng);
@@ -38,7 +38,7 @@ class Get
      *
      * @return array
      */
-    public function get_response(): array
+    public function getResponse(): array
     {
         // Add the distance among 2 location
         $data['distance'] = $this->get_distance();

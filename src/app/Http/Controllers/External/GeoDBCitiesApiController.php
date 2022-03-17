@@ -24,8 +24,8 @@ class GeoDBCitiesApiController extends Controller
     {
         // Generate location
         $Randomization = new GenerateLocation($request);
-        $location = $Randomization->generate_formatted_location();
-        $angle = $Randomization->get_angle();
+        $location = $Randomization->generateFormattedLocation();
+        $angle = $Randomization->getAngle();
 
         $response = $this->GeoDBCitiesApi->api_request($location);
         $addedResponse = $this->GeoDBCitiesApi->add_request($request, $response, $angle);
@@ -42,7 +42,7 @@ class GeoDBCitiesApiController extends Controller
             // Request
             $GeoDBCitiesGetId = new GeoDBCitiesGetId($request);
             $GeoDBCitiesGetId->apiRequest();
-            $GetResponse = $GeoDBCitiesGetId->get_response();
+            $GetResponse = $GeoDBCitiesGetId->getResponse();
             $response = $GetResponse->formatResponse();
 
             // Insert a request history

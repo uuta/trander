@@ -19,9 +19,9 @@ class GenerateLocation
         $this->request->min = $request->min * 1000;
         $this->request->max = $request->max * 1000;
 
-        $this->generate_angle();
-        $this->generate_distance();
-        $this->generate_suggesting_location();
+        $this->generateAngle();
+        $this->generateDistance();
+        $this->generateSuggestingLocation();
     }
 
     /**
@@ -29,7 +29,7 @@ class GenerateLocation
      *
      * @return string
      */
-    public function generate_location(): string
+    public function generateLocation(): string
     {
         return $this->location;
     }
@@ -39,7 +39,7 @@ class GenerateLocation
      *
      * @return string
      */
-    public function generate_formatted_location(): string
+    public function generateFormattedLocation(): string
     {
         return $this->format();
     }
@@ -49,7 +49,7 @@ class GenerateLocation
      *
      * @return float
      */
-    public function get_angle(): float
+    public function getAngle(): float
     {
         return $this->angle;
     }
@@ -57,7 +57,7 @@ class GenerateLocation
     /**
      * Generate an angle randomly
      */
-    private function generate_angle()
+    private function generateAngle()
     {
         // Only when direction_type is north, get 0 or 1
         $num = mt_rand(0, 1);
@@ -80,7 +80,7 @@ class GenerateLocation
     /**
      * Generate a distance randomly
      */
-    private function generate_distance()
+    private function generateDistance()
     {
         $min = $this->request->min;
         $max = $this->request->max;
@@ -90,7 +90,7 @@ class GenerateLocation
     /**
      * Generate a distance randomly
      */
-    private function generate_suggesting_location()
+    private function generateSuggestingLocation()
     {
         $currentLocation = new Coordinate($this->request->lat, $this->request->lng);
         $bearingEllipsoidal = new BearingEllipsoidal();

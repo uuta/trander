@@ -13,8 +13,7 @@ class FacilityController extends NormalizedController
 {
     public function index(GetRequest $request)
     {
-        try
-        {
+        try {
             $this->normarize_request($request);
 
             // Request
@@ -24,11 +23,11 @@ class FacilityController extends NormalizedController
             $decodeResponse = json_decode($facilityGetResponse->getBody(), true);
 
             // Error handling
-            if($decodeResponse['ResultInfo']['Count'] === 0) {
+            if ($decodeResponse['ResultInfo']['Count'] === 0) {
                 return response()->json($decodeResponse, 404);
             }
 
-            $GetResponse = $FacilityGet->get_response();
+            $GetResponse = $FacilityGet->getResponse();
             $response = $GetResponse->formatResponse();
 
             // Insert a request history
@@ -36,9 +35,7 @@ class FacilityController extends NormalizedController
             $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getYahooLocalSearch'], $request->all()['userinfo']->id);
 
             return $this->normarize_multiple_response($response);
-        }
-        catch (BadResponseException $e)
-        {
+        } catch (BadResponseException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents(), true);
             return response()->json($response, $e->getResponse()->getStatusCode());
         }
