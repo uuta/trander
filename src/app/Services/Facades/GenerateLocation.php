@@ -56,8 +56,10 @@ class GenerateLocation
 
     /**
      * Generate an angle randomly
+     *
+     * @return void
      */
-    private function generateAngle()
+    private function generateAngle(): void
     {
         // Only when direction_type is north, get 0 or 1
         $num = mt_rand(0, 1);
@@ -79,8 +81,10 @@ class GenerateLocation
 
     /**
      * Generate a distance randomly
+     *
+     * @return void
      */
-    private function generateDistance()
+    private function generateDistance(): void
     {
         $min = $this->request->min;
         $max = $this->request->max;
@@ -89,8 +93,10 @@ class GenerateLocation
 
     /**
      * Generate a distance randomly
+     *
+     * @return void
      */
-    private function generateSuggestingLocation()
+    private function generateSuggestingLocation(): void
     {
         $currentLocation = new Coordinate($this->request->lat, $this->request->lng);
         $bearingEllipsoidal = new BearingEllipsoidal();
