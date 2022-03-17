@@ -25,7 +25,7 @@ class UserController extends Controller
      * @param CreateUserRequest $request
      * @return void
      */
-    public function craete(CreateUserRequest $request): void
+    public function create(CreateUserRequest $request): void
     {
         User::firstOrCreate(['unique_id' => $request->auth0_sub]);
     }

@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Api\User;
 
+use App\User;
 use Tests\SetupTestCase;
-use App\Http\Controllers\UserController;
 
-// TODO: Make sure to work collectly
 class UserCreateTest extends SetupTestCase
 {
     private const ROUTE = 'user.create';
@@ -23,9 +22,8 @@ class UserCreateTest extends SetupTestCase
         ]);
         $response->assertStatus(200);
 
-        // Make sure response data
-        $data = $response->json()['data'];
-        $this->assertCount(0, $data);
+        // Make sure of response data
+        $this->assertEmpty($response->getContent());
 
         // Make sure users table has a row
         $this->assertDatabaseHas('users', [
@@ -39,15 +37,22 @@ class UserCreateTest extends SetupTestCase
      */
     public function normalToCreateUserApiWithUser()
     {
+        // Create a user
+        $this->setting = factory(User::class)->create();
+
+        // Make sure users table has a row
+        $this->assertDatabaseHas('users', [
+            'unique_id' => config('const.test.sub'),
+        ]);
+
         $request = [];
         $response = $this->call(self::METHOD, route(self::ROUTE), $request, [], [], [
             'HTTP_AUTHORIZATION' => 'Bearer ' . config('const.auth0.test_id_token')
         ]);
         $response->assertStatus(200);
 
-        // Make sure response data
-        $data = $response->json()['data'];
-        $this->assertCount(0, $data);
+        // Make sure of response data
+        $this->assertEmpty($response->getContent());
 
         // Make sure users table has a row
         $this->assertDatabaseHas('users', [
@@ -61,18 +66,8 @@ class UserCreateTest extends SetupTestCase
      */
     public function nonNormalToCreateUserApi()
     {
-        // TODO: test
-        $request = app()->make('request');
-
-        $middleware = new UserController();
-        $originalResponse = $middleware->handle($request, function () {
-            $this->assertTrue(true);
-        });
-
-        $response = $this->createTestResponse($originalResponse);
-
-        // Not return error response
-        $this->assertNotNull($response);
+        $request = [];
+        $response = $this->withoutMiddleware()->call(self::METHOD, route(self::ROUTE), $request, [], [], []);
 
         $response
             ->assertStatus(422)
@@ -81,5 +76,10 @@ class UserCreateTest extends SetupTestCase
                     'auth0_sub' => ['The auth0 sub field is required.'],
                 ]
             ]);
+
+        // Make sure users table has no row
+        $this->assertDatabaseMissing('users', [
+            'unique_id' => config('const.test.sub'),
+        ]);
     }
 }
