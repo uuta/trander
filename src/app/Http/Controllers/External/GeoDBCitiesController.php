@@ -19,6 +19,10 @@ class GeoDBCitiesController extends Controller
     {
         try {
             $data = (new GeoDBCitiesRequestUseCase($request))->handle();
+
+            // Insert a request history
+            (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCities'], $request->all()['userinfo']->id);
+
             return (new GeoDBCitiesRequestResource($data));
         } catch (ModelNotFoundException $e) {
             return response()->json((new EmptyResource([])), 204);
@@ -38,8 +42,7 @@ class GeoDBCitiesController extends Controller
             $response = $GetResponse->formatResponse();
 
             // Insert a request history
-            $requestCountHistory = new RequestCountHistory();
-            $requestCountHistory->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCitiesId'], $request->all()['userinfo']->id);
+            (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCitiesId'], $request->all()['userinfo']->id);
 
             return $response;
         } catch (BadResponseException $e) {
