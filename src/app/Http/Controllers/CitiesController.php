@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Cities\IndexRequest;
 use App\Services\Cities\IndexService;
 use App\Http\Resources\Cities\IndexResource;
+use App\UseCases\Cities\CitiesIndexUseCase;
 
 class CitiesController extends Controller
 {
     // TODO:
+    // A user receives city information
+    // API stores a history
+    // API decreases the number of requests
     public function index(IndexRequest $request)
     {
+        (new CitiesIndexUseCase())->handle($request);
+
         $geo_db_cities = IndexService::postGeoDbCitiesApi($request);
 
         // Succeed

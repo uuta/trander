@@ -7,7 +7,6 @@ use App\Http\Resources\EmptyResource;
 use App\RequestCountHistory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Services\Facades\GenerateLocationService;
 use App\Http\Requests\NearBySearch\GetRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Http\Resources\NearBySearch\IndexResource;
