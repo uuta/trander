@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\External;
 
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EmptyResource;
 use App\Http\Requests\GeoDBCitiesApiRequest;

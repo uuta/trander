@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\RequestLimit;
+use App\Http\Models\RequestLimit;
 use Closure;
 use App\Services\ApiService;
 

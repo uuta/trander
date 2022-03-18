@@ -7,7 +7,7 @@ use App\Http\Controllers\NormalizedController;
 use App\Services\Facility\Get as FacilityGet;
 use App\Http\Requests\Facility\GetRequest;
 use GuzzleHttp\Exception\BadResponseException;
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 
 class FacilityController extends NormalizedController
 {

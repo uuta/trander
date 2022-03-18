@@ -7,7 +7,7 @@ use App\Http\Controllers\NormalizedController;
 use App\Http\Requests\Weather\GetRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Weather\Get as WeatherGet;
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 
 class WeatherController extends NormalizedController
 {

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Api\User;
 
-use App\User;
+use App\Http\Models\User;
 use Tests\SetUpTestCase;
 
 class UserShowTest extends SetUpTestCase

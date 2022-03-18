@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Check;
 
-use App\User;
+use App\Http\Models\User;
 use Tests\SetUpTestCase;
 
 class ChangeRegistrationTest extends SetUpTestCase

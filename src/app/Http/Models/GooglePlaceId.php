@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,7 +50,7 @@ class GooglePlaceId extends Model
      * @param array $value
      * @return void
      */
-    public static function insert_information(array $value) : void
+    public static function insert_information(array $value): void
     {
         self::firstOrCreate(
             [

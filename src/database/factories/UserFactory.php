@@ -17,7 +17,7 @@ use Faker\Generator as Faker;
 /**
  * ユーザー登録
  */
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Http\Models\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'unique_id' => config('const.test.sub'),

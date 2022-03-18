@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Api\NearBySearch;
 
-use App\User;
-use App\Setting;
-use App\GooglePlaceId;
+use App\Http\Models\User;
+use App\Http\Models\Setting;
+use App\Http\Models\GooglePlaceId;
 use Tests\SetUpTestCase;
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 
 class GetTest extends SetUpTestCase
 {

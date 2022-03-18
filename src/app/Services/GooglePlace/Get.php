@@ -2,7 +2,7 @@
 
 namespace App\Services\GooglePlace;
 
-use App\GooglePlaceId;
+use App\Http\Models\GooglePlaceId;
 
 class Get
 {
@@ -13,7 +13,7 @@ class Get
      * @return array
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function get_google_place(string $id) : array
+    public function get_google_place(string $id): array
     {
         return json_decode(GooglePlaceId::get_information($id), true);
     }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Setting;
+use App\Http\Models\Setting;
 
 class GeoDBCitiesApiRequest extends FormRequest
 {
@@ -27,11 +27,12 @@ class GeoDBCitiesApiRequest extends FormRequest
     public function rules()
     {
         return [
-            'direction_type' => 'required|integer|between:'. Setting::DIRECTION_TYPE['none']. ','. Setting::DIRECTION_TYPE['west'],
+            'direction_type' => 'required|integer|between:' . Setting::DIRECTION_TYPE['none'] . ',' . Setting::DIRECTION_TYPE['west'],
         ];
     }
 
-    protected function failedValidation(Validator $validator) {
+    protected function failedValidation(Validator $validator)
+    {
         $res = response()->json([
             'errors' => $validator->errors(),
         ], 422);

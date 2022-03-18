@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\SocialUser;
+use App\Http\Models\User;
+use App\Http\Models\SocialUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -63,7 +63,7 @@ class LoginController extends Controller
      * @param string $social: SNSの名称
      * @return object
      */
-    public function socialLogin(string $social) : object
+    public function socialLogin(string $social): object
     {
         return Socialite::with($social)->redirect();
     }
@@ -74,7 +74,7 @@ class LoginController extends Controller
      * @param string $social: SNSの名称
      * @return object
      */
-    public function socialCallback(string $social) : object
+    public function socialCallback(string $social): object
     {
         try {
             $providerUser = Socialite::driver($social)->user();

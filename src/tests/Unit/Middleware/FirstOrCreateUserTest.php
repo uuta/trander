@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Middleware;
 
-use App\User;
+use App\Http\Models\User;
 use Tests\SetupTestCase;
 use App\Http\Middleware\FirstOrCreateUserMiddleware;
 

@@ -5,7 +5,7 @@ namespace App\Services\Facades;
 use Location\Bearing\BearingEllipsoidal;
 use Location\Coordinate;
 use Location\Formatter\Coordinate\DecimalDegrees;
-use App\Setting;
+use App\Http\Models\Setting;
 
 class GenerateLocationService
 {

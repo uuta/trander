@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\External;
 
-use App\GooglePlaceId;
+use App\Http\Models\GooglePlaceId;
 use App\Http\Resources\EmptyResource;
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NearBySearch\GetRequest;

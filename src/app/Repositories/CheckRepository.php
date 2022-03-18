@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\User;
+use App\Http\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,14 +18,15 @@ class CheckRepository
     /**
      * usersテーブルのcheck_registrationを0に変更する
      */
-    public function changeRegistration() {
+    public function changeRegistration()
+    {
         DB::table($this->table)->updateOrInsert(
-        [
-            'api_token' => Auth::id()
-        ],
-        [
-            'check_registration' => User::REGISTERED,
-        ]
+            [
+                'api_token' => Auth::id()
+            ],
+            [
+                'check_registration' => User::REGISTERED,
+            ]
         );
     }
 }

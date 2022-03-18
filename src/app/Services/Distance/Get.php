@@ -8,7 +8,7 @@ use Location\Coordinate;
 use Location\Distance\Vincenty;
 use Location\Bearing\BearingSpherical;
 use Illuminate\Support\Facades\DB;
-use App\MWay;
+use App\Http\Models\MWay;
 
 class Get
 {

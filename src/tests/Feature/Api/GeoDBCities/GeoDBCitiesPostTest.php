@@ -4,7 +4,7 @@ namespace Tests\Feature\Api\GeoDBCities;
 
 use Tests\SetUpTestCase;
 use Illuminate\Support\Facades\DB;
-use App\Setting;
+use App\Http\Models\Setting;
 
 class GeoDBCitiesPostTest extends SetUpTestCase
 {

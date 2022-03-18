@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Api\Hotel;
 
-use App\User;
+use App\Http\Models\User;
 use Tests\SetUpTestCase;
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 
 class GetTest extends SetUpTestCase
 {

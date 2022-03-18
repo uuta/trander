@@ -3,7 +3,7 @@
 namespace Tests\Feature\Api\Cities;
 
 use Tests\SetUpTestCase;
-use App\Setting;
+use App\Http\Models\Setting;
 
 class IndexTest extends SetUpTestCase
 {
