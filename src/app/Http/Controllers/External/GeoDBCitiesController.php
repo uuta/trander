@@ -9,7 +9,7 @@ use App\Http\Requests\GeoDBCitiesApiRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Http\Requests\GeoDBCities\GetIdRequest;
 use App\Services\GeoDBCities\GetId as GeoDBCitiesGetId;
-use App\UseCases\GeoDBCities\GeoDBCitiesRequestUseCase;
+use App\Http\Domains\GeoDBCities\Request\UseCases\GeoDBCitiesRequestUseCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\GeoDBCities\GeoDBCitiesRequestResource;
 
