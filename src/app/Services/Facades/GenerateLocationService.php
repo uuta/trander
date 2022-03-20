@@ -12,16 +12,71 @@ class GenerateLocationService
     private $distance;
     private $angle;
     private $location;
+    private $min;
+    private $max;
+    private $direction_type;
+    private $lat;
+    private $lng;
 
-    public function __construct(object $request)
+    public function handle($request)
     {
-        $this->request = $request;
-        $this->request->min = $request->min * 1000;
-        $this->request->max = $request->max * 1000;
+        $this->min = $request->min * 1000;
+        $this->max = $request->max * 1000;
+        $this->direction_type = $request->direction_type;
+        $this->lat = $request->lat;
+        $this->lng = $request->lng;
 
         $this->_generateAngle();
         $this->_generateDistance();
         $this->_generateSuggestingLocation();
+    }
+
+    /**
+     * Generate a distance randomly
+     *
+     * @return void
+     */
+    private function _generateSuggestingLocation(): void
+    {
+        $currentLocation = new Coordinate($this->lat, $this->lng);
+        $bearingEllipsoidal = new BearingEllipsoidal();
+        $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $this->angle, $this->distance);
+        $this->location = $destination->format(new DecimalDegrees(','));
+    }
+
+    /**
+     * Generate an angle randomly
+     *
+     * @return void
+     */
+    private function _generateAngle(): void
+    {
+        // Only when direction_type is north, get 0 or 1
+        $num = mt_rand(0, 1);
+        $direction = (int) $this->direction_type === Setting::DIRECTION_TYPE['north']
+            ? Setting::DIRECTION_ANGLE[1][$num]
+            : Setting::DIRECTION_ANGLE[$this->direction_type];
+
+        if (
+            $direction === Setting::DIRECTION_ANGLE[1][1]
+            || (int) $this->direction_type === Setting::DIRECTION_TYPE['south']
+            || (int) $this->direction_type === Setting::DIRECTION_TYPE['west']
+        ) {
+            $angle = $direction['min'] + mt_rand() / mt_getrandmax() * ($direction['max'] - $direction['min']);
+        } else {
+            $angle = mt_rand() / mt_getrandmax() * $direction['max'];
+        }
+        $this->angle = $angle;
+    }
+
+    /**
+     * Generate a distance randomly
+     *
+     * @return void
+     */
+    private function _generateDistance(): void
+    {
+        $this->distance = rand($this->min, $this->max);
     }
 
     /**
@@ -52,56 +107,6 @@ class GenerateLocationService
     public function getAngle(): float
     {
         return $this->angle;
-    }
-
-    /**
-     * Generate an angle randomly
-     *
-     * @return void
-     */
-    private function _generateAngle(): void
-    {
-        // Only when direction_type is north, get 0 or 1
-        $num = mt_rand(0, 1);
-        $direction = (int) $this->request->direction_type === Setting::DIRECTION_TYPE['north']
-            ? Setting::DIRECTION_ANGLE[1][$num]
-            : Setting::DIRECTION_ANGLE[$this->request->direction_type];
-
-        if (
-            $direction === Setting::DIRECTION_ANGLE[1][1]
-            || (int) $this->request->direction_type === Setting::DIRECTION_TYPE['south']
-            || (int) $this->request->direction_type === Setting::DIRECTION_TYPE['west']
-        ) {
-            $angle = $direction['min'] + mt_rand() / mt_getrandmax() * ($direction['max'] - $direction['min']);
-        } else {
-            $angle = mt_rand() / mt_getrandmax() * $direction['max'];
-        }
-        $this->angle = $angle;
-    }
-
-    /**
-     * Generate a distance randomly
-     *
-     * @return void
-     */
-    private function _generateDistance(): void
-    {
-        $min = $this->request->min;
-        $max = $this->request->max;
-        $this->distance = rand($min, $max);
-    }
-
-    /**
-     * Generate a distance randomly
-     *
-     * @return void
-     */
-    private function _generateSuggestingLocation(): void
-    {
-        $currentLocation = new Coordinate($this->request->lat, $this->request->lng);
-        $bearingEllipsoidal = new BearingEllipsoidal();
-        $destination = $bearingEllipsoidal->calculateDestination($currentLocation, $this->angle, $this->distance);
-        $this->location = $destination->format(new DecimalDegrees(','));
     }
 
     /**

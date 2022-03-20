@@ -2,23 +2,33 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Resources\EmptyResource;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EmptyResource;
 use App\Http\Requests\NearBySearch\GetRequest;
 use GuzzleHttp\Exception\BadResponseException;
+use App\Services\Facades\GenerateLocationService;
 use App\Http\Resources\NearBySearch\IndexResource;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\UseCases\NearBySearch\NearBySearchGetUseCase;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 
 class NearBySearchController extends Controller
 {
-    public function index(GetRequest $request)
-    {
+    public function index(
+        GetRequest $request,
+        NearBySearchRequestApiService $nearBySearchRequestApiService,
+        GenerateLocationService $generateLocationService
+    ) {
         DB::beginTransaction();
         try {
             // Request
-            $res = (new NearBySearchGetUseCase($request))->handle();
+            $res = (new NearBySearchGetUseCase(
+                $request,
+                $generateLocationService,
+                $nearBySearchRequestApiService
+            )
+            )->handle();
 
             DB::commit();
             return (new IndexResource($res));

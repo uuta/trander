@@ -17,14 +17,17 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
     private $response;
     private $oneData;
     private $generateLocationService;
-    private $nearBySearchRequestApiService;
+    protected $nearBySearchRequestApiService;
 
-    public function __construct(object $request)
-    {
+    public function __construct(
+        object $request,
+        GenerateLocationService $generateLocationService,
+        NearBySearchRequestApiService $nearBySearchRequestApiService
+    ) {
         $this->request = $request;
-        $this->generateLocationService = new GenerateLocationService($request);
-        $this->nearBySearchRequestApiService = new NearBySearchRequestApiService();
-        $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository(), RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
+        $this->generateLocationService = $generateLocationService;
+        $this->nearBySearchRequestApiService = $nearBySearchRequestApiService;
+        $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository());
     }
 
     /**
@@ -34,6 +37,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     public function handle(): ?array
     {
+        $this->_handleLocation();
         $this->_generateLocation();
         $this->_apiRequest();
         $this->_verifyEmpty();
@@ -41,13 +45,26 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
         $this->_getContentRandomly();
 
         // Store request count history
-        $this->requestCountHistoryStoreUseCase->handle();
+        $this->requestCountHistoryStoreUseCase->handle(
+            $this->request->all()['userinfo']->id,
+            RequestCountHistory::TYPE_ID['getNearBySearch']
+        );
 
         // Store google place id
         $this->_storeGooglePlace();
 
         // Return
         return $this->_return();
+    }
+
+    /**
+     * Handle location
+     *
+     * @return void
+     */
+    public function _handleLocation(): void
+    {
+        $this->generateLocationService->handle($this->request);
     }
 
     /**

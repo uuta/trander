@@ -8,15 +8,13 @@ class RequestCountHistoryStoreUseCase
 {
     private $repository;
 
-    public function __construct(RequestCountHistoryRepository $repository, int $type_id, int $user_id)
+    public function __construct(RequestCountHistoryRepository $repository)
     {
         $this->repository = $repository;
-        $this->type_id = $type_id;
-        $this->user_id = $user_id;
     }
 
-    public function handle()
+    public function handle(int $user_id, int $type_id): void
     {
-        $this->repository->store($this->user_id, $this->type_id);
+        $this->repository->store($user_id, $type_id);
     }
 }
