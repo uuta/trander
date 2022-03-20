@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\RequestLimit;
 use Closure;
-use App\Services\ApiService;
+use App\Http\Models\RequestLimit;
+use App\Services\RequestApis\Subscribers\SubscriberRequestApiService;
 
 class VerifySubscriberMiddleware
 {
@@ -37,17 +37,7 @@ class VerifySubscriberMiddleware
     private function _request($request): void
     {
         // TODO: Should cache
-        $auth0_sub = $request->get('auth0_sub');
-        $this->response = (new ApiService())->request(
-            'GET',
-            "https://api.revenuecat.com/v1/subscribers/{$auth0_sub}",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . config('const.revenue_cat.api_key'),
-                ],
-            ]
-        );
+        $this->response = (new SubscriberRequestApiService())->request($request->get('auth0_sub'));
     }
 
     /**
