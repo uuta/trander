@@ -19,7 +19,13 @@ class GenerateLocationService
     private $lat;
     private $lng;
 
-    public function handle($request)
+    /**
+     * Initial method
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function handle($request): void
     {
         $this->min = $request->min * 1000;
         $this->max = $request->max * 1000;
@@ -97,26 +103,6 @@ class GenerateLocationService
      */
     public function generateFormattedLocation(): string
     {
-        return $this->_format();
-    }
-
-    /**
-     * Get the angle
-     *
-     * @return float
-     */
-    public function getAngle(): float
-    {
-        return $this->angle;
-    }
-
-    /**
-     * Decent form of latitude and longitude
-     *
-     * @return string
-     */
-    private function _format(): string
-    {
         $formatted = '';
         $arr = explode(',', $this->location);
         foreach ($arr as $value) {
@@ -128,6 +114,15 @@ class GenerateLocationService
         return $formatted;
     }
 
+    /**
+     * Get the angle
+     *
+     * @return float
+     */
+    public function getAngle(): float
+    {
+        return $this->angle;
+    }
 
     /**
      * Calculate the distance between current and suggested location

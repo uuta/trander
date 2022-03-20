@@ -14,7 +14,6 @@ class GeoDBCitiesRequestUseCase
 {
     private $request;
     private $location;
-    private $angle;
     private $response;
     private $generateLocationService;
     private $geoDBCitiesRequestApiService;
@@ -37,7 +36,6 @@ class GeoDBCitiesRequestUseCase
     {
         $this->_handleLocation();
         $this->_generateFormattedLocation();
-        $this->_getAngle();
         $this->_request();
         $this->_verifyEmpty();
 
@@ -60,11 +58,6 @@ class GeoDBCitiesRequestUseCase
     public function _generateFormattedLocation(): void
     {
         $this->location = $this->generateLocationService->generateFormattedLocation();
-    }
-
-    public function _getAngle(): void
-    {
-        $this->angle = $this->generateLocationService->getAngle();
     }
 
     private function _request(): void
@@ -92,10 +85,11 @@ class GeoDBCitiesRequestUseCase
      */
     public function _return(): array
     {
+        $angle = $this->generateLocationService->getAngle();
         $data = json_decode($this->response->getBody(), true)['data'][0];
-        $data['angle'] = $this->angle;
+        $data['angle'] = $angle;
         $data['distance'] = $this->generateLocationService->getDistance($data['latitude'], $data['longitude']);
-        $data['direction'] = $this->directionRepository->findByAngle($this->angle);
+        $data['direction'] = $this->directionRepository->findByAngle($angle);
         return $data;
     }
 }
