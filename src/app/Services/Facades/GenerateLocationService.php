@@ -5,6 +5,7 @@ namespace App\Services\Facades;
 use Location\Bearing\BearingEllipsoidal;
 use Location\Coordinate;
 use Location\Formatter\Coordinate\DecimalDegrees;
+use Location\Distance\Vincenty;
 use App\Http\Models\Setting;
 
 class GenerateLocationService
@@ -125,5 +126,22 @@ class GenerateLocationService
             $formatted .= $value;
         }
         return $formatted;
+    }
+
+
+    /**
+     * Calculate the distance between current and suggested location
+     *
+     * @param float $latitude
+     * @param float $longitude
+     * @return float
+     */
+    public function getDistance(float $latitude, float $longitude): float
+    {
+        $coordinate1 = new Coordinate($this->lat, $this->lng);
+        $coordinate2 = new Coordinate($latitude, $longitude);
+        $calculator = new Vincenty();
+        $distance = ($calculator->getDistance($coordinate1, $coordinate2) * 0.001);
+        return (float)round($distance, 1);
     }
 }

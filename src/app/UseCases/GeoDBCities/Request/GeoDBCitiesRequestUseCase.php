@@ -3,8 +3,6 @@
 namespace App\UseCases\GeoDBCities\Request;
 
 // Guzzleモジュールのクラス読み込み
-use Location\Coordinate;
-use Location\Distance\Vincenty;
 use App\Services\Facades\GenerateLocationService;
 use App\Repositories\Directions\DirectionRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -89,24 +87,8 @@ class GeoDBCitiesRequestUseCase
     {
         $data = json_decode($this->response->getBody(), true)['data'][0];
         $data['angle'] = $this->angle;
-        $data['distance'] = $this->_getDistance($data['latitude'], $data['longitude']);
+        $data['distance'] = $this->generateLocationService->getDistance($data['latitude'], $data['longitude']);
         $data['direction'] = $this->directionRepository->findByAngle($this->angle);
         return $data;
-    }
-
-    /**
-     * 現在地と街までの距離を取得する
-     *
-     * @param float $latitude
-     * @param float $longitude
-     * @return float
-     */
-    private function _getDistance(float $latitude, float $longitude): float
-    {
-        $coordinate1 = new Coordinate($this->request->lat, $this->request->lng);
-        $coordinate2 = new Coordinate($latitude, $longitude);
-        $calculator = new Vincenty();
-        $distance = ($calculator->getDistance($coordinate1, $coordinate2) * 0.001);
-        return (float)round($distance, 1);
     }
 }
