@@ -7,7 +7,7 @@ interface GetRamdomlyFromApiUseCase
     /**
      * @return ?array
      */
-    public function handle();
+    public function handle(int $user_id, int $type_id);
 
     /**
      * @return void

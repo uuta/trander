@@ -5,6 +5,7 @@ namespace App\Http\Controllers\External;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EmptyResource;
+use App\Http\Models\RequestCountHistory;
 use App\Http\Requests\NearBySearch\GetRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Facades\GenerateLocationService;
@@ -28,7 +29,10 @@ class NearBySearchController extends Controller
                 $generateLocationService,
                 $nearBySearchRequestApiService
             )
-            )->handle();
+            )->handle(
+                $request->all()['userinfo']->id,
+                RequestCountHistory::TYPE_ID['getNearBySearch']
+            );
 
             DB::commit();
             return (new IndexResource($res));

@@ -7,6 +7,8 @@ use App\Services\Facades\GenerateLocationService;
 use App\Repositories\Directions\DirectionRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Services\RequestApis\GeoDBCities\GeoDBCitiesRequestApiService;
+use App\UseCases\RequestCountHistorys\RequestCountHistoryStoreUseCase;
+use App\Repositories\RequestCountHistorys\RequestCountHistoryRepository;
 
 class GeoDBCitiesRequestUseCase
 {
@@ -28,15 +30,20 @@ class GeoDBCitiesRequestUseCase
         $this->generateLocationService = $generateLocationService;
         $this->geoDBCitiesRequestApiService = $geoDBCitiesRequestApiService;
         $this->directionRepository = $directionRepository;
+        $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository());
     }
 
-    public function handle()
+    public function handle(int $user_id, int $type_id)
     {
         $this->_handleLocation();
         $this->_generateFormattedLocation();
         $this->_getAngle();
         $this->_request();
         $this->_verifyEmpty();
+
+        // Store request count history
+        $this->requestCountHistoryStoreUseCase->handle($user_id, $type_id);
+
         return $this->_return();
     }
 

@@ -30,10 +30,10 @@ class GeoDBCitiesController extends Controller
                 $generateLocationService,
                 $geoDBCitiesRequestApiService,
                 $directionRepository
-            ))->handle();
-
-            // Insert a request history
-            (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCities'], $request->all()['userinfo']->id);
+            ))->handle(
+                $request->all()['userinfo']->id,
+                RequestCountHistory::TYPE_ID['getGeoDbCities']
+            );
 
             return (new GeoDBCitiesRequestResource($data));
         } catch (ModelNotFoundException $e) {

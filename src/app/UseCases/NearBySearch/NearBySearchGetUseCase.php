@@ -35,7 +35,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      *
      * @return ?array
      */
-    public function handle(): ?array
+    public function handle(int $user_id, int $type_id): ?array
     {
         $this->_handleLocation();
         $this->_generateLocation();
@@ -45,10 +45,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
         $this->_getContentRandomly();
 
         // Store request count history
-        $this->requestCountHistoryStoreUseCase->handle(
-            $this->request->all()['userinfo']->id,
-            RequestCountHistory::TYPE_ID['getNearBySearch']
-        );
+        $this->requestCountHistoryStoreUseCase->handle($user_id, $type_id);
 
         // Store google place id
         $this->_storeGooglePlace();
