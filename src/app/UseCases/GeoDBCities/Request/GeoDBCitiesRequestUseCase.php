@@ -20,12 +20,15 @@ class GeoDBCitiesRequestUseCase
     private $geoDBCitiesRequestApiService;
     private $directionRepository;
 
-    public function __construct(object $request)
-    {
+    public function __construct(
+        object $request,
+        GeoDBCitiesRequestApiService $geoDBCitiesRequestApiService,
+        DirectionRepository $directionRepository
+    ) {
         $this->request = $request;
         $this->service = new GenerateLocationService($request);
-        $this->geoDBCitiesRequestApiService = new GeoDBCitiesRequestApiService();
-        $this->directionRepository = new DirectionRepository();
+        $this->geoDBCitiesRequestApiService = $geoDBCitiesRequestApiService;
+        $this->directionRepository = $directionRepository;
     }
 
     public function handle()

@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Models\RequestCountHistory;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EmptyResource;
+use App\Http\Models\RequestCountHistory;
 use App\Http\Requests\GeoDBCitiesApiRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Http\Requests\GeoDBCities\GetIdRequest;
+use App\Repositories\Directions\DirectionRepository;
 use App\Services\GeoDBCities\GetId as GeoDBCitiesGetId;
-use App\UseCases\GeoDBCities\Request\GeoDBCitiesRequestUseCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\GeoDBCities\GeoDBCitiesRequestResource;
+use App\UseCases\GeoDBCities\Request\GeoDBCitiesRequestUseCase;
+use App\Services\RequestApis\GeoDBCities\GeoDBCitiesRequestApiService;
 
 class GeoDBCitiesController extends Controller
 {
-    public function request(GeoDBCitiesApiRequest $request)
-    {
+    public function request(
+        GeoDBCitiesApiRequest $request,
+        GeoDBCitiesRequestApiService $geoDBCitiesRequestApiService,
+        DirectionRepository $directionRepository
+    ) {
         try {
-            $data = (new GeoDBCitiesRequestUseCase($request))->handle();
+            $data = (new GeoDBCitiesRequestUseCase($request, $geoDBCitiesRequestApiService, $directionRepository))->handle();
 
             // Insert a request history
             (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCities'], $request->all()['userinfo']->id);
