@@ -10,14 +10,15 @@ use App\Http\Models\Setting;
 
 class GenerateLocationService
 {
-    private $distance;
-    private $angle;
-    private $location;
-    private $min;
-    private $max;
-    private $direction_type;
-    private $lat;
-    private $lng;
+    public $distance;
+    public $angle;
+    public $location;
+    public $formatted_location;
+    public $min;
+    public $max;
+    public $direction_type;
+    public $lat;
+    public $lng;
 
     /**
      * Initial method
@@ -36,6 +37,7 @@ class GenerateLocationService
         $this->_generateAngle();
         $this->_generateDistance();
         $this->_generateSuggestingLocation();
+        $this->_generateFormattedLocation();
     }
 
     /**
@@ -87,21 +89,11 @@ class GenerateLocationService
     }
 
     /**
-     * Get a location randomly based on the current location
-     *
-     * @return string
-     */
-    public function generateLocation(): string
-    {
-        return $this->location;
-    }
-
-    /**
      * Get a formatted location randomly based on the current location
      *
-     * @return string
+     * @return void
      */
-    public function generateFormattedLocation(): string
+    private function _generateFormattedLocation(): void
     {
         $formatted = '';
         $arr = explode(',', $this->location);
@@ -111,17 +103,7 @@ class GenerateLocationService
             }
             $formatted .= $value;
         }
-        return $formatted;
-    }
-
-    /**
-     * Get the angle
-     *
-     * @return float
-     */
-    public function getAngle(): float
-    {
-        return $this->angle;
+        $this->formatted_location = $formatted;
     }
 
     /**

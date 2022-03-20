@@ -37,8 +37,9 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     public function handle(int $user_id, int $type_id): ?array
     {
-        $this->_handleLocation();
-        $this->_generateLocation();
+        // Generate location randomly
+        $this->generateLocationService->handle($this->request);
+
         $this->_apiRequest();
         $this->_verifyEmpty();
         $this->_formatResponse();
@@ -55,26 +56,6 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
     }
 
     /**
-     * Handle location
-     *
-     * @return void
-     */
-    public function _handleLocation(): void
-    {
-        $this->generateLocationService->handle($this->request);
-    }
-
-    /**
-     * Generate a location
-     *
-     * @return void
-     */
-    public function _generateLocation()
-    {
-        $this->location = $this->generateLocationService->generateLocation();
-    }
-
-    /**
      * Request to Google Near By Search API
      * It doesn't need to return a response in general, but it requires a response for error handling
      *
@@ -82,7 +63,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     public function _apiRequest(): void
     {
-        $this->response = $this->nearBySearchRequestApiService->request($this->location, $this->request->keyword);
+        $this->response = $this->nearBySearchRequestApiService->request($this->generateLocationService->location, $this->request->keyword);
     }
 
     /**

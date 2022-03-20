@@ -13,7 +13,6 @@ use App\Repositories\RequestCountHistorys\RequestCountHistoryRepository;
 class GeoDBCitiesRequestUseCase
 {
     private $request;
-    private $location;
     private $response;
     private $generateLocationService;
     private $geoDBCitiesRequestApiService;
@@ -34,8 +33,9 @@ class GeoDBCitiesRequestUseCase
 
     public function handle(int $user_id, int $type_id)
     {
-        $this->_handleLocation();
-        $this->_generateFormattedLocation();
+        // Generate location randomly
+        $this->generateLocationService->handle($this->request);
+
         $this->_request();
         $this->_verifyEmpty();
 
@@ -45,24 +45,9 @@ class GeoDBCitiesRequestUseCase
         return $this->_return();
     }
 
-    /**
-     * Handle location
-     *
-     * @return void
-     */
-    private function _handleLocation(): void
-    {
-        $this->generateLocationService->handle($this->request);
-    }
-
-    public function _generateFormattedLocation(): void
-    {
-        $this->location = $this->generateLocationService->generateFormattedLocation();
-    }
-
     private function _request(): void
     {
-        $this->response = $this->geoDBCitiesRequestApiService->request($this->location);
+        $this->response = $this->geoDBCitiesRequestApiService->request($this->generateLocationService->formatted_location);
     }
 
     /**
@@ -85,7 +70,7 @@ class GeoDBCitiesRequestUseCase
      */
     public function _return(): array
     {
-        $angle = $this->generateLocationService->getAngle();
+        $angle = $this->generateLocationService->angle;
         $data = json_decode($this->response->getBody(), true)['data'][0];
         $data['angle'] = $angle;
         $data['distance'] = $this->generateLocationService->getDistance($data['latitude'], $data['longitude']);
