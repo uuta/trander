@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Domains\GeoDBCities\Request\UseCases;
+namespace App\UseCases\GeoDBCities\Request;
 
 // Guzzleモジュールのクラス読み込み
 use Location\Coordinate;
 use Location\Distance\Vincenty;
 use App\Services\Facades\GenerateLocationService;
 use App\Repositories\Directions\DirectionRepository;
-use App\Repositories\GeoDBCities\GeoDBCitiesRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\RequestApis\GeoDBCities\GeoDBCitiesRequestApiService;
 
 class GeoDBCitiesRequestUseCase
 {
@@ -17,14 +17,14 @@ class GeoDBCitiesRequestUseCase
     private $angle;
     private $response;
     private $service;
-    private $geoDBCitiesRepository;
+    private $geoDBCitiesRequestApiService;
     private $directionRepository;
 
     public function __construct(object $request)
     {
         $this->request = $request;
         $this->service = new GenerateLocationService($request);
-        $this->geoDBCitiesRepository = new GeoDBCitiesRepository();
+        $this->geoDBCitiesRequestApiService = new GeoDBCitiesRequestApiService();
         $this->directionRepository = new DirectionRepository();
     }
 
@@ -49,7 +49,7 @@ class GeoDBCitiesRequestUseCase
 
     private function _request(): void
     {
-        $this->response = $this->geoDBCitiesRepository->request($this->location);
+        $this->response = $this->geoDBCitiesRequestApiService->request($this->location);
     }
 
     /**

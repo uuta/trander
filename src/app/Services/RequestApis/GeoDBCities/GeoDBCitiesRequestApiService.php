@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Repositories\GeoDBCities;
+namespace App\Services\RequestApis\GeoDBCities;
 
 use App\Consts\ApiConst;
-use App\Services\RequestApis\ApiService;
 use Psr\Http\Message\ResponseInterface;
+use App\Services\RequestApis\ApiService;
 
-class GeoDBCitiesRepository
+class GeoDBCitiesRequestApiService
 {
     /**
      * Request to API
      *
-     * @return void
+     * @param string $location
+     * @return ResponseInterface
      */
-    public function request($location): ResponseInterface
+    public function request(string $location): ResponseInterface
     {
         $query = [
             'query' => [
