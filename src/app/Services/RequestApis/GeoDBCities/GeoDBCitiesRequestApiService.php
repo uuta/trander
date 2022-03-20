@@ -11,7 +11,7 @@ class GeoDBCitiesRequestApiService
     public $response;
     public $response_body;
 
-    public function request($location)
+    public function request(string $location)
     {
         $this->_request($location);
         $this->_getBody();

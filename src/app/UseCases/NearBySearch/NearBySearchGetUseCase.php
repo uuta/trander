@@ -3,10 +3,8 @@
 namespace App\UseCases\NearBySearch;
 
 use App\Http\Models\GooglePlaceId;
-use App\Http\Models\RequestCountHistory;
 use App\Services\Facades\GenerateLocationService;
 use App\UseCases\Interfaces\GetRamdomlyFromApiUseCase;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\UseCases\RequestCountHistorys\RequestCountHistoryStoreUseCase;
 use App\Repositories\RequestCountHistorys\RequestCountHistoryRepository;
 use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
@@ -14,7 +12,6 @@ use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
 {
     private $body;
-    private $response;
     private $oneData;
     private $generateLocationService;
     protected $nearBySearchRequestApiService;
@@ -40,8 +37,9 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
         // Generate location randomly
         $this->generateLocationService->handle($this->request);
 
-        $this->_apiRequest();
-        $this->_verifyEmpty();
+        // Request to NearBySearch
+        $this->nearBySearchRequestApiService->request($this->generateLocationService->location, $this->request->keyword);
+
         $this->_formatResponse();
         $this->_getContentRandomly();
 
@@ -56,38 +54,13 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
     }
 
     /**
-     * Request to Google Near By Search API
-     * It doesn't need to return a response in general, but it requires a response for error handling
-     *
-     * @return void
-     */
-    public function _apiRequest(): void
-    {
-        $this->response = $this->nearBySearchRequestApiService->request($this->generateLocationService->location, $this->request->keyword);
-    }
-
-    /**
-     * Verify the response and format it
-     *
-     * @throws ModelNotFoundException
-     * @return void
-     */
-    public function _verifyEmpty(): void
-    {
-        if (empty(json_decode($this->response->getBody(), true)['results'])) {
-            throw new ModelNotFoundException;
-        }
-    }
-
-    /**
      * Format response
      *
      * @return void
      */
-    public function _formatResponse(): void
+    private function _formatResponse(): void
     {
-        $response = json_decode($this->response->getBody(), true);
-        foreach ($response['results'] as $value) {
+        foreach ($this->nearBySearchRequestApiService->response_body as $value) {
             $this->body[] = [
                 'name' => $value['name'] ?? '',
                 'icon' => $value['icon'] ?? '',
@@ -109,7 +82,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      *
      * @return void
      */
-    public function _getContentRandomly(): void
+    private function _getContentRandomly(): void
     {
         $index = array_rand($this->body);
         $this->oneData = $this->body[$index];
@@ -130,7 +103,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      *
      * @return array
      */
-    public function _return(): array
+    private function _return(): array
     {
         return $this->oneData;
     }
