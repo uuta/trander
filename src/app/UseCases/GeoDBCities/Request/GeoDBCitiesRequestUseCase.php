@@ -16,23 +16,25 @@ class GeoDBCitiesRequestUseCase
     private $location;
     private $angle;
     private $response;
-    private $service;
+    private $generateLocationService;
     private $geoDBCitiesRequestApiService;
     private $directionRepository;
 
     public function __construct(
         object $request,
+        GenerateLocationService $generateLocationService,
         GeoDBCitiesRequestApiService $geoDBCitiesRequestApiService,
         DirectionRepository $directionRepository
     ) {
         $this->request = $request;
-        $this->service = new GenerateLocationService($request);
+        $this->generateLocationService = $generateLocationService;
         $this->geoDBCitiesRequestApiService = $geoDBCitiesRequestApiService;
         $this->directionRepository = $directionRepository;
     }
 
     public function handle()
     {
+        $this->_handleLocation();
         $this->_generateFormattedLocation();
         $this->_getAngle();
         $this->_request();
@@ -40,14 +42,24 @@ class GeoDBCitiesRequestUseCase
         return $this->_return();
     }
 
+    /**
+     * Handle location
+     *
+     * @return void
+     */
+    private function _handleLocation(): void
+    {
+        $this->generateLocationService->handle($this->request);
+    }
+
     public function _generateFormattedLocation(): void
     {
-        $this->location = $this->service->generateFormattedLocation();
+        $this->location = $this->generateLocationService->generateFormattedLocation();
     }
 
     public function _getAngle(): void
     {
-        $this->angle = $this->service->getAngle();
+        $this->angle = $this->generateLocationService->getAngle();
     }
 
     private function _request(): void

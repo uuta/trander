@@ -8,6 +8,7 @@ use App\Http\Models\RequestCountHistory;
 use App\Http\Requests\GeoDBCitiesApiRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Http\Requests\GeoDBCities\GetIdRequest;
+use App\Services\Facades\GenerateLocationService;
 use App\Repositories\Directions\DirectionRepository;
 use App\Services\GeoDBCities\GetId as GeoDBCitiesGetId;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -19,11 +20,17 @@ class GeoDBCitiesController extends Controller
 {
     public function request(
         GeoDBCitiesApiRequest $request,
+        GenerateLocationService $generateLocationService,
         GeoDBCitiesRequestApiService $geoDBCitiesRequestApiService,
         DirectionRepository $directionRepository
     ) {
         try {
-            $data = (new GeoDBCitiesRequestUseCase($request, $geoDBCitiesRequestApiService, $directionRepository))->handle();
+            $data = (new GeoDBCitiesRequestUseCase(
+                $request,
+                $generateLocationService,
+                $geoDBCitiesRequestApiService,
+                $directionRepository
+            ))->handle();
 
             // Insert a request history
             (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getGeoDbCities'], $request->all()['userinfo']->id);
