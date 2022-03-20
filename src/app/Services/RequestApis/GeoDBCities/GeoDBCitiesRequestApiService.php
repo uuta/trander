@@ -3,18 +3,27 @@
 namespace App\Services\RequestApis\GeoDBCities;
 
 use App\Consts\ApiConst;
-use Psr\Http\Message\ResponseInterface;
 use App\Services\RequestApis\ApiService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class GeoDBCitiesRequestApiService
 {
+    public $response;
+    public $response_body;
+
+    public function request($location)
+    {
+        $this->_request($location);
+        $this->_getBody();
+    }
+
     /**
      * Request to API
      *
      * @param string $location
-     * @return ResponseInterface
+     * @return void
      */
-    public function request(string $location): ResponseInterface
+    public function _request(string $location): void
     {
         $query = [
             'query' => [
@@ -27,6 +36,21 @@ class GeoDBCitiesRequestApiService
                 'x-rapidapi-key' => config('const.geo_db_cities.api_key')
             ],
         ];
-        return (new ApiService("GET", ApiConst::GEO_DB_CITIES, $query))->request();
+        $this->response = (new ApiService("GET", ApiConst::GEO_DB_CITIES, $query))->request();
+    }
+
+    /**
+     * Verify the response and format it
+     *
+     * @throws ModelNotFoundException
+     * @return void
+     */
+    public function _getBody(): void
+    {
+        $body = json_decode($this->response->getBody(), true)['data'];
+        if (empty(json_decode($this->response->getBody(), true)['data'])) {
+            throw new ModelNotFoundException;
+        }
+        $this->response_body = $body;
     }
 }
