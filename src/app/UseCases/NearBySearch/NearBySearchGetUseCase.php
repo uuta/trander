@@ -2,20 +2,29 @@
 
 namespace App\UseCases\NearBySearch;
 
-use GuzzleHttp\Client;
+use App\Http\Models\GooglePlaceId;
+use App\Http\Models\RequestCountHistory;
 use App\Services\Facades\GenerateLocationService;
 use App\UseCases\Interfaces\GetRamdomlyFromApiUseCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\UseCases\RequestCountHistorys\RequestCountHistoryStoreUseCase;
+use App\Repositories\RequestCountHistorys\RequestCountHistoryRepository;
+use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 
 class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
 {
     private $body;
     private $response;
     private $oneData;
+    private $generateLocationService;
+    private $nearBySearchRequestApiService;
 
     public function __construct(object $request)
     {
         $this->request = $request;
+        $this->generateLocationService = new GenerateLocationService($request);
+        $this->nearBySearchRequestApiService = new NearBySearchRequestApiService();
+        $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository(), RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
     }
 
     /**
@@ -30,6 +39,14 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
         $this->_verifyEmpty();
         $this->_formatResponse();
         $this->_getContentRandomly();
+
+        // Store request count history
+        $this->requestCountHistoryStoreUseCase->handle();
+
+        // Store google place id
+        $this->_storeGooglePlace();
+
+        // Return
         return $this->_return();
     }
 
@@ -40,8 +57,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     public function _generateLocation()
     {
-        $service = new GenerateLocationService($this->request);
-        $this->location = $service->generateLocation();
+        $this->location = $this->generateLocationService->generateLocation();
     }
 
     /**
@@ -52,17 +68,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     public function _apiRequest(): void
     {
-        $client = new Client();
-        $sourceUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
-        $this->response = $client->request("GET", $sourceUrl, [
-            'query' => [
-                'key' => config('services.google_places.key'),
-                'location' => $this->location,
-                'radius' => 5000,
-                'keyword' => $this->request->keyword,
-                'language' => 'en',
-            ]
-        ]);
+        $this->response = $this->nearBySearchRequestApiService->request($this->location, $this->request->keyword);
     }
 
     /**
@@ -112,6 +118,16 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
     {
         $index = array_rand($this->body);
         $this->oneData = $this->body[$index];
+    }
+
+    /**
+     * Store google place id
+     *
+     * @return void
+     */
+    private function _storeGooglePlace(): void
+    {
+        GooglePlaceId::insert_information($this->oneData);
     }
 
     /**

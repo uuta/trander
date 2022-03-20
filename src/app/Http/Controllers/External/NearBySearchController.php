@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Models\GooglePlaceId;
 use App\Http\Resources\EmptyResource;
-use App\Http\Models\RequestCountHistory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NearBySearch\GetRequest;
@@ -22,12 +20,6 @@ class NearBySearchController extends Controller
             // Request
             $res = (new NearBySearchGetUseCase($request))->handle();
 
-            // Insert into google_place_ids
-            GooglePlaceId::insert_information($res);
-
-            // Insert a request history
-            (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
-
             DB::commit();
             return (new IndexResource($res));
         } catch (ModelNotFoundException $e) {
@@ -35,8 +27,7 @@ class NearBySearchController extends Controller
             return (new EmptyResource([]));
         } catch (BadResponseException $e) {
             DB::rollBack();
-            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
-            return response()->json($response, $e->getResponse()->getStatusCode());
+            return response()->json(json_decode($e->getResponse()->getBody()->getContents(), true), 500);
         }
     }
 }
