@@ -14,7 +14,9 @@ package Cities {
   Request to NearBySearch"
   usecase UC5 as "
   Insert history"
-  usecase "Response from API" as UC6
+  usecase UC6 as "
+  Insert google place id"
+  usecase "Response from API" as UC7
 }
 
 u --> UC1
@@ -23,5 +25,6 @@ UC2 -> UC3
 UC3 -> UC4
 UC4 -> UC5
 UC5 -> UC6
-u <-- UC6
+UC6 -> UC7
+u <-- UC7
 @enduml

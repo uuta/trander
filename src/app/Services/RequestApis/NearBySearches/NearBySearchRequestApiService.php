@@ -30,7 +30,7 @@ class NearBySearchRequestApiService
             'query' => [
                 'key' => config('services.google_places.key'),
                 'location' => $location,
-                'radius' => 5000,
+                'radius' => 10000,
                 'keyword' => $keyword,
                 'language' => 'en',
             ]

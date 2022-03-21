@@ -4,6 +4,7 @@ namespace Tests\Feature\Api\Cities;
 
 use Tests\SetUpTestCase;
 use App\Http\Models\Setting;
+use App\Http\Models\RequestCountHistory;
 
 class CitiesIndexTest extends SetUpTestCase
 {
@@ -48,6 +49,26 @@ class CitiesIndexTest extends SetUpTestCase
         $this->assertArrayHasKey('ratingStar', $data);
 
         if ($data['countryCode']) $this->assertTrue(ctype_lower($data['countryCode']));
+
+        // Make sure imported record in google place ids
+        $this->assertDatabaseHas('google_place_ids', [
+            'place_id' => $data['placeId'],
+            'name' => $data['name'],
+            'icon' => $data['icon'],
+            'rating' => (float)$data['rating'],
+            'photo' => $data['photo'],
+            'vicinity' => $data['vicinity'],
+            'user_ratings_total' => (int)$data['userRatingsTotal'],
+            'price_level' => $data['priceLevel'],
+            'lat' => $data['lat'],
+            'lng' => $data['lng'],
+            'rating_star' => $data['ratingStar'],
+        ]);
+
+        // Request count histories
+        $this->assertDatabaseHas('request_count_historys', [
+            'type_id' => RequestCountHistory::TYPE_ID['indexCities'],
+        ]);
     }
 
     /**
@@ -87,6 +108,26 @@ class CitiesIndexTest extends SetUpTestCase
         $this->assertArrayHasKey('lng', $data);
         $this->assertArrayHasKey('placeId', $data);
         $this->assertArrayHasKey('ratingStar', $data);
+
+        // Make sure imported record in google place ids
+        $this->assertDatabaseHas('google_place_ids', [
+            'place_id' => $data['placeId'],
+            'name' => $data['name'],
+            'icon' => $data['icon'],
+            'rating' => (float)$data['rating'],
+            'photo' => $data['photo'],
+            'vicinity' => $data['vicinity'],
+            'user_ratings_total' => (int)$data['userRatingsTotal'],
+            'price_level' => $data['priceLevel'],
+            'lat' => $data['lat'],
+            'lng' => $data['lng'],
+            'rating_star' => $data['ratingStar'],
+        ]);
+
+        // Request count histories
+        $this->assertDatabaseHas('request_count_historys', [
+            'type_id' => RequestCountHistory::TYPE_ID['indexCities'],
+        ]);
     }
 
     /**
@@ -126,6 +167,26 @@ class CitiesIndexTest extends SetUpTestCase
         $this->assertArrayHasKey('lng', $data);
         $this->assertArrayHasKey('placeId', $data);
         $this->assertArrayHasKey('ratingStar', $data);
+
+        // Make sure imported record in google place ids
+        $this->assertDatabaseHas('google_place_ids', [
+            'place_id' => $data['placeId'],
+            'name' => $data['name'],
+            'icon' => $data['icon'],
+            'rating' => (float)$data['rating'],
+            'photo' => $data['photo'],
+            'vicinity' => $data['vicinity'],
+            'user_ratings_total' => (int)$data['userRatingsTotal'],
+            'price_level' => $data['priceLevel'],
+            'lat' => $data['lat'],
+            'lng' => $data['lng'],
+            'rating_star' => $data['ratingStar'],
+        ]);
+
+        // Request count histories
+        $this->assertDatabaseHas('request_count_historys', [
+            'type_id' => RequestCountHistory::TYPE_ID['indexCities'],
+        ]);
     }
 
     /**

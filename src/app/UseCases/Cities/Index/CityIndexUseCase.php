@@ -2,6 +2,7 @@
 
 namespace App\UseCases\Cities\Index;
 
+use Illuminate\Support\Facades\DB;
 use App\Services\Facades\GenerateLocationService;
 use App\Http\Resources\Cities\CitiesIndexResource;
 use App\Repositories\Directions\DirectionRepository;
@@ -41,7 +42,6 @@ class CityIndexUseCase
         $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository());
     }
 
-    // TODO: Transaction
     public function handle(int $user_id, int $type_id)
     {
         // Generate location randomly
@@ -62,14 +62,15 @@ class CityIndexUseCase
             $this->directionRepository
         ]));
 
-        // Store request count history
-        $this->requestCountHistoryStoreUseCase->handle($user_id, $type_id);
+        return DB::transaction(function () use ($user_id, $type_id, $resource) {
+            // Store request count history
+            $this->requestCountHistoryStoreUseCase->handle($user_id, $type_id);
 
-        // Store google place id
-        // TODO: fix
-        $this->googlePlaceIdRepository->store($resource->resolve());
+            // Store google place id
+            $this->googlePlaceIdRepository->store($resource->resolve());
 
-        return $resource->jsonSerialize();
+            return $resource->jsonSerialize();
+        });
     }
 
     /**
