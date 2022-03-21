@@ -18,6 +18,12 @@ class ConsumeRequestMiddleware
     {
         $response = $next($request);
 
+        // Only test
+        if (app()->runningUnitTests()) {
+            (new ConsumeRequestLimitRepository())->store($request->get('auth0_sub'));
+            return $response;
+        }
+
         // Only consume the request limit if the request was successful.
         if ($response->status() === 200) {
             (new ConsumeRequestLimitRepository())->store($request->get('auth0_sub'));
