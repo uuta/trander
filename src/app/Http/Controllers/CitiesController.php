@@ -2,30 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Cities\IndexRequest;
 use App\Services\Cities\IndexService;
+use App\Http\Models\RequestCountHistory;
 use App\Http\Resources\Cities\IndexResource;
-use App\UseCases\Cities\CitiesIndexUseCase;
+use App\UseCases\Cities\Index\CityIndexUseCase;
+use App\Http\Requests\Cities\CitiesIndexRequest;
+use App\Services\Facades\GenerateLocationService;
+use App\Repositories\Directions\DirectionRepository;
+use App\Services\Contents\GetContentRandomlyService;
+use App\Repositories\GooglePlaceIds\GooglePlaceIdRepository;
+use App\Services\RequestApis\GeoDBCities\GeoDBCitiesRequestApiService;
+use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 
 class CitiesController extends Controller
 {
-    // TODO:
-    // A user receives city information
-    // API stores a history
-    // API decreases the number of requests
-    public function index(IndexRequest $request)
-    {
-        // (new CitiesIndexUseCase())->handle($request);
-
-        // $geo_db_cities = IndexService::postGeoDbCitiesApi($request);
-
-        // // Succeed
-        // if ($geo_db_cities->status() === 200) {
-        //     $params = IndexService::generateNearBySearchParams($request, $geo_db_cities);
-        //     $near_by_search = IndexService::getNearBySearchApi($params, $request);
-        //     return (new IndexResource([$geo_db_cities, $near_by_search]));
-        // }
-
-        // return Response($geo_db_cities->getContent(), $geo_db_cities->status());
+    public function index(
+        CitiesIndexRequest $request,
+        GenerateLocationService $generateLocationService,
+        GeoDBCitiesRequestApiService $geoDBCitiesRequestApiService,
+        NearBySearchRequestApiService $nearBySearchRequestApiService,
+        GooglePlaceIdRepository $googlePlaceIdRepository,
+        GetContentRandomlyService $getContentRandomlyService,
+        DirectionRepository $directionRepository
+    ) {
+        return (new CityIndexUseCase(
+            $request,
+            $generateLocationService,
+            $geoDBCitiesRequestApiService,
+            $nearBySearchRequestApiService,
+            $googlePlaceIdRepository,
+            $getContentRandomlyService,
+            $directionRepository
+        ))->handle(
+            $request->all()['userinfo']->id,
+            RequestCountHistory::TYPE_ID['indexCities']
+        );
     }
 }

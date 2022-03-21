@@ -5,7 +5,7 @@ namespace Tests\Feature\Api\Cities;
 use Tests\SetUpTestCase;
 use App\Http\Models\Setting;
 
-class IndexTest extends SetUpTestCase
+class CitiesIndexTest extends SetUpTestCase
 {
     private const ROUTE = 'cities.get';
 
@@ -29,7 +29,7 @@ class IndexTest extends SetUpTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json()['data'];
+        $data = $response->json();
         $this->assertCount(15, $data);
         $this->assertArrayHasKey('name', $data);
         $this->assertArrayHasKey('wikiDataId', $data);
@@ -70,7 +70,7 @@ class IndexTest extends SetUpTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json()['data'];
+        $data = $response->json();
         $this->assertCount(15, $data);
         $this->assertArrayHasKey('name', $data);
         $this->assertArrayHasKey('wikiDataId', $data);
@@ -109,7 +109,7 @@ class IndexTest extends SetUpTestCase
         $response->assertStatus(200);
 
         // Make sure response data
-        $data = $response->json()['data'];
+        $data = $response->json();
         $this->assertCount(15, $data);
         $this->assertArrayHasKey('name', $data);
         $this->assertArrayHasKey('wikiDataId', $data);

@@ -3,7 +3,7 @@
 namespace App\Services\Cities;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\Cities\IndexRequest;
+use App\Http\Requests\Cities\CitiesIndexRequest;
 
 class IndexService
 {
@@ -26,7 +26,7 @@ class IndexService
      * @param array $params
      * @return object
      */
-    public static function getNearBySearchApi(array $params, IndexRequest $request): object
+    public static function getNearBySearchApi(array $params, CitiesIndexRequest $request): object
     {
         return app()->handle(Request::create('/api/external/near-by-search', 'GET', $params, [], [], [
             'HTTP_AUTHORIZATION' => 'Bearer ' . $request->bearerToken()

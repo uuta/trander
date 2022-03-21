@@ -35,8 +35,7 @@ class ConvertResponseFieldsToCamelCase
             // Normalize validation messages
             if (array_key_exists('errors', $json)) {
                 $replaced = $this->normalize_validation_messages($json);
-            }
-            else {
+            } else {
                 $replaced = $this->normalize_response($json);
             }
 
@@ -55,11 +54,11 @@ class ConvertResponseFieldsToCamelCase
      * @param array $json
      * @return array
      */
-    private function normalize_validation_messages(array $json) : array
+    private function normalize_validation_messages(array $json): array
     {
         foreach ($json as $i => $v) {
             foreach ($v as $key => $value) {
-                if(preg_match('/[_]/', $key)){
+                if (preg_match('/[_]/', $key)) {
                     $new_key = Str::camel($key);
                     $json[$i][$new_key] = $value;
                     unset($json[$i][$key]);
@@ -75,16 +74,15 @@ class ConvertResponseFieldsToCamelCase
      * @param array $json
      * @return array
      */
-    private function normalize_response(array $json) : array
+    private function normalize_response(array $json): array
     {
         foreach ($json as $key => $value) {
-            if(preg_match('/[_]/', $key)){
+            if (preg_match('/[_]/', $key)) {
                 $new_key = Str::camel($key);
                 $json[$new_key] = $value;
                 unset($json[$key]);
             }
         }
         return $json;
-
     }
 }

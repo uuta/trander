@@ -1,12 +1,27 @@
-@startuml
+@startuml Cities
+skinparam actorStyle awesome
 left to right direction
 actor "User" as u
-rectangle Cities {
+package Cities {
   usecase "Request to API" as UC1
-  usecase "Pay for Food" as UC2
-  usecase "Drink" as UC3
+  usecase UC2 as "
+  Choose a location
+  ==
+  Process values"
+  usecase UC3 as "
+  Request to GeoDBCities"
+  usecase UC4 as "
+  Request to NearBySearch"
+  usecase UC5 as "
+  Insert history"
+  usecase "Response from API" as UC6
 }
+
 u --> UC1
-u --> UC2
-u --> UC3
+UC1 -> UC2
+UC2 -> UC3
+UC3 -> UC4
+UC4 -> UC5
+UC5 -> UC6
+u <-- UC6
 @enduml

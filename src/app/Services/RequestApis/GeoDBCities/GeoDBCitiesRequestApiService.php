@@ -48,7 +48,7 @@ class GeoDBCitiesRequestApiService
     public function _getBody(): void
     {
         $body = json_decode($this->response->getBody(), true)['data'];
-        if (empty(json_decode($this->response->getBody(), true)['data'])) {
+        if (empty($body)) {
             throw new ModelNotFoundException;
         }
         $this->response_body = $body;
