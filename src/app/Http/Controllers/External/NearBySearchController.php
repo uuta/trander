@@ -10,6 +10,7 @@ use App\Http\Requests\NearBySearch\GetRequest;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Facades\GenerateLocationService;
 use App\Http\Resources\NearBySearch\IndexResource;
+use App\Services\Contents\GetContentRandomlyService;
 use App\UseCases\NearBySearch\NearBySearchGetUseCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
@@ -19,7 +20,8 @@ class NearBySearchController extends Controller
     public function index(
         GetRequest $request,
         NearBySearchRequestApiService $nearBySearchRequestApiService,
-        GenerateLocationService $generateLocationService
+        GenerateLocationService $generateLocationService,
+        GetContentRandomlyService $getContentRandomlyService
     ) {
         DB::beginTransaction();
         try {
@@ -27,7 +29,9 @@ class NearBySearchController extends Controller
             $res = (new NearBySearchGetUseCase(
                 $request,
                 $generateLocationService,
-                $nearBySearchRequestApiService
+                $nearBySearchRequestApiService,
+                $getContentRandomlyService
+
             )
             )->handle(
                 $request->all()['userinfo']->id,

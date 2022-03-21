@@ -4,6 +4,7 @@ namespace App\UseCases\NearBySearch;
 
 use App\Http\Models\GooglePlaceId;
 use App\Services\Facades\GenerateLocationService;
+use App\Services\Contents\GetContentRandomlyService;
 use App\UseCases\Interfaces\GetRamdomlyFromApiUseCase;
 use App\UseCases\RequestCountHistorys\RequestCountHistoryStoreUseCase;
 use App\Repositories\RequestCountHistorys\RequestCountHistoryRepository;
@@ -12,18 +13,20 @@ use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
 {
     private $body;
-    private $oneData;
     private $generateLocationService;
-    protected $nearBySearchRequestApiService;
+    private $nearBySearchRequestApiService;
+    private $getContentRandomlyService;
 
     public function __construct(
         object $request,
         GenerateLocationService $generateLocationService,
-        NearBySearchRequestApiService $nearBySearchRequestApiService
+        NearBySearchRequestApiService $nearBySearchRequestApiService,
+        GetContentRandomlyService $getContentRandomlyService
     ) {
         $this->request = $request;
         $this->generateLocationService = $generateLocationService;
         $this->nearBySearchRequestApiService = $nearBySearchRequestApiService;
+        $this->getContentRandomlyService = $getContentRandomlyService;
         $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository());
     }
 
@@ -40,8 +43,10 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
         // Request to NearBySearch
         $this->nearBySearchRequestApiService->request($this->generateLocationService->location, $this->request->keyword);
 
+        // Get content randomly
+        $this->getContentRandomlyService->handle($this->nearBySearchRequestApiService->response_body);
+
         $this->_formatResponse();
-        $this->_getContentRandomly();
 
         // Store request count history
         $this->requestCountHistoryStoreUseCase->handle($user_id, $type_id);
@@ -60,32 +65,20 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     private function _formatResponse(): void
     {
-        foreach ($this->nearBySearchRequestApiService->response_body as $value) {
-            $this->body[] = [
-                'name' => $value['name'] ?? '',
-                'icon' => $value['icon'] ?? '',
-                'rating' => $value['rating'] ?? null,
-                'photo' => $value['photos'][0]['photo_reference'] ?? '',
-                'vicinity' => $value['vicinity'] ?? '',
-                'user_ratings_total' => $value['user_ratings_total'] ?? 0,
-                'price_level' => $value['price_level'] ?? 0,
-                'lat' => (float) round($value['geometry']['location']['lat'], 7) ?? 0,
-                'lng' => (float) round($value['geometry']['location']['lng'], 7) ?? 0,
-                'place_id' => $value['place_id'] ?? '',
-                'rating_star' => ''
-            ];
-        }
-    }
-
-    /**
-     * Get a content randomly from response
-     *
-     * @return void
-     */
-    private function _getContentRandomly(): void
-    {
-        $index = array_rand($this->body);
-        $this->oneData = $this->body[$index];
+        $value = $this->getContentRandomlyService->content;
+        $this->body = [
+            'name' => $value['name'] ?? '',
+            'icon' => $value['icon'] ?? '',
+            'rating' => $value['rating'] ?? null,
+            'photo' => $value['photos'][0]['photo_reference'] ?? '',
+            'vicinity' => $value['vicinity'] ?? '',
+            'user_ratings_total' => $value['user_ratings_total'] ?? 0,
+            'price_level' => $value['price_level'] ?? 0,
+            'lat' => (float) round($value['geometry']['location']['lat'], 7) ?? 0,
+            'lng' => (float) round($value['geometry']['location']['lng'], 7) ?? 0,
+            'place_id' => $value['place_id'] ?? '',
+            'rating_star' => ''
+        ];
     }
 
     /**
@@ -95,7 +88,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     private function _storeGooglePlace(): void
     {
-        GooglePlaceId::insert_information($this->oneData);
+        GooglePlaceId::insert_information($this->body);
     }
 
     /**
@@ -105,6 +98,6 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      */
     private function _return(): array
     {
-        return $this->oneData;
+        return $this->body;
     }
 }
