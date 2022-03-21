@@ -84,4 +84,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PasswordReset::class, 'email', 'email');
     }
+
+    public function requestLimits()
+    {
+        return $this->belongsTo(RequestLimit::class);
+    }
 }
