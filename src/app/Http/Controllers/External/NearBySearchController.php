@@ -13,6 +13,7 @@ use App\Http\Resources\NearBySearch\IndexResource;
 use App\Services\Contents\GetContentRandomlyService;
 use App\UseCases\NearBySearch\NearBySearchGetUseCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\GooglePlaceIds\GooglePlaceIdRepository;
 use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 
 class NearBySearchController extends Controller
@@ -21,7 +22,8 @@ class NearBySearchController extends Controller
         GetRequest $request,
         NearBySearchRequestApiService $nearBySearchRequestApiService,
         GenerateLocationService $generateLocationService,
-        GetContentRandomlyService $getContentRandomlyService
+        GetContentRandomlyService $getContentRandomlyService,
+        GooglePlaceIdRepository $googlePlaceIdRepository
     ) {
         DB::beginTransaction();
         try {
@@ -30,8 +32,8 @@ class NearBySearchController extends Controller
                 $request,
                 $generateLocationService,
                 $nearBySearchRequestApiService,
-                $getContentRandomlyService
-
+                $getContentRandomlyService,
+                $googlePlaceIdRepository
             )
             )->handle(
                 $request->all()['userinfo']->id,

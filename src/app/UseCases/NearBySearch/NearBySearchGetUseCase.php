@@ -6,6 +6,7 @@ use App\Http\Models\GooglePlaceId;
 use App\Services\Facades\GenerateLocationService;
 use App\Services\Contents\GetContentRandomlyService;
 use App\UseCases\Interfaces\GetRamdomlyFromApiUseCase;
+use App\Repositories\GooglePlaceIds\GooglePlaceIdRepository;
 use App\UseCases\RequestCountHistorys\RequestCountHistoryStoreUseCase;
 use App\Repositories\RequestCountHistorys\RequestCountHistoryRepository;
 use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
@@ -16,17 +17,20 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
     private $generateLocationService;
     private $nearBySearchRequestApiService;
     private $getContentRandomlyService;
+    private $googlePlaceIdRepository;
 
     public function __construct(
         object $request,
         GenerateLocationService $generateLocationService,
         NearBySearchRequestApiService $nearBySearchRequestApiService,
-        GetContentRandomlyService $getContentRandomlyService
+        GetContentRandomlyService $getContentRandomlyService,
+        GooglePlaceIdRepository $googlePlaceIdRepository
     ) {
         $this->request = $request;
         $this->generateLocationService = $generateLocationService;
         $this->nearBySearchRequestApiService = $nearBySearchRequestApiService;
         $this->getContentRandomlyService = $getContentRandomlyService;
+        $this->googlePlaceIdRepository = $googlePlaceIdRepository;
         $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository());
     }
 
@@ -52,7 +56,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
         $this->requestCountHistoryStoreUseCase->handle($user_id, $type_id);
 
         // Store google place id
-        $this->_storeGooglePlace();
+        $this->googlePlaceIdRepository->store($this->body);
 
         // Return
         return $this->_return();
@@ -79,16 +83,6 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
             'place_id' => $value['place_id'] ?? '',
             'rating_star' => ''
         ];
-    }
-
-    /**
-     * Store google place id
-     *
-     * @return void
-     */
-    private function _storeGooglePlace(): void
-    {
-        GooglePlaceId::insert_information($this->body);
     }
 
     /**
