@@ -1,0 +1,19 @@
+@startuml ConsumeRequestMiddleware
+skinparam actorStyle awesome
+left to right direction
+actor "User" as u
+package API {
+  usecase "Request to API" as UC1
+  usecase UC2 as "
+  Process"
+  package ConsumeRequestMiddleware {
+    usecase UC3 as "
+    Consume Request count"
+  }
+}
+
+UC1 <-- u
+UC1 -> UC2
+UC2 -> UC3
+UC3 -> u
+@enduml
