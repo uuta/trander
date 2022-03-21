@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Cities\IndexService;
 use App\Http\Models\RequestCountHistory;
-use App\Http\Resources\Cities\IndexResource;
 use App\UseCases\Cities\Index\CityIndexUseCase;
 use App\Http\Requests\Cities\CitiesIndexRequest;
 use App\Services\Facades\GenerateLocationService;
