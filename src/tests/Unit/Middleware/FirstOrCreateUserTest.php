@@ -2,9 +2,11 @@
 
 namespace Tests\Unit\Middleware;
 
-use App\Http\Models\User;
 use Tests\SetupTestCase;
+use App\Http\Models\User;
+use App\Http\Models\RequestLimit;
 use App\Http\Middleware\FirstOrCreateUserMiddleware;
+use Tests\VerifySubscriberTests\VerifySubscriberTestNormalWithinLimitsSeeder;
 
 class FirstOrCreateUserTest extends SetupTestCase
 {
@@ -25,8 +27,14 @@ class FirstOrCreateUserTest extends SetupTestCase
         // Not return error response
         $this->assertNull($response);
 
+        // User
         $this->assertDatabaseHas('users', [
             'unique_id' => config('const.test.sub'),
+        ]);
+
+        // Request limit
+        $this->assertDatabaseHas('request_limits', [
+            'request_limit' => RequestLimit::DEFAULT_LIMIT,
         ]);
     }
 
@@ -36,8 +44,8 @@ class FirstOrCreateUserTest extends SetupTestCase
      */
     public function normalScenarioUserExists()
     {
-        // Pre insert user
-        User::create(['unique_id' => config('const.test.sub')]);
+        // Pre insert request limit
+        $this->seed('Tests\VerifySubscriberTests\VerifySubscriberTestNormalWithinLimitsSeeder');
 
         $request = app()->make('request');
         $request->merge(['auth0_sub' => config('const.test.sub')]);
@@ -50,10 +58,16 @@ class FirstOrCreateUserTest extends SetupTestCase
         // Not return error response
         $this->assertNull($response);
 
+        // User
         $user = User::where('unique_id', config('const.test.sub'))->get();
         $this->assertTrue($user->count() === 1);
         $this->assertDatabaseHas('users', [
             'unique_id' => config('const.test.sub'),
+        ]);
+
+        // Request limit
+        $this->assertDatabaseHas('request_limits', [
+            'request_limit' => VerifySubscriberTestNormalWithinLimitsSeeder::LIMIT,
         ]);
     }
 

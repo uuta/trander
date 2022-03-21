@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class VerifySubscriberTestNormalWithinLimitsSeeder extends Seeder
 {
+    const LIMIT = 1;
+
     /**
      * Run the database seeds.
      *
@@ -23,7 +25,7 @@ class VerifySubscriberTestNormalWithinLimitsSeeder extends Seeder
         $request_limits = [
             [
                 'user_id' => 1,
-                'request_limit' => 1,
+                'request_limit' => self::LIMIT,
             ],
         ];
         DB::table('users')->insert($users);
