@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Check;
+namespace Tests\Feature\Api\Check;
 
 use App\Http\Models\User;
 use Tests\SetUpTestCase;
