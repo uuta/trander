@@ -18,6 +18,7 @@ class ConsumeRequestMiddleware
     {
         $response = $next($request);
 
+        // TODO: Not cool, should improve
         // Only test
         if (app()->runningUnitTests()) {
             (new ConsumeRequestLimitRepository())->store($request->get('auth0_sub'));
