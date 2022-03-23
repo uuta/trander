@@ -49,7 +49,7 @@ class VerifySubscriberTest extends SetupTestCase
         $this->assertNotNull($response);
 
         $response
-            ->assertStatus(401)
+            ->assertStatus(402)
             ->assertJson([
                 'errors' => ['Subscription is invalid.'],
             ]);

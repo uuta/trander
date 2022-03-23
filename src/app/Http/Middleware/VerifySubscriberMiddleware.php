@@ -23,7 +23,7 @@ class VerifySubscriberMiddleware
         if ($this->_isSubscriptionExpired() && $this->_isCountExpired($request)) {
             return response()->json([
                 'errors' => ['Subscription is invalid.'],
-            ], 401);
+            ], 402);
         }
         return $next($request);
     }
