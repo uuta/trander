@@ -38,7 +38,7 @@ class CitiesIndexResource extends JsonResource
             'lat' => (float) round($near_by_search['geometry']['location']['lat'], 7) ?? 0,
             'lng' => (float) round($near_by_search['geometry']['location']['lng'], 7) ?? 0,
             'place_id' => $near_by_search['place_id'] ?? '',
-            'rating_star' => $near_by_search['ratingStar'] ?? 0
+            'rating_star' => $near_by_search['ratingStar'] ?? ''
         ];
     }
 }
