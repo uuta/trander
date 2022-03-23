@@ -30,7 +30,7 @@ class CitiesIndexResource extends JsonResource
             'direction' => $direction_repository->findByAngle($generate_location_service->angle),
             'country_code' => ($geo_db_cities['countryCode']) ? strtolower($geo_db_cities['countryCode']) : '',
             'icon' => $near_by_search['icon'] ?? '',
-            'rating' => $near_by_search['rating'] ?? 0,
+            'rating' => isset($near_by_search['rating']) ? (float) $near_by_search['rating'] : (float) 0,
             'photo' => $near_by_search['photos'][0]['photo_reference'] ?? '',
             'vicinity' => $near_by_search['vicinity'] ?? '',
             'user_ratings_total' => $near_by_search['user_ratings_total'] ?? 0,
