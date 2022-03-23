@@ -1,0 +1,15 @@
+@startuml Restore request limit
+skinparam actorStyle awesome
+actor "Batch" as u
+package Batch {
+  usecase B1 as "Execute a batch
+  ==
+  Execute a batch per 10 minutes"
+  usecase B2 as "Restore
+  ==
+  Restore request if 7 days passes from the first request"
+}
+
+u --> B1
+B1 --> B2
+@enduml

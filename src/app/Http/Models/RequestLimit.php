@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RequestLimit extends Model
 {
     const DEFAULT_LIMIT = 10;
+    const RESTORE_DATE = '-10 day';
 
     /**
      * The attributes that are mass assignable.
