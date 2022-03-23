@@ -60,9 +60,9 @@ class VerifySubscriberMiddleware
      */
     private function _isCountExpired($request): bool
     {
-        $result = RequestLimit::with(['user' => function ($query) use ($request) {
+        $result = RequestLimit::whereHas('user', function ($query) use ($request) {
             $query->where('unique_id', $request->get('auth0_sub'));
-        }])->get();
+        })->get();
 
         // Empty
         if ($result->isEmpty()) {
