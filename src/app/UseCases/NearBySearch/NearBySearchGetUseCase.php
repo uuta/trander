@@ -73,7 +73,7 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
         $this->body = [
             'name' => $value['name'] ?? '',
             'icon' => $value['icon'] ?? '',
-            'rating' => $value['rating'] ?? null,
+            'rating' => $value['rating'] ?? 0,
             'photo' => $value['photos'][0]['photo_reference'] ?? '',
             'vicinity' => $value['vicinity'] ?? '',
             'user_ratings_total' => $value['user_ratings_total'] ?? 0,
