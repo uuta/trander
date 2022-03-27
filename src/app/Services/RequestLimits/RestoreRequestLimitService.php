@@ -2,20 +2,20 @@
 
 namespace App\Services\RequestLimits;
 
-use App\Repositories\RequestLimits\RestoreRequestLimitRepository;
+use App\Repositories\RequestLimits\RequestLimitRepository;
 
 class RestoreRequestLimitService
 {
-    public $restoreRequestLimitRepository;
+    public $requestLimitRepository;
 
     public function __construct(
-        RestoreRequestLimitRepository $restoreRequestLimitRepository
+        RequestLimitRepository $requestLimitRepository
     ) {
-        $this->restoreRequestLimitRepository = $restoreRequestLimitRepository;
+        $this->requestLimitRepository = $requestLimitRepository;
     }
 
     public function handle()
     {
-        $this->restoreRequestLimitRepository->store();
+        $this->requestLimitRepository->restore();
     }
 }

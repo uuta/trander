@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Repositories\RequestLimits\ConsumeRequestLimitRepository;
+use App\Repositories\RequestLimits\RequestLimitRepository;
 
 class ConsumeRequestMiddleware
 {
@@ -21,13 +21,13 @@ class ConsumeRequestMiddleware
         // TODO: Not cool, should improve
         // Only test
         if (app()->runningUnitTests()) {
-            (new ConsumeRequestLimitRepository())->store($request->get('auth0_sub'));
+            (new RequestLimitRepository())->decrement($request->get('auth0_sub'));
             return $response;
         }
 
         // Only consume the request limit if the request was successful.
         if ($response->status() === 200) {
-            (new ConsumeRequestLimitRepository())->store($request->get('auth0_sub'));
+            (new RequestLimitRepository())->decrement($request->get('auth0_sub'));
         }
 
         return $response;

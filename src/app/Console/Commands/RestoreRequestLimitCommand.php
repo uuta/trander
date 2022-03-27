@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Services\RequestLimits\RestoreRequestLimitService;
-use App\Repositories\RequestLimits\RestoreRequestLimitRepository;
+use App\Repositories\RequestLimits\RequestLimitRepository;
 
 class RestoreRequestLimitCommand extends Command
 {
@@ -39,6 +39,6 @@ class RestoreRequestLimitCommand extends Command
      */
     public function handle()
     {
-        (new RestoreRequestLimitService(new RestoreRequestLimitRepository()))->handle();
+        (new RestoreRequestLimitService(new RequestLimitRepository()))->handle();
     }
 }
