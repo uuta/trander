@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Carbon\Carbon;
-use Carbon\CarbonInterval;
+use App\Http\Models\RequestLimit;
+use App\Services\Dates\DiffDateService;
 use App\Repositories\RequestLimits\RequestLimitRepository;
 use App\Services\RequestApis\Subscribers\SubscriberRequestApiService;
 
@@ -25,7 +26,10 @@ class VerifySubscriberMiddleware
         $this->_request($request);
         if ($this->_isSubscriptionExpired() && $this->_isCountExpired($request)) {
             return response()->json([
-                'errors' => $this->_returnDiff(),
+                'message' => (new DiffDateService(
+                    (new Carbon(RequestLimit::RESTORE_DATE)),
+                    new Carbon($this->result[0]->first_request_at)
+                ))->getDiffAll(),
             ], 402);
         }
         return $next($request);
@@ -71,18 +75,5 @@ class VerifySubscriberMiddleware
         }
 
         return ($this->result[0]->request_limit <= 0);
-    }
-
-    /**
-     * Return diff
-     *
-     * @return array
-     */
-    private function _returnDiff(): string
-    {
-        $now = new Carbon();
-        $first_request_at = new Carbon($this->result[0]->first_request_at);
-        $value = $now->diffInSeconds($first_request_at);
-        return CarbonInterval::seconds($value)->cascade()->forHumans();
     }
 }
