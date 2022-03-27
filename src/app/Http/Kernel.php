@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'consume.request' => \App\Http\Middleware\ConsumeRequestMiddleware::class,
         'first_or_create_user' => \App\Http\Middleware\FirstOrCreateUserMiddleware::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'jwt' => \App\Http\Middleware\CheckIdToken::class,
@@ -66,6 +67,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verify.subscriber' => \App\Http\Middleware\VerifySubscriberMiddleware::class
     ];
 
     /**

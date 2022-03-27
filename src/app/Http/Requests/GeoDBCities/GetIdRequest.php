@@ -5,7 +5,6 @@ namespace App\Http\Requests\GeoDBCities;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Setting;
 
 class GetIdRequest extends FormRequest
 {
@@ -31,7 +30,8 @@ class GetIdRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator) {
+    protected function failedValidation(Validator $validator)
+    {
         $res = response()->json([
             'errors' => $validator->errors(),
         ], 422);

@@ -11,7 +11,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use App\Http\Requests\Password\PutRequest;
-use App\User;
+use App\Http\Models\User;
 
 class ForgotPasswordController extends Controller
 {

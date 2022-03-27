@@ -2,20 +2,36 @@
 
 namespace App\UseCases\NearBySearch;
 
-use GuzzleHttp\Client;
+use App\Http\Models\GooglePlaceId;
+use App\Services\Facades\GenerateLocationService;
+use App\Services\Contents\GetContentRandomlyService;
 use App\UseCases\Interfaces\GetRamdomlyFromApiUseCase;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\GooglePlaceIds\GooglePlaceIdRepository;
+use App\UseCases\RequestCountHistorys\RequestCountHistoryStoreUseCase;
+use App\Repositories\RequestCountHistorys\RequestCountHistoryRepository;
+use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 
 class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
 {
     private $body;
-    private $response;
-    private $oneData;
+    private $generateLocationService;
+    private $nearBySearchRequestApiService;
+    private $getContentRandomlyService;
+    private $googlePlaceIdRepository;
 
-    public function __construct(object $request, string $location)
-    {
+    public function __construct(
+        object $request,
+        GenerateLocationService $generateLocationService,
+        NearBySearchRequestApiService $nearBySearchRequestApiService,
+        GetContentRandomlyService $getContentRandomlyService,
+        GooglePlaceIdRepository $googlePlaceIdRepository
+    ) {
         $this->request = $request;
-        $this->location = $location;
+        $this->generateLocationService = $generateLocationService;
+        $this->nearBySearchRequestApiService = $nearBySearchRequestApiService;
+        $this->getContentRandomlyService = $getContentRandomlyService;
+        $this->googlePlaceIdRepository = $googlePlaceIdRepository;
+        $this->requestCountHistoryStoreUseCase = new RequestCountHistoryStoreUseCase(new RequestCountHistoryRepository());
     }
 
     /**
@@ -23,47 +39,27 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      *
      * @return ?array
      */
-    public function handle(): ?array
+    public function handle(int $user_id, int $type_id): ?array
     {
-        $this->_apiRequest();
-        $this->_verifyEmpty();
+        // Generate location randomly
+        $this->generateLocationService->handle($this->request);
+
+        // Request to NearBySearch
+        $this->nearBySearchRequestApiService->request($this->generateLocationService->location, $this->request->keyword);
+
+        // Get content randomly
+        $this->getContentRandomlyService->handle($this->nearBySearchRequestApiService->response_body);
+
         $this->_formatResponse();
-        $this->_getContentRandomly();
+
+        // Store request count history
+        $this->requestCountHistoryStoreUseCase->handle($user_id, $type_id);
+
+        // Store google place id
+        $this->googlePlaceIdRepository->store($this->body);
+
+        // Return
         return $this->_return();
-    }
-
-    /**
-     * Request to Google Near By Search API
-     * It doesn't need to return a response in general, but it requires a response for error handling
-     *
-     * @return void
-     */
-    public function _apiRequest(): void
-    {
-        $client = new Client();
-        $sourceUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
-        $this->response = $client->request("GET", $sourceUrl, [
-            'query' => [
-                'key' => config('services.google_places.key'),
-                'location' => $this->location,
-                'radius' => 5000,
-                'keyword' => $this->request->keyword,
-                'language' => 'en',
-            ]
-        ]);
-    }
-
-    /**
-     * Verify the response and format it
-     *
-     * @throws ModelNotFoundException
-     * @return void
-     */
-    public function _verifyEmpty(): void
-    {
-        if (empty(json_decode($this->response->getBody(), true)['results'])) {
-            throw new ModelNotFoundException;
-        }
     }
 
     /**
@@ -71,35 +67,22 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      *
      * @return void
      */
-    public function _formatResponse(): void
+    private function _formatResponse(): void
     {
-        $response = json_decode($this->response->getBody(), true);
-        foreach ($response['results'] as $value) {
-            $this->body[] = [
-                'name' => $value['name'] ?? '',
-                'icon' => $value['icon'] ?? '',
-                'rating' => $value['rating'] ?? null,
-                'photo' => $value['photos'][0]['photo_reference'] ?? '',
-                'vicinity' => $value['vicinity'] ?? '',
-                'user_ratings_total' => $value['user_ratings_total'] ?? 0,
-                'price_level' => $value['price_level'] ?? 0,
-                'lat' => (float) round($value['geometry']['location']['lat'], 7) ?? 0,
-                'lng' => (float) round($value['geometry']['location']['lng'], 7) ?? 0,
-                'place_id' => $value['place_id'] ?? '',
-                'rating_star' => ''
-            ];
-        }
-    }
-
-    /**
-     * Get a content randomly from response
-     *
-     * @return void
-     */
-    public function _getContentRandomly(): void
-    {
-        $index = array_rand($this->body);
-        $this->oneData = $this->body[$index];
+        $value = $this->getContentRandomlyService->content;
+        $this->body = [
+            'name' => $value['name'] ?? '',
+            'icon' => $value['icon'] ?? '',
+            'rating' => isset($value['rating']) ? (float) $value['rating'] : (float) 0,
+            'photo' => $value['photos'][0]['photo_reference'] ?? '',
+            'vicinity' => $value['vicinity'] ?? '',
+            'user_ratings_total' => $value['user_ratings_total'] ?? 0,
+            'price_level' => $value['price_level'] ?? 0,
+            'lat' => (float) round($value['geometry']['location']['lat'], 7) ?? 0,
+            'lng' => (float) round($value['geometry']['location']['lng'], 7) ?? 0,
+            'place_id' => $value['place_id'] ?? '',
+            'rating_star' => ''
+        ];
     }
 
     /**
@@ -107,8 +90,8 @@ class NearBySearchGetUseCase implements GetRamdomlyFromApiUseCase
      *
      * @return array
      */
-    public function _return(): array
+    private function _return(): array
     {
-        return $this->oneData;
+        return $this->body;
     }
 }

@@ -2,36 +2,43 @@
 
 namespace App\Http\Controllers\External;
 
-use App\GooglePlaceId;
-use App\Http\Resources\EmptyResource;
-use App\RequestCountHistory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Services\Facades\GenerateLocation;
+use App\Http\Resources\EmptyResource;
+use App\Http\Models\RequestCountHistory;
 use App\Http\Requests\NearBySearch\GetRequest;
 use GuzzleHttp\Exception\BadResponseException;
+use App\Services\Facades\GenerateLocationService;
 use App\Http\Resources\NearBySearch\IndexResource;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\Contents\GetContentRandomlyService;
 use App\UseCases\NearBySearch\NearBySearchGetUseCase;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\GooglePlaceIds\GooglePlaceIdRepository;
+use App\Services\RequestApis\NearBySearches\NearBySearchRequestApiService;
 
 class NearBySearchController extends Controller
 {
-    public function index(GetRequest $request)
-    {
+    public function index(
+        GetRequest $request,
+        NearBySearchRequestApiService $nearBySearchRequestApiService,
+        GenerateLocationService $generateLocationService,
+        GetContentRandomlyService $getContentRandomlyService,
+        GooglePlaceIdRepository $googlePlaceIdRepository
+    ) {
         DB::beginTransaction();
         try {
-            // Generate location
-            $Randomization = new GenerateLocation($request);
-            $location = $Randomization->generate_location();
-
             // Request
-            $res = (new NearBySearchGetUseCase($request, $location))->handle();
-
-            // Insert into google_place_ids
-            GooglePlaceId::insert_information($res);
-
-            // Insert a request history
-            (new RequestCountHistory())->setHistory(RequestCountHistory::TYPE_ID['getNearBySearch'], $request->all()['userinfo']->id);
+            $res = (new NearBySearchGetUseCase(
+                $request,
+                $generateLocationService,
+                $nearBySearchRequestApiService,
+                $getContentRandomlyService,
+                $googlePlaceIdRepository
+            )
+            )->handle(
+                $request->all()['userinfo']->id,
+                RequestCountHistory::TYPE_ID['getNearBySearch']
+            );
 
             DB::commit();
             return (new IndexResource($res));
@@ -40,8 +47,7 @@ class NearBySearchController extends Controller
             return (new EmptyResource([]));
         } catch (BadResponseException $e) {
             DB::rollBack();
-            $response = json_decode($e->getResponse()->getBody()->getContents(), true);
-            return response()->json($response, $e->getResponse()->getStatusCode());
+            return response()->json(json_decode($e->getResponse()->getBody()->getContents(), true), 500);
         }
     }
 }

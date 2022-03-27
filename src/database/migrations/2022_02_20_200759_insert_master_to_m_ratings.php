@@ -1,6 +1,6 @@
 <?php
 
-use App\MRating;
+use App\Http\Models\MRating;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
 

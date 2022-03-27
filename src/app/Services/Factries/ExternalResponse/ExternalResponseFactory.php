@@ -33,13 +33,13 @@ abstract class ExternalResponseFactory
     /**
      * Make sure the architecture of hierarchy in response and assign a class
      */
-    public function get_response() {
-        if (array_key_exists('hierarchy', $this->addedResponse))
-        {
-            if($this->addedResponse['hierarchy'] === $this::HIERARCHY['first']) {
+    public function getResponse()
+    {
+        if (array_key_exists('hierarchy', $this->addedResponse)) {
+            if ($this->addedResponse['hierarchy'] === $this::HIERARCHY['first']) {
                 return new First($this->request, $this->response, $this->addedResponse);
             };
-            if($this->addedResponse['hierarchy'] === $this::HIERARCHY['second']) {
+            if ($this->addedResponse['hierarchy'] === $this::HIERARCHY['second']) {
                 return new Second($this->request, $this->response, $this->addedResponse);
             };
         }

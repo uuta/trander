@@ -1,6 +1,6 @@
 <?php
 
-use App\MDirection;
+use App\Http\Models\MDirection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Check;
+namespace Tests\Feature\Api\Check;
 
-use App\User;
+use App\Http\Models\User;
 use Tests\SetUpTestCase;
 
 class ChangeRegistrationTest extends SetUpTestCase
