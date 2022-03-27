@@ -1,21 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use App\User;
 
 Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
 
     // Authentication
-    Route::namespace('Auth')->group(function () {
-        Route::post('/register', 'RegisterController@register')->name('register');
-        Route::post('/login', 'LoginController@login')->name('login');
-        Route::post('/logout', 'LoginController@logout')->name('logout');
-        Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
-        Route::put('/password', 'ForgotPasswordController@callResetPassword')->name('password.put');
-        Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
-        Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
-    });
+    // Route::namespace('Auth')->group(function () {
+    //     Route::post('/register', 'RegisterController@register')->name('register');
+    //     Route::post('/login', 'LoginController@login')->name('login');
+    //     Route::post('/logout', 'LoginController@logout')->name('logout');
+    //     Route::post('/reset-password', 'ForgotPasswordController@sendPasswordResetLink')->name('reset-password');
+    //     Route::put('/password', 'ForgotPasswordController@callResetPassword')->name('password.put');
+    //     Route::get('/social/{social}', 'LoginController@socialLogin')->name('social-login');
+    //     Route::get('/social/callback/{social}', 'LoginController@socialCallback')->name('social-callback');
+    // });
 
     // Google Place
     Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
@@ -23,10 +21,11 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
     // JWT, craete a user
     Route::middleware('jwt', 'first_or_create_user')->group(function () {
 
-        // Get Login User
-        Route::get('/user', function (Request $request) {
-            return User::where('unique_id', $request->auth0_sub)->first();
-        })->name('user');
+        // User
+        Route::prefix('user')->group(function () {
+            Route::get('/', 'UserController@show')->name('user.show');
+            Route::post('/', 'UserController@create')->name('user.create');
+        });
 
         // モーダル用の値変更
         Route::post('/change-registration', 'CheckController@changeRegistration')->name('change-registration');
@@ -43,14 +42,16 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
         Route::get('/distance', 'DistanceController@index')->name('distance.get');
 
         // Setting
-        Route::get('/setting', 'SettingController@get')->name('setting.get');
-        Route::post('/setting', 'SettingController@store')->name('setting.store');
+        Route::prefix('setting')->group(function () {
+            Route::get('/', 'SettingController@get')->name('setting.get');
+            Route::post('/', 'SettingController@store')->name('setting.store');
+        });
 
         // Rate Limit
-        Route::middleware('throttle:4, 0.05')->group(function () {
+        Route::middleware('throttle:4, 0.05', 'verify.subscriber', 'consume.request')->group(function () {
             Route::prefix('external')->namespace('External')->group(function () {
-                Route::post('/geo-db-cities', 'GeoDBCitiesApiController@request')->name('geo-db-cities');
-                Route::get('/geo-db-cities', 'GeoDBCitiesApiController@index')->name('geo-db-cities.get');
+                Route::post('/geo-db-cities', 'GeoDBCitiesController@request')->name('geo-db-cities');
+                Route::get('/geo-db-cities', 'GeoDBCitiesController@index')->name('geo-db-cities.get');
                 Route::get('/near-by-search', 'NearBySearchController@index')->name('near-by-search.get');
             });
             // Cities

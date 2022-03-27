@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Api\Wiki;
 
-use App\User;
+use App\Http\Models\User;
 use Tests\SetUpTestCase;
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 
 class GetCityTest extends SetUpTestCase
 {

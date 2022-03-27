@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api\Setting;
 
-use App\Setting;
-use App\User;
+use App\Http\Models\Setting;
+use App\Http\Models\User;
 use Tests\SetUpTestCase;
 use Illuminate\Support\Facades\DB;
 

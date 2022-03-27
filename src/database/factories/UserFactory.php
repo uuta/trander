@@ -17,10 +17,10 @@ use Faker\Generator as Faker;
 /**
  * ユーザー登録
  */
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Http\Models\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'unique_id' => 'google-oauth2|103854171345148768386',
+        'unique_id' => config('const.test.sub'),
         'email' => 'trander.cs@gmail.com',
     ];
 });

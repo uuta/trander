@@ -2,7 +2,7 @@
 
 namespace App\Services\Factries\ExternalResponse;
 
-use App\MRating;
+use App\Http\Models\MRating;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -37,7 +37,7 @@ class Base
      * @param float $variable
      * @return ?string
      */
-    protected function get_rating(float $variable) : ?string
+    protected function get_rating(float $variable): ?string
     {
         $MRating = new MRating();
         $rating = $MRating->get_rating($variable);

@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\User;
+use App\Http\Models\User;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\Users\CreateUserRepository;
 
 class FirstOrCreateUserMiddleware
 {
@@ -27,7 +28,7 @@ class FirstOrCreateUserMiddleware
             ], 422);
         }
 
-        $user = User::firstOrCreate(['unique_id' => $request->auth0_sub]);
+        $user = (new CreateUserRepository())->store($request->auth0_sub);
         $request->merge([
             'userinfo' => $user
         ]);

@@ -7,7 +7,7 @@ use App\Http\Controllers\NormalizedController;
 use GuzzleHttp\Exception\BadResponseException;
 use App\Services\Wiki\GetCity as WikiCityGet;
 use App\Http\Requests\Wiki\GetCityRequest;
-use App\RequestCountHistory;
+use App\Http\Models\RequestCountHistory;
 
 class WikiController extends NormalizedController
 {

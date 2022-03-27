@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\GooglePlaceId;
+use App\Http\Models\GooglePlaceId;
 
 class IndexController extends Controller
 {

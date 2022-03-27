@@ -11,7 +11,7 @@ class DistanceController extends Controller
     public function index(GetRequest $request)
     {
         $GetDistance = new GetDistance($request);
-        $GetDistance->get_angle();
-        return $GetDistance->get_response();
+        $GetDistance->getAngle();
+        return $GetDistance->getResponse();
     }
 }
