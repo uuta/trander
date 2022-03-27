@@ -5,25 +5,31 @@ namespace App\Repositories\RequestLimits;
 use Carbon\Carbon;
 use App\Consts\TimeConst;
 use App\Http\Models\RequestLimit;
+use Illuminate\Database\Eloquent\Collection;
 
-class RequestLimitRepository
+
+class RequestLimitRepository implements IRequestLimitRepository
 {
+    /**
+     * Find by id
+     *
+     * @param string $unique_id
+     * @return Collection
+     */
+    public function findById(string $unique_id): Collection
+    {
+        return RequestLimit::whereHas('user', function ($query) use ($unique_id) {
+            $query->where('unique_id', $unique_id);
+        })->get();
+    }
+
     /**
      * Decrement request limit
      *
-     * @param string $unique_id
+     * @param Collection $res
      */
-    public function decrement(string $unique_id): void
+    public function decrement(Collection $res): void
     {
-        $res = RequestLimit::whereHas('user', function ($query) use ($unique_id) {
-            $query->where('unique_id', $unique_id);
-        })->get();
-
-        // Return if no record found
-        if ($res->isEmpty()) {
-            return;
-        }
-
         // Decrement
         $request_limit = $res[0]->request_limit;
         if (0 < $request_limit) {

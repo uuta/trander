@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Http\Models\RequestLimit;
+use App\Repositories\RequestLimits\RequestLimitRepository;
 use App\Services\RequestApis\Subscribers\SubscriberRequestApiService;
 
 class VerifySubscriberMiddleware
@@ -60,9 +61,7 @@ class VerifySubscriberMiddleware
      */
     private function _isCountExpired($request): bool
     {
-        $result = RequestLimit::whereHas('user', function ($query) use ($request) {
-            $query->where('unique_id', $request->get('auth0_sub'));
-        })->get();
+        $result = (new RequestLimitRepository())->findById($request->get('auth0_sub'));
 
         // Empty
         if ($result->isEmpty()) {
