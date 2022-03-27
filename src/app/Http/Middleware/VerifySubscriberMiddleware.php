@@ -3,13 +3,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Http\Models\RequestLimit;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use App\Repositories\RequestLimits\RequestLimitRepository;
 use App\Services\RequestApis\Subscribers\SubscriberRequestApiService;
 
 class VerifySubscriberMiddleware
 {
     private $response;
+    private $result;
 
     /**
      * Handle an incoming request.
@@ -23,7 +25,7 @@ class VerifySubscriberMiddleware
         $this->_request($request);
         if ($this->_isSubscriptionExpired() && $this->_isCountExpired($request)) {
             return response()->json([
-                'errors' => ['Subscription is invalid.'],
+                'errors' => $this->_returnDiff(),
             ], 402);
         }
         return $next($request);
@@ -61,13 +63,26 @@ class VerifySubscriberMiddleware
      */
     private function _isCountExpired($request): bool
     {
-        $result = (new RequestLimitRepository())->findById($request->get('auth0_sub'));
+        $this->result = (new RequestLimitRepository())->findById($request->get('auth0_sub'));
 
         // Empty
-        if ($result->isEmpty()) {
+        if ($this->result->isEmpty()) {
             return false;
         }
 
-        return ($result[0]->request_limit <= 0);
+        return ($this->result[0]->request_limit <= 0);
+    }
+
+    /**
+     * Return diff
+     *
+     * @return array
+     */
+    private function _returnDiff(): string
+    {
+        $now = new Carbon();
+        $first_request_at = new Carbon($this->result[0]->first_request_at);
+        $value = $now->diffInSeconds($first_request_at);
+        return CarbonInterval::seconds($value)->cascade()->forHumans();
     }
 }

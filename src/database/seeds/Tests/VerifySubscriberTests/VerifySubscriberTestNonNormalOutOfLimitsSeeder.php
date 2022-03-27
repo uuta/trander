@@ -24,6 +24,7 @@ class VerifySubscriberTestNonNormalOutOfLimitsSeeder extends Seeder
             [
                 'user_id' => 1,
                 'request_limit' => 0,
+                'first_request_at' => '2022-03-24 16:51:21'
             ],
         ];
         DB::table('users')->insert($users);
