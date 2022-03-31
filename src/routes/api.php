@@ -18,6 +18,11 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
     // Google Place
     Route::get('/google-place', 'GooglePlaceController@show')->name('google-place.get');
 
+    // Request Limit
+    Route::prefix('request-limit')->group(function () {
+        Route::put('/', 'RequestLimitController@put')->name('request-limit.put');
+    });
+
     // JWT, craete a user
     Route::middleware('jwt', 'first_or_create_user')->group(function () {
 
