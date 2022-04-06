@@ -26,6 +26,8 @@
             At first glance, you might be suggested a residential area that has nothing to do with
             you, a depopulated area in the mountains, or a big city in the concrete jungle.
             Sometimes the name of a city outside the country will be suggested. But that's okay.
+          </p>
+          <p>
             Let's take the plunge and go out by bicycle, car, or train. You are sure to make some
             unexpected discoveries.
           </p>
@@ -37,6 +39,7 @@
           /></a>
         </div>
       </div>
+      <in-the-future></in-the-future>
       <div class="p-on_boarding__wrap">
         <div class="p-on_boarding__bottomwrap">
           <h2 class="title">Developer</h2>
@@ -61,6 +64,16 @@
     </div>
   </div>
 </template>
+
+<script>
+import InTheFuture from '@/components/organisms/onBoardings/InTheFuture';
+
+export default {
+  components: {
+    InTheFuture,
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .p-on_boarding__msg {
