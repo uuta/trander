@@ -54,8 +54,12 @@ class VerifySubscriberMiddleware
      */
     private function _isSubscriptionExpired(): bool
     {
-        // TEST:
         $body = json_decode($this->response->getBody(), true);
+
+        if (!array_key_exists('subscription', $body['subscriber']['subscriptions'])) {
+            return true;
+        }
+
         return ($body['subscriber']['subscriptions']['subscription']['expires_date'] < $body['request_date']);
     }
 
