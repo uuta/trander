@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use App\Http\Models\RequestLimit;
 use App\Services\Dates\DiffDateService;
 use App\Repositories\RequestLimits\RequestLimitRepository;
-use App\Services\RequestApis\Subscribers\SubscriberRequestApiService;
 
 class VerifySubscriberMiddleware
 {
@@ -44,7 +43,7 @@ class VerifySubscriberMiddleware
     private function _request($request): void
     {
         // TODO: Should cache
-        $this->response = (new SubscriberRequestApiService())->request($request->get('auth0_sub'));
+        $this->response = (resolve('SubscriberRequestApiService'))->request($request->get('auth0_sub'));
     }
 
     /**
