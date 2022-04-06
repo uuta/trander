@@ -1,0 +1,15 @@
+left to right direction
+
+hide circle
+hide method
+
+package DomainModel {
+    class SubscriberRequestVerification
+    note top: (Expired subscription\nor\nExpired subscription_yearly)\n&&\nNo subscribed history\n&&\nRequest limit is 0
+
+    SubscriberRequestVerification : - subscriptions
+    SubscriberRequestVerification : - subscription expires date
+    SubscriberRequestVerification : - subscription yearly expires date
+    SubscriberRequestVerification : - request date
+    SubscriberRequestVerification : - request limit
+}

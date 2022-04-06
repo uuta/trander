@@ -7,12 +7,11 @@ use Carbon\Carbon;
 use App\Http\Models\RequestLimit;
 use App\Services\Dates\DiffDateService;
 use App\Repositories\RequestLimits\RequestLimitRepository;
-use App\Services\RequestApis\Subscribers\SubscriberRequestApiService;
+use App\Services\Subscriptions\SubscriptionRequestVerificationService;
 
 class VerifySubscriberMiddleware
 {
     private $response;
-    private $result;
 
     /**
      * Handle an incoming request.
@@ -24,11 +23,22 @@ class VerifySubscriberMiddleware
     public function handle($request, Closure $next)
     {
         $this->_request($request);
-        if ($this->_isSubscriptionExpired() && $this->_isCountExpired($request)) {
+        $body = json_decode($this->response->getBody(), true);
+
+        $request_limit = (new RequestLimitRepository())->findById(
+            $request->get('auth0_sub')
+        );
+
+        $service = (new SubscriptionRequestVerificationService(
+            $body,
+            $request_limit
+        ));
+
+        if ($service->handle()) {
             return response()->json([
                 'message' => (new DiffDateService(
                     (new Carbon(RequestLimit::RESTORE_DATE)),
-                    new Carbon($this->result[0]->first_request_at)
+                    new Carbon($request_limit[0]->first_request_at)
                 ))->getDiffAll(),
             ], 402);
         }
@@ -44,36 +54,6 @@ class VerifySubscriberMiddleware
     private function _request($request): void
     {
         // TODO: Should cache
-        $this->response = (new SubscriberRequestApiService())->request($request->get('auth0_sub'));
-    }
-
-    /**
-     * Check subscription is expired
-     *
-     * @return void
-     */
-    private function _isSubscriptionExpired(): bool
-    {
-        // TEST:
-        $body = json_decode($this->response->getBody(), true);
-        return ($body['subscriber']['subscriptions']['subscription']['expires_date'] < $body['request_date']);
-    }
-
-    /**
-     * Check count is expired
-     *
-     * @param $request
-     * @return boolean
-     */
-    private function _isCountExpired($request): bool
-    {
-        $this->result = (new RequestLimitRepository())->findById($request->get('auth0_sub'));
-
-        // Empty
-        if ($this->result->isEmpty()) {
-            return false;
-        }
-
-        return ($this->result[0]->request_limit <= 0);
+        $this->response = (resolve('SubscriberRequestApiService'))->request($request->get('auth0_sub'));
     }
 }
