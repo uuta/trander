@@ -1,0 +1,12 @@
+left to right direction
+
+hide circle
+hide method
+
+package DomainModel {
+    class SubscriberRequestVerification
+    note top: (Validate expired subscription\nor\nValidate expired subscription_yearly)\n&&\nNo subscriptions\n&&\nNo request limit
+
+    SubscriberRequestVerification : response body
+    SubscriberRequestVerification : request limit
+}
