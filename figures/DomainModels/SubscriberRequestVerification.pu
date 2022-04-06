@@ -5,8 +5,11 @@ hide method
 
 package DomainModel {
     class SubscriberRequestVerification
-    note top: (Validate expired subscription\nor\nValidate expired subscription_yearly)\n&&\nNo subscriptions\n&&\nNo request limit
+    note top: (Expired subscription\nor\nExpired subscription_yearly)\n&&\nNo subscribed history\n&&\nRequest limit is 0
 
-    SubscriberRequestVerification : response body
-    SubscriberRequestVerification : request limit
+    SubscriberRequestVerification : - subscriptions
+    SubscriberRequestVerification : - subscription expires date
+    SubscriberRequestVerification : - subscription yearly expires date
+    SubscriberRequestVerification : - request date
+    SubscriberRequestVerification : - request limit
 }
