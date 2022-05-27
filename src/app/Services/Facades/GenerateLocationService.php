@@ -98,7 +98,7 @@ class GenerateLocationService
         $formatted = '';
         $arr = explode(',', $this->location);
         foreach ($arr as $value) {
-            if (strpos($value, '-') !== true) {
+            if (strpos($value, '-') !== 0) {
                 $value = '+' . $value;
             }
             $formatted .= $value;
