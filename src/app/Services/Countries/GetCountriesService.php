@@ -3,7 +3,6 @@
 namespace App\Services\Countries;
 
 use stdClass;
-use Illuminate\Support\Collection;
 use App\Repositories\MCountries\IMCountriesRepository;
 
 class GetCountriesService
