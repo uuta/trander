@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 class GeoDBCitiesRandomRequestApiService
 {
     private $response;
+    private $body;
 
     /**
      * Request to API
@@ -52,12 +53,23 @@ class GeoDBCitiesRandomRequestApiService
      * @throws ModelNotFoundException
      * @return array
      */
-    public function getBody(): ?array
+    public function body(): self
     {
         $body = json_decode($this->response->getBody(), true)['data'];
         if (empty($body)) {
             throw new ModelNotFoundException;
         }
-        return $body;
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * Get a body ramdomly
+     *
+     * @return array
+     */
+    public function getRandomly(): array
+    {
+        return $this->body[array_rand($this->body)];
     }
 }
