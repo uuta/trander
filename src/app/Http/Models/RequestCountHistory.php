@@ -18,6 +18,7 @@ class RequestCountHistory extends Model
         'getGeoDbCitiesId' => 5,
         'getNearBySearch' => 6,
         'indexCities' => 7,
+        'backpackerCities' => 8
     ];
 
     public $timestamps = false;

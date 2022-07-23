@@ -61,6 +61,10 @@ Route::middleware('request.to.snake', 'response.to.camel')->group(function () {
             });
             // Cities
             Route::get('/cities', 'CitiesController@index')->name('cities.get');
+            // Backpacker
+            Route::prefix('backpacker')->namespace('Backpacker')->group(function () {
+                Route::get('/cities', 'BackpackerCitiesController@index')->name('backpacker.cities.get');
+            });
         });
 
         // Test

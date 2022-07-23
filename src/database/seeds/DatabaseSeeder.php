@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(['MDirectionSeeder']);
         $this->call(['GooglePlaceIdsSeeder']);
         $this->call(['MRatingsSeeder']);
+        $this->call(['MCountriesSeeder']);
     }
 }
