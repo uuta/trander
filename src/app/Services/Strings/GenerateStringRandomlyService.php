@@ -13,14 +13,14 @@ class GenerateStringRandomlyService
 
     public function __construct(string $t = '')
     {
-        if (isset($t) || !is_array($t) || $t !== '') {
+        $this->text = self::ALPHABET;
+        if (isset($t) && !is_array($t) && $t !== '') {
             $this->text = $t;
         }
-        $this->text = self::ALPHABET;
     }
 
     public function get(int $l = self::DEFAULT_LENGTH): string
     {
-        return substr(str_shuffle($this->text), 0, $l);
+        return array_reduce(range(1, $l), function($p){ return $p.str_shuffle($this->text)[0]; });
     }
 }

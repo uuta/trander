@@ -40,6 +40,6 @@ class GenerateStringRandomlyServiceTest extends TestCase
     public function should_return_specified_string()
     {
         $service = (new GenerateStringRandomlyService('g'))->get(2);
-        $this->assertEquals(strlen($service), 'gg');
+        $this->assertEquals($service, 'gg');
     }
 }
