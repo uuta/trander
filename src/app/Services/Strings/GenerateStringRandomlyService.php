@@ -2,6 +2,9 @@
 
 namespace App\Services\Strings;
 
+/**
+ * Generate a random string.
+ */
 class GenerateStringRandomlyService
 {
     const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
