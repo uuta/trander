@@ -38,7 +38,7 @@ class GetIdRequest extends FormRequest
         throw new HttpResponseException($res);
     }
 
-    protected function validationData()
+    public function validationData()
     {
         return array_merge($this->request->all(), [
             'id' => $this->id,
