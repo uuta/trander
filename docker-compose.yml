@@ -43,7 +43,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
       - TZ=${TZ}
     ports:
-      - "3007:3307"
+      - "3007:3306"
 
 # Persistence data
 volumes:
