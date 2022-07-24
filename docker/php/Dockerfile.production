@@ -2,7 +2,7 @@ FROM composer:latest as build
 WORKDIR /app
 COPY . /app
 
-FROM php:7.2-apache
+FROM php:7.4-apache
 COPY docker/php/php.ini /usr/local/etc/php/
 RUN apt update
 RUN apt install -y git
